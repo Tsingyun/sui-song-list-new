@@ -451,7 +451,115 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
   .table-header,.song-row{grid-template-columns:30px 28px 1fr 54px 44px 100px}
   .table-header span:nth-child(5),.song-row span:nth-child(5){display:none}
   .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .contribute-btn{bottom:76px;right:20px;font-size:11px;padding:8px 12px}
+  .cb-modal{width:95%}
 }
+
+/* ═══════ CONTRIBUTE (我要补充) ═══════ */
+.contribute-btn{
+  position:fixed;bottom:84px;right:30px;z-index:100;
+  padding:10px 18px;border:1px solid var(--cyan);
+  background:rgba(26,16,60,.9);backdrop-filter:blur(10px);
+  color:var(--cyan);font-family:var(--font-cjk);font-size:13px;font-weight:700;
+  letter-spacing:2px;cursor:pointer;
+  transition:all .3s cubic-bezier(.4,0,.2,1);
+  opacity:0;transform:translateY(20px);pointer-events:none;
+}
+.contribute-btn.visible{opacity:1;transform:translateY(0);pointer-events:auto}
+.contribute-btn:hover{background:var(--cyan);color:var(--void);box-shadow:0 0 24px rgba(0,255,255,.45);letter-spacing:4px}
+
+.cb-overlay{
+  display:none;position:fixed;inset:0;z-index:8500;
+  background:rgba(9,0,20,.88);backdrop-filter:blur(12px);
+  align-items:center;justify-content:center;
+}
+.cb-overlay.show{display:flex;animation:cbFadeIn .25s ease}
+@keyframes cbFadeIn{from{opacity:0}to{opacity:1}}
+
+.cb-modal{
+  width:440px;max-width:92vw;max-height:90vh;overflow-y:auto;
+  border:1px solid var(--cyan);
+  background:rgba(26,16,60,.96);backdrop-filter:blur(16px);
+  box-shadow:0 0 40px rgba(0,255,255,.18),0 0 80px rgba(255,0,255,.08);
+  animation:cbSlideUp .3s ease;
+}
+@keyframes cbSlideUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+.cb-titlebar{
+  display:flex;align-items:center;gap:8px;padding:14px 18px;
+  border-bottom:1px solid rgba(0,255,255,.2);background:rgba(0,255,255,.06);
+}
+.cb-dots{display:flex;gap:6px}
+.cb-dot{width:10px;height:10px;border-radius:50%}
+.cb-dot-c{background:var(--cyan)}.cb-dot-m{background:var(--magenta)}.cb-dot-o{background:var(--orange)}
+.cb-title{font-family:var(--font-m);font-size:12px;letter-spacing:3px;color:var(--cyan);flex:1;text-align:center}
+.cb-close{background:none;border:none;color:var(--text-dim);font-size:20px;cursor:pointer;padding:0 4px;transition:color .2s}
+.cb-close:hover{color:var(--magenta)}
+
+.cb-body{padding:24px}
+.cb-field{margin-bottom:18px}
+.cb-label{display:block;font-family:var(--font-m);font-size:11px;letter-spacing:2px;color:var(--cyan);margin-bottom:8px}
+.cb-input{
+  width:100%;padding:10px 14px;border:1px solid var(--border);
+  background:rgba(9,0,20,.6);color:var(--text);
+  font-family:var(--font-cjk);font-size:14px;outline:none;transition:border-color .2s;
+}
+.cb-input:focus{border-color:var(--cyan);box-shadow:0 0 12px rgba(0,255,255,.15)}
+.cb-input::placeholder{color:var(--text-dim);opacity:.5}
+
+.cb-lookup-btn{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  width:100%;padding:10px;border:1px solid var(--orange);
+  background:rgba(255,153,0,.12);color:var(--orange);
+  font-family:var(--font-cjk);font-size:13px;font-weight:700;letter-spacing:2px;
+  cursor:pointer;transition:all .25s;
+}
+.cb-lookup-btn:hover{background:rgba(255,153,0,.25);box-shadow:0 0 16px rgba(255,153,0,.3)}
+.cb-lookup-btn:disabled{opacity:.5;cursor:not-allowed}
+.cb-lookup-btn .spinner{display:inline-block;width:14px;height:14px;border:2px solid var(--orange);border-top-color:transparent;border-radius:50%;animation:cbSpin .6s linear infinite}
+@keyframes cbSpin{to{transform:rotate(360deg)}}
+
+.cb-result{
+  padding:14px;border:1px solid rgba(0,255,255,.2);
+  background:rgba(0,255,255,.04);margin-bottom:18px;display:none;
+}
+.cb-result.show{display:block;animation:cbFadeIn .3s ease}
+.cb-result-row{display:flex;align-items:center;gap:8px;margin-bottom:10px;font-size:13px}
+.cb-result-row:last-child{margin-bottom:0}
+.cb-result-label{color:var(--text-dim);min-width:48px;font-family:var(--font-m);font-size:11px;letter-spacing:1px}
+.cb-result-value{color:var(--text);font-weight:500}
+.cb-result-value input{
+  background:transparent;border:none;border-bottom:1px solid var(--border);
+  color:var(--text);font-family:var(--font-cjk);font-size:13px;padding:2px 4px;width:140px;outline:none;
+}
+.cb-result-value input:focus{border-bottom-color:var(--cyan)}
+.cb-result-value select{
+  background:rgba(9,0,20,.6);border:1px solid var(--border);
+  color:var(--text);font-family:var(--font-cjk);font-size:13px;padding:4px 8px;outline:none;cursor:pointer;
+}
+
+.cb-existing{
+  padding:12px;border:1px solid rgba(255,153,0,.3);
+  background:rgba(255,153,0,.06);margin-bottom:18px;display:none;
+}
+.cb-existing.show{display:block}
+.cb-existing-title{font-size:12px;color:var(--orange);font-weight:700;margin-bottom:6px;letter-spacing:1px}
+.cb-existing-info{font-size:13px;color:var(--text-dim);line-height:1.6}
+
+.cb-submit-btn{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  width:100%;padding:12px;border:1px solid var(--magenta);
+  background:linear-gradient(135deg,rgba(255,0,255,.15),rgba(0,255,255,.1));
+  color:var(--magenta);font-family:var(--font-cjk);font-size:14px;font-weight:700;letter-spacing:3px;
+  cursor:pointer;transition:all .25s;text-decoration:none;
+}
+.cb-submit-btn:hover{background:linear-gradient(135deg,rgba(255,0,255,.3),rgba(0,255,255,.2));box-shadow:0 0 20px rgba(255,0,255,.35);letter-spacing:5px}
+
+.cb-hint{font-size:11px;color:var(--text-dim);margin-top:12px;line-height:1.6;text-align:center}
+.cb-status{font-size:12px;color:var(--text-dim);text-align:center;padding:8px 0;display:none}
+.cb-status.show{display:block}
+.cb-status.success{color:#4ade80}
+.cb-status.error{color:var(--magenta)}
 </style>
 </head>
 <body>
@@ -561,6 +669,62 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
 
 <!-- BACK TO TOP -->
 <button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<!-- CONTRIBUTE BUTTON -->
+<button class="contribute-btn" id="contributeBtn">我要补充</button>
+
+<!-- CONTRIBUTE MODAL -->
+<div class="cb-overlay" id="cbOverlay">
+  <div class="cb-modal">
+    <div class="cb-titlebar">
+      <div class="cb-dots"><span class="cb-dot cb-dot-c"></span><span class="cb-dot cb-dot-m"></span><span class="cb-dot cb-dot-o"></span></div>
+      <div class="cb-title">SUPPLEMENT.exe</div>
+      <button class="cb-close" id="cbClose">&times;</button>
+    </div>
+    <div class="cb-body">
+      <div class="cb-field">
+        <label class="cb-label">歌曲名 *</label>
+        <input class="cb-input" id="cbSongName" type="text" placeholder="输入歌曲名，例如：流沙">
+      </div>
+      <div class="cb-field">
+        <label class="cb-label">演唱日期 *</label>
+        <input class="cb-input" id="cbDate" type="date">
+      </div>
+      <button class="cb-lookup-btn" id="cbLookupBtn">
+        <span id="cbLookupText">联网匹配原唱</span>
+      </button>
+      <div class="cb-existing" id="cbExisting">
+        <div class="cb-existing-title">已在歌单中</div>
+        <div class="cb-existing-info" id="cbExistingInfo"></div>
+      </div>
+      <div class="cb-result" id="cbResult">
+        <div class="cb-result-row">
+          <span class="cb-result-label">原唱</span>
+          <span class="cb-result-value"><input id="cbArtist" type="text"></span>
+        </div>
+        <div class="cb-result-row">
+          <span class="cb-result-label">语言</span>
+          <span class="cb-result-value">
+            <select id="cbLang">
+              <option value="中文">中文</option>
+              <option value="日语">日语</option>
+              <option value="英文">英文</option>
+              <option value="韩语">韩语</option>
+              <option value="其他">其他</option>
+            </select>
+          </span>
+        </div>
+        <div class="cb-result-row">
+          <span class="cb-result-label">来源</span>
+          <span class="cb-result-value" id="cbSource" style="font-size:11px;color:var(--text-dim)">—</span>
+        </div>
+      </div>
+      <a class="cb-submit-btn" id="cbSubmitBtn" href="#" target="_blank" style="display:none">提交到 GitHub</a>
+      <div class="cb-status" id="cbStatus"></div>
+      <div class="cb-hint">填写歌名和日期 → 自动联网匹配原唱 → 确认后提交到 GitHub Issue</div>
+    </div>
+  </div>
+</div>
 
 <!-- PLAYER PANEL -->
 <div class="player-panel" id="playerPanel">
@@ -677,7 +841,145 @@ function animateStats(){
     requestAnimationFrame(update);
   });
 }
-function init(){renderStats();renderLangFilters();renderSongList();bindEvents();bindBlindBox();bindPlayer();
+// ═══════ CONTRIBUTE (我要补充) ═══════
+function detectLang(text){
+  if(/[\u3040-\u309f\u30a0-\u30ff]/.test(text))return'日语';
+  if(/[\uac00-\ud7af]/.test(text))return'韩语';
+  if(/^[a-zA-Z0-9\s.,'!?&\-()]+$/.test(text.trim()))return'英文';
+  if(/[\u4e00-\u9fff]/.test(text))return'中文';
+  return'其他';
+}
+async function lookupArtist(songName){
+  // Try MusicBrainz API (CORS-friendly)
+  try{
+    const r=await fetch('https://musicbrainz.org/ws/2/recording/?query='+encodeURIComponent(songName)+'&limit=5&fmt=json',{
+      headers:{'Accept':'application/json'}
+    });
+    if(r.ok){
+      const d=await r.json();
+      if(d.recordings&&d.recordings.length>0){
+        const rec=d.recordings[0];
+        const artists=rec['artist-credit'];
+        if(artists&&artists.length>0){
+          const name=artists.map(a=>a.name||a.artist?.name||'').join('');
+          if(name)return{artist:name,source:'MusicBrainz'};
+        }
+      }
+    }
+  }catch(e){}
+  // Try Netease Cloud Music API
+  try{
+    const r2=await fetch('https://music.163.com/api/search/get/web?s='+encodeURIComponent(songName)+'&type=1&limit=3&offset=0',{
+      method:'POST',
+      headers:{'Content-Type':'application/x-www-form-urlencoded','Referer':'https://music.163.com'}
+    });
+    if(r2.ok){
+      const d2=await r2.json();
+      if(d2.result&&d2.result.songs&&d2.result.songs.length>0){
+        const song=d2.result.songs[0];
+        const artists=song.artists?song.artists.map(a=>a.name).join('/'):'';
+        if(artists)return{artist:artists,source:'Netease Music'};
+      }
+    }
+  }catch(e){}
+  return null;
+}
+function checkExisting(songName){
+  const norm=songName.trim().toLowerCase();
+  return SONGS.find(s=>s.name.toLowerCase()===norm||s.name===songName.trim());
+}
+function bindContribute(){
+  const btn=document.getElementById('contributeBtn');
+  const overlay=document.getElementById('cbOverlay');
+  const closeBtn=document.getElementById('cbClose');
+  const lookupBtn=document.getElementById('cbLookupBtn');
+  const submitBtn=document.getElementById('cbSubmitBtn');
+  const songInput=document.getElementById('cbSongName');
+  const dateInput=document.getElementById('cbDate');
+  const artistInput=document.getElementById('cbArtist');
+  const langSelect=document.getElementById('cbLang');
+  const resultDiv=document.getElementById('cbResult');
+  const existingDiv=document.getElementById('cbExisting');
+  const statusDiv=document.getElementById('cbStatus');
+  const sourceSpan=document.getElementById('cbSource');
+  // Show button on scroll (same as back-top)
+  window.addEventListener('scroll',()=>{btn.classList.toggle('visible',window.scrollY>400);});
+  // Open/close
+  btn.addEventListener('click',()=>{overlay.classList.add('show');dateInput.valueAsDate=new Date();});
+  closeBtn.addEventListener('click',()=>{overlay.classList.remove('show');});
+  overlay.addEventListener('click',e=>{if(e.target===overlay)overlay.classList.remove('show');});
+  // Lookup
+  lookupBtn.addEventListener('click',async()=>{
+    const name=songInput.value.trim();
+    if(!name){songInput.focus();return;}
+    // Check if already exists
+    const existing=checkExisting(name);
+    if(existing){
+      existingDiv.classList.add('show');
+      document.getElementById('cbExistingInfo').innerHTML=
+        '《'+existing.name+'》已收录 · 原唱: '+(existing.artist||'未知')+' · 演唱 '+(existing.count||1)+' 次 · 最近: '+(existing.last||'?');
+    }else{
+      existingDiv.classList.remove('show');
+    }
+    // Lookup artist
+    const textEl=document.getElementById('cbLookupText');
+    textEl.innerHTML='<span class="spinner"></span> 匹配中...';
+    lookupBtn.disabled=true;
+    const result=await lookupArtist(name);
+    textEl.textContent='联网匹配原唱';
+    lookupBtn.disabled=false;
+    if(result){
+      artistInput.value=result.artist;
+      sourceSpan.textContent=result.source;
+      // Auto-detect language from artist name
+      langSelect.value=detectLang(result.artist);
+      resultDiv.classList.add('show');
+      submitBtn.style.display='flex';
+      statusDiv.classList.remove('show');
+    }else{
+      // No result — let user fill in manually
+      artistInput.value='';
+      sourceSpan.textContent='未找到，请手动填写';
+      resultDiv.classList.add('show');
+      submitBtn.style.display='flex';
+      statusDiv.textContent='未自动匹配到原唱，请手动填写后提交';
+      statusDiv.className='cb-status show';
+    }
+  });
+  // Submit — generate GitHub Issue URL
+  submitBtn.addEventListener('click',e=>{
+    e.preventDefault();
+    const name=songInput.value.trim();
+    const date=dateInput.value;
+    const artist=artistInput.value.trim();
+    const lang=langSelect.value;
+    if(!name||!date){
+      statusDiv.textContent='请填写歌曲名和日期';statusDiv.className='cb-status show error';return;
+    }
+    if(!artist){
+      statusDiv.textContent='请填写原唱歌手';statusDiv.className='cb-status show error';return;
+    }
+    // Build GitHub Issue URL with pre-filled template
+    const body='## 歌曲信息\\n\\n'+
+      '- **歌曲名**: '+name+'\\n'+
+      '- **原唱**: '+artist+'\\n'+
+      '- **演唱日期**: '+date+'\\n'+
+      '- **语言**: '+lang+'\\n'+
+      (sourceSpan.textContent&&sourceSpan.textContent!=='—'?'- **匹配来源**: '+sourceSpan.textContent+'\\n':'')+
+      '\\n---\\n_由网站「我要补充」功能提交_';
+    const title='[补充歌曲] '+name;
+    const url='https://github.com/Tsingyun/sui-song-list-new/issues/new?'+
+      'title='+encodeURIComponent(title)+'&body='+encodeURIComponent(body)+
+      '&labels=contribution,song-data';
+    window.open(url,'_blank');
+    statusDiv.textContent='已在新窗口打开 GitHub，请确认并提交 Issue';
+    statusDiv.className='cb-status show success';
+  });
+  // Enter key triggers lookup
+  songInput.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();lookupBtn.click();}});
+}
+
+function init(){renderStats();renderLangFilters();renderSongList();bindEvents();bindBlindBox();bindPlayer();bindContribute();
   // Handle initial hash (e.g. #lang-日语) — instant reveal + scroll
   if(window.location.hash){
     setTimeout(()=>{
