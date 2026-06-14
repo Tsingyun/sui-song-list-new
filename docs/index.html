@@ -133,6 +133,8 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
 /* FOOTER */
 .footer{text-align:center;padding:40px 0 30px;font-family:var(--font-m);font-size:11px;color:var(--text-dim);letter-spacing:2px;border-top:1px solid var(--border);margin-top:40px}
 .footer a{color:var(--cyan);text-decoration:none}.footer a:hover{text-shadow:0 0 8px rgba(0,255,255,.5)}
+.gh-btn{display:inline-block;font-size:13px;letter-spacing:3px;border:1px solid var(--cyan);padding:6px 16px;color:var(--cyan);text-decoration:none;transition:all .25s}
+.gh-btn:hover{background:var(--cyan);color:var(--void)!important;box-shadow:0 0 20px rgba(0,255,255,.35);text-shadow:none}
 
 /* BACK TO TOP */
 .back-top{position:fixed;bottom:30px;right:30px;width:44px;height:44px;border:1px solid var(--magenta);background:rgba(26,16,60,.9);color:var(--magenta);font-family:var(--font-m);font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:100;opacity:0;transition:all .3s;backdrop-filter:blur(8px)}
@@ -414,7 +416,7 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
 
   <div class="footer">
     <p>部分数据来源：<a href="https://www.suijisui.space" target="_blank">suijisui.space</a>（<a href="https://github.com/PQL87/sui-song-list" target="_blank">GitHub: PQL87/sui-song-list</a>）</p>
-    <p style="margin-top:10px;"><a href="https://github.com/Tsingyun/sui-song-list-new" target="_blank" style="font-size:13px;letter-spacing:3px;border:1px solid var(--cyan);padding:6px 16px;display:inline-block;">◈ 项目源码 GitHub ◈</a></p>
+    <p style="margin-top:10px;"><a href="https://github.com/Tsingyun/sui-song-list-new" class="gh-btn" target="_blank">◈ 项目源码 GitHub ◈</a></p>
     <p style="margin-top:10px;">2022.09 — 2026.06</p>
   </div>
 </div>
