@@ -25,6 +25,21 @@ for song in data['songs']:
     if clips:
         song['bili'] = [{'bv': c['bvid'], 't': c['title'], 'd': c.get('duration', 0), 'dt': c.get('date', '')} for c in clips]
 
+# Auto-calculate stats and lang_counts from songs array
+songs = data['songs']
+total = len(songs)
+performances = sum(s.get('count', 0) for s in songs)
+frequent = sum(1 for s in songs if s.get('count', 0) >= 5)
+occasional = sum(1 for s in songs if 2 <= s.get('count', 0) < 5)
+once = sum(1 for s in songs if s.get('count', 0) == 1)
+data['stats'] = {'total': total, 'performances': performances, 'frequent': frequent, 'occasional': occasional, 'once': once}
+lang_map = {}
+for s in songs:
+    lang = s.get('lang', '未知')
+    lang_map[lang] = lang_map.get(lang, 0) + 1
+data['lang_counts'] = sorted([{'lang': k, 'count': v} for k, v in lang_map.items()], key=lambda x: -x['count'])
+print(f'Auto-calculated stats: {total} songs, {performances} performances, {frequent} frequent, {occasional} occasional, {once} once')
+
 songs_json = json.dumps(data['songs'], ensure_ascii=False)
 stats_json = json.dumps(data['stats'], ensure_ascii=False)
 lang_json = json.dumps(data['lang_counts'], ensure_ascii=False)
