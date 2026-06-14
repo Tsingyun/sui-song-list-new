@@ -65,6 +65,13 @@ for s in songs:
 data['lang_counts'] = sorted([{'lang': k, 'count': v} for k, v in lang_map.items()], key=lambda x: -x['count'])
 print(f'Auto-calculated stats: {total} songs, {performances} performances, {frequent} frequent, {occasional} occasional, {once} once')
 
+# Build dates lookup map (separate from SONGS to avoid attribute encoding issues)
+dates_map = {}
+for s in data['songs']:
+    if s.get('dates'):
+        dates_map[s['name']] = s['dates']
+        del s['dates']  # Removed from SONGS, served via SONG_DATES
+dates_json = json.dumps(dates_map, ensure_ascii=False)
 songs_json = json.dumps(data['songs'], ensure_ascii=False)
 stats_json = json.dumps(data['stats'], ensure_ascii=False)
 lang_json = json.dumps(data['lang_counts'], ensure_ascii=False)
@@ -576,6 +583,7 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
 
 <script>
 const SONGS = ''' + songs_json + ''';
+const SONG_DATES = ''' + dates_json + ''';
 const STATS = ''' + stats_json + ''';
 const LANG_COUNTS = ''' + lang_json + ''';
 
@@ -748,12 +756,11 @@ function renderSongList(){
       const tier=s.count>=5?'frequent':(s.count>=2?'occasional':'rare');
       const transInfo=s.translated?`<small>${s.translated}</small>`:'';
       const dateStr=s.last||'—';
-      const datesData=s.dates&&s.dates.length?` data-dates='${JSON.stringify(s.dates)}'`:'';
       const pb=playBtnHTML(s);
       return`<div class="song-row tier-${tier} ${isTop10?'top10-row':''}">
         <span class="idx">${isTop10?'★'+gr:gr}</span>${pb}<span class="name">${s.name}${transInfo}</span>
         <span class="artist">${s.artist||'—'}</span><span class="lang"><span class="lang-badge lang-${s.lang}">${s.lang}</span></span>
-        <span class="count">${s.count}</span><span class="dates"${datesData}>${dateStr}</span></div>`;
+        <span class="count">${s.count}</span><span class="dates">${dateStr}</span></div>`;
     }).join('');
   }
   renderPagination(filtered.length,totalPages);
@@ -782,11 +789,10 @@ function renderFrequent(){
   const freqCont=document.getElementById('freqList');freqCont.innerHTML=list.map((s,i)=>{
     const transInfo=s.translated?`<small>${s.translated}</small>`:'';
     const dateStr=s.last||'—';
-    const datesData=s.dates&&s.dates.length?` data-dates='${JSON.stringify(s.dates)}'`:'';
     return`<div class="song-row tier-frequent ${i<10?'top10-row':''}"><span class="idx">${i<10?'★':''}${i+1}</span>
       ${playBtnHTML(s)}<span class="name">${s.name}${transInfo}</span><span class="artist">${s.artist||'—'}</span>
       <span class="lang"><span class="lang-badge lang-${s.lang}">${s.lang}</span></span>
-      <span class="count">${s.count}</span><span class="dates"${datesData}>${dateStr}</span></div>`;
+      <span class="count">${s.count}</span><span class="dates">${dateStr}</span></div>`;
   }).join('');
   requestAnimationFrame(()=>revealRows(freqCont));
 }
@@ -804,11 +810,13 @@ function ensureTooltip(){
   return dtTooltip;
 }
 function showDateTooltip(el){
-  const raw=el.getAttribute('data-dates');
-  if(!raw)return;
+  const row=el.closest('.song-row');
+  if(!row)return;
+  const nameEl=row.querySelector('.name');
+  const songName=nameEl?nameEl.childNodes[0]?.textContent||nameEl.textContent:'';
+  const dates=SONG_DATES[songName];
+  if(!dates||!dates.length)return;
   clearTimeout(dtHideTimer);
-  const dates=JSON.parse(raw);
-  if(!dates.length)return;
   const tip=ensureTooltip();
   const first=dates[0],last=dates[dates.length-1];
   const pills=dates.map((d,i)=>`<span class="tt-date">${d}</span>`).join('');
@@ -827,7 +835,7 @@ function hideDateTooltip(){dtHideTimer=setTimeout(()=>{if(dtTooltip)dtTooltip.cl
 
 document.addEventListener('mouseover',e=>{
   const el=e.target.closest('.dates');
-  if(el&&el.hasAttribute('data-dates'))showDateTooltip(el);
+  if(el)showDateTooltip(el);
 });
 document.addEventListener('mouseout',e=>{
   if(e.target.closest('.dates'))hideDateTooltip();
@@ -883,10 +891,9 @@ function renderByLang(){
     if(!songs.length)return;
     html+=`<div class="lang-section" id="lang-${lang}"><div class="lang-header" style="color:${colors[lang]}">${lang}<span class="count-tag">${songs.length} 首</span></div>`;
     songs.forEach((s,i)=>{
-      const dd=s.dates&&s.dates.length?` data-dates='${JSON.stringify(s.dates)}'`:'';
       html+=`<div class="song-row tier-${s.count>=5?'frequent':(s.count>=2?'occasional':'rare')}" style="grid-template-columns:46px 1fr 100px 60px 80px;">
         <span class="idx">${i+1}</span><span class="name">${s.name}</span><span class="artist">${s.artist||'—'}</span>
-        <span class="count">${s.count}</span><span class="dates"${dd}>${s.last||'—'}</span></div>`;
+        <span class="count">${s.count}</span><span class="dates">${s.last||'—'}</span></div>`;
     });
     html+='</div>';
   });
