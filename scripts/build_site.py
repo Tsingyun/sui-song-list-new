@@ -1130,10 +1130,9 @@ function bindEvents(){
   document.getElementById('artistSearch').addEventListener('input',()=>renderByArtist());
   document.getElementById('sortSelect').addEventListener('change',e=>{currentSort=e.target.value;currentPage=1;renderSongList();});
   window.addEventListener('scroll',()=>{document.getElementById('backTop').classList.toggle('visible',window.scrollY>400);});
-  // Set today's date for contribute form
-  const cdDate=document.getElementById('cdDate');
-  if(cdDate)cdDate.value=new Date().toISOString().split('T')[0];
 }
+
+try{document.getElementById('cdDate').value=new Date().toISOString().split('T')[0];}catch(e){}
 
 // ═══════ CONTRIBUTE ═══════
 function openContribute(){
