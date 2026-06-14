@@ -23,6 +23,8 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
   background:repeating-linear-gradient(0deg,transparent 0,transparent 2px,rgba(0,0,0,.18) 2px,rgba(0,0,0,.18) 4px)}
 .scanlines::after{content:'';position:fixed;inset:0;
   background:linear-gradient(90deg,rgba(255,0,0,.04),rgba(0,255,0,.015),rgba(0,0,255,.04));pointer-events:none}
+.scanlines{animation:crtFlicker 6s linear infinite}
+@keyframes crtFlicker{0%,99.6%,100%{opacity:1}99.7%{opacity:.5}99.8%{opacity:.85}99.9%{opacity:.3}}
 
 .grid-bg{position:fixed;bottom:0;left:0;right:0;height:55vh;z-index:0;pointer-events:none;
   background-image:linear-gradient(transparent 94%,rgba(255,0,255,.28) 94%),linear-gradient(90deg,transparent 94%,rgba(255,0,255,.28) 94%);
@@ -32,7 +34,8 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
 @keyframes gridScroll{0%{background-position:0 0}100%{background-position:0 48px}}
 
 .sun{position:fixed;top:-120px;left:50%;transform:translateX(-50%);width:500px;height:500px;border-radius:50%;
-  background:radial-gradient(circle,rgba(255,153,0,.22) 0%,rgba(255,0,255,.12) 50%,transparent 70%);filter:blur(80px);pointer-events:none;z-index:0}
+  background:radial-gradient(circle,rgba(255,153,0,.22) 0%,rgba(255,0,255,.12) 50%,transparent 70%);filter:blur(80px);pointer-events:none;z-index:0;animation:sunBreath 4s ease-in-out infinite}
+@keyframes sunBreath{0%,100%{transform:translateX(-50%) scale(1);opacity:1}50%{transform:translateX(-50%) scale(1.06);opacity:.85}}
 
 .container{max-width:1200px;margin:0 auto;padding:0 20px;position:relative;z-index:1}
 
@@ -44,12 +47,19 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
   filter:drop-shadow(0 0 30px rgba(255,0,255,.4));margin-bottom:8px}
 .hero-sub{font-family:var(--font-h);font-size:clamp(1rem,2.5vw,1.6rem);font-weight:400;color:var(--text);letter-spacing:3px;margin-bottom:28px;text-shadow:0 0 8px rgba(255,255,255,.2)}
 .hero-sub span{color:var(--cyan)}
+.hero-label{opacity:0;animation:heroFadeIn .7s ease-out .1s forwards}
+.hero-title{animation:heroGlitch 1.2s ease-out forwards}
+.hero-sub{opacity:0;animation:heroFadeIn .7s ease-out .5s forwards}
+@keyframes heroGlitch{0%,100%{opacity:1;transform:translateX(0);filter:drop-shadow(0 0 30px rgba(255,0,255,.4))}7%{transform:translateX(-3px)}15%{opacity:.5;transform:skewX(2deg)}20%{transform:translateX(4px)}25%{opacity:.4;transform:translateX(-5px) skewX(-1deg)}30%{opacity:1;transform:translateX(0)}}
+@keyframes heroFadeIn{0%{opacity:0;transform:translateY(12px)}100%{opacity:1;transform:translateY(0)}}
 
 /* STATS */
 .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:40px}
 .stat-card{border:1px solid rgba(255,0,255,.25);border-top:2px solid var(--cyan);background:var(--card);backdrop-filter:blur(12px);padding:18px 14px;text-align:center;transition:all .2s}
 .stat-card:hover{transform:translateY(-3px);box-shadow:var(--glow-c);border-top-color:var(--magenta)}
-.stat-num{font-family:var(--font-h);font-size:2rem;font-weight:900;background:linear-gradient(135deg,var(--cyan),var(--magenta));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1.2}
+.stat-num{font-family:var(--font-h);font-size:2rem;font-weight:900;background:linear-gradient(135deg,var(--cyan),var(--magenta));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1.2;transition:all .3s}
+.stat-card.animated .stat-num{animation:numGlow .6s ease-out}
+@keyframes numGlow{0%{filter:brightness(2);transform:scale(1.08)}100%{filter:brightness(1);transform:scale(1)}}
 .stat-label{font-family:var(--font-cjk);font-size:13px;color:var(--text-dim);margin-top:4px}
 
 /* CONTROLS */
@@ -75,7 +85,9 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
 .song-list::-webkit-scrollbar{width:6px}
 .song-list::-webkit-scrollbar-track{background:transparent}
 .song-list::-webkit-scrollbar-thumb{background:rgba(255,0,255,.3)}
-.song-row{display:grid;grid-template-columns:54px 36px 1fr 100px 80px 60px 90px;align-items:center;border-bottom:1px solid rgba(45,27,78,.4);transition:all .15s;cursor:default}
+.song-row{display:grid;grid-template-columns:54px 36px 1fr 100px 80px 60px 90px;align-items:center;border-bottom:1px solid rgba(45,27,78,.4);transition:all .15s;cursor:default;opacity:0;transform:translateX(-8px)}
+.song-row.reveal{animation:rowReveal .4s ease-out forwards}
+@keyframes rowReveal{0%{opacity:0;transform:translateX(-8px)}100%{opacity:1;transform:translateX(0)}}
 .song-row:hover{background:rgba(0,255,255,.08);box-shadow:inset 0 0 30px rgba(0,255,255,.06);border-left:3px solid var(--cyan);padding-left:3px}
 .song-row span{padding:10px 10px;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .song-row .idx{font-family:var(--font-m);font-size:12px;color:var(--text-dim);text-align:center}
@@ -111,6 +123,8 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
 .section-tab:hover{color:var(--cyan);text-shadow:0 0 12px rgba(0,255,255,.4)}
 .section-tab.active{color:var(--cyan);text-shadow:0 0 10px rgba(0,255,255,.5)}
 .section-tab.active::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--magenta))}
+.section{opacity:0;transform:translateY(8px);transition:opacity .25s ease,transform .25s ease;display:none}
+.section.active{opacity:1;transform:translateY(0);display:block}
 
 /* ARTIST */
 .artist-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-bottom:40px}
@@ -125,6 +139,7 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
 .lang-quick-nav{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px;padding:14px 0;border-bottom:1px solid var(--border)}
 .lang-quick-nav a{font-family:var(--font-cjk);font-size:14px;font-weight:500;color:var(--text-dim);text-decoration:none;padding:6px 18px;border:1px solid var(--border);transition:all .2s;letter-spacing:1px}
 .lang-quick-nav a:hover{border-color:var(--cyan);color:var(--cyan);box-shadow:0 0 12px rgba(0,255,255,.15)}
+.lang-quick-nav a:active{transform:scale(.94);transition:transform .1s}
 .lang-quick-nav a .nav-count{font-family:var(--font-m);font-size:11px;color:var(--text-dim);margin-left:4px;opacity:.7}
 .lang-section{margin-bottom:30px;scroll-margin-top:20px}
 .lang-header{font-family:var(--font-h);font-size:18px;font-weight:700;padding:10px 0;border-bottom:1px solid var(--border);margin-bottom:12px}
@@ -137,8 +152,8 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
 .gh-btn:hover{background:var(--cyan);color:var(--void)!important;box-shadow:0 0 20px rgba(0,255,255,.35);text-shadow:none}
 
 /* BACK TO TOP */
-.back-top{position:fixed;bottom:30px;right:30px;width:44px;height:44px;border:1px solid var(--magenta);background:rgba(26,16,60,.9);color:var(--magenta);font-family:var(--font-m);font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:100;opacity:0;transition:all .3s;backdrop-filter:blur(8px)}
-.back-top.visible{opacity:1}
+.back-top{position:fixed;bottom:30px;right:30px;width:44px;height:44px;border:1px solid var(--magenta);background:rgba(26,16,60,.9);color:var(--magenta);font-family:var(--font-m);font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:100;opacity:0;transform:translateY(20px);transition:all .3s cubic-bezier(.4,0,.2,1);backdrop-filter:blur(8px);pointer-events:none}
+.back-top.visible{opacity:1;transform:translateY(0);pointer-events:auto}
 .back-top:hover{background:var(--magenta);color:#000;box-shadow:var(--glow-m)}
 
 .section{display:none}.section.active{display:block}
@@ -553,6 +568,24 @@ function bindPlayer(){
   });
 }
 
+function animateStats(){
+  document.querySelectorAll('.stat-num[data-target]').forEach(el=>{
+    const target=parseInt(el.dataset.target);
+    const duration=1200;
+    const start=performance.now();
+    const card=el.closest('.stat-card');
+    function update(now){
+      const elapsed=now-start;
+      const progress=Math.min(elapsed/duration,1);
+      const eased=1-Math.pow(1-progress,3);
+      const current=Math.floor(target*eased);
+      el.textContent=current.toLocaleString();
+      if(progress<1){requestAnimationFrame(update)}
+      else{el.textContent=target.toLocaleString();card.classList.add('animated')}
+    }
+    requestAnimationFrame(update);
+  });
+}
 function init(){renderStats();renderLangFilters();renderSongList();bindEvents();bindBlindBox();bindPlayer()}
 
 function renderStats(){
@@ -561,7 +594,8 @@ function renderStats(){
     {n:STATS.total,l:'歌曲总数'},{n:STATS.performances,l:'演唱次数'},{n:STATS.frequent,l:'常唱 (5+)'},
     {n:STATS.occasional,l:'偶尔'},{n:STATS.once,l:'仅唱一次'}
   ];
-  g.innerHTML=items.map(i=>`<div class="stat-card"><div class="stat-num">${i.n.toLocaleString()}</div><div class="stat-label">${i.l}</div></div>`).join('');
+  g.innerHTML=items.map((i,idx)=>`<div class="stat-card stat-card-${idx}"><div class="stat-num" data-target="${i.n}">0</div><div class="stat-label">${i.l}</div></div>`).join('');
+  setTimeout(()=>animateStats(),200);
 }
 
 function renderLangFilters(){
@@ -631,6 +665,7 @@ function renderSongList(){
     }).join('');
   }
   renderPagination(filtered.length,totalPages);
+  requestAnimationFrame(()=>revealRows(container));
   document.getElementById('pageInfo').textContent=`> ${filtered.length} 首 | 第 ${currentPage}/${totalPages||1} 页`;
 }
 
@@ -645,14 +680,14 @@ function renderPagination(total,totalPages){
   html+=`<button class="page-btn" ${currentPage===totalPages?'disabled':''} onclick="goPage(${currentPage+1})">下一页 ▸</button>`;
   c.innerHTML=html;
 }
-window.goPage=function(p){currentPage=p;renderSongList();document.getElementById('songList').scrollTop=0;};
+window.goPage=function(p){currentPage=p;const sl=document.getElementById('songList');sl.style.opacity=.4;renderSongList();sl.style.opacity=1;sl.scrollTop=0;requestAnimationFrame(()=>revealRows(sl));};
 
 function renderFrequent(){
   const q=document.getElementById('freqSearch').value.toLowerCase();
   let list=SONGS.filter(s=>s.count>=5);
   if(q)list=list.filter(s=>s.name.toLowerCase().includes(q)||s.artist.toLowerCase().includes(q));
   list.sort((a,b)=>b.count-a.count||a.name.localeCompare(b.name,'zh'));
-  document.getElementById('freqList').innerHTML=list.map((s,i)=>{
+  const freqCont=document.getElementById('freqList');freqCont.innerHTML=list.map((s,i)=>{
     const transInfo=s.translated?`<small>${s.translated}</small>`:'';
     const dateStr=s.last||'—';
     return`<div class="song-row tier-frequent ${i<10?'top10-row':''}"><span class="idx">${i<10?'★':''}${i+1}</span>
@@ -660,6 +695,7 @@ function renderFrequent(){
       <span class="lang"><span class="lang-badge lang-${s.lang}">${s.lang}</span></span>
       <span class="count">${s.count}</span><span class="dates">${dateStr}</span></div>`;
   }).join('');
+  requestAnimationFrame(()=>revealRows(freqCont));
 }
 
 function renderByLang(){
@@ -807,17 +843,31 @@ function bindBlindBox(){
 }
 
 // ═══════ EVENTS ═══════
+function revealRows(container){
+  const rows=container.querySelectorAll('.song-row:not(.reveal)');
+  rows.forEach((row,i)=>{
+    row.style.animationDelay=(i*0.02)+'s';
+    row.classList.add('reveal');
+  });
+}
+function revealCards(container){
+  const cards=container.querySelectorAll('.artist-card');
+  cards.forEach((card,i)=>{
+    card.style.opacity=0;card.style.transform='translateY(12px)';card.style.transition='all .3s ease';
+    setTimeout(()=>{card.style.opacity=1;card.style.transform='translateY(0)';},i*40);
+  });
+}
 function bindEvents(){
   document.querySelectorAll('.section-tab').forEach(tab=>{
     tab.addEventListener('click',()=>{
       document.querySelectorAll('.section-tab').forEach(t=>t.classList.remove('active'));
       tab.classList.add('active');currentSection=tab.dataset.section;
       document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-      document.getElementById('sec-'+currentSection).classList.add('active');
-      if(currentSection==='frequent')renderFrequent();
-      if(currentSection==='lang')renderByLang();
-      if(currentSection==='artist')renderByArtist();
-      if(currentSection==='all')renderSongList();
+      const sec=document.getElementById('sec-'+currentSection);sec.classList.add('active');
+      if(currentSection==='frequent'){renderFrequent();}
+      if(currentSection==='lang'){renderByLang();revealRows(sec);}
+      if(currentSection==='artist'){renderByArtist();revealCards(sec);}
+      if(currentSection==='all'){renderSongList();}
     });
   });
 
