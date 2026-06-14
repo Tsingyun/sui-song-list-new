@@ -1,6 +1,6 @@
 # 岁己SUI 歌单档案
 
-> **SUI_SONG_DATABASE V3.0** — 为虚拟主播 [岁己SUI](https://space.bilibili.com/1954091502) 打造的 Vaporwave 风格歌单网站
+> **SUI_SONG_DATABASE V3.1** — 为虚拟主播 [岁己SUI](https://space.bilibili.com/1954091502) 打造的 Vaporwave 风格歌单网站，配有岁己SUI角色插画背景
 
 收录 **1,158** 首歌曲、**3,270** 次演唱记录，支持在线播放 B站录播片段。
 
@@ -23,7 +23,7 @@
 + 单文件 HTML 架构
   - 所有 CSS / JS / 数据内嵌，零外部依赖
   - 可直接用浏览器打开，也可通过 GitHub Pages 部署
-  - 文件体积约 673 KB（含 1158 首歌曲完整数据 + 1235 首日期记录）
+  - 文件体积约 677 KB（含 1158 首歌曲完整数据 + 1235 首日期记录 + 背景插画 WebP）
 
 数据:
 + 多源数据整合
@@ -99,6 +99,10 @@
   - Orbitron（标题）+ Cascadia Code PL（数据）+ Noto Sans SC/JP（中日文）字体组合
   - 霓虹光效：品红 / 青色 / 橙色三色系统
   - CRT 扫描线叠加 + 透视网格背景
+  - 岁己SUI 角色插画背景层（WebP，22% 不透明度 + 暗色渐变覆盖）
+  - 4 种背景位置切换：面部居中 / 右下角 / 左下角 / 右侧居中
+  - 横屏自动面部居中（orientation:landscape）
+  - 毛玻璃效果增强（backdrop-filter: blur(18px)）
   - Hero 标题 glitch 故障艺术入场动画
   - 歌曲逐行侧滑渐显（IntersectionObserver）
   - 统计数字平滑滚动计数（requestAnimationFrame）
@@ -180,7 +184,11 @@ sui-song-list-new/
 │   └── song_bilibili_map.json        歌曲-视频匹配（916首）
 │
 └── docs/                            GitHub Pages 部署
-    └── index.html                    最终网站（单文件，~673KB）
+    ├── index.html                    最终网站（单文件，~677KB）
+    ├── screenshot.png                网站截图
+    └── assets/                       静态资源
+        ├── bg-illust.webp            背景插画（桌面版，151KB）
+        └── bg-illust-sm.webp         背景插画（移动版，62KB）
 ```
 
 ---
@@ -285,14 +293,14 @@ B站 API 存在 `-352` 限流机制：
 
 ### 单文件架构
 
-整个网站是一个 ~673KB 的 HTML 文件，包含：
+整个网站是一个 ~677KB 的 HTML 文件，包含：
 - 所有 CSS 样式
 - 所有 JavaScript 逻辑（含动画、交互、数据渲染）
 - 1158 首歌曲的完整数据（JSON 内嵌）
 - 916 首歌曲的 B站视频匹配数据
 - 1235 首歌曲的演唱日期记录（SONG_DATES 查找表）
 
-唯一外部依赖：SheetJS（xlsx）CDN，用于 Excel 导出功能。
+唯一外部依赖：SheetJS（xlsx）CDN（用于 Excel 导出）。背景插图以 WebP 格式存于 `docs/assets/`，通过 CSS `url()` 引用。
 
 ---
 
@@ -315,6 +323,7 @@ B站 API 存在 `-352` 限流机制：
 - [x] 歌曲分类标签（流行/摇滚/动画 等）
 - [x] 歌单导出功能（CSV / JSON / XLSX）
 - [x] "我要补充" 共创提交功能
+- [x] 岁己SUI 角色插画背景层
 - [ ] 网易云音乐外链
 - [ ] 数据自动更新脚本（定期抓取最新歌切）
 - [ ] 暗色/亮色主题切换
