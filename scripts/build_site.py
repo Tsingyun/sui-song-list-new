@@ -271,11 +271,6 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
 .back-top.visible{opacity:1;transform:translateY(0);pointer-events:auto}
 .back-top:hover{background:var(--magenta);color:#000;box-shadow:var(--glow-m)}
 
-/* BG position toggle */
-.bg-pos-btn{position:fixed;bottom:30px;right:82px;width:38px;height:38px;border:1px solid rgba(255,255,255,.2);background:rgba(26,16,60,.85);color:var(--text-dim);font-family:var(--font-h);font-size:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:100;opacity:0;transform:translateY(20px);transition:all .3s cubic-bezier(.4,0,.2,1);backdrop-filter:blur(8px);pointer-events:none}
-.bg-pos-btn.visible{opacity:1;transform:translateY(0);pointer-events:auto}
-.bg-pos-btn:hover{border-color:var(--cyan);color:var(--cyan);box-shadow:0 0 12px rgba(0,255,255,.25)}
-
 .section{display:none}.section.active{display:block}
 
 /* ═══════ BLIND BOX BUTTON ═══════ */
@@ -489,7 +484,6 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
   .export-btn{bottom:126px;right:20px;font-size:11px;padding:8px 12px}
   .export-panel{right:20px;bottom:170px}
   .cb-modal{width:95%}
-  .bg-pos-btn{right:56px;width:28px;height:28px;font-size:10px;bottom:24px}
   .back-top{right:20px;width:36px;height:36px;font-size:14px;bottom:24px}
   /* Background illustration - mobile */
   .bg-illust{opacity:.14;background-position:50% 92%}
@@ -773,9 +767,6 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
 
 <!-- BACK TO TOP -->
 <button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
-
-<!-- BG POSITION TOGGLE -->
-<button class="bg-pos-btn" id="bgPosBtn" title="切换背景位置">◇</button>
 
 <!-- CONTRIBUTE BUTTON -->
 <button class="contribute-btn" id="contributeBtn">我要补充</button>
@@ -1588,28 +1579,8 @@ function bindEvents(){
   document.getElementById('artistSearch').addEventListener('input',()=>renderByArtist());
   document.getElementById('sortSelect').addEventListener('change',e=>{currentSort=e.target.value;currentPage=1;renderSongList();});
   window.addEventListener('scroll',()=>{
-    const visible=window.scrollY>400;
-    document.getElementById('backTop').classList.toggle('visible',visible);
-    document.getElementById('bgPosBtn').classList.toggle('visible',visible);
+    document.getElementById('backTop').classList.toggle('visible',window.scrollY>400);
   });
-  // BG position cycle: face-center → bottom-right → bottom-left → right-center → face-center
-  const bgPositions=['pos-fc','','pos-bl','pos-rc'];
-  let bgPosIdx=0;
-  const bgIllust=document.getElementById('bgIllust');
-  document.getElementById('bgPosBtn').addEventListener('click',()=>{
-    bgIllust.classList.remove(...bgPositions);
-    bgPosIdx=(bgPosIdx+1)%bgPositions.length;
-    if(bgPositions[bgPosIdx])bgIllust.classList.add(bgPositions[bgPosIdx]);
-    try{localStorage.setItem('sui-bg-pos',bgPosIdx);}catch(e){}
-  });
-  // Restore saved position
-  try{
-    const saved=localStorage.getItem('sui-bg-pos');
-    if(saved!==null){
-      bgPosIdx=parseInt(saved)%bgPositions.length;
-      if(bgPositions[bgPosIdx])bgIllust.classList.add(bgPositions[bgPosIdx]);
-    }
-  }catch(e){}
 }
 
 init();
