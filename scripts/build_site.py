@@ -440,7 +440,7 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
 
   <div class="footer">
     <p>部分数据来源：<a href="https://www.suijisui.space" target="_blank">suijisui.space</a>（<a href="https://github.com/PQL87/sui-song-list" target="_blank">GitHub: PQL87/sui-song-list</a>）</p>
-    <p style="margin-top:10px;"><a href="https://github.com/Tsingyun/sui-song-list" target="_blank" style="font-size:13px;letter-spacing:3px;border:1px solid var(--cyan);padding:6px 16px;display:inline-block;">◈ 项目源码 GitHub ◈</a></p>
+    <p style="margin-top:10px;"><a href="https://github.com/Tsingyun/sui-song-list-new" target="_blank" style="font-size:13px;letter-spacing:3px;border:1px solid var(--cyan);padding:6px 16px;display:inline-block;">◈ 项目源码 GitHub ◈</a></p>
     <p style="margin-top:10px;">2022.09 — 2026.06</p>
   </div>
 </div>

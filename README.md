@@ -4,7 +4,7 @@
 
 ## 在线预览
 
-**[>>> 打开歌单网站 <<<](https://tsingyun.github.io/sui-song-list/)**
+**[>>> 打开歌单网站 <<<](https://tsingyun.github.io/sui-song-list-new/)**
 
 ## 功能特性
 
