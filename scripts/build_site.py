@@ -25,6 +25,31 @@ for song in data['songs']:
     if clips:
         song['bili'] = [{'bv': c['bvid'], 't': c['title'], 'd': c.get('duration', 0), 'dt': c.get('date', '')} for c in clips]
 
+# Load complete date list and enrich songs
+date_lookup = {}
+try:
+    with open(os.path.join(DATA_DIR, 'sui_song_list_complete.json'), 'r', encoding='utf-8') as f:
+        complete = json.load(f)
+        for entry in complete:
+            name = entry.get('song_name', '')
+            date_str = entry.get('date_list', '')
+            if name and date_str:
+                # Parse "2022/9/4，2022/9/5，..." into sorted array
+                dates = [d.strip().replace('/', '-') for d in date_str.replace('，', ',').split(',') if d.strip()]
+                dates.sort()
+                if name in date_lookup:
+                    date_lookup[name] = sorted(set(date_lookup[name] + dates))
+                else:
+                    date_lookup[name] = dates
+    print(f'Loaded date lists for {len(date_lookup)} songs')
+except Exception as e:
+    print(f'Could not load complete date data: {e}')
+
+for song in data['songs']:
+    dates = date_lookup.get(song['name'], [])
+    if dates:
+        song['dates'] = dates
+
 # Auto-calculate stats and lang_counts from songs array
 songs = data['songs']
 total = len(songs)
@@ -143,7 +168,13 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
 .song-row .artist{color:var(--text-dim);font-size:13px}
 .song-row .lang{font-family:var(--font-m);font-size:11px;text-align:center}
 .song-row .count{font-family:var(--font-m);font-size:14px;font-weight:700;text-align:center}
-.song-row .dates{font-family:var(--font-m);font-size:11px;color:var(--text-dim);text-align:center}
+.song-row .dates{font-family:var(--font-m);font-size:11px;color:var(--text-dim);text-align:center;cursor:help;position:relative}
+.date-tooltip{position:fixed;background:rgba(10,6,30,.96);border:1px solid rgba(255,0,255,.3);border-radius:8px;padding:10px 14px;font-family:var(--font-m);font-size:12px;color:var(--text);pointer-events:none;opacity:0;transition:opacity .2s ease;z-index:9999;max-width:240px;box-shadow:0 4px 24px rgba(255,0,255,.15),0 0 40px rgba(0,255,255,.05);line-height:1.8;backdrop-filter:blur(8px)}
+.date-tooltip.show{opacity:1}
+.date-tooltip .tt-title{font-family:var(--font-h);font-size:13px;color:var(--accent);margin-bottom:6px;letter-spacing:var(--ls-normal)}
+.date-tooltip .tt-date{display:inline-block;background:rgba(255,255,255,.06);border-radius:4px;padding:1px 6px;margin:1px 2px;font-size:11px;white-space:nowrap}
+.date-tooltip .tt-date:first-of-type{color:var(--orange);text-shadow:0 0 6px rgba(255,153,0,.3)}
+.date-tooltip .tt-date:last-of-type{color:var(--cyan);text-shadow:0 0 6px rgba(0,255,255,.3)}
 
 .tier-frequent .count{color:var(--orange);text-shadow:0 0 8px rgba(255,153,0,.4)}
 .tier-frequent .name{color:#fff}
@@ -712,11 +743,12 @@ function renderSongList(){
       const tier=s.count>=5?'frequent':(s.count>=2?'occasional':'rare');
       const transInfo=s.translated?`<small>${s.translated}</small>`:'';
       const dateStr=s.last||'—';
+      const datesData=s.dates&&s.dates.length?` data-dates='${JSON.stringify(s.dates)}'`:'';
       const pb=playBtnHTML(s);
       return`<div class="song-row tier-${tier} ${isTop10?'top10-row':''}">
         <span class="idx">${isTop10?'★'+gr:gr}</span>${pb}<span class="name">${s.name}${transInfo}</span>
         <span class="artist">${s.artist||'—'}</span><span class="lang"><span class="lang-badge lang-${s.lang}">${s.lang}</span></span>
-        <span class="count">${s.count}</span><span class="dates">${dateStr}</span></div>`;
+        <span class="count">${s.count}</span><span class="dates"${datesData}>${dateStr}</span></div>`;
     }).join('');
   }
   renderPagination(filtered.length,totalPages);
@@ -745,13 +777,56 @@ function renderFrequent(){
   const freqCont=document.getElementById('freqList');freqCont.innerHTML=list.map((s,i)=>{
     const transInfo=s.translated?`<small>${s.translated}</small>`:'';
     const dateStr=s.last||'—';
+    const datesData=s.dates&&s.dates.length?` data-dates='${JSON.stringify(s.dates)}'`:'';
     return`<div class="song-row tier-frequent ${i<10?'top10-row':''}"><span class="idx">${i<10?'★':''}${i+1}</span>
       ${playBtnHTML(s)}<span class="name">${s.name}${transInfo}</span><span class="artist">${s.artist||'—'}</span>
       <span class="lang"><span class="lang-badge lang-${s.lang}">${s.lang}</span></span>
-      <span class="count">${s.count}</span><span class="dates">${dateStr}</span></div>`;
+      <span class="count">${s.count}</span><span class="dates"${datesData}>${dateStr}</span></div>`;
   }).join('');
   requestAnimationFrame(()=>revealRows(freqCont));
 }
+
+// ═══════ DATE TOOLTIP ═══════
+let dtTooltip=null,dtHideTimer=null;
+function ensureTooltip(){
+  if(!dtTooltip){
+    dtTooltip=document.createElement('div');
+    dtTooltip.className='date-tooltip';
+    document.body.appendChild(dtTooltip);
+    dtTooltip.addEventListener('mouseenter',()=>{clearTimeout(dtHideTimer);});
+    dtTooltip.addEventListener('mouseleave',()=>{dtTooltip.classList.remove('show');});
+  }
+  return dtTooltip;
+}
+function showDateTooltip(el){
+  const raw=el.getAttribute('data-dates');
+  if(!raw)return;
+  clearTimeout(dtHideTimer);
+  const dates=JSON.parse(raw);
+  if(!dates.length)return;
+  const tip=ensureTooltip();
+  const first=dates[0],last=dates[dates.length-1];
+  const pills=dates.map((d,i)=>`<span class="tt-date">${d}</span>`).join('');
+  tip.innerHTML=`<div class="tt-title">📅 共 ${dates.length} 次演唱</div>${pills}
+    <div style="margin-top:6px;font-size:10px;color:var(--text-dim);">
+    <span style="color:var(--orange)">■</span> 最早 ${first} &nbsp;
+    <span style="color:var(--cyan)">■</span> 最近 ${last}</div>`;
+  const rect=el.getBoundingClientRect();
+  let left=rect.left,top=rect.bottom+6;
+  if(left+240>window.innerWidth)left=window.innerWidth-250;
+  tip.style.left=left+'px';
+  tip.style.top=top+'px';
+  tip.classList.add('show');
+}
+function hideDateTooltip(){dtHideTimer=setTimeout(()=>{if(dtTooltip)dtTooltip.classList.remove('show');},150);}
+
+document.addEventListener('mouseover',e=>{
+  const el=e.target.closest('.dates');
+  if(el&&el.hasAttribute('data-dates'))showDateTooltip(el);
+});
+document.addEventListener('mouseout',e=>{
+  if(e.target.closest('.dates'))hideDateTooltip();
+});
 
 function renderByLang(){
   const c=document.getElementById('langContent');
@@ -770,9 +845,10 @@ function renderByLang(){
     if(!songs.length)return;
     html+=`<div class="lang-section" id="lang-${lang}"><div class="lang-header" style="color:${colors[lang]}">${lang}<span class="count-tag">${songs.length} 首</span></div>`;
     songs.forEach((s,i)=>{
+      const dd=s.dates&&s.dates.length?` data-dates='${JSON.stringify(s.dates)}'`:'';
       html+=`<div class="song-row tier-${s.count>=5?'frequent':(s.count>=2?'occasional':'rare')}" style="grid-template-columns:46px 1fr 100px 60px 80px;">
         <span class="idx">${i+1}</span><span class="name">${s.name}</span><span class="artist">${s.artist||'—'}</span>
-        <span class="count">${s.count}</span><span class="dates">${s.last||'—'}</span></div>`;
+        <span class="count">${s.count}</span><span class="dates"${dd}>${s.last||'—'}</span></div>`;
     });
     html+='</div>';
   });
