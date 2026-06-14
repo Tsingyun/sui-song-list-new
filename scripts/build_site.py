@@ -452,6 +452,8 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
   .table-header span:nth-child(5),.song-row span:nth-child(5){display:none}
   .stats-grid{grid-template-columns:repeat(2,1fr)}
   .contribute-btn{bottom:76px;right:20px;font-size:11px;padding:8px 12px}
+  .export-btn{bottom:126px;right:20px;font-size:11px;padding:8px 12px}
+  .export-panel{right:20px;bottom:170px}
   .cb-modal{width:95%}
 }
 
@@ -587,7 +589,40 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
   background:transparent;color:var(--text-dim);cursor:pointer;transition:all .2s;white-space:nowrap}
 .tag-filter-btn:hover{border-color:var(--cyan);color:var(--cyan)}
 .tag-filter-btn.active{border-color:var(--cyan);color:var(--cyan);background:rgba(0,255,255,.08);box-shadow:0 0 8px rgba(0,255,255,.15)}
+
+/* ═══════ EXPORT BUTTON ═══════ */
+.export-btn{
+  position:fixed;bottom:138px;right:30px;z-index:100;
+  padding:10px 18px;border:1px solid var(--orange);
+  background:rgba(26,16,60,.9);backdrop-filter:blur(10px);
+  color:var(--orange);font-family:var(--font-cjk);font-size:13px;font-weight:700;
+  letter-spacing:2px;cursor:pointer;
+  transition:all .3s cubic-bezier(.4,0,.2,1);
+  opacity:0;transform:translateY(20px);pointer-events:none;
+}
+.export-btn.visible{opacity:1;transform:translateY(0);pointer-events:auto}
+.export-btn:hover{background:var(--orange);color:var(--void);box-shadow:0 0 24px rgba(255,153,0,.45);letter-spacing:4px}
+.export-panel{
+  position:fixed;bottom:182px;right:30px;z-index:101;
+  display:none;flex-direction:column;gap:6px;
+  padding:12px;border:1px solid var(--orange);
+  background:rgba(26,16,60,.96);backdrop-filter:blur(16px);
+  box-shadow:0 0 30px rgba(255,153,0,.15);
+  animation:epSlideUp .2s ease;
+}
+@keyframes epSlideUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.export-panel.show{display:flex}
+.export-panel-title{font-family:var(--font-m);font-size:10px;color:var(--orange);letter-spacing:2px;text-transform:uppercase;margin-bottom:2px;opacity:.7}
+.export-opt{
+  font-family:var(--font-m);font-size:12px;padding:8px 20px;
+  border:1px solid var(--border);background:transparent;
+  color:var(--text-dim);cursor:pointer;transition:all .2s;
+  text-align:left;letter-spacing:1px;white-space:nowrap;
+}
+.export-opt:hover{border-color:var(--orange);color:var(--orange);background:rgba(255,153,0,.08)}
+.export-opt .fmt{color:var(--orange);font-weight:700;margin-right:6px}
 </style>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js" defer></script>
 </head>
 <body>
 
@@ -700,6 +735,17 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
 
 <!-- CONTRIBUTE BUTTON -->
 <button class="contribute-btn" id="contributeBtn">我要补充</button>
+
+<!-- EXPORT BUTTON -->
+<button class="export-btn" id="exportBtn">导出歌单</button>
+
+<!-- EXPORT PANEL -->
+<div class="export-panel" id="exportPanel">
+  <div class="export-panel-title">// EXPORT_FORMAT</div>
+  <button class="export-opt" id="exportCsv"><span class="fmt">CSV</span>通用表格格式</button>
+  <button class="export-opt" id="exportJson"><span class="fmt">JSON</span>结构化数据</button>
+  <button class="export-opt" id="exportXlsx"><span class="fmt">XLSX</span>Excel 电子表格</button>
+</div>
 
 <!-- CONTRIBUTE MODAL -->
 <div class="cb-overlay" id="cbOverlay">
@@ -1022,7 +1068,71 @@ function renderTagFilters(){
   });
 }
 
-function init(){renderStats();renderLangFilters();renderTagFilters();renderSongList();bindEvents();bindBlindBox();bindPlayer();bindContribute();
+function bindExport(){
+  var btn=document.getElementById('exportBtn');
+  var panel=document.getElementById('exportPanel');
+  // Show/hide button on scroll (same as contribute)
+  window.addEventListener('scroll',function(){
+    if(window.scrollY>200){btn.classList.add('visible');}else{btn.classList.remove('visible');panel.classList.remove('show');}
+  });
+  // Toggle panel
+  btn.addEventListener('click',function(e){
+    e.stopPropagation();
+    panel.classList.toggle('show');
+  });
+  // Close panel on outside click
+  document.addEventListener('click',function(e){
+    if(!panel.contains(e.target)&&e.target!==btn){panel.classList.remove('show');}
+  });
+  // CSV export
+  document.getElementById('exportCsv').addEventListener('click',function(){
+    var songs=getFilteredSongs();
+    var header=['序号','歌曲名','译名','原唱','语言','演唱次数','标签','首次','最近'];
+    var rows=songs.map(function(s,i){
+      return [i+1,s.name,s.translated||'',s.artist||'',s.lang||'',s.count||1,(s.tags||[]).join('/'),s.first||'',s.last||''];
+    });
+    var bom='\\uFEFF';
+    var csv=bom+header.join(',')+'\\n'+rows.map(function(r){
+      return r.map(function(c){return '"'+(String(c).replace(/"/g,'""'))+'"';}).join(',');
+    }).join('\\n');
+    var blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement('a');a.href=url;a.download='sui_song_list.csv';a.click();
+    URL.revokeObjectURL(url);
+    panel.classList.remove('show');
+  });
+  // JSON export
+  document.getElementById('exportJson').addEventListener('click',function(){
+    var songs=getFilteredSongs();
+    var data=songs.map(function(s){
+      return {name:s.name,translated:s.translated||'',artist:s.artist||'',lang:s.lang||'',
+        count:s.count||1,tags:s.tags||[],first:s.first||'',last:s.last||''};
+    });
+    var json=JSON.stringify({total:data.length,exported:new Date().toISOString(),songs:data},null,2);
+    var blob=new Blob([json],{type:'application/json;charset=utf-8'});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement('a');a.href=url;a.download='sui_song_list.json';a.click();
+    URL.revokeObjectURL(url);
+    panel.classList.remove('show');
+  });
+  // XLSX export (SheetJS)
+  document.getElementById('exportXlsx').addEventListener('click',function(){
+    if(typeof XLSX==='undefined'){alert('Excel 导出组件加载中，请稍后再试');return;}
+    var songs=getFilteredSongs();
+    var rows=songs.map(function(s,i){
+      return {'序号':i+1,'歌曲名':s.name,'译名':s.translated||'','原唱':s.artist||'',
+        '语言':s.lang||'','演唱次数':s.count||1,'标签':(s.tags||[]).join('/'),'首次':s.first||'','最近':s.last||''};
+    });
+    var ws=XLSX.utils.json_to_sheet(rows);
+    ws['!cols']=[{wch:6},{wch:30},{wch:20},{wch:20},{wch:8},{wch:10},{wch:20},{wch:12},{wch:12}];
+    var wb=XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb,ws,'歌单');
+    XLSX.writeFile(wb,'sui_song_list.xlsx');
+    panel.classList.remove('show');
+  });
+}
+
+function init(){renderStats();renderLangFilters();renderTagFilters();renderSongList();bindEvents();bindBlindBox();bindPlayer();bindContribute();bindExport();
   // Handle initial hash (e.g. #lang-日语) — instant reveal + scroll
   if(window.location.hash){
     setTimeout(()=>{
