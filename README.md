@@ -6,6 +6,10 @@
 
 **[>>> 在线预览 <<<](https://tsingyun.github.io/sui-song-list-new/)**
 
+<p align="center">
+  <img src="docs/screenshot.png" alt="岁己SUI 歌单档案网站截图" width="90%">
+</p>
+
 > Fork 自 [PQL87/sui-song-list](https://github.com/PQL87/sui-song-list) 的数据，重新设计并构建。经过多轮数据清洗和功能迭代。
 
 ---
