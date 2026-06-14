@@ -38,6 +38,31 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
   background:radial-gradient(circle,rgba(255,153,0,.22) 0%,rgba(255,0,255,.12) 50%,transparent 70%);filter:blur(80px);pointer-events:none;z-index:0;animation:sunBreath 4s ease-in-out infinite}
 @keyframes sunBreath{0%,100%{transform:translateX(-50%) scale(1);opacity:1}50%{transform:translateX(-50%) scale(1.06);opacity:.85}}
 
+/* ═══════ BACKGROUND ILLUSTRATION ═══════ */
+.bg-illust{
+  position:fixed;inset:0;z-index:-2;pointer-events:none;
+  background-image:url('assets/bg-illust.webp');
+  background-size:cover;background-position:var(--bg-x,85%) var(--bg-y,92%);
+  background-repeat:no-repeat;
+  opacity:var(--bg-opacity,.22);filter:blur(.4px) brightness(.62);
+  transition:background-position .8s ease,opacity .5s ease;
+}
+.bg-overlay{
+  position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(ellipse at 50% 40%,transparent 20%,rgba(9,0,20,.45) 55%,rgba(9,0,20,.88) 100%);
+}
+/* Position variants */
+.bg-illust.pos-bl{--bg-x:12%;--bg-y:92%}
+.bg-illust.pos-rc{--bg-x:93%;--bg-y:48%}
+.bg-illust.pos-fc{--bg-x:45%;--bg-y:42%}
+/* Landscape: auto face-center */
+@media(orientation:landscape){
+  .bg-illust:not(.pos-bl):not(.pos-rc):not(.pos-fc){--bg-x:45%;--bg-y:42%}
+}
+/* Subtle breathing animation */
+@keyframes bgBreath{0%,100%{opacity:.22}50%{opacity:.26}}
+.bg-illust.animate{animation:bgBreath 6s ease-in-out infinite}
+
 .container{max-width:1200px;margin:0 auto;padding:0 20px;position:relative;z-index:1}
 
 /* HERO */
@@ -56,7 +81,7 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
 
 /* STATS */
 .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:40px}
-.stat-card{border:1px solid rgba(255,0,255,.25);border-top:2px solid var(--cyan);background:var(--card);backdrop-filter:blur(12px);padding:18px 14px;text-align:center;transition:all .2s}
+.stat-card{border:1px solid rgba(255,0,255,.25);border-top:2px solid var(--cyan);background:rgba(26,16,60,.88);backdrop-filter:blur(18px);padding:18px 14px;text-align:center;transition:all .2s}
 .stat-card:hover{transform:translateY(-3px);box-shadow:var(--glow-c);border-top-color:var(--magenta)}
 .stat-num{font-family:var(--font-h);font-size:2rem;font-weight:900;background:linear-gradient(135deg,var(--cyan),var(--magenta));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1.2;transition:all .3s}
 .stat-card.animated .stat-num{animation:numGlow .6s ease-out}
@@ -66,7 +91,7 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
 /* CONTROLS */
 .controls{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:20px}
 .search-box{flex:1;min-width:220px;position:relative}
-.search-box input{width:100%;border:none;border-bottom:2px solid var(--magenta);background:rgba(0,0,0,.5);color:var(--cyan);font-family:var(--font-m);font-size:15px;padding:10px 14px 10px 36px;outline:none;transition:all .2s}
+.search-box input{width:100%;border:none;border-bottom:2px solid var(--magenta);background:rgba(0,0,0,.55);backdrop-filter:blur(10px);color:var(--cyan);font-family:var(--font-m);font-size:15px;padding:10px 14px 10px 36px;outline:none;transition:all .2s}
 .search-box input:hover{border-bottom-color:var(--cyan);box-shadow:0 2px 12px rgba(0,255,255,.1)}
 .search-box input:focus{border-bottom-color:var(--cyan);box-shadow:0 4px 20px rgba(0,255,255,.15)}
 .search-box input::placeholder{color:rgba(255,0,255,.4)}
@@ -79,7 +104,7 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
 .sort-select option{background:#090014;color:var(--text)}
 
 /* TABLE */
-.table-wrap{border:1px solid rgba(255,0,255,.2);border-top:2px solid var(--cyan);background:var(--card);backdrop-filter:blur(12px);overflow:hidden;margin-bottom:20px}
+.table-wrap{border:1px solid rgba(255,0,255,.2);border-top:2px solid var(--cyan);background:rgba(26,16,60,.88);backdrop-filter:blur(18px);overflow:hidden;margin-bottom:20px}
 .table-header{display:grid;grid-template-columns:54px 36px 1fr 100px 80px 60px 110px;border-bottom:1px solid rgba(255,0,255,.2);background:rgba(0,0,0,.3)}
 .table-header span{font-family:var(--font-m);font-size:11px;letter-spacing:var(--ls-normal);color:var(--cyan);padding:12px 10px;text-shadow:0 0 8px rgba(0,255,255,.5)}
 .song-list{overflow-y:auto}
@@ -140,7 +165,7 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
 
 /* ARTIST */
 .artist-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-bottom:40px}
-.artist-card{border:1px solid rgba(255,0,255,.15);border-top:2px solid var(--magenta);background:var(--card);backdrop-filter:blur(8px);padding:16px;transition:all .2s}
+.artist-card{border:1px solid rgba(255,0,255,.15);border-top:2px solid var(--magenta);background:rgba(26,16,60,.88);backdrop-filter:blur(14px);padding:16px;transition:all .2s}
 .artist-card:hover{transform:translateY(-2px);box-shadow:var(--glow-m);border-top-color:var(--cyan)}
 .artist-name{font-family:var(--font-cjk);font-size:14px;font-weight:700;color:var(--cyan);letter-spacing:var(--ls-tight);text-shadow:0 0 8px rgba(0,255,255,.4);margin-bottom:6px}
 .artist-meta{font-family:var(--font-m);font-size:11px;color:var(--text-dim);letter-spacing:1px}
@@ -167,6 +192,11 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
 .back-top{position:fixed;bottom:30px;right:30px;width:44px;height:44px;border:1px solid var(--magenta);background:rgba(26,16,60,.9);color:var(--magenta);font-family:var(--font-m);font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:100;opacity:0;transform:translateY(20px);transition:all .3s cubic-bezier(.4,0,.2,1);backdrop-filter:blur(8px);pointer-events:none}
 .back-top.visible{opacity:1;transform:translateY(0);pointer-events:auto}
 .back-top:hover{background:var(--magenta);color:#000;box-shadow:var(--glow-m)}
+
+/* BG position toggle */
+.bg-pos-btn{position:fixed;bottom:30px;right:82px;width:38px;height:38px;border:1px solid rgba(255,255,255,.2);background:rgba(26,16,60,.85);color:var(--text-dim);font-family:var(--font-h);font-size:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:100;opacity:0;transform:translateY(20px);transition:all .3s cubic-bezier(.4,0,.2,1);backdrop-filter:blur(8px);pointer-events:none}
+.bg-pos-btn.visible{opacity:1;transform:translateY(0);pointer-events:auto}
+.bg-pos-btn:hover{border-color:var(--cyan);color:var(--cyan);box-shadow:0 0 12px rgba(0,255,255,.25)}
 
 .section{display:none}.section.active{display:block}
 
@@ -368,6 +398,10 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
   .player-clip-select{max-width:140px;font-size:11px}
   .player-iframe-wrap.expanded{height:280px}
   .play-btn{width:24px;height:24px;font-size:10px}
+  /* Background illustration - tablet */
+  .bg-illust{opacity:.18;background-image:url('assets/bg-illust-sm.webp');background-position:50% 90%}
+  .bg-overlay{background:radial-gradient(ellipse at 50% 40%,transparent 15%,rgba(9,0,20,.55) 55%,rgba(9,0,20,.9) 100%)}
+  .bg-pos-btn{right:70px;width:32px;height:32px;font-size:10px}
 }
 @media(max-width:480px){
   .table-header,.song-row{grid-template-columns:30px 28px 1fr 54px 44px 100px}
@@ -377,6 +411,11 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
   .export-btn{bottom:126px;right:20px;font-size:11px;padding:8px 12px}
   .export-panel{right:20px;bottom:170px}
   .cb-modal{width:95%}
+  .bg-pos-btn{right:56px;width:28px;height:28px;font-size:10px;bottom:24px}
+  .back-top{right:20px;width:36px;height:36px;font-size:14px;bottom:24px}
+  /* Background illustration - mobile */
+  .bg-illust{opacity:.14;background-position:50% 92%}
+  .bg-overlay{background:radial-gradient(ellipse at 50% 40%,transparent 10%,rgba(9,0,20,.6) 50%,rgba(9,0,20,.94) 100%)}
 }
 
 /* ═══════ CONTRIBUTE (我要补充) ═══════ */
@@ -551,6 +590,8 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
 <div class="scanlines"></div>
 <div class="grid-bg"></div>
 <div class="sun"></div>
+<div class="bg-illust" id="bgIllust"></div>
+<div class="bg-overlay"></div>
 
 <div class="container">
   <section class="hero">
@@ -654,6 +695,9 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
 
 <!-- BACK TO TOP -->
 <button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<!-- BG POSITION TOGGLE -->
+<button class="bg-pos-btn" id="bgPosBtn" title="切换背景位置">◇</button>
 
 <!-- CONTRIBUTE BUTTON -->
 <button class="contribute-btn" id="contributeBtn">我要补充</button>
@@ -1465,7 +1509,29 @@ function bindEvents(){
   document.getElementById('freqSearch').addEventListener('input',()=>renderFrequent());
   document.getElementById('artistSearch').addEventListener('input',()=>renderByArtist());
   document.getElementById('sortSelect').addEventListener('change',e=>{currentSort=e.target.value;currentPage=1;renderSongList();});
-  window.addEventListener('scroll',()=>{document.getElementById('backTop').classList.toggle('visible',window.scrollY>400);});
+  window.addEventListener('scroll',()=>{
+    const visible=window.scrollY>400;
+    document.getElementById('backTop').classList.toggle('visible',visible);
+    document.getElementById('bgPosBtn').classList.toggle('visible',visible);
+  });
+  // BG position cycle: face-center → bottom-right → bottom-left → right-center → face-center
+  const bgPositions=['pos-fc','','pos-bl','pos-rc'];
+  let bgPosIdx=0;
+  const bgIllust=document.getElementById('bgIllust');
+  document.getElementById('bgPosBtn').addEventListener('click',()=>{
+    bgIllust.classList.remove(...bgPositions);
+    bgPosIdx=(bgPosIdx+1)%bgPositions.length;
+    if(bgPositions[bgPosIdx])bgIllust.classList.add(bgPositions[bgPosIdx]);
+    try{localStorage.setItem('sui-bg-pos',bgPosIdx);}catch(e){}
+  });
+  // Restore saved position
+  try{
+    const saved=localStorage.getItem('sui-bg-pos');
+    if(saved!==null){
+      bgPosIdx=parseInt(saved)%bgPositions.length;
+      if(bgPositions[bgPosIdx])bgIllust.classList.add(bgPositions[bgPosIdx]);
+    }
+  }catch(e){}
 }
 
 init();
