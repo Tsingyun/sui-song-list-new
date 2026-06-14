@@ -529,7 +529,7 @@
       "last": "2026-03-13"
     },
     {
-      "name": "メルト（Melt）",
+      "name": "メルト",
       "translated": "融化",
       "artist": "初音ミク/supercell",
       "lang": "日语",
@@ -1139,14 +1139,14 @@
       "last": "2026-03-26"
     },
     {
-      "name": "シュガーソングとビターステップ (Sugar Song and Bitter Step)",
+      "name": "シュガーソングとビターステップ",
       "translated": "砂糖之歌与苦味舞步",
       "artist": "UNISON SQUARE GARDEN",
       "lang": "日语",
-      "count": 6,
+      "count": 8,
       "tier": "常唱",
       "first": "2022-10-16",
-      "last": "2024-10-01"
+      "last": "2025-11-25"
     },
     {
       "name": "シリウスの心臓",
@@ -1489,7 +1489,7 @@
       "last": "2025-05-18"
     },
     {
-      "name": "真夜中のドア~Stay With Me",
+      "name": "真夜中のドア~Stay With Me",
       "translated": "午夜之门~留在我身边",
       "artist": "松原みき",
       "lang": "日语",
@@ -2349,7 +2349,7 @@
       "last": "2026-03-13"
     },
     {
-      "name": "God knows...",
+      "name": "God knows...",
       "translated": "",
       "artist": "平野綾",
       "lang": "日语",
@@ -2369,7 +2369,7 @@
       "last": "2026-06-12"
     },
     {
-      "name": "I Really Want to Stay At Your House",
+      "name": "I Really Want to Stay at Your House",
       "translated": "",
       "artist": "Rosa Walton",
       "lang": "英文",
@@ -2429,7 +2429,7 @@
       "last": "2025-12-22"
     },
     {
-      "name": "Rolling star",
+      "name": "Rolling star",
       "translated": "",
       "artist": "YUI",
       "lang": "日语",
@@ -2469,7 +2469,7 @@
       "last": "2025-10-12"
     },
     {
-      "name": "Virtual to LIVE",
+      "name": "Virtual to LIVE",
       "translated": "",
       "artist": "VirtuaReal",
       "lang": "中文",
@@ -2979,7 +2979,7 @@
       "last": "2025-11-14"
     },
     {
-      "name": "神的随波逐流（中文）",
+      "name": "神的随波逐流",
       "translated": "",
       "artist": "泠鸢yousa",
       "lang": "中文",
@@ -3139,7 +3139,7 @@
       "last": "2025-11-20"
     },
     {
-      "name": "City Of Stars",
+      "name": "City Of Stars",
       "translated": "",
       "artist": "Ryan Gosling",
       "lang": "英文",
@@ -3299,7 +3299,7 @@
       "last": "2025-06-09"
     },
     {
-      "name": "trust you",
+      "name": "trust you",
       "translated": "",
       "artist": "伊藤由奈",
       "lang": "日语",
@@ -3379,11 +3379,11 @@
       "last": "2023-09-05"
     },
     {
-      "name": "エウテルペ（Euterpe）",
+      "name": "エウテルペ",
       "translated": "",
       "artist": "EGOIST",
       "lang": "日语",
-      "count": 3,
+      "count": 4,
       "tier": "偶尔",
       "first": "2022-09-07",
       "last": "2024-12-19"
@@ -3409,7 +3409,7 @@
       "last": "2025-05-06"
     },
     {
-      "name": "シリョクケンサ（视力检查）",
+      "name": "シリョクケンサ",
       "translated": "",
       "artist": "40mP（初音ミク）",
       "lang": "日语",
@@ -3419,7 +3419,7 @@
       "last": "2025-11-27"
     },
     {
-      "name": "シンクロサイクロトロン・スピリチュアライザー。（Synchrocyclotron · Spiritualizer。）",
+      "name": "シンクロサイクロトロン・スピリチュアライザー。",
       "translated": "同步回旋加速器",
       "artist": "GUMI",
       "lang": "日语",
@@ -3429,7 +3429,7 @@
       "last": "2025-06-20"
     },
     {
-      "name": "ダイヤモンド クレバス",
+      "name": "ダイヤモンド クレバス",
       "translated": "钻石裂痕",
       "artist": "雪露·诺姆（May'n）",
       "lang": "日语",
@@ -4529,7 +4529,7 @@
       "last": "2026-03-02"
     },
     {
-      "name": "Beautiful World",
+      "name": "Beautiful World",
       "translated": "",
       "artist": "宇多田ヒカル",
       "lang": "日语",
@@ -4539,7 +4539,7 @@
       "last": "2024-03-10"
     },
     {
-      "name": "Bling Bling Bling",
+      "name": "Bling Bling Bling",
       "translated": "",
       "artist": "后海大鲨鱼",
       "lang": "中文",
@@ -4579,7 +4579,7 @@
       "last": "2026-03-18"
     },
     {
-      "name": "Catch You Catch Me",
+      "name": "Catch You Catch Me",
       "translated": "",
       "artist": "日向めぐみ",
       "lang": "日语",
@@ -4609,7 +4609,7 @@
       "last": "2023-05-25"
     },
     {
-      "name": "DAYBREAK FRONTLINE",
+      "name": "Daybreak Frontline",
       "translated": "",
       "artist": "Linked Horizon",
       "lang": "英文",
@@ -4619,24 +4619,14 @@
       "last": "2025-11-27"
     },
     {
-      "name": "Don't Look Back In Anger",
-      "translated": "",
-      "artist": "Oasis",
-      "lang": "英文",
-      "count": 2,
-      "tier": "偶尔",
-      "first": "2026-05-17",
-      "last": "2026-05-17"
-    },
-    {
       "name": "Don't Look Back in Anger",
       "translated": "",
       "artist": "Oasis",
       "lang": "英文",
-      "count": 2,
+      "count": 4,
       "tier": "偶尔",
       "first": "2024-08-10",
-      "last": "2025-08-12"
+      "last": "2026-05-17"
     },
     {
       "name": "ENDLESS STORY",
@@ -4719,7 +4709,7 @@
       "last": "2025-12-25"
     },
     {
-      "name": "I'm Not the Only One",
+      "name": "I'm Not the Only One",
       "translated": "",
       "artist": "Sam Smith",
       "lang": "英文",
@@ -4749,7 +4739,7 @@
       "last": "2026-04-14"
     },
     {
-      "name": "Last Night,Good Night",
+      "name": "Last Night,Good Night",
       "translated": "",
       "artist": "kz（初音ミク）",
       "lang": "日语",
@@ -4799,7 +4789,7 @@
       "last": "2026-01-17"
     },
     {
-      "name": "One Last Time",
+      "name": "One Last Time",
       "translated": "",
       "artist": "Ariana Grande",
       "lang": "英文",
@@ -4839,7 +4829,7 @@
       "last": "2024-12-07"
     },
     {
-      "name": "Rolling in the Deep",
+      "name": "Rolling in the Deep",
       "translated": "",
       "artist": "Adele",
       "lang": "英文",
@@ -4909,11 +4899,11 @@
       "last": "2022-10-26"
     },
     {
-      "name": "again",
+      "name": "Again",
       "translated": "",
       "artist": "YUI",
       "lang": "日语",
-      "count": 2,
+      "count": 3,
       "tier": "偶尔",
       "first": "2022-09-16",
       "last": "2025-09-04"
@@ -4929,7 +4919,7 @@
       "last": "2023-10-20"
     },
     {
-      "name": "everytime you kissed me",
+      "name": "everytime you kissed me",
       "translated": "",
       "artist": "Emily Bindiger",
       "lang": "英文",
@@ -4969,7 +4959,7 @@
       "last": "2023-08-13"
     },
     {
-      "name": "secret base ~君がくれたもの~",
+      "name": "secret base ~君がくれたもの~",
       "translated": "secret base ～你所赠予之物～",
       "artist": "茅野愛衣/戸松遥/早見沙織",
       "lang": "日语",
@@ -5097,16 +5087,6 @@
       "tier": "偶尔",
       "first": "2023-04-18",
       "last": "2025-10-31"
-    },
-    {
-      "name": "シュガーソングとビターステップ",
-      "translated": "",
-      "artist": "UNISON SQUARE GARDEN",
-      "lang": "日语",
-      "count": 2,
-      "tier": "偶尔",
-      "first": "2024-10-01",
-      "last": "2025-11-25"
     },
     {
       "name": "ツギハギスタッカート",
@@ -6759,7 +6739,7 @@
       "last": "2024-07-02"
     },
     {
-      "name": "7 rings",
+      "name": "7 rings",
       "translated": "",
       "artist": "Ariana Grande",
       "lang": "英文",
@@ -6809,16 +6789,6 @@
       "last": "2026-06-07"
     },
     {
-      "name": "Again",
-      "translated": "",
-      "artist": "YUI",
-      "lang": "英文",
-      "count": 1,
-      "tier": "稀有",
-      "first": "2025-09-04",
-      "last": "2025-09-04"
-    },
-    {
       "name": "Alice in 冷凍庫",
       "translated": "",
       "artist": "Orangestar",
@@ -6839,7 +6809,7 @@
       "last": "2023-01-11"
     },
     {
-      "name": "Arrietty's Song",
+      "name": "Arrietty's Song",
       "translated": "阿莉埃蒂之歌",
       "artist": "Cécile CORBEL",
       "lang": "日语",
@@ -6869,7 +6839,7 @@
       "last": "2023-01-26"
     },
     {
-      "name": "Bang Bang",
+      "name": "Bang Bang",
       "translated": "",
       "artist": "Jessie J/Ariana Grande/Nicki Minaj",
       "lang": "英文",
@@ -6939,7 +6909,7 @@
       "last": "2022-09-25"
     },
     {
-      "name": "Counting Stars",
+      "name": "Counting Stars",
       "translated": "",
       "artist": "OneRepublic",
       "lang": "英文",
@@ -6959,7 +6929,7 @@
       "last": "2023-05-26"
     },
     {
-      "name": "Cry On My Shoulder",
+      "name": "Cry On My Shoulder",
       "translated": "",
       "artist": "Alexander Klaws/Juliette Schoppmann/Daniel Küblbck",
       "lang": "英文",
@@ -7089,7 +7059,7 @@
       "last": "2026-03-14"
     },
     {
-      "name": "Fly Me to the Star",
+      "name": "Fly Me to the Star",
       "translated": "飞我去星",
       "artist": "爱城华恋（小山百代）/神乐光（三森铃子）",
       "lang": "日语",
@@ -7099,7 +7069,7 @@
       "last": "2022-10-09"
     },
     {
-      "name": "Forever  Young",
+      "name": "Forever Young",
       "translated": "",
       "artist": "Bob Dylan",
       "lang": "英文",
@@ -7109,7 +7079,7 @@
       "last": "2025-10-03"
     },
     {
-      "name": "God knows",
+      "name": "God knows...",
       "translated": "",
       "artist": "神前暁（《涼宮ハルヒの憂鬱》）",
       "lang": "英文",
@@ -7129,7 +7099,7 @@
       "last": "2022-10-09"
     },
     {
-      "name": "Hide and Seek",
+      "name": "Hide and Seek",
       "translated": "",
       "artist": "Lizz Robinett",
       "lang": "英文",
@@ -7159,7 +7129,7 @@
       "last": "2024-06-15"
     },
     {
-      "name": "If I Ain't Got You",
+      "name": "If I Ain't Got You",
       "translated": "",
       "artist": "Alicia Keys",
       "lang": "英文",
@@ -7169,7 +7139,7 @@
       "last": "2023-04-16"
     },
     {
-      "name": "Into the Unknown",
+      "name": "Into the Unknown",
       "translated": "",
       "artist": "Idina Menzel",
       "lang": "英文",
@@ -7239,7 +7209,7 @@
       "last": "2026-02-09"
     },
     {
-      "name": "Let It Go",
+      "name": "Let It Go",
       "translated": "",
       "artist": "Idina Menzel",
       "lang": "英文",
@@ -7269,7 +7239,7 @@
       "last": "2024-10-15"
     },
     {
-      "name": "Love Me Like You Do",
+      "name": "Love Me Like You Do",
       "translated": "",
       "artist": "Ellie Goulding",
       "lang": "英文",
@@ -7299,7 +7269,7 @@
       "last": "2022-09-25"
     },
     {
-      "name": "Melty Land Nightmare",
+      "name": "Melty Land Nightmare",
       "translated": "",
       "artist": "はるまきごはん/初音ミク",
       "lang": "日语",
@@ -7319,7 +7289,7 @@
       "last": "2022-10-31"
     },
     {
-      "name": "Moon River",
+      "name": "Moon River",
       "translated": "",
       "artist": "Audrey Hepburn",
       "lang": "英文",
@@ -7339,7 +7309,7 @@
       "last": "2022-09-25"
     },
     {
-      "name": "My Heart Will Go On",
+      "name": "My Heart Will Go On",
       "translated": "我心永恒",
       "artist": "Céline Dion",
       "lang": "英文",
@@ -7599,7 +7569,7 @@
       "last": "2023-07-24"
     },
     {
-      "name": "Time after time～花舞う街で～",
+      "name": "Time after time～花舞う街で～",
       "translated": "Time after time～在落花纷飞的街道上～",
       "artist": "倉木麻衣",
       "lang": "日语",
@@ -7629,7 +7599,7 @@
       "last": "2024-06-01"
     },
     {
-      "name": "Virtual To LIVE",
+      "name": "Virtual to LIVE",
       "translated": "",
       "artist": "にじさんじ",
       "lang": "英文",
@@ -7649,7 +7619,7 @@
       "last": "2022-09-16"
     },
     {
-      "name": "We Will Rock You",
+      "name": "We Will Rock You",
       "translated": "",
       "artist": "Queen",
       "lang": "英文",
@@ -7739,7 +7709,7 @@
       "last": "2024-02-02"
     },
     {
-      "name": "crossing field",
+      "name": "crossing field",
       "translated": "",
       "artist": "LiSA",
       "lang": "日语",
@@ -8059,16 +8029,6 @@
       "last": "2022-09-25"
     },
     {
-      "name": "エウテルペ",
-      "translated": "",
-      "artist": "EGOIST",
-      "lang": "日语",
-      "count": 1,
-      "tier": "稀有",
-      "first": "2024-12-19",
-      "last": "2024-12-19"
-    },
-    {
       "name": "カワキヲアメク",
       "translated": "声嘶力竭",
       "artist": "美波",
@@ -8329,7 +8289,7 @@
       "last": "2022-11-21"
     },
     {
-      "name": "フォニイ（Phony）",
+      "name": "フォニイ",
       "translated": "",
       "artist": "可不/ツミキ",
       "lang": "日语",
@@ -8379,7 +8339,7 @@
       "last": "2024-10-07"
     },
     {
-      "name": "メリーメリー（Merry Merry）",
+      "name": "メリーメリー",
       "translated": "",
       "artist": "初音ミク",
       "lang": "日语",
@@ -8959,7 +8919,7 @@
       "last": "2025-12-09"
     },
     {
-      "name": "刹那プラス～Woody Arrange～",
+      "name": "刹那プラス～Woody Arrange～",
       "translated": "",
       "artist": "みきとP",
       "lang": "日语",
