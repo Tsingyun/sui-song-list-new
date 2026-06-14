@@ -167,27 +167,6 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
 .back-top{position:fixed;bottom:30px;right:30px;width:44px;height:44px;border:1px solid var(--magenta);background:rgba(26,16,60,.9);color:var(--magenta);font-family:var(--font-m);font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:100;opacity:0;transform:translateY(20px);transition:all .3s cubic-bezier(.4,0,.2,1);backdrop-filter:blur(8px);pointer-events:none}
 .back-top.visible{opacity:1;transform:translateY(0);pointer-events:auto}
 .back-top:hover{background:var(--magenta);color:#000;box-shadow:var(--glow-m)}
-.contribute-btn{position:fixed;bottom:84px;right:30px;width:auto;padding:10px 16px;border:1px solid var(--cyan);background:rgba(10,6,30,.92);color:var(--cyan);font-family:var(--font-h);font-size:13px;letter-spacing:var(--ls-normal);display:flex;align-items:center;gap:6px;cursor:pointer;z-index:100;backdrop-filter:blur(8px);transition:all .2s}
-.contribute-btn:hover{background:var(--cyan);color:#000;box-shadow:var(--glow-c);transform:translateY(-1px)}
-.contribute-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:10000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s}
-.contribute-overlay.show{opacity:1;pointer-events:auto}
-.contribute-dialog{background:linear-gradient(135deg,rgba(20,12,50,.98),rgba(10,6,30,.98));border:1px solid rgba(255,0,255,.3);border-radius:16px;padding:32px;max-width:440px;width:90%;box-shadow:0 8px 48px rgba(255,0,255,.15);backdrop-filter:blur(16px)}
-.contribute-dialog .cd-title{font-family:var(--font-h);font-size:20px;color:var(--accent);margin-bottom:4px;letter-spacing:var(--ls-wide)}
-.contribute-dialog .cd-sub{font-family:var(--font-m);font-size:11px;color:var(--text-dim);margin-bottom:20px}
-.contribute-dialog label{display:block;font-family:var(--font-m);font-size:11px;color:var(--text-dim);margin:12px 0 4px;letter-spacing:var(--ls-tight)}
-.contribute-dialog input{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:10px 14px;color:var(--text);font-family:var(--font-m);font-size:14px;outline:none;transition:border .2s;box-sizing:border-box}
-.contribute-dialog input:focus{border-color:var(--cyan)}
-.contribute-dialog .cd-hint{font-family:var(--font-m);font-size:10px;color:var(--text-dim);margin-top:4px}
-.contribute-dialog .cd-search-btn{display:inline-flex;align-items:center;gap:4px;margin-top:6px;padding:6px 12px;background:rgba(0,255,255,.1);border:1px solid rgba(0,255,255,.2);border-radius:6px;color:var(--cyan);font-family:var(--font-m);font-size:11px;cursor:pointer;transition:all .15s}
-.contribute-dialog .cd-search-btn:hover{background:rgba(0,255,255,.2)}
-.contribute-dialog .cd-actions{display:flex;gap:10px;margin-top:20px;justify-content:flex-end}
-.contribute-dialog .cd-actions button{padding:10px 20px;border-radius:8px;font-family:var(--font-h);font-size:13px;letter-spacing:var(--ls-normal);cursor:pointer;transition:all .15s}
-.contribute-dialog .cd-cancel{background:transparent;border:1px solid rgba(255,255,255,.15);color:var(--text-dim)}
-.contribute-dialog .cd-cancel:hover{color:var(--text);border-color:rgba(255,255,255,.3)}
-.contribute-dialog .cd-submit{background:linear-gradient(135deg,var(--magenta),var(--cyan));border:none;color:#000;font-weight:700}
-.contribute-dialog .cd-submit:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(255,0,255,.3)}
-.contribute-dialog .cd-preview{background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:12px;margin-top:16px;font-family:var(--font-m);font-size:11px;color:var(--text-dim);white-space:pre-wrap;max-height:120px;overflow-y:auto;display:none}
-.contribute-dialog .cd-preview.show{display:block}
 
 .section{display:none}.section.active{display:block}
 
@@ -504,30 +483,6 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
 
 <!-- BACK TO TOP -->
 <button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
-
-<!-- CONTRIBUTE BUTTON -->
-<button class="contribute-btn" id="contributeBtn" onclick="openContribute()">📝 我要补充</button>
-
-<!-- CONTRIBUTE MODAL -->
-<div class="contribute-overlay" id="contributeOverlay" onclick="if(event.target===this)closeContribute()">
-  <div class="contribute-dialog">
-    <div class="cd-title">📝 歌曲补充</div>
-    <div class="cd-sub">帮忙补充缺失的歌曲信息，审核后会更新到歌单</div>
-    <label>🎵 歌曲名称</label>
-    <input type="text" id="cdSongName" placeholder="例如：One Last Kiss">
-    <button class="cd-search-btn" onclick="searchArtist()">🔍 联网搜索原唱</button>
-    <label>🎤 原唱歌手</label>
-    <input type="text" id="cdArtist" placeholder="例如：宇多田ヒカル">
-    <label>📅 演唱日期</label>
-    <input type="date" id="cdDate" value="">
-    <div class="cd-hint">格式：YYYY-MM-DD，如填写今天日期表示岁己今天唱了这首歌</div>
-    <div class="cd-preview" id="cdPreview"></div>
-    <div class="cd-actions">
-      <button class="cd-cancel" onclick="closeContribute()">取消</button>
-      <button class="cd-submit" onclick="copyContribute()">📋 复制代码</button>
-    </div>
-  </div>
-</div>
 
 <!-- PLAYER PANEL -->
 <div class="player-panel" id="playerPanel">
@@ -1054,63 +1009,7 @@ function bindEvents(){
   window.addEventListener('scroll',()=>{document.getElementById('backTop').classList.toggle('visible',window.scrollY>400);});
 }
 
-try{document.getElementById('cdDate').value=new Date().toISOString().split('T')[0];}catch(e){}
-
-// ═══════ CONTRIBUTE ═══════
-function openContribute(){
-  document.getElementById('contributeOverlay').classList.add('show');
-  document.getElementById('cdPreview').classList.remove('show');
-}
-function closeContribute(){
-  document.getElementById('contributeOverlay').classList.remove('show');
-}
-function searchArtist(){
-  const name=document.getElementById('cdSongName').value.trim();
-  if(!name)return;
-  window.open('https://music.163.com/search/?type=1&s='+encodeURIComponent(name),'_blank');
-}
-function copyContribute(){
-  const name=document.getElementById('cdSongName').value.trim();
-  const artist=document.getElementById('cdArtist').value.trim();
-  const date=document.getElementById('cdDate').value;
-  if(!name){alert('请填写歌曲名称');return;}
-  if(!artist){alert('请填写原唱歌手');return;}
-  const issueTitle=encodeURIComponent('补充歌曲: '+name);
-  const issueBody=encodeURIComponent(
-    '### 🎵 歌曲信息
-'+
-    '| 字段 | 内容 |
-|------|------|
-'+
-    '| 歌曲名 | '+name+' |
-'+
-    '| 原唱 | '+artist+' |
-'+
-    '| 演唱日期 | '+date+' |
-'+
-    '| 语种 | (请补充) |
-
-'+
-    '### 📋 代码片段 (供管理员直接使用)
-```json
-'+
-    '{"name":"'+name+'","artist":"'+artist+'","date":"'+date+'","lang":"?","count":1}
-```'
-  );
-  const text='🎵 '+name+'｜🎤 '+artist+'｜📅 '+date;
-  const preview=document.getElementById('cdPreview');
-  preview.textContent=text+'
-
-已复制到剪贴板！请粘贴到 GitHub Issue 提交。';
-  preview.classList.add('show');
-  navigator.clipboard.writeText(text+'
-
->>> 请在 GitHub 提交: https://github.com/Tsingyun/sui-song-list-new/issues/new?title='+issueTitle+'&body='+issueBody).then(()=>{
-    showCopyToast('✅ 已复制！前往 GitHub 提交');
-  });
-}
-
 init();
 </script>
 </body>
-</html><!-- v3.0.1781456374 -->
+</html>
