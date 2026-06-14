@@ -560,6 +560,33 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
 .cb-status.show{display:block}
 .cb-status.success{color:#4ade80}
 .cb-status.error{color:var(--magenta)}
+
+/* ═══════ TAG BADGES ═══════ */
+.tag-badges{display:flex;gap:3px;flex-wrap:wrap;margin-top:2px}
+.tag-badge{display:inline-block;padding:0 5px;font-size:9px;font-family:var(--font-m);letter-spacing:.5px;
+  border:1px solid;line-height:16px;white-space:nowrap;opacity:.85}
+.tag-流行{border-color:#ff6b9d;color:#ff6b9d}.tag-摇滚{border-color:#ff4757;color:#ff4757}
+.tag-抒情{border-color:#70a1ff;color:#70a1ff}.tag-R&B{border-color:#ffa502;color:#ffa502}
+.tag-电子{border-color:#7bed9f;color:#7bed9f}.tag-Vocaloid{border-color:#a29bfe;color:#a29bfe}
+.tag-动画{border-color:#ff6348;color:#ff6348}.tag-古风{border-color:#eccc68;color:#eccc68}
+.tag-独立{border-color:#2ed573;color:#2ed573}.tag-民谣{border-color:#a4b0be;color:#a4b0be}
+.tag-K-Pop{border-color:#ff7979;color:#ff7979}.tag-爵士{border-color:#badc58;color:#badc58}
+.tag-经典{border-color:#c4c4c4;color:#c4c4c4}.tag-影视{border-color:#686de0;color:#686de0}
+.tag-游戏{border-color:#30336b;color:#30336b}.tag-说唱{border-color:#eb4d4b;color:#eb4d4b}
+.tag-舞曲{border-color:#f9ca24;color:#f9ca24}.tag-民歌{border-color:#dfe6e9;color:#dfe6e9}
+.tag-民俗{border-color:#b2bec3;color:#b2bec3}
+.tag-City Pop{border-color:#fd79a8;color:#fd79a8}.tag-合成器流行{border-color:#6c5ce7;color:#6c5ce7}
+.tag-灵魂{border-color:#e17055;color:#e17055}.tag-迪斯科{border-color:#fdcb6e;color:#fdcb6e}
+.tag-金属{border-color:#636e72;color:#636e72}.tag-朋克{border-color:#d63031;color:#d63031}
+.tag-梦幻流行{border-color:#a29bfe;color:#a29bfe}.tag-Lo-Fi{border-color:#81ecec;color:#81ecec}
+.tag-后摇{border-color:#74b9ff;color:#74b9ff}.tag-氛围{border-color:#55efc4;color:#55efc4}
+
+/* Tag filter bar */
+.tag-filter-bar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;padding:10px 0;border-bottom:1px solid var(--border)}
+.tag-filter-btn{font-family:var(--font-m);font-size:11px;padding:4px 12px;border:1px solid var(--border);
+  background:transparent;color:var(--text-dim);cursor:pointer;transition:all .2s;white-space:nowrap}
+.tag-filter-btn:hover{border-color:var(--cyan);color:var(--cyan)}
+.tag-filter-btn.active{border-color:var(--cyan);color:var(--cyan);background:rgba(0,255,255,.08);box-shadow:0 0 8px rgba(0,255,255,.15)}
 </style>
 </head>
 <body>
@@ -604,6 +631,7 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
       <button class="filter-btn" data-quick="once">仅唱一次</button>
       <button class="filter-btn" data-quick="dormant">很久没唱</button>
     </div>
+    <div class="tag-filter-bar" id="tagFilters"></div>
     <div class="table-wrap">
       <div class="table-header"><span>#</span><span>♪</span><span>歌曲名</span><span>原唱</span><span>语言</span><span>次</span><span>最近</span></div>
       <div class="song-list" id="songList"></div>
@@ -751,7 +779,7 @@ const SONG_DATES = ''' + dates_json + ''';
 const STATS = ''' + stats_json + ''';
 const LANG_COUNTS = ''' + lang_json + ''';
 
-let currentSection='all',currentLang='all',currentSort='count-desc',searchQuery='',currentPage=1,currentQuick='all';
+let currentSection='all',currentLang='all',currentSort='count-desc',searchQuery='',currentPage=1,currentQuick='all',currentTag='all';
 const PAGE_SIZE=50;
 const TODAY=new Date('2026-06-14');
 
@@ -979,7 +1007,22 @@ function bindContribute(){
   songInput.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();lookupBtn.click();}});
 }
 
-function init(){renderStats();renderLangFilters();renderSongList();bindEvents();bindBlindBox();bindPlayer();bindContribute();
+function renderTagFilters(){
+  var tm={};SONGS.forEach(function(s){if(s.tags)s.tags.forEach(function(t){tm[t]=(tm[t]||0)+1;});});
+  var sorted=Object.keys(tm).sort(function(a,b){return tm[b]-tm[a];});
+  var c=document.getElementById('tagFilters');
+  var h='<button class="tag-filter-btn active" data-tag="all">全部标签</button>';
+  h+=sorted.map(function(t){return '<button class="tag-filter-btn" data-tag="'+t+'">'+t+' <span style="opacity:.5;font-size:9px">'+tm[t]+'</span></button>';}).join('');
+  c.innerHTML=h;
+  c.querySelectorAll('.tag-filter-btn').forEach(function(b){
+    b.addEventListener('click',function(){
+      c.querySelectorAll('.tag-filter-btn').forEach(function(x){x.classList.remove('active');});
+      b.classList.add('active');currentTag=b.dataset.tag;currentPage=1;renderSongList();
+    });
+  });
+}
+
+function init(){renderStats();renderLangFilters();renderTagFilters();renderSongList();bindEvents();bindBlindBox();bindPlayer();bindContribute();
   // Handle initial hash (e.g. #lang-日语) — instant reveal + scroll
   if(window.location.hash){
     setTimeout(()=>{
@@ -1026,6 +1069,8 @@ function getFilteredSongs(){
   else if(currentQuick==='dormant')list=list.filter(s=>daysSince(s.last)>=180).sort((a,b)=>daysSince(b.last)-daysSince(a.last));
   // Lang
   if(currentLang!=='all')list=list.filter(s=>s.lang===currentLang);
+  // Tag
+  if(currentTag!=='all')list=list.filter(s=>s.tags&&s.tags.includes(currentTag));
   // Search
   if(searchQuery){const q=searchQuery.toLowerCase();list=list.filter(s=>s.name.toLowerCase().includes(q)||s.artist.toLowerCase().includes(q)||s.translated.toLowerCase().includes(q));}
   // Sort (skip if dormant already sorted)
@@ -1057,10 +1102,11 @@ function renderSongList(){
       const gr=rankMap[s.name],isTop10=gr<=10;
       const tier=s.count>=5?'frequent':(s.count>=2?'occasional':'rare');
       const transInfo=s.translated?`<small>${s.translated}</small>`:'';
+      const tagBdg=(s.tags&&s.tags.length)?`<span class="tag-badges">${s.tags.map(t=>'<span class="tag-badge tag-'+t+'">'+t+'</span>').join('')}</span>`:'';
       const dateStr=s.last||'—';
       const pb=playBtnHTML(s);
       return`<div class="song-row tier-${tier} ${isTop10?'top10-row':''}">
-        <span class="idx">${isTop10?'★'+gr:gr}</span>${pb}<span class="name">${s.name}${transInfo}</span>
+        <span class="idx">${isTop10?'★'+gr:gr}</span>${pb}<span class="name">${s.name}${transInfo}${tagBdg}</span>
         <span class="artist">${s.artist||'—'}</span><span class="lang"><span class="lang-badge lang-${s.lang}">${s.lang}</span></span>
         <span class="count">${s.count}</span><span class="dates">${dateStr}</span></div>`;
     }).join('');
@@ -1090,9 +1136,10 @@ function renderFrequent(){
   list.sort((a,b)=>b.count-a.count||a.name.localeCompare(b.name,'zh'));
   const freqCont=document.getElementById('freqList');freqCont.innerHTML=list.map((s,i)=>{
     const transInfo=s.translated?`<small>${s.translated}</small>`:'';
+    const tagBdg=(s.tags&&s.tags.length)?`<span class="tag-badges">${s.tags.map(t=>'<span class="tag-badge tag-'+t+'">'+t+'</span>').join('')}</span>`:'';
     const dateStr=s.last||'—';
     return`<div class="song-row tier-frequent ${i<10?'top10-row':''}"><span class="idx">${i<10?'★':''}${i+1}</span>
-      ${playBtnHTML(s)}<span class="name">${s.name}${transInfo}</span><span class="artist">${s.artist||'—'}</span>
+      ${playBtnHTML(s)}<span class="name">${s.name}${transInfo}${tagBdg}</span><span class="artist">${s.artist||'—'}</span>
       <span class="lang"><span class="lang-badge lang-${s.lang}">${s.lang}</span></span>
       <span class="count">${s.count}</span><span class="dates">${dateStr}</span></div>`;
   }).join('');
