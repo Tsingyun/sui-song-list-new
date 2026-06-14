@@ -216,9 +216,11 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
 .bb-slot-track::before{top:0;background:linear-gradient(to bottom,rgba(9,0,20,.9),transparent)}
 .bb-slot-track::after{bottom:0;background:linear-gradient(to top,rgba(9,0,20,.9),transparent)}
 .bb-slot-inner{
-  transition:transform 0s linear;
+  transition:transform 0s linear, filter .3s ease;
   will-change:transform;
+  filter:blur(8px);
 }
+.bb-slot-inner.reveal{filter:blur(0)}
 .bb-slot-item{
   height:60px;display:flex;align-items:center;justify-content:center;
   font-family:var(--font-cjk);font-size:20px;font-weight:700;color:var(--text);
@@ -385,7 +387,7 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
       <button class="filter-btn" data-quick="dormant">很久没唱</button>
     </div>
     <div class="table-wrap">
-      <div class="table-header"><span>#</span><span>♪</span><span>歌曲名</span><span>原唱</span><span>语言</span><span>次</span><span>日期</span></div>
+      <div class="table-header"><span>#</span><span>♪</span><span>歌曲名</span><span>原唱</span><span>语言</span><span>次</span><span>最近</span></div>
       <div class="song-list" id="songList"></div>
     </div>
     <div class="pagination" id="pagination"></div>
@@ -395,7 +397,7 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
   <div class="section" id="sec-frequent">
     <div class="controls"><div class="search-box"><input type="text" id="freqSearch" placeholder="搜索常唱金曲..."></div></div>
     <div class="table-wrap">
-      <div class="table-header"><span>#</span><span>♪</span><span>歌曲名</span><span>原唱</span><span>语言</span><span>次</span><span>日期</span></div>
+      <div class="table-header"><span>#</span><span>♪</span><span>歌曲名</span><span>原唱</span><span>语言</span><span>次</span><span>最近</span></div>
       <div class="song-list" id="freqList"></div>
     </div>
   </div>
@@ -615,7 +617,7 @@ function renderSongList(){
       const gr=rankMap[s.name],isTop10=gr<=10;
       const tier=s.count>=5?'frequent':(s.count>=2?'occasional':'rare');
       const transInfo=s.translated?`<small>${s.translated}</small>`:'';
-      const dateStr=s.first===s.last?(s.first||'—'):`${s.first||'—'} ~ ${s.last||'—'}`;
+      const dateStr=s.last||'—';
       const pb=playBtnHTML(s);
       return`<div class="song-row tier-${tier} ${isTop10?'top10-row':''}">
         <span class="idx">${isTop10?'★'+gr:gr}</span>${pb}<span class="name">${s.name}${transInfo}</span>
@@ -647,7 +649,7 @@ function renderFrequent(){
   list.sort((a,b)=>b.count-a.count||a.name.localeCompare(b.name,'zh'));
   document.getElementById('freqList').innerHTML=list.map((s,i)=>{
     const transInfo=s.translated?`<small>${s.translated}</small>`:'';
-    const dateStr=s.first===s.last?(s.first||'—'):`${s.first||'—'} ~ ${s.last||'—'}`;
+    const dateStr=s.last||'—';
     return`<div class="song-row tier-frequent ${i<10?'top10-row':''}"><span class="idx">${i<10?'★':''}${i+1}</span>
       ${playBtnHTML(s)}<span class="name">${s.name}${transInfo}</span><span class="artist">${s.artist||'—'}</span>
       <span class="lang"><span class="lang-badge lang-${s.lang}">${s.lang}</span></span>
@@ -674,7 +676,7 @@ function renderByLang(){
     songs.forEach((s,i)=>{
       html+=`<div class="song-row tier-${s.count>=5?'frequent':(s.count>=2?'occasional':'rare')}" style="grid-template-columns:46px 1fr 100px 60px 80px;">
         <span class="idx">${i+1}</span><span class="name">${s.name}</span><span class="artist">${s.artist||'—'}</span>
-        <span class="count">${s.count}</span><span class="dates">${s.first||'—'}</span></div>`;
+        <span class="count">${s.count}</span><span class="dates">${s.last||'—'}</span></div>`;
     });
     html+='</div>';
   });
@@ -710,6 +712,7 @@ function bindBlindBox(){
     overlay.classList.add('show');
     resultEl.classList.remove('show');
     slotInner.innerHTML='';
+    slotInner.classList.remove('reveal');
     confettiEl.innerHTML='';
     drawBtn.disabled=false;
     // Pre-fill slot with random songs
@@ -736,6 +739,7 @@ function bindBlindBox(){
     reel.push(picked);
 
     slotInner.innerHTML=reel.map(s=>`<div class="bb-slot-item">${s.name}</div>`).join('');
+    slotInner.classList.add('reveal');
     slotInner.style.transition='none';
     slotInner.style.transform='translateY(0)';
 
