@@ -1,0 +1,27 @@
+# Build artifacts
+outputs/
+*.pyc
+__pycache__/
+
+# Temporary/progress files
+fetch_progress.json
+bilibili_videos.json
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Conversation uploads
+uploads/
+
+# Duplicate text exports
+sui_full_song_list.txt
+sui_song_list_full.txt

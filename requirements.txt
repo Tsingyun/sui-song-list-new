@@ -1,0 +1,6 @@
+# Core: build_site.py and match_songs.py use only Python standard library
+# No core dependencies required.
+
+# Optional (for specific scripts):
+# requests        # fetch_bilibili.py — B站 API requests
+# openpyxl        # rebuild_final.py  — Excel file generation
