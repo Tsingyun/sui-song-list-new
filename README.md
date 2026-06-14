@@ -242,7 +242,7 @@ B站 API 存在 `-352` 限流机制：
 
 ## 致谢
 
-- [岁己SUI](https://space.bilibili.com/37441530) — B站虚拟主播，感谢带来这么多精彩的歌曲演唱
+- [岁己SUI](https://space.bilibili.com/37441530) — B站虚拟主播，小岁小岁我们喜欢你
 - [PQL87/sui-song-list](https://github.com/PQL87/sui-song-list) 及其[贡献者们](https://github.com/PQL87/sui-song-list#project-contributors) — 提供歌曲基础数据
 
 ---
