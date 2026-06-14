@@ -1,12 +1,12 @@
 # 岁己SUI 歌单档案
 
-> **SUI_SONG_DATABASE V2.0** — 为虚拟主播 [岁己SUI](https://space.bilibili.com/37441530) 打造的 Vaporwave 风格歌单网站
+> **SUI_SONG_DATABASE V3.0** — 为虚拟主播 [岁己SUI](https://space.bilibili.com/37441530) 打造的 Vaporwave 风格歌单网站
 
-收录 **1,217** 首歌曲、**3,319** 次演唱记录，支持在线播放 B站录播片段。
+收录 **1,158** 首歌曲、**3,270** 次演唱记录，支持在线播放 B站录播片段。
 
 **[>>> 在线预览 <<<](https://tsingyun.github.io/sui-song-list-new/)**
 
-> Fork 自 [PQL87/sui-song-list](https://github.com/PQL87/sui-song-list) 的数据，重新设计并构建。
+> Fork 自 [PQL87/sui-song-list](https://github.com/PQL87/sui-song-list) 的数据，重新设计并构建。经过多轮数据清洗和功能迭代。
 
 ---
 
@@ -19,17 +19,19 @@
 + 单文件 HTML 架构
   - 所有 CSS / JS / 数据内嵌，零外部依赖
   - 可直接用浏览器打开，也可通过 GitHub Pages 部署
-  - 文件体积约 534 KB（含 1217 首歌曲完整数据）
+  - 文件体积约 622 KB（含 1158 首歌曲完整数据 + 1235 首日期记录）
 
 数据:
 + 多源数据整合
   - 基础歌单数据来自 suijisui.space（PQL87/sui-song-list）
   - B站视频数据来自 3 个投稿合集（2146 个视频）
   - 手动校正语言分类和原唱归属
+  - 合并重复歌曲、统一拼写、修正艺术家名称
+  - 演唱日期数据来自 suijisui.space + 本地 Excel 记录
 
 歌单显示:
 + 四视角浏览
-  - 全部歌曲 — 完整歌单，支持搜索 / 排序 / 筛选
+  - 全部歌曲 — 完整歌单，支持搜索 / 排序 / 筛选 / 分页
   - 常唱金曲 — 按演唱频率分组（5+ 次 / 2–4 次 / 仅 1 次）
   - 语言分类 — 中文 / 日语 / 英文 / 韩语 分组浏览
   - 原唱分类 — 按原唱歌手聚合，显示代表作和演唱次数
@@ -38,9 +40,11 @@
   - 歌名 / 原唱模糊搜索（实时过滤）
   - 多维排序：演唱次数 / 歌曲名称 / 首次日期 / 最近日期
   - 快捷筛选：常唱 (5+) / 偶尔 (2–4) / 仅唱一次 / 很久没唱
+  - 分页浏览（50 首/页）
 
 + 语言筛选
   - 中文 / 日语 / 英文 / 韩语 分类过滤
+  - 自动修正语言标注（根据艺术家国籍而非歌名判断）
 
 在线播放:
 + Bilibili iframe 播放器
@@ -48,6 +52,17 @@
   - 多版本歌曲支持切换不同录播片段（下拉选择器）
   - 固定底部播放面板，可展开/收起
   - 支持跳转 B站原视频链接
+
+演唱日期追溯:
++ 悬浮日期列查看完整演唱历史
+  - 鼠标悬停日期 → 弹出工具提示，列出所有演唱日期
+  - 最早日期橙色高亮，最近日期青色高亮
+  - 数据覆盖 1,235 首歌曲（来自本地 Excel + suijisui.space）
+
+一键复制:
++ 单击歌名自动复制
+  - 格式：🎵 歌名｜最近演唱：日期｜共演唱 N 次
+  - 顶部弹出渐变色 Toast 反馈
 
 盲盒抽歌:
 + 赛博老虎机动画
@@ -57,10 +72,13 @@
 
 视觉设计:
 + Vaporwave / Outrun 风格
-  - Orbitron（标题）+ Share Tech Mono（数据）+ Noto Sans SC（中文）字体组合
+  - Orbitron（标题）+ Cascadia Code PL（数据）+ Noto Sans SC/JP（中日文）字体组合
   - 霓虹光效：品红 / 青色 / 橙色三色系统
-  - CRT 扫描线叠加
-  - 透视网格背景
+  - CRT 扫描线叠加 + 透视网格背景
+  - Hero 标题 glitch 故障艺术入场动画
+  - 歌曲逐行侧滑渐显（IntersectionObserver）
+  - 统计数字平滑滚动计数（requestAnimationFrame）
+  - 自定义小鸟光标
   - 响应式网格布局
   - 常唱歌曲高亮边框（Top 10 星标）
 ```
@@ -71,13 +89,13 @@
 
 | 指标 | 数量 |
 |------|------|
-| 歌曲总数 | 1,217 |
-| 演唱总次数 | 3,319 |
-| 常唱 (5+次) | 230 首 |
-| 偶尔 (2–4次) | 451 首 |
-| 仅唱一次 | 536 首 |
-| B站视频匹配 | 941 首 (77%) |
-| 多版本歌曲 | 490 首 |
+| 歌曲总数 | 1,158 |
+| 演唱总次数 | 3,270 |
+| 常唱 (5+次) | 233 首 |
+| 偶尔 (2–4次) | 430 首 |
+| 仅唱一次 | 495 首 |
+| B站视频匹配 | 916 首 (79%) |
+| 演唱日期可追溯 | 1,235 首 |
 | 收录时间跨度 | 2022.09 — 2026.06 |
 
 ---
@@ -88,37 +106,48 @@
 sui-song-list-new/
 ├── README.md
 ├── LICENSE
+├── AGENTS.md                         AI 助理工作手册
 ├── .gitignore
 ├── requirements.txt
-├── scripts/                        构建流程脚本
-│   ├── fetch_bilibili.py              Phase 1: B站合集视频数据抓取
-│   │                                  - 3个合集，支持断点续传
-│   │                                  - 自动处理 -352 限流（60s冷却）
-│   │                                  - 增量保存 fetch_progress.json
+├── scripts/                         构建流程脚本
+│   ├── fetch_bilibili.py             Phase 1: B站合集视频数据抓取
+│   │                                 - 3个合集，支持断点续传
+│   │                                 - 自动处理 -352 限流（60s冷却）
+│   │                                 - 增量保存 fetch_progress.json
 │   │
-│   ├── match_songs.py                 Phase 2: 歌曲-视频标题匹配
-│   │                                  - NFKC Unicode 归一化
-│   │                                  - 多策略匹配（精确/译名/基础名/包含）
-│   │                                  - 70% 长度比阈值防止误匹配
-│   │                                  - 合并已有 BVID 数据
+│   ├── match_songs.py                Phase 2: 歌曲-视频标题匹配
+│   │                                 - NFKC Unicode 归一化
+│   │                                 - 多策略匹配（精确/译名/基础名/包含）
+│   │                                 - 70% 长度比阈值防止误匹配
+│   │                                 - 合并已有 BVID 数据
 │   │
-│   ├── rebuild_final.py               Phase 3: 数据修正
-│   │                                  - 语言分类手动校正
-│   │                                  - 原唱归属修正（网易云API查询）
-│   │                                  - 生成 Excel 歌单（可选）
+│   ├── add_songs.py                  Phase 3: 新增歌曲到歌单
+│   │                                 - 命令行交互式添加
+│   │                                 - 自动更新 song_data.json
 │   │
-│   └── build_site.py                  Phase 4: 生成最终网站
-│                                      - 合并 song_data + bilibili_map
-│                                      - 内嵌所有 CSS/JS/数据到单 HTML
-│                                      - 输出到 docs/index.html
+│   ├── rebuild_final.py              Phase 3b: 数据修正
+│   │                                 - 语言分类手动校正
+│   │                                 - 原唱归属修正
+│   │                                 - 生成 Excel 歌单（可选）
+│   │
+│   ├── build_site.py                 Phase 4: 生成最终网站
+│   │                                 - 合并 song_data + bilibili_map + date data
+│   │                                 - 内嵌所有 CSS/JS/数据到单 HTML
+│   │                                 - 输出到 docs/index.html
+│   │
+│   └── audit_*.py / fix_*.py        数据审计与修复脚本
+│                                     - 艺术家名称审计与修复
+│                                     - 歌名拼写/重复审计与修复
+│                                     - 语言标注审计与修复
+│                                     - 日期数据同步与合并
 │
-├── data/                           数据文件
-│   ├── sui_song_list_complete.json    原始数据（来自 suijisui.space）
-│   ├── song_data.json                 歌曲数据库（1217首，含修正）
-│   └── song_bilibili_map.json         歌曲-视频匹配（941首/2662片段）
+├── data/                            数据文件
+│   ├── sui_song_list_complete.json   完整歌单数据（含日期列表）
+│   ├── song_data.json                歌曲数据库（1158首）
+│   └── song_bilibili_map.json        歌曲-视频匹配（916首）
 │
-└── docs/                           GitHub Pages 部署
-    └── index.html                     最终网站（单文件，~534KB）
+└── docs/                            GitHub Pages 部署
+    └── index.html                    最终网站（单文件，~622KB）
 ```
 
 ---
@@ -127,11 +156,11 @@ sui-song-list-new/
 
 ### 环境要求
 
-Python 3.8+。核心脚本 (`build_site.py`, `match_songs.py`) 仅使用标准库，无需额外依赖。
+Python 3.8+。核心脚本 (`build_site.py`) 仅使用标准库，无需额外依赖。
 
 可选依赖：
 - `requests` — `fetch_bilibili.py` 需要（B站 API 请求）
-- `openpyxl` — `rebuild_final.py` 需要（生成 Excel 文件）
+- `openpyxl` — Excel 文件读取需要
 
 ### 快速开始
 
@@ -142,20 +171,33 @@ python -X utf8 scripts/build_site.py
 # 输出: docs/index.html
 ```
 
+### 数据更新与维护
+
+```bash
+# 添加新歌曲
+python -X utf8 scripts/add_songs.py
+
+# 数据审计（检查重复/拼写/语言标注）
+python -X utf8 scripts/audit_comprehensive.py
+
+# 更新演唱日期（从本地 Excel）
+# 需要先准备好 song_dates.json 或 Excel 文件
+
+# 重建网站
+python -X utf8 scripts/build_site.py
+```
+
 ### 完整流水线
 
 ```bash
 # Phase 1: 从B站合集抓取视频数据
-# 需处理 API 限流（-352 错误），支持断点续传
-# 预计运行时间：约 1 小时（2146 个视频，3 个合集）
 python -X utf8 scripts/fetch_bilibili.py
 
 # Phase 2: 歌曲与B站视频匹配
-# 标题归一化 + 多策略匹配，匹配率约 77%
 python -X utf8 scripts/match_songs.py
 
-# Phase 3: 数据修正（语言分类/原唱归属等手动校正）
-# 生成 song_data.json 和可选的 Excel 文件
+# Phase 3: 新增歌曲 / 数据修正
+python -X utf8 scripts/add_songs.py
 python -X utf8 scripts/rebuild_final.py
 
 # Phase 4: 生成最终网站
@@ -189,6 +231,16 @@ python -X utf8 scripts/build_site.py
    - 包含匹配（需 ≥70% 长度比，防止短名误匹配）
    - BVID 直连（源数据已有的 BV号直接使用）
 
+### 数据清洗经验
+
+项目经历了多轮数据清洗，主要经验：
+
+- **重复检测**：标准化歌名（去标点→小写）后对比，发现 30+ 对重复/相似歌曲
+- **艺术家统一**：同一艺术家多种拼写（如 DECO*27/DECO27/DECO 27）、Unicode 不间断空格（U+00A0）
+- **语言判定**：不能仅凭歌名字符判断语言，必须以艺术家国籍为准（如英文歌名的日文歌 `One Last Kiss`）
+- **日期数据**：多源合并（GitHub 源 + 本地 Excel），注意歌名变更后的匹配
+- **大小写统一**：以网易云音乐为参考源统一歌名大小写（`again` → `Again`，`drop pop candy` 保持小写）
+
 ### Bilibili API 限流处理
 
 B站 API 存在 `-352` 限流机制：
@@ -200,11 +252,12 @@ B站 API 存在 `-352` 限流机制：
 
 ### 单文件架构
 
-整个网站是一个 ~534KB 的 HTML 文件，包含：
-- 所有 CSS 样式（约 15KB）
-- 所有 JavaScript 逻辑（约 20KB）
-- 1217 首歌曲的完整数据（JSON 内嵌）
-- 941 首歌曲的 B站视频匹配数据
+整个网站是一个 ~622KB 的 HTML 文件，包含：
+- 所有 CSS 样式
+- 所有 JavaScript 逻辑（含动画、交互、数据渲染）
+- 1158 首歌曲的完整数据（JSON 内嵌）
+- 916 首歌曲的 B站视频匹配数据
+- 1235 首歌曲的演唱日期记录（SONG_DATES 查找表）
 
 零外部依赖，可直接用浏览器打开。
 
@@ -212,9 +265,21 @@ B站 API 存在 `-352` 限流机制：
 
 ## 后续计划
 
-- [ ] 添加网站截图到 README
-- [ ] 移动端适配优化
-- [ ] 网易云音乐链接（部分歌曲）
+- [x] 自定义鼠标光标
+- [x] Hero glitch 动画 + 歌曲逐行入场
+- [x] 统计数字滚动动画
+- [x] 字体排版优化（Orbitron 收敛 + Cascadia Code PL）
+- [x] 语言分类锚点跳转白屏修复
+- [x] 批量合并重复/相似歌曲
+- [x] 艺术家/歌手名称全面审计与修正
+- [x] 歌名拼写大小写审计与修正
+- [x] 演唱日期悬浮提示（按歌曲追溯完整演唱历史）
+- [x] 单击歌名一键复制
+- [x] 语言标注自动修正
+- [x] 日期数据多源合并（GitHub + 本地 Excel）
+- [x] 移动端响应式适配
+- [ ] 网站截图添加到 README
+- [ ] 网易云音乐外链
 - [ ] 歌曲分类标签（流行/摇滚/动画 等）
 - [ ] 数据自动更新脚本（定期抓取最新歌切）
 - [ ] 暗色/亮色主题切换
@@ -225,6 +290,7 @@ B站 API 存在 `-352` 限流机制：
 ## 数据来源
 
 - 歌曲基础数据：[suijisui.space](https://www.suijisui.space)（[GitHub: PQL87/sui-song-list](https://github.com/PQL87/sui-song-list)）
+- 演唱日期记录：本地 Excel 统计表 + suijisui.space
 - B站录播视频：[岁己SUI](https://space.bilibili.com/37441530) 的 B站投稿合集
   - 歌切合集（2024.6至今）— mid: 37441530, season_id: 3194603
   - 歌切合集（2022.12-2024.6）— mid: 37441530, season_id: 1004362
