@@ -1,9 +1,9 @@
 {
   "stats": {
-    "total_songs": 1217,
-    "matched_songs": 941,
+    "total_songs": 940,
+    "matched_songs": 940,
     "unmatched_songs": 276,
-    "total_clips": 2662
+    "total_clips": 2657
   },
   "matches": {
     "君の知らない物語": [
@@ -6868,6 +6868,12 @@
         "title": "【岁己SUI】Ref:rain   8.17直播歌切",
         "duration": 287,
         "date": "2024-08-17"
+      },
+      {
+        "bvid": "BV1tB4y1J7kD",
+        "title": "Re:frain (外部歌切)",
+        "duration": 0,
+        "date": ""
       }
     ],
     "SPiCa": [
@@ -15530,44 +15536,6 @@
         "title": "【岁己SUI】OverThink   5.18直播歌切",
         "duration": 79,
         "date": "2023-05-18"
-      }
-    ],
-    "Re:frain": [
-      {
-        "bvid": "BV17j536wEnQ",
-        "title": "【岁己SUI】Ref:rain【20260512歌切】",
-        "duration": 288,
-        "date": "2026-05-13"
-      },
-      {
-        "bvid": "BV1ZD2sB7Eo3",
-        "title": "【岁己SUI】Ref:rain【20251203直播歌切】",
-        "duration": 287,
-        "date": "2025-12-03"
-      },
-      {
-        "bvid": "BV1MeTizHE7b",
-        "title": "【岁己SUI】Ref:rain   6.7直播歌切",
-        "duration": 297,
-        "date": "2025-06-09"
-      },
-      {
-        "bvid": "BV1639RYaEb4",
-        "title": "【岁己SUI】Re:frain   3.7直播歌切",
-        "duration": 289,
-        "date": "2025-03-08"
-      },
-      {
-        "bvid": "BV1K6poepEEp",
-        "title": "【岁己SUI】Ref:rain   8.17直播歌切",
-        "duration": 287,
-        "date": "2024-08-17"
-      },
-      {
-        "bvid": "BV1tB4y1J7kD",
-        "title": "Re:frain (外部歌切)",
-        "duration": 0,
-        "date": ""
       }
     ],
     "Ring Ring Ring": [

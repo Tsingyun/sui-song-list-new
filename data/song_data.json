@@ -4,7 +4,8 @@
     "performances": 3319,
     "frequent": 230,
     "occasional": 451,
-    "once": 536
+    "once": 536,
+    "total_songs": 1217
   },
   "lang_counts": [
     {
@@ -1762,9 +1763,9 @@
       "translated": "",
       "artist": "Aimer",
       "lang": "日语",
-      "count": 5,
+      "count": 6,
       "tier": "常唱",
-      "first": "2024-08-17",
+      "first": "2022-09-21",
       "last": "2026-05-12"
     },
     {
@@ -7666,16 +7667,6 @@
       "tier": "稀有",
       "first": "2023-04-05",
       "last": "2023-04-05"
-    },
-    {
-      "name": "Re:frain",
-      "translated": "",
-      "artist": "Aimer",
-      "lang": "日语",
-      "count": 1,
-      "tier": "稀有",
-      "first": "2022-09-21",
-      "last": "2022-09-21"
     },
     {
       "name": "Redbone",
