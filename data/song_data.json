@@ -119,16 +119,6 @@
       "last": "2026-04-26"
     },
     {
-      "name": "One Last Kiss",
-      "translated": "最后一吻",
-      "artist": "宇多田ヒカル",
-      "lang": "日语",
-      "count": 14,
-      "tier": "常唱",
-      "first": "2022-09-28",
-      "last": "2024-11-30"
-    },
-    {
       "name": "入秋的第一场雨真让人矫情",
       "translated": "",
       "artist": "ChiliChill",
@@ -367,16 +357,6 @@
       "tier": "常唱",
       "first": "2022-09-07",
       "last": "2024-10-22"
-    },
-    {
-      "name": "Plastic Love",
-      "translated": "",
-      "artist": "竹内まりや",
-      "lang": "日语",
-      "count": 9,
-      "tier": "常唱",
-      "first": "2022-09-16",
-      "last": "2025-05-10"
     },
     {
       "name": "Pretender",
@@ -769,16 +749,6 @@
       "last": "2025-09-04"
     },
     {
-      "name": "Ghost of a smile",
-      "translated": "",
-      "artist": "EGOIST",
-      "lang": "日语",
-      "count": 7,
-      "tier": "常唱",
-      "first": "2022-09-17",
-      "last": "2025-02-14"
-    },
-    {
       "name": "The Loneliest Girl",
       "translated": "",
       "artist": "Nai Br.XX",
@@ -803,7 +773,7 @@
       "translated": "",
       "artist": "秦基博",
       "lang": "日语",
-      "count": 7,
+      "count": 8,
       "tier": "常唱",
       "first": "2023-12-16",
       "last": "2026-04-20"
@@ -883,7 +853,7 @@
       "translated": "",
       "artist": "何洁",
       "lang": "中文",
-      "count": 7,
+      "count": 8,
       "tier": "常唱",
       "first": "2023-07-11",
       "last": "2026-01-31"
@@ -1127,16 +1097,6 @@
       "tier": "常唱",
       "first": "2025-01-13",
       "last": "2026-04-10"
-    },
-    {
-      "name": "Let It Be",
-      "translated": "",
-      "artist": "The Beatles",
-      "lang": "英文",
-      "count": 6,
-      "tier": "常唱",
-      "first": "2022-09-06",
-      "last": "2024-08-10"
     },
     {
       "name": "Mela!",
@@ -1673,10 +1633,10 @@
       "translated": "",
       "artist": "金海心",
       "lang": "中文",
-      "count": 6,
+      "count": 7,
       "tier": "常唱",
       "first": "2022-09-28",
-      "last": "2024-03-07"
+      "last": "2024-10-14"
     },
     {
       "name": "雨爱",
@@ -1729,34 +1689,14 @@
       "last": "2026-04-30"
     },
     {
-      "name": "Fly Me to the Moon",
-      "translated": "",
-      "artist": "Frank Sinatra",
-      "lang": "英文",
-      "count": 5,
-      "tier": "常唱",
-      "first": "2022-09-10",
-      "last": "2025-05-27"
-    },
-    {
       "name": "One more time, One more chance",
       "translated": "",
       "artist": "山崎まさよし",
       "lang": "日语",
-      "count": 5,
+      "count": 7,
       "tier": "常唱",
       "first": "2023-12-16",
       "last": "2025-02-05"
-    },
-    {
-      "name": "Rainbow Girl",
-      "translated": "对不起，因为我是活在二次元的女孩",
-      "artist": "40mP",
-      "lang": "日语",
-      "count": 5,
-      "tier": "常唱",
-      "first": "2022-10-19",
-      "last": "2025-08-02"
     },
     {
       "name": "Ref:rain",
@@ -1777,26 +1717,6 @@
       "tier": "常唱",
       "first": "2022-09-15",
       "last": "2026-02-23"
-    },
-    {
-      "name": "Say So",
-      "translated": "",
-      "artist": "Doja Cat",
-      "lang": "日语",
-      "count": 5,
-      "tier": "常唱",
-      "first": "2022-09-26",
-      "last": "2025-02-06"
-    },
-    {
-      "name": "Someone Like You",
-      "translated": "",
-      "artist": "Adele",
-      "lang": "英文",
-      "count": 5,
-      "tier": "常唱",
-      "first": "2022-09-10",
-      "last": "2024-06-15"
     },
     {
       "name": "Stay Gold",
@@ -2313,7 +2233,7 @@
       "translated": "",
       "artist": "法老",
       "lang": "中文",
-      "count": 5,
+      "count": 6,
       "tier": "常唱",
       "first": "2023-05-04",
       "last": "2024-11-14"
@@ -2503,9 +2423,9 @@
       "translated": "",
       "artist": "竹内まりや",
       "lang": "英文",
-      "count": 4,
+      "count": 13,
       "tier": "偶尔",
-      "first": "2024-08-21",
+      "first": "2022-09-16",
       "last": "2025-12-22"
     },
     {
@@ -2559,16 +2479,6 @@
       "last": "2024-04-13"
     },
     {
-      "name": "from Y to Y",
-      "translated": "",
-      "artist": "初音ミク/ジミーサムP",
-      "lang": "日语",
-      "count": 4,
-      "tier": "偶尔",
-      "first": "2022-11-26",
-      "last": "2024-10-19"
-    },
-    {
       "name": "me me she",
       "translated": "",
       "artist": "Bruno Mars",
@@ -2577,16 +2487,6 @@
       "tier": "偶尔",
       "first": "2024-07-11",
       "last": "2025-12-21"
-    },
-    {
-      "name": "white album",
-      "translated": "",
-      "artist": "平野绫",
-      "lang": "日语",
-      "count": 4,
-      "tier": "偶尔",
-      "first": "2023-12-16",
-      "last": "2025-07-25"
     },
     {
       "name": "いつも何度でも",
@@ -3283,9 +3183,9 @@
       "translated": "",
       "artist": "Frank Sinatra",
       "lang": "英文",
-      "count": 3,
+      "count": 8,
       "tier": "偶尔",
-      "first": "2025-05-27",
+      "first": "2022-09-10",
       "last": "2026-04-20"
     },
     {
@@ -3303,9 +3203,9 @@
       "translated": "",
       "artist": "EGOIST",
       "lang": "英文",
-      "count": 3,
+      "count": 10,
       "tier": "偶尔",
-      "first": "2025-02-14",
+      "first": "2022-09-17",
       "last": "2026-05-09"
     },
     {
@@ -3327,16 +3227,6 @@
       "tier": "偶尔",
       "first": "2022-09-11",
       "last": "2026-03-18"
-    },
-    {
-      "name": "Rain Stops,Goodbye",
-      "translated": "",
-      "artist": "初音ミク/におP",
-      "lang": "日语",
-      "count": 3,
-      "tier": "偶尔",
-      "first": "2023-01-14",
-      "last": "2025-01-21"
     },
     {
       "name": "Remember Me",
@@ -3433,19 +3323,9 @@
       "translated": "那个夏日已然饱和",
       "artist": "カンザキイオリ/鏡音レン/鏡音リン",
       "lang": "日语",
-      "count": 3,
+      "count": 6,
       "tier": "偶尔",
       "first": "2023-06-22",
-      "last": "2025-06-28"
-    },
-    {
-      "name": "あの夏が飽和する。",
-      "translated": "",
-      "artist": "カンザキイオリ",
-      "lang": "日语",
-      "count": 3,
-      "tier": "偶尔",
-      "first": "2025-03-10",
       "last": "2026-04-19"
     },
     {
@@ -3509,23 +3389,13 @@
       "last": "2024-12-19"
     },
     {
-      "name": "キセキ~未来へ~",
-      "translated": "致以未来的足迹~",
-      "artist": "GReeeeN",
-      "lang": "日语",
-      "count": 3,
-      "tier": "偶尔",
-      "first": "2023-03-05",
-      "last": "2025-08-02"
-    },
-    {
       "name": "グリグリメガネと月光蟲",
       "translated": "",
-      "artist": "ハチ（米津玄师）",
+      "artist": "古川本舗",
       "lang": "日语",
-      "count": 3,
+      "count": 5,
       "tier": "偶尔",
-      "first": "2025-02-26",
+      "first": "2022-09-15",
       "last": "2026-03-29"
     },
     {
@@ -4473,9 +4343,9 @@
       "translated": "",
       "artist": "ヨルシカ",
       "lang": "日语",
-      "count": 3,
+      "count": 5,
       "tier": "偶尔",
-      "first": "2025-01-19",
+      "first": "2023-06-22",
       "last": "2026-03-18"
     },
     {
@@ -4893,9 +4763,9 @@
       "translated": "",
       "artist": "The Beatles",
       "lang": "英文",
-      "count": 2,
+      "count": 8,
       "tier": "偶尔",
-      "first": "2024-08-10",
+      "first": "2022-09-06",
       "last": "2026-05-17"
     },
     {
@@ -4919,23 +4789,13 @@
       "last": "2025-10-26"
     },
     {
-      "name": "No title",
-      "translated": "",
-      "artist": "Reol",
-      "lang": "日语",
-      "count": 2,
-      "tier": "偶尔",
-      "first": "2022-09-25",
-      "last": "2025-02-23"
-    },
-    {
       "name": "One Last Kiss",
       "translated": "",
       "artist": "宇多田ヒカル",
       "lang": "英文",
-      "count": 2,
+      "count": 16,
       "tier": "偶尔",
-      "first": "2024-11-30",
+      "first": "2022-09-28",
       "last": "2026-01-17"
     },
     {
@@ -4963,9 +4823,9 @@
       "translated": "",
       "artist": "40mP",
       "lang": "英文",
-      "count": 2,
+      "count": 7,
       "tier": "偶尔",
-      "first": "2025-02-22",
+      "first": "2022-10-19",
       "last": "2025-08-02"
     },
     {
@@ -4993,9 +4853,9 @@
       "translated": "",
       "artist": "Doja Cat",
       "lang": "英文",
-      "count": 2,
+      "count": 7,
       "tier": "偶尔",
-      "first": "2024-08-21",
+      "first": "2022-09-26",
       "last": "2025-02-06"
     },
     {
@@ -5009,23 +4869,13 @@
       "last": "2024-08-08"
     },
     {
-      "name": "Try Everything",
-      "translated": "",
-      "artist": "Shakira",
-      "lang": "英文",
-      "count": 2,
-      "tier": "偶尔",
-      "first": "2023-01-27",
-      "last": "2023-08-14"
-    },
-    {
       "name": "WHITE ALBUM",
       "translated": "",
       "artist": "平野綾",
       "lang": "英文",
-      "count": 2,
+      "count": 7,
       "tier": "偶尔",
-      "first": "2025-07-25",
+      "first": "2023-12-16",
       "last": "2025-12-25"
     },
     {
@@ -5093,9 +4943,9 @@
       "translated": "",
       "artist": "Jimmy Eat World",
       "lang": "英文",
-      "count": 2,
+      "count": 6,
       "tier": "偶尔",
-      "first": "2024-10-19",
+      "first": "2022-11-26",
       "last": "2025-11-29"
     },
     {
@@ -5117,26 +4967,6 @@
       "tier": "偶尔",
       "first": "2022-10-09",
       "last": "2023-08-13"
-    },
-    {
-      "name": "one more time one more chance",
-      "translated": "",
-      "artist": "山崎まさよし",
-      "lang": "英文",
-      "count": 2,
-      "tier": "偶尔",
-      "first": "2024-08-10",
-      "last": "2025-02-05"
-    },
-    {
-      "name": "rain stops, good‑bye",
-      "translated": "",
-      "artist": "The Script",
-      "lang": "英文",
-      "count": 2,
-      "tier": "偶尔",
-      "first": "2025-10-20",
-      "last": "2025-11-01"
     },
     {
       "name": "secret base ~君がくれたもの~",
@@ -5247,16 +5077,6 @@
       "tier": "偶尔",
       "first": "2024-11-18",
       "last": "2025-10-11"
-    },
-    {
-      "name": "グリグリメガネと月光虫",
-      "translated": "厚瓶底眼镜与月光虫",
-      "artist": "古川本舗",
-      "lang": "日语",
-      "count": 2,
-      "tier": "偶尔",
-      "first": "2022-09-15",
-      "last": "2023-07-08"
     },
     {
       "name": "コネクト",
@@ -5693,19 +5513,9 @@
       "translated": "被生命所厌恶",
       "artist": "初音ミク/カンザキイオリ",
       "lang": "日语",
-      "count": 2,
+      "count": 4,
       "tier": "偶尔",
       "first": "2022-09-08",
-      "last": "2025-04-19"
-    },
-    {
-      "name": "命に嫌われている。",
-      "translated": "",
-      "artist": "カンザキイオリ",
-      "lang": "日语",
-      "count": 2,
-      "tier": "偶尔",
-      "first": "2025-04-19",
       "last": "2025-11-28"
     },
     {
@@ -6699,16 +6509,6 @@
       "last": "2024-12-14"
     },
     {
-      "name": "言って 。",
-      "translated": "说吧。",
-      "artist": "ヨルシカ",
-      "lang": "日语",
-      "count": 2,
-      "tier": "偶尔",
-      "first": "2023-06-22",
-      "last": "2025-01-19"
-    },
-    {
       "name": "让风告诉你",
       "translated": "",
       "artist": "花玲",
@@ -7023,20 +6823,10 @@
       "translated": "",
       "artist": "Orangestar",
       "lang": "日语",
-      "count": 1,
-      "tier": "稀有",
-      "first": "2025-11-29",
-      "last": "2025-11-29"
-    },
-    {
-      "name": "Alice in 冷凍庫",
-      "translated": "",
-      "artist": "IA/Orangestar",
-      "lang": "日语",
-      "count": 1,
+      "count": 2,
       "tier": "稀有",
       "first": "2023-01-29",
-      "last": "2023-01-29"
+      "last": "2025-11-29"
     },
     {
       "name": "Alive",
@@ -7583,9 +7373,9 @@
       "translated": "",
       "artist": "Reol",
       "lang": "英文",
-      "count": 1,
+      "count": 3,
       "tier": "稀有",
-      "first": "2025-02-23",
+      "first": "2022-09-25",
       "last": "2025-02-23"
     },
     {
@@ -7713,20 +7503,10 @@
       "translated": "",
       "artist": "Billie Eilish",
       "lang": "英文",
-      "count": 1,
-      "tier": "稀有",
-      "first": "2023-09-09",
-      "last": "2023-09-09"
-    },
-    {
-      "name": "Six Feet Under",
-      "translated": "",
-      "artist": "Billie Eilish",
-      "lang": "英文",
-      "count": 1,
+      "count": 2,
       "tier": "稀有",
       "first": "2023-05-19",
-      "last": "2023-05-19"
+      "last": "2023-09-09"
     },
     {
       "name": "Solitude Rain",
@@ -7743,9 +7523,9 @@
       "translated": "",
       "artist": "Adele",
       "lang": "英文",
-      "count": 1,
+      "count": 6,
       "tier": "稀有",
-      "first": "2024-06-15",
+      "first": "2022-09-10",
       "last": "2024-06-15"
     },
     {
@@ -7793,20 +7573,10 @@
       "translated": "",
       "artist": "Katy Perry",
       "lang": "英文",
-      "count": 1,
-      "tier": "稀有",
-      "first": "2023-04-27",
-      "last": "2023-04-27"
-    },
-    {
-      "name": "Teenage Dream",
-      "translated": "",
-      "artist": "Katy Perry",
-      "lang": "英文",
-      "count": 1,
+      "count": 2,
       "tier": "稀有",
       "first": "2023-01-23",
-      "last": "2023-01-23"
+      "last": "2023-04-27"
     },
     {
       "name": "There For You",
@@ -7843,9 +7613,9 @@
       "translated": "",
       "artist": "Shakira",
       "lang": "英文",
-      "count": 1,
+      "count": 3,
       "tier": "稀有",
-      "first": "2025-12-10",
+      "first": "2023-01-27",
       "last": "2025-12-10"
     },
     {
@@ -7867,16 +7637,6 @@
       "tier": "稀有",
       "first": "2025-12-03",
       "last": "2025-12-03"
-    },
-    {
-      "name": "WHITEEALBUM",
-      "translated": "",
-      "artist": "平野綾",
-      "lang": "英文",
-      "count": 1,
-      "tier": "稀有",
-      "first": "2024-12-08",
-      "last": "2024-12-08"
     },
     {
       "name": "We Don't Talk Anymore",
@@ -8043,10 +7803,10 @@
       "translated": "",
       "artist": "The Script",
       "lang": "英文",
-      "count": 1,
+      "count": 6,
       "tier": "稀有",
-      "first": "2024-10-19",
-      "last": "2024-10-19"
+      "first": "2023-01-14",
+      "last": "2025-11-01"
     },
     {
       "name": "someone you loved",
@@ -8239,16 +7999,6 @@
       "last": "2025-11-21"
     },
     {
-      "name": "ひまわりの约束",
-      "translated": "",
-      "artist": "秦基博",
-      "lang": "日语",
-      "count": 1,
-      "tier": "稀有",
-      "first": "2025-10-05",
-      "last": "2025-10-05"
-    },
-    {
       "name": "ゆめくいしょうじょ",
       "translated": "食梦少女",
       "artist": "米津玄師",
@@ -8333,9 +8083,9 @@
       "translated": "",
       "artist": "HoneyWorks",
       "lang": "日语",
-      "count": 1,
+      "count": 4,
       "tier": "稀有",
-      "first": "2025-08-02",
+      "first": "2023-03-05",
       "last": "2025-08-02"
     },
     {
@@ -8423,19 +8173,9 @@
       "translated": "",
       "artist": "ハチ（米津玄师）",
       "lang": "日语",
-      "count": 1,
+      "count": 2,
       "tier": "稀有",
       "first": "2024-10-06",
-      "last": "2024-10-06"
-    },
-    {
-      "name": "シンクロサイクロトロン・スピリチュアライザー。",
-      "translated": "",
-      "artist": "ハチ（米津玄师）",
-      "lang": "日语",
-      "count": 1,
-      "tier": "稀有",
-      "first": "2025-06-21",
       "last": "2025-06-21"
     },
     {
@@ -9039,16 +8779,6 @@
       "last": "2023-08-25"
     },
     {
-      "name": "你就是我的风景",
-      "translated": "",
-      "artist": "何洁",
-      "lang": "中文",
-      "count": 1,
-      "tier": "稀有",
-      "first": "2023-09-04",
-      "last": "2023-09-04"
-    },
-    {
       "name": "你并不懂我",
       "translated": "",
       "artist": "by2",
@@ -9217,16 +8947,6 @@
       "tier": "稀有",
       "first": "2025-12-04",
       "last": "2025-12-04"
-    },
-    {
-      "name": "别那么骄傲",
-      "translated": "",
-      "artist": "金海心",
-      "lang": "中文",
-      "count": 1,
-      "tier": "稀有",
-      "first": "2024-10-14",
-      "last": "2024-10-14"
     },
     {
       "name": "刹那プラス",
@@ -9413,19 +9133,9 @@
       "translated": "这么可爱真是抱歉",
       "artist": "早見沙織",
       "lang": "日语",
-      "count": 1,
+      "count": 2,
       "tier": "稀有",
       "first": "2023-01-15",
-      "last": "2023-01-15"
-    },
-    {
-      "name": "可愛くてごめん",
-      "translated": "",
-      "artist": "HoneyWorks/早見沙織",
-      "lang": "日语",
-      "count": 1,
-      "tier": "稀有",
-      "first": "2025-03-30",
       "last": "2025-03-30"
     },
     {
@@ -9789,16 +9499,6 @@
       "last": "2024-08-22"
     },
     {
-      "name": "好き!雪!本気マジック",
-      "translated": "喜欢！雪！真实魔法",
-      "artist": "Mitchie M/初音ミク",
-      "lang": "日语",
-      "count": 1,
-      "tier": "稀有",
-      "first": "2023-08-19",
-      "last": "2023-08-19"
-    },
-    {
       "name": "好き！雪！本気(マジ)マジック",
       "translated": "",
       "artist": "Mitchie M初音ミク",
@@ -9813,9 +9513,9 @@
       "translated": "",
       "artist": "Mitchie M（初音ミク）",
       "lang": "日语",
-      "count": 1,
+      "count": 2,
       "tier": "稀有",
-      "first": "2025-12-24",
+      "first": "2023-08-19",
       "last": "2025-12-24"
     },
     {
@@ -10223,20 +9923,10 @@
       "translated": "",
       "artist": "蝶々P",
       "lang": "中文",
-      "count": 1,
-      "tier": "稀有",
-      "first": "2026-01-30",
-      "last": "2026-01-30"
-    },
-    {
-      "name": "心拍数♯0822",
-      "translated": "",
-      "artist": "初音ミク/蝶々P",
-      "lang": "日语",
-      "count": 1,
+      "count": 2,
       "tier": "稀有",
       "first": "2022-12-17",
-      "last": "2022-12-17"
+      "last": "2026-01-30"
     },
     {
       "name": "心要野",
@@ -11677,16 +11367,6 @@
       "tier": "稀有",
       "first": "2022-11-21",
       "last": "2022-11-21"
-    },
-    {
-      "name": "花,太阳,彩虹,你",
-      "translated": "",
-      "artist": "唐磊",
-      "lang": "中文",
-      "count": 1,
-      "tier": "稀有",
-      "first": "2024-11-14",
-      "last": "2024-11-14"
     },
     {
       "name": "花火",
