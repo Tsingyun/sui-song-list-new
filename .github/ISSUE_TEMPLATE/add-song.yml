@@ -1,0 +1,64 @@
+name: 🎵 补充歌曲信息
+description: 补充一首缺失的歌曲信息（歌曲名、原唱、演唱日期）
+title: "补充歌曲: "
+labels: ["contribution", "song-data"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 📝 歌曲补充模板
+        感谢你帮忙完善岁己SUI的歌单！请填写以下信息。
+
+  - type: input
+    id: song_name
+    attributes:
+      label: 🎵 歌曲名称
+      description: 歌曲的完整名称
+      placeholder: 例如：One Last Kiss
+    validations:
+      required: true
+
+  - type: input
+    id: artist
+    attributes:
+      label: 🎤 原唱歌手
+      description: 这首歌的原唱者（不是翻唱者哦）
+      placeholder: 例如：宇多田ヒカル
+    validations:
+      required: true
+
+  - type: input
+    id: date
+    attributes:
+      label: 📅 演唱日期
+      description: 岁己演唱这首歌的日期（格式 YYYY-MM-DD）
+      placeholder: 例如：2026-06-14
+    validations:
+      required: true
+
+  - type: dropdown
+    id: language
+    attributes:
+      label: 🌐 语种
+      description: 这首歌的语言
+      options:
+        - 中文
+        - 日语
+        - 英文
+        - 韩语
+        - 其他
+    validations:
+      required: true
+
+  - type: input
+    id: bvid
+    attributes:
+      label: 🎬 B站 BV号（可选）
+      description: 如果知道对应的B站录播视频BV号，可以填写
+      placeholder: 例如：BV1xx411c7Xx
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: 📝 备注（可选）
+      description: 其他需要说明的信息
