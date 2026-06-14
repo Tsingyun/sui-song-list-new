@@ -756,13 +756,11 @@ function renderSongList(){
       const tier=s.count>=5?'frequent':(s.count>=2?'occasional':'rare');
       const transInfo=s.translated?`<small>${s.translated}</small>`:'';
       const dateStr=s.last||'—';
-      const dArr=SONG_DATES[s.name];
-      const datesCount=dArr&&dArr.length?` 共${dArr.length}次`:'';
       const pb=playBtnHTML(s);
       return`<div class="song-row tier-${tier} ${isTop10?'top10-row':''}">
         <span class="idx">${isTop10?'★'+gr:gr}</span>${pb}<span class="name">${s.name}${transInfo}</span>
         <span class="artist">${s.artist||'—'}</span><span class="lang"><span class="lang-badge lang-${s.lang}">${s.lang}</span></span>
-        <span class="count">${s.count}</span><span class="dates">${dateStr}${datesCount}</span></div>`;
+        <span class="count">${s.count}</span><span class="dates">${dateStr}</span></div>`;
     }).join('');
   }
   renderPagination(filtered.length,totalPages);
@@ -791,12 +789,10 @@ function renderFrequent(){
   const freqCont=document.getElementById('freqList');freqCont.innerHTML=list.map((s,i)=>{
     const transInfo=s.translated?`<small>${s.translated}</small>`:'';
     const dateStr=s.last||'—';
-    const dArr=SONG_DATES[s.name];
-    const datesCount=dArr&&dArr.length?` 共${dArr.length}次`:'';
     return`<div class="song-row tier-frequent ${i<10?'top10-row':''}"><span class="idx">${i<10?'★':''}${i+1}</span>
       ${playBtnHTML(s)}<span class="name">${s.name}${transInfo}</span><span class="artist">${s.artist||'—'}</span>
       <span class="lang"><span class="lang-badge lang-${s.lang}">${s.lang}</span></span>
-      <span class="count">${s.count}</span><span class="dates">${dateStr}${datesCount}</span></div>`;
+      <span class="count">${s.count}</span><span class="dates">${dateStr}</span></div>`;
   }).join('');
   requestAnimationFrame(()=>revealRows(freqCont));
 }
@@ -864,8 +860,8 @@ document.addEventListener('click',e=>{
   const row=nameEl.closest('.song-row');
   const dateEl=row.querySelector('.dates');
   const songName=nameEl.childNodes[0]?.textContent||nameEl.textContent;
-  const rawDate=dateEl?dateEl.textContent:'—';
-  const lastDate=rawDate.replace(/ 共[0-9]+次$/,'').trim();
+  const songName=nameEl.childNodes[0]?.textContent||nameEl.textContent;
+  const lastDate=dateEl?dateEl.textContent:'—';
   const dArr=SONG_DATES[songName];
   const totalInfo=dArr&&dArr.length?`｜共演唱${dArr.length}次`:'';
   const text=`🎵 ${songName}｜最近演唱：${lastDate}${totalInfo}`;
@@ -898,11 +894,9 @@ function renderByLang(){
     if(!songs.length)return;
     html+=`<div class="lang-section" id="lang-${lang}"><div class="lang-header" style="color:${colors[lang]}">${lang}<span class="count-tag">${songs.length} 首</span></div>`;
     songs.forEach((s,i)=>{
-      const dArr=SONG_DATES[s.name];
-      const dc=dArr&&dArr.length?` 共${dArr.length}次`:'';
       html+=`<div class="song-row tier-${s.count>=5?'frequent':(s.count>=2?'occasional':'rare')}" style="grid-template-columns:46px 1fr 100px 60px 110px;">
         <span class="idx">${i+1}</span><span class="name">${s.name}</span><span class="artist">${s.artist||'—'}</span>
-        <span class="count">${s.count}</span><span class="dates">${s.last||'—'}${dc}</span></div>`;
+        <span class="count">${s.count}</span><span class="dates">${s.last||'—'}</span></div>`;
     });
     html+='</div>';
   });
