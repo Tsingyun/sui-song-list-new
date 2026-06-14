@@ -633,7 +633,15 @@ function animateStats(){
     requestAnimationFrame(update);
   });
 }
-function init(){renderStats();renderLangFilters();renderSongList();bindEvents();bindBlindBox();bindPlayer()}
+function init(){renderStats();renderLangFilters();renderSongList();bindEvents();bindBlindBox();bindPlayer();
+  // Handle initial hash (e.g. #lang-日语) — instant reveal + scroll
+  if(window.location.hash){
+    setTimeout(()=>{
+      const target=document.querySelector(window.location.hash);
+      if(target){revealRows(target,true);target.scrollIntoView({behavior:'smooth',block:'start'});}
+    },300);
+  }
+}
 
 function renderStats(){
   const g=document.getElementById('statsGrid');
@@ -890,18 +898,34 @@ function bindBlindBox(){
 }
 
 // ═══════ EVENTS ═══════
-function revealRows(container){
+function revealRows(container,instant){
   const rows=container.querySelectorAll('.song-row:not(.reveal)');
   rows.forEach((row,i)=>{
-    row.style.animationDelay=(i*0.02)+'s';
+    row.style.animationDelay=(instant?0:i*0.008)+'s';
     row.classList.add('reveal');
   });
 }
-function revealCards(container){
+function revealCards(container,instant){
   const cards=container.querySelectorAll('.artist-card');
   cards.forEach((card,i)=>{
     card.style.opacity=0;card.style.transform='translateY(12px)';card.style.transition='all .3s ease';
-    setTimeout(()=>{card.style.opacity=1;card.style.transform='translateY(0)';},i*40);
+    setTimeout(()=>{card.style.opacity=1;card.style.transform='translateY(0)';},instant?0:i*20);
+  });
+}
+function bindLangNav(){
+  // Intercept language nav clicks for instant reveal + smooth scroll
+  document.querySelectorAll('.lang-quick-nav a').forEach(a=>{
+    a.addEventListener('click',function(e){
+      const href=this.getAttribute('href');
+      if(!href||!href.startsWith('#lang-'))return;
+      e.preventDefault();
+      const target=document.querySelector(href);
+      if(!target)return;
+      // Instant reveal this section's rows
+      revealRows(target,true);
+      // Smooth scroll
+      target.scrollIntoView({behavior:'smooth',block:'start'});
+    });
   });
 }
 function bindEvents(){
@@ -912,7 +936,7 @@ function bindEvents(){
       document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
       const sec=document.getElementById('sec-'+currentSection);sec.classList.add('active');
       if(currentSection==='frequent'){renderFrequent();}
-      if(currentSection==='lang'){renderByLang();revealRows(sec);}
+      if(currentSection==='lang'){renderByLang();revealRows(sec,true);bindLangNav();}
       if(currentSection==='artist'){renderByArtist();revealCards(sec);}
       if(currentSection==='all'){renderSongList();}
     });
