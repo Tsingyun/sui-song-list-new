@@ -1,6 +1,6 @@
 # 岁己SUI 歌单档案
 
-> **SUI_SONG_DATABASE V3.0** — 为虚拟主播 [岁己SUI](https://space.bilibili.com/37441530) 打造的 Vaporwave 风格歌单网站
+> **SUI_SONG_DATABASE V3.0** — 为虚拟主播 [岁己SUI](https://space.bilibili.com/1954091502) 打造的 Vaporwave 风格歌单网站
 
 收录 **1,158** 首歌曲、**3,270** 次演唱记录，支持在线播放 B站录播片段。
 
@@ -291,7 +291,7 @@ B站 API 存在 `-352` 限流机制：
 
 - 歌曲基础数据：[suijisui.space](https://www.suijisui.space)（[GitHub: PQL87/sui-song-list](https://github.com/PQL87/sui-song-list)）
 - 演唱日期记录：本地 Excel 统计表 + suijisui.space
-- B站录播视频：[岁己SUI](https://space.bilibili.com/37441530) 的 B站投稿合集
+- B站录播视频：[岁己SUI](https://space.bilibili.com/1954091502) 的 B站投稿合集
   - 歌切合集（2024.6至今）— mid: 37441530, season_id: 3194603
   - 歌切合集（2022.12-2024.6）— mid: 37441530, season_id: 1004362
   - 歌切（用户9669499）— mid: 9669499, season_id: 6453496
@@ -308,7 +308,7 @@ B站 API 存在 `-352` 限流机制：
 
 ## 致谢
 
-- [岁己SUI](https://space.bilibili.com/37441530) — B站虚拟主播，小岁小岁我们喜欢你
+- [岁己SUI](https://space.bilibili.com/1954091502) — B站虚拟主播，小岁小岁我们喜欢你
 - [PQL87/sui-song-list](https://github.com/PQL87/sui-song-list) 及其[贡献者们](https://github.com/PQL87/sui-song-list#project-contributors) — 提供歌曲基础数据
 
 ---
