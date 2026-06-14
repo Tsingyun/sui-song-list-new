@@ -38,7 +38,8 @@ sui-song-list-new/
 │   ├── build_site.py                   ← Phase 4: 生成最终单文件 HTML 网站
 │   ├── match_tags.py                   ← Phase 5: 歌曲分类标签匹配（~412首人工 + ~137位艺术家 + MusicBrainz API）
 │   ├── apply_tags_fast.py              ← Phase 5b: 离线快速标签匹配（不触发 API）
-│   └── add_songs.py                    ← 工具: 快速添加/更新歌曲的 CLI 脚本
+│   ├── add_songs.py                    ← 工具: 快速添加/更新歌曲的 CLI 脚本
+│   └── scrape_bilibili_playlist.py     ← 工具: Playwright 翻页提取B站列表最后一页 BV 号
 ├── data/
 │   ├── song_data.json                  ← 核心数据库（1158首歌曲，含 stats、lang_counts 和 tags）
 │   ├── song_bilibili_map.json          ← 歌曲-视频匹配结果（916首歌）
@@ -46,7 +47,11 @@ sui-song-list-new/
 │   ├── bilibili_videos.json            ← B站视频原始数据（fetch 产出，.gitignore 排除）
 │   └── fetch_progress.json             ← 抓取进度（断点续传，.gitignore 排除）
 └── docs/
-    └── index.html                      ← 最终网站（约673KB，由 build_site.py 生成）
+    ├── index.html                      ← 最终网站（~675KB，由 build_site.py 生成）
+    ├── screenshot.png                  ← 网站截图（用于 README）
+    └── assets/
+        ├── bg-illust.webp              ← 背景插画（桌面版，151KB）
+        └── bg-illust-sm.webp           ← 背景插画（移动版，62KB）
 ```
 
 ---
@@ -227,6 +232,25 @@ B站视频标题格式不统一，`match_songs.py` 的 `extract_song_name()` 函
 ```
 https://player.bilibili.com/player.html?bvid={BV}&autoplay=1&high_quality=1&danmaku=0
 ```
+
+### 5.6 Playwright 歌切提取（新方案）
+
+**背景**: B站合集页面已改为纯 SPA（单页应用），`fetch_bilibili.py` 的 API 方案可能因 WBI 签名失效。新方案使用 Playwright 无头浏览器直接渲染页面。
+
+**依赖**:
+```bash
+pip install playwright
+python -m playwright install chromium
+```
+
+**脚本**: `scripts/scrape_bilibili_playlist.py`
+
+**用法**:
+```bash
+python scripts/scrape_bilibili_playlist.py "https://space.bilibili.com/9669499/lists/6453496"
+```
+
+**原理**: 翻到 playlist 最后一页 → 提取所有 BV 号和标题。新歌切始终在列表最末尾。
 
 **优点:**
 - 无需认证，跨域可用，可从 `file://` 协议嵌入
