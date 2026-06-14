@@ -483,10 +483,10 @@
       "translated": "",
       "artist": "RADWIMPS",
       "lang": "日语",
-      "count": 8,
+      "count": 12,
       "tier": "常唱",
       "first": "2023-01-07",
-      "last": "2025-03-03"
+      "last": "2025-12-21"
     },
     {
       "name": "Planetes",
@@ -533,10 +533,10 @@
       "translated": "融化",
       "artist": "初音ミク/supercell",
       "lang": "日语",
-      "count": 8,
+      "count": 11,
       "tier": "常唱",
       "first": "2022-09-16",
-      "last": "2024-12-26"
+      "last": "2026-01-31"
     },
     {
       "name": "万一对了呢",
@@ -2343,10 +2343,10 @@
       "translated": "",
       "artist": "平野綾",
       "lang": "日语",
-      "count": 4,
+      "count": 5,
       "tier": "偶尔",
       "first": "2022-09-12",
-      "last": "2023-04-06"
+      "last": "2024-08-25"
     },
     {
       "name": "Henceforth",
@@ -2357,16 +2357,6 @@
       "tier": "偶尔",
       "first": "2023-08-08",
       "last": "2026-06-12"
-    },
-    {
-      "name": "I Really Want to Stay at Your House",
-      "translated": "",
-      "artist": "Rosa Walton",
-      "lang": "英文",
-      "count": 4,
-      "tier": "偶尔",
-      "first": "2022-09-25",
-      "last": "2024-06-15"
     },
     {
       "name": "I Love You 3000",
@@ -2459,26 +2449,6 @@
       "last": "2025-10-12"
     },
     {
-      "name": "Virtual to LIVE",
-      "translated": "",
-      "artist": "VirtuaReal",
-      "lang": "中文",
-      "count": 4,
-      "tier": "偶尔",
-      "first": "2022-09-09",
-      "last": "2024-04-13"
-    },
-    {
-      "name": "me me she",
-      "translated": "",
-      "artist": "Bruno Mars",
-      "lang": "英文",
-      "count": 4,
-      "tier": "偶尔",
-      "first": "2024-07-11",
-      "last": "2025-12-21"
-    },
-    {
       "name": "いつも何度でも",
       "translated": "永远同在",
       "artist": "木村弓",
@@ -2513,10 +2483,10 @@
       "translated": "视力检查",
       "artist": "GUMI/40mP",
       "lang": "日语",
-      "count": 4,
+      "count": 7,
       "tier": "偶尔",
       "first": "2023-10-19",
-      "last": "2025-08-16"
+      "last": "2025-11-27"
     },
     {
       "name": "スパークル",
@@ -2973,7 +2943,7 @@
       "translated": "",
       "artist": "泠鸢yousa",
       "lang": "中文",
-      "count": 4,
+      "count": 5,
       "tier": "偶尔",
       "first": "2023-04-09",
       "last": "2025-08-24"
@@ -3133,20 +3103,20 @@
       "translated": "",
       "artist": "Ryan Gosling",
       "lang": "英文",
-      "count": 3,
+      "count": 5,
       "tier": "偶尔",
       "first": "2022-10-16",
-      "last": "2025-05-17"
+      "last": "2026-04-26"
     },
     {
       "name": "Daybreak Frontline",
       "translated": "拂晓前线",
       "artist": "IA/Orangestar",
       "lang": "日语",
-      "count": 3,
+      "count": 5,
       "tier": "偶尔",
       "first": "2023-01-29",
-      "last": "2025-03-25"
+      "last": "2025-11-27"
     },
     {
       "name": "Departures ~あなたにおくるアイの歌~",
@@ -3223,7 +3193,7 @@
       "translated": "",
       "artist": "Gael Garcia Bernal",
       "lang": "英文",
-      "count": 3,
+      "count": 5,
       "tier": "偶尔",
       "first": "2024-01-06",
       "last": "2024-12-07"
@@ -3283,7 +3253,7 @@
       "translated": "",
       "artist": "Reol/ギガP",
       "lang": "日语",
-      "count": 3,
+      "count": 4,
       "tier": "偶尔",
       "first": "2022-09-25",
       "last": "2025-06-09"
@@ -3399,16 +3369,6 @@
       "last": "2025-05-06"
     },
     {
-      "name": "シリョクケンサ",
-      "translated": "",
-      "artist": "40mP（初音ミク）",
-      "lang": "日语",
-      "count": 3,
-      "tier": "偶尔",
-      "first": "2025-02-11",
-      "last": "2025-11-27"
-    },
-    {
       "name": "シンクロサイクロトロン・スピリチュアライザー。",
       "translated": "同步回旋加速器",
       "artist": "GUMI",
@@ -3427,16 +3387,6 @@
       "tier": "偶尔",
       "first": "2022-10-04",
       "last": "2025-03-23"
-    },
-    {
-      "name": "メルト",
-      "translated": "",
-      "artist": "ryo（初音ミク）",
-      "lang": "日语",
-      "count": 3,
-      "tier": "偶尔",
-      "first": "2024-12-26",
-      "last": "2026-01-31"
     },
     {
       "name": "ワールド・ランプシェード",
@@ -4579,16 +4529,6 @@
       "last": "2023-04-26"
     },
     {
-      "name": "City Of Stars",
-      "translated": "",
-      "artist": "Ryan Gosling/Emma Stone",
-      "lang": "英文",
-      "count": 2,
-      "tier": "偶尔",
-      "first": "2025-05-17",
-      "last": "2026-04-26"
-    },
-    {
       "name": "Cruel Summer",
       "translated": "",
       "artist": "Taylor Swift",
@@ -4597,16 +4537,6 @@
       "tier": "偶尔",
       "first": "2022-09-19",
       "last": "2023-05-25"
-    },
-    {
-      "name": "Daybreak Frontline",
-      "translated": "",
-      "artist": "Linked Horizon",
-      "lang": "英文",
-      "count": 2,
-      "tier": "偶尔",
-      "first": "2025-03-25",
-      "last": "2025-11-27"
     },
     {
       "name": "Don't Look Back in Anger",
@@ -4653,10 +4583,10 @@
       "translated": "",
       "artist": "艾怡良",
       "lang": "中文",
-      "count": 2,
+      "count": 3,
       "tier": "偶尔",
       "first": "2022-10-26",
-      "last": "2024-03-17"
+      "last": "2025-10-03"
     },
     {
       "name": "Gee",
@@ -4807,16 +4737,6 @@
       "tier": "偶尔",
       "first": "2022-10-19",
       "last": "2025-08-02"
-    },
-    {
-      "name": "Remember Me",
-      "translated": "",
-      "artist": "Various（《Coco》）",
-      "lang": "英文",
-      "count": 2,
-      "tier": "偶尔",
-      "first": "2024-11-13",
-      "last": "2024-12-07"
     },
     {
       "name": "Rolling in the Deep",
@@ -6999,16 +6919,6 @@
       "last": "2025-12-05"
     },
     {
-      "name": "drop pop candy",
-      "translated": "",
-      "artist": "Giga/Reol",
-      "lang": "英文",
-      "count": 1,
-      "tier": "稀有",
-      "first": "2025-06-09",
-      "last": "2025-06-09"
-    },
-    {
       "name": "ECHO",
       "translated": "",
       "artist": "GUMI/Crusher-P",
@@ -7049,26 +6959,6 @@
       "last": "2022-10-09"
     },
     {
-      "name": "Forever Young",
-      "translated": "",
-      "artist": "Bob Dylan",
-      "lang": "英文",
-      "count": 1,
-      "tier": "稀有",
-      "first": "2025-10-03",
-      "last": "2025-10-03"
-    },
-    {
-      "name": "God knows...",
-      "translated": "",
-      "artist": "神前暁（《涼宮ハルヒの憂鬱》）",
-      "lang": "英文",
-      "count": 1,
-      "tier": "稀有",
-      "first": "2024-08-25",
-      "last": "2024-08-25"
-    },
-    {
       "name": "Good Day",
       "translated": "",
       "artist": "IU",
@@ -7093,9 +6983,9 @@
       "translated": "",
       "artist": "Rosa Walton/Hallie Coggins",
       "lang": "英文",
-      "count": 1,
+      "count": 5,
       "tier": "稀有",
-      "first": "2024-06-15",
+      "first": "2022-09-25",
       "last": "2024-06-15"
     },
     {
@@ -7133,7 +7023,7 @@
       "translated": "",
       "artist": "安室奈美恵",
       "lang": "英文",
-      "count": 1,
+      "count": 2,
       "tier": "稀有",
       "first": "2025-05-27",
       "last": "2025-05-27"
@@ -7187,16 +7077,6 @@
       "tier": "稀有",
       "first": "2022-11-04",
       "last": "2022-11-04"
-    },
-    {
-      "name": "LOVE 2000",
-      "translated": "",
-      "artist": "遠野ひかる",
-      "lang": "日语",
-      "count": 1,
-      "tier": "稀有",
-      "first": "2025-05-27",
-      "last": "2025-05-27"
     },
     {
       "name": "Lover",
@@ -7483,7 +7363,7 @@
       "translated": "",
       "artist": "土屋アンナ",
       "lang": "日语",
-      "count": 1,
+      "count": 2,
       "tier": "稀有",
       "first": "2024-11-06",
       "last": "2024-11-06"
@@ -7561,9 +7441,9 @@
     {
       "name": "Upupu",
       "translated": "",
-      "artist": "Aimer",
+      "artist": "小皮皮爱习题",
       "lang": "英文",
-      "count": 1,
+      "count": 2,
       "tier": "稀有",
       "first": "2024-06-01",
       "last": "2024-06-01"
@@ -7573,9 +7453,9 @@
       "translated": "",
       "artist": "にじさんじ",
       "lang": "英文",
-      "count": 1,
+      "count": 5,
       "tier": "稀有",
-      "first": "2025-12-03",
+      "first": "2022-09-09",
       "last": "2025-12-03"
     },
     {
@@ -7719,16 +7599,6 @@
       "last": "2025-11-01"
     },
     {
-      "name": "Stand By Me",
-      "translated": "",
-      "artist": "Ben E. King",
-      "lang": "英文",
-      "count": 1,
-      "tier": "稀有",
-      "first": "2024-11-06",
-      "last": "2024-11-06"
-    },
-    {
       "name": "summertime",
       "translated": "",
       "artist": "cinnamons/evening cinema",
@@ -7757,16 +7627,6 @@
       "tier": "稀有",
       "first": "2024-12-07",
       "last": "2024-12-07"
-    },
-    {
-      "name": "Upupu",
-      "translated": "",
-      "artist": "刘大拿",
-      "lang": "中文",
-      "count": 1,
-      "tier": "稀有",
-      "first": "2024-06-01",
-      "last": "2024-06-01"
     },
     {
       "name": "vivi",
@@ -10917,16 +10777,6 @@
       "tier": "稀有",
       "first": "2025-06-22",
       "last": "2025-06-22"
-    },
-    {
-      "name": "神的随波逐流",
-      "translated": "",
-      "artist": "そらる/まふまふ",
-      "lang": "中文",
-      "count": 1,
-      "tier": "稀有",
-      "first": "2025-08-24",
-      "last": "2025-08-24"
     },
     {
       "name": "私奔",
