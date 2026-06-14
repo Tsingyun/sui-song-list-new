@@ -82,7 +82,8 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
 /* STATS */
 .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:40px}
 .stat-card{border:1px solid rgba(255,0,255,.25);border-top:2px solid var(--cyan);background:rgba(26,16,60,.88);backdrop-filter:blur(18px);padding:18px 14px;text-align:center;transition:all .2s}
-.stat-card:hover{transform:translateY(-3px);box-shadow:var(--glow-c);border-top-color:var(--magenta)}
+.stat-card-clickable{cursor:pointer}
+.stat-card-clickable:hover{transform:translateY(-3px);box-shadow:var(--glow-c);border-top-color:var(--magenta)}
 .stat-num{font-family:var(--font-h);font-size:2rem;font-weight:900;background:linear-gradient(135deg,var(--cyan),var(--magenta));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1.2;transition:all .3s}
 .stat-card.animated .stat-num{animation:numGlow .6s ease-out}
 @keyframes numGlow{0%{filter:brightness(2);transform:scale(1.08)}100%{filter:brightness(1);transform:scale(1)}}
@@ -1105,7 +1106,11 @@ function renderStats(){
     {n:STATS.total,l:'歌曲总数'},{n:STATS.performances,l:'演唱次数'},{n:STATS.frequent,l:'常唱 (5+)'},
     {n:STATS.occasional,l:'偶尔'},{n:STATS.once,l:'仅唱一次'}
   ];
-  g.innerHTML=items.map((i,idx)=>`<div class="stat-card stat-card-${idx}"><div class="stat-num" data-target="${i.n}">0</div><div class="stat-label">${i.l}</div></div>`).join('');
+  g.innerHTML=items.map(i=>{
+    const clickableLabels={'常唱 (5+)':'frequent','偶尔':'occasional','仅唱一次':'once'};
+    if(clickableLabels[i.l])return `<div class="stat-card stat-card-clickable" data-quick="${clickableLabels[i.l]}"><div class="stat-num" data-target="${i.n}">0</div><div class="stat-label">${i.l}</div></div>`;
+    return `<div class="stat-card"><div class="stat-num" data-target="${i.n}">0</div><div class="stat-label">${i.l}</div></div>`;
+  }).join('');
   setTimeout(()=>animateStats(),200);
 }
 
@@ -1492,6 +1497,28 @@ function bindEvents(){
   });
   // Activate "all" by default
   document.querySelector('[data-quick="all"]').classList.add('active');
+
+  // Stat card clicks → jump to filtered song list
+  document.querySelectorAll('.stat-card-clickable').forEach(card=>{
+    card.addEventListener('click',()=>{
+      const quick=card.dataset.quick;
+      // Switch to "全部歌曲" tab
+      document.querySelectorAll('.section-tab').forEach(t=>t.classList.remove('active'));
+      document.querySelector('.section-tab[data-section="all"]').classList.add('active');
+      currentSection='all';
+      document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+      document.getElementById('sec-all').classList.add('active');
+      // Apply quick filter
+      document.querySelectorAll('[data-quick]').forEach(b=>b.classList.remove('active'));
+      const filterBtn=document.querySelector('[data-quick="'+quick+'"]');
+      if(filterBtn)filterBtn.classList.add('active');
+      currentQuick=quick;
+      currentPage=1;
+      renderSongList();
+      // Scroll to song list
+      document.getElementById('sec-all').scrollIntoView({behavior:'smooth',block:'start'});
+    });
+  });
 
   let debounce;
   document.getElementById('searchInput').addEventListener('input',e=>{
