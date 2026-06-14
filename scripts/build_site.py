@@ -757,7 +757,7 @@ function renderSongList(){
       const transInfo=s.translated?`<small>${s.translated}</small>`:'';
       const dateStr=s.last||'—';
       const dArr=SONG_DATES[s.name];
-      const datesCount=dArr&&dArr.length?` ·${dArr.length}`:'';
+      const datesCount=dArr&&dArr.length?` 共${dArr.length}次`:'';
       const pb=playBtnHTML(s);
       return`<div class="song-row tier-${tier} ${isTop10?'top10-row':''}">
         <span class="idx">${isTop10?'★'+gr:gr}</span>${pb}<span class="name">${s.name}${transInfo}</span>
@@ -792,7 +792,7 @@ function renderFrequent(){
     const transInfo=s.translated?`<small>${s.translated}</small>`:'';
     const dateStr=s.last||'—';
     const dArr=SONG_DATES[s.name];
-    const datesCount=dArr&&dArr.length?` ·${dArr.length}`:'';
+    const datesCount=dArr&&dArr.length?` 共${dArr.length}次`:'';
     return`<div class="song-row tier-frequent ${i<10?'top10-row':''}"><span class="idx">${i<10?'★':''}${i+1}</span>
       ${playBtnHTML(s)}<span class="name">${s.name}${transInfo}</span><span class="artist">${s.artist||'—'}</span>
       <span class="lang"><span class="lang-badge lang-${s.lang}">${s.lang}</span></span>
@@ -824,7 +824,7 @@ function showDateTooltip(el){
   const tip=ensureTooltip();
   const first=dates[0],last=dates[dates.length-1];
   const pills=dates.map((d,i)=>`<span class="tt-date">${d}</span>`).join('');
-  tip.innerHTML=`<div class="tt-title">📅 共 ${dates.length} 次演唱</div>${pills}
+  tip.innerHTML=`<div class="tt-title">📅 找到 ${dates.length} 次演唱记录</div>${pills}
     <div style="margin-top:6px;font-size:10px;color:var(--text-dim);">
     <span style="color:var(--orange)">■</span> 最早 ${first} &nbsp;
     <span style="color:var(--cyan)">■</span> 最近 ${last}</div>`;
@@ -864,8 +864,10 @@ document.addEventListener('click',e=>{
   const row=nameEl.closest('.song-row');
   const dateEl=row.querySelector('.dates');
   const songName=nameEl.childNodes[0]?.textContent||nameEl.textContent;
-  const lastDate=dateEl?dateEl.textContent:'—';
-  const text=`🎵 ${songName}｜最近演唱：${lastDate}`;
+  const lastDate=dateEl?dateEl.textContent.replace(/ ·\d+$/,'') :'—';
+  const dArr=SONG_DATES[songName];
+  const totalInfo=dArr&&dArr.length?`｜共演唱${dArr.length}次`:'';
+  const text=`🎵 ${songName}｜最近演唱：${lastDate}${totalInfo}`;
   navigator.clipboard.writeText(text).then(()=>{
     showCopyToast(`✅ 已复制：${songName}`);
   }).catch(()=>{
@@ -896,7 +898,7 @@ function renderByLang(){
     html+=`<div class="lang-section" id="lang-${lang}"><div class="lang-header" style="color:${colors[lang]}">${lang}<span class="count-tag">${songs.length} 首</span></div>`;
     songs.forEach((s,i)=>{
       const dArr=SONG_DATES[s.name];
-      const dc=dArr&&dArr.length?` ·${dArr.length}`:'';
+      const dc=dArr&&dArr.length?` 共${dArr.length}次`:'';
       html+=`<div class="song-row tier-${s.count>=5?'frequent':(s.count>=2?'occasional':'rare')}" style="grid-template-columns:46px 1fr 100px 60px 80px;">
         <span class="idx">${i+1}</span><span class="name">${s.name}</span><span class="artist">${s.artist||'—'}</span>
         <span class="count">${s.count}</span><span class="dates">${s.last||'—'}${dc}</span></div>`;
