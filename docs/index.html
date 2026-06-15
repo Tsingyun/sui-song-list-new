@@ -577,6 +577,9 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
 }
 .export-opt:hover{border-color:var(--orange);color:var(--orange);background:rgba(255,153,0,.08)}
 .export-opt .fmt{color:var(--orange);font-weight:700;margin-right:6px}
+
+/* ═══════ SEARCH HIGHLIGHT ═══════ */
+mark{background:rgba(0,255,255,.2);color:var(--cyan);padding:0 1px;border-radius:1px}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js" defer></script>
 </head>
@@ -785,7 +788,7 @@ const LANG_COUNTS = [{"lang": "中文", "count": 701}, {"lang": "日语", "count
 
 let currentSection='all',currentLang='all',currentSort='count-desc',searchQuery='',currentPage=1,currentQuick='all',currentTag='all';
 const PAGE_SIZE=50;
-const TODAY=new Date('2026-06-14');
+const TODAY=new Date();
 
 // ═══════ PLAYER ═══════
 let currentPlaySong=null,currentClipIdx=0;
@@ -1011,6 +1014,14 @@ function bindContribute(){
   songInput.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();lookupBtn.click();}});
 }
 
+// ═══════ SEARCH HIGHLIGHT ═══════
+function highlightText(text,query){
+  if(!query||!text)return text||'';
+  var idx=text.toLowerCase().indexOf(query.toLowerCase());
+  if(idx===-1)return text;
+  return text.slice(0,idx)+'<mark>'+text.slice(idx,idx+query.length)+'</mark>'+text.slice(idx+query.length);
+}
+
 function renderTagFilters(){
   var tm={};SONGS.forEach(function(s){if(s.tags)s.tags.forEach(function(t){tm[t]=(tm[t]||0)+1;});});
   var sorted=Object.keys(tm).sort(function(a,b){return tm[b]-tm[a];});
@@ -1173,13 +1184,15 @@ function renderSongList(){
     container.innerHTML=pageSongs.map(s=>{
       const gr=rankMap[s.name],isTop10=gr<=10;
       const tier=s.count>=5?'frequent':(s.count>=2?'occasional':'rare');
-      const transInfo=s.translated?`<small>${s.translated}</small>`:'';
+      const hlName=highlightText(s.name,searchQuery);
+      const hlArtist=highlightText(s.artist||'—',searchQuery);
+      const transInfo=s.translated?`<small>${highlightText(s.translated,searchQuery)}</small>`:'';
       const tagBdg=(s.tags&&s.tags.length)?`<span class="tag-badges">${s.tags.map(t=>'<span class="tag-badge tag-'+t+'">'+t+'</span>').join('')}</span>`:'';
       const dateStr=s.last||'—';
       const pb=playBtnHTML(s);
       return`<div class="song-row tier-${tier} ${isTop10?'top10-row':''}">
-        <span class="idx">${isTop10?'★'+gr:gr}</span>${pb}<span class="name">${s.name}${transInfo}${tagBdg}</span>
-        <span class="artist">${s.artist||'—'}</span><span class="lang"><span class="lang-badge lang-${s.lang}">${s.lang}</span></span>
+        <span class="idx">${isTop10?'★'+gr:gr}</span>${pb}<span class="name">${hlName}${transInfo}${tagBdg}</span>
+        <span class="artist">${hlArtist}</span><span class="lang"><span class="lang-badge lang-${s.lang}">${s.lang}</span></span>
         <span class="count">${s.count}</span><span class="dates">${dateStr}</span></div>`;
     }).join('');
   }
@@ -1207,11 +1220,13 @@ function renderFrequent(){
   if(q)list=list.filter(s=>s.name.toLowerCase().includes(q)||s.artist.toLowerCase().includes(q));
   list.sort((a,b)=>b.count-a.count||a.name.localeCompare(b.name,'zh'));
   const freqCont=document.getElementById('freqList');freqCont.innerHTML=list.map((s,i)=>{
-    const transInfo=s.translated?`<small>${s.translated}</small>`:'';
+    const hlName=highlightText(s.name,q);
+    const hlArtist=highlightText(s.artist||'—',q);
+    const transInfo=s.translated?`<small>${highlightText(s.translated,q)}</small>`:'';
     const tagBdg=(s.tags&&s.tags.length)?`<span class="tag-badges">${s.tags.map(t=>'<span class="tag-badge tag-'+t+'">'+t+'</span>').join('')}</span>`:'';
     const dateStr=s.last||'—';
     return`<div class="song-row tier-frequent ${i<10?'top10-row':''}"><span class="idx">${i<10?'★':''}${i+1}</span>
-      ${playBtnHTML(s)}<span class="name">${s.name}${transInfo}${tagBdg}</span><span class="artist">${s.artist||'—'}</span>
+      ${playBtnHTML(s)}<span class="name">${hlName}${transInfo}${tagBdg}</span><span class="artist">${hlArtist}</span>
       <span class="lang"><span class="lang-badge lang-${s.lang}">${s.lang}</span></span>
       <span class="count">${s.count}</span><span class="dates">${dateStr}</span></div>`;
   }).join('');
