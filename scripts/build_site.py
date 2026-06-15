@@ -655,92 +655,8 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
 }
 .export-opt:hover{border-color:var(--orange);color:var(--orange);background:rgba(255,153,0,.08)}
 .export-opt .fmt{color:var(--orange);font-weight:700;margin-right:6px}
-
-/* ═══════ SEARCH HIGHLIGHT ═══════ */
-mark{background:rgba(0,255,255,.2);color:var(--cyan);padding:0 1px;border-radius:1px}
-
-/* ═══════ SONG DETAIL PANEL ═══════ */
-.song-row.has-detail{border-bottom:none}
-.song-detail{
-  grid-column:1/-1;padding:12px 16px;
-  background:rgba(26,16,60,.95);backdrop-filter:blur(12px);
-  border:1px solid var(--border);border-top:none;
-  animation:detailSlide .2s ease;font-size:13px;
-}
-@keyframes detailSlide{from{opacity:0;max-height:0}to{opacity:1;max-height:500px}}
-.detail-section{margin-bottom:10px}
-.detail-label{font-family:var(--font-m);font-size:10px;color:var(--text-dim);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
-.detail-dates{display:flex;gap:4px;flex-wrap:wrap}
-.detail-date{font-family:var(--font-m);font-size:11px;padding:2px 8px;border:1px solid var(--border);color:var(--text-dim)}
-.detail-date.first-date{border-color:var(--orange);color:var(--orange)}
-.detail-date.last-date{border-color:var(--cyan);color:var(--cyan)}
-.detail-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
-.detail-link{
-  font-family:var(--font-m);font-size:11px;padding:4px 14px;
-  border:1px solid var(--border);color:var(--text-dim);
-  cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block;
-}
-.detail-link:hover{border-color:var(--cyan);color:var(--cyan)}
-.detail-link.netease:hover{border-color:var(--magenta);color:var(--magenta)}
-.detail-bili-list{display:flex;gap:6px;flex-wrap:wrap}
-.detail-bili-item{
-  font-family:var(--font-m);font-size:10px;padding:3px 10px;
-  border:1px solid rgba(0,255,255,.2);color:var(--cyan);
-  cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block;
-}
-.detail-bili-item:hover{background:rgba(0,255,255,.1)}
-
-/* ═══════ INSIGHTS TAB ═══════ */
-.insights-nav{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
-.insights-nav-btn{
-  font-family:var(--font-m);font-size:12px;padding:8px 20px;
-  border:1px solid var(--border);background:transparent;
-  color:var(--text-dim);cursor:pointer;transition:all .2s;letter-spacing:1px;
-}
-.insights-nav-btn:hover{border-color:var(--magenta);color:var(--magenta)}
-.insights-nav-btn.active{border-color:var(--magenta);color:var(--magenta);background:rgba(255,0,255,.08)}
-.insights-panel{display:none}
-.insights-panel.active{display:block}
-.chart-container{
-  position:relative;padding:20px;
-  border:1px solid var(--border);background:rgba(26,16,60,.6);
-  margin-bottom:20px;
-}
-.chart-title{font-family:var(--font-h);font-size:14px;color:var(--text);letter-spacing:2px;margin-bottom:16px}
-.chart-canvas-wrap{position:relative;width:100%;max-width:900px;margin:0 auto}
-
-/* Heatmap */
-.heatmap-wrap{overflow-x:auto;padding-bottom:10px}
-.heatmap-grid{display:inline-grid;gap:2px}
-.heatmap-cell{
-  width:13px;height:13px;border-radius:2px;
-  transition:all .15s;cursor:default;
-}
-.heatmap-cell:hover{outline:1px solid var(--cyan);outline-offset:1px}
-.heatmap-cell[data-count="0"]{background:rgba(255,255,255,.04)}
-.heatmap-cell[data-count="1"]{background:rgba(255,153,0,.2)}
-.heatmap-cell[data-count="2"]{background:rgba(255,153,0,.4)}
-.heatmap-cell[data-count="3"]{background:rgba(255,153,0,.6)}
-.heatmap-cell[data-count="4"]{background:rgba(255,153,0,.8)}
-.heatmap-cell[data-count="5"]{background:var(--orange);box-shadow:0 0 4px rgba(255,153,0,.5)}
-.heatmap-months{display:flex;font-family:var(--font-m);font-size:10px;color:var(--text-dim);margin-bottom:4px}
-.heatmap-days{display:flex;flex-direction:column;gap:2px;font-family:var(--font-m);font-size:9px;color:var(--text-dim);padding-right:6px;justify-content:space-around}
-.heatmap-legend{display:flex;gap:4px;align-items:center;font-family:var(--font-m);font-size:10px;color:var(--text-dim);margin-top:8px}
-.heatmap-year-btn{
-  font-family:var(--font-m);font-size:11px;padding:4px 12px;
-  border:1px solid var(--border);background:transparent;
-  color:var(--text-dim);cursor:pointer;transition:all .2s;margin-right:6px;
-}
-.heatmap-year-btn:hover,.heatmap-year-btn.active{border-color:var(--orange);color:var(--orange)}
-.heatmap-tooltip{
-  position:fixed;z-index:9000;padding:6px 12px;
-  background:rgba(26,16,60,.96);border:1px solid var(--orange);
-  font-family:var(--font-m);font-size:11px;color:var(--text);
-  pointer-events:none;white-space:nowrap;display:none;
-}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
 </head>
 <body>
 
@@ -764,7 +680,6 @@ mark{background:rgba(0,255,255,.2);color:var(--cyan);padding:0 1px;border-radius
     <button class="section-tab" data-section="frequent">常唱金曲</button>
     <button class="section-tab" data-section="lang">语言分类</button>
     <button class="section-tab" data-section="artist">原唱分类</button>
-    <button class="section-tab" data-section="insights">数据洞察</button>
   </div>
 
   <div class="section active" id="sec-all">
@@ -809,41 +724,6 @@ mark{background:rgba(0,255,255,.2);color:var(--cyan);padding:0 1px;border-radius
   <div class="section" id="sec-artist">
     <div class="controls"><div class="search-box"><input type="text" id="artistSearch" placeholder="搜索原唱..."></div></div>
     <div class="artist-grid" id="artistGrid"></div>
-  </div>
-
-  <div class="section" id="sec-insights">
-    <div class="insights-nav">
-      <button class="insights-nav-btn active" data-chart="heatmap">演唱日历</button>
-      <button class="insights-nav-btn" data-chart="trend">月度趋势</button>
-      <button class="insights-nav-btn" data-chart="tags">标签分布</button>
-      <button class="insights-nav-btn" data-chart="artists">原唱 Top 20</button>
-    </div>
-    <div class="insights-panel active" id="panel-heatmap">
-      <div class="chart-container">
-        <div class="chart-title">PERFORMANCE_CALENDAR</div>
-        <div id="heatmapControls" style="margin-bottom:12px;"></div>
-        <div class="heatmap-wrap" id="heatmapWrap"></div>
-        <div class="heatmap-legend" id="heatmapLegend"></div>
-      </div>
-    </div>
-    <div class="insights-panel" id="panel-trend">
-      <div class="chart-container">
-        <div class="chart-title">MONTHLY_TREND</div>
-        <div class="chart-canvas-wrap"><canvas id="trendChart"></canvas></div>
-      </div>
-    </div>
-    <div class="insights-panel" id="panel-tags">
-      <div class="chart-container">
-        <div class="chart-title">TAG_DISTRIBUTION</div>
-        <div class="chart-canvas-wrap" style="max-width:500px"><canvas id="tagChart"></canvas></div>
-      </div>
-    </div>
-    <div class="insights-panel" id="panel-artists">
-      <div class="chart-container">
-        <div class="chart-title">TOP_ARTISTS</div>
-        <div class="chart-canvas-wrap"><canvas id="artistChart"></canvas></div>
-      </div>
-    </div>
   </div>
 
   <div class="footer">
@@ -983,7 +863,7 @@ const LANG_COUNTS = ''' + lang_json + ''';
 
 let currentSection='all',currentLang='all',currentSort='count-desc',searchQuery='',currentPage=1,currentQuick='all',currentTag='all';
 const PAGE_SIZE=50;
-const TODAY=new Date();
+const TODAY=new Date('2026-06-14');
 
 // ═══════ PLAYER ═══════
 let currentPlaySong=null,currentClipIdx=0;
@@ -1209,61 +1089,6 @@ function bindContribute(){
   songInput.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();lookupBtn.click();}});
 }
 
-// ═══════ SEARCH HIGHLIGHT ═══════
-function highlightText(text,query){
-  if(!query||!text)return text||'';
-  var idx=text.toLowerCase().indexOf(query.toLowerCase());
-  if(idx===-1)return text;
-  return text.slice(0,idx)+'<mark>'+text.slice(idx,idx+query.length)+'</mark>'+text.slice(idx+query.length);
-}
-
-// ═══════ SONG DETAIL PANEL ═══════
-var openDetailRow=null;
-function toggleDetail(row,song){
-  var existing=row.nextElementSibling;
-  if(existing&&existing.classList.contains('song-detail')){
-    existing.remove();row.classList.remove('has-detail');openDetailRow=null;return;
-  }
-  if(openDetailRow){var prev=openDetailRow.nextElementSibling;if(prev&&prev.classList.contains('song-detail'))prev.remove();openDetailRow.classList.remove('has-detail');}
-  var dates=SONG_DATES[song.name]||[];
-  var h='<div class="song-detail">';
-  // Dates timeline
-  if(dates.length){
-    h+='<div class="detail-section"><div class="detail-label">// 演唱记录 ('+dates.length+'次)</div><div class="detail-dates">';
-    dates.forEach(function(d){
-      var cls='detail-date';
-      if(d===dates[0])cls+=' first-date';
-      if(d===dates[dates.length-1])cls+=' last-date';
-      h+='<span class="'+cls+'">'+d+'</span>';
-    });
-    h+='</div></div>';
-  }
-  // Tags
-  if(song.tags&&song.tags.length){
-    h+='<div class="detail-section"><div class="detail-label">// 分类标签</div><div class="tag-badges">';
-    song.tags.forEach(function(t){h+='<span class="tag-badge tag-'+t+'">'+t+'</span>';});
-    h+='</div></div>';
-  }
-  // Links
-  h+='<div class="detail-section"><div class="detail-label">// 外部链接</div><div class="detail-links">';
-  h+='<a class="detail-link netease" href="https://music.163.com/#/search/m/?s='+encodeURIComponent(song.name+' '+(song.artist||''))+'" target="_blank" rel="noopener">♪ 网易云搜索</a>';
-  h+='<a class="detail-link" href="https://search.bilibili.com/all?keyword='+encodeURIComponent('岁己SUI '+song.name+' 歌切')+'" target="_blank" rel="noopener">▶ B站搜索</a>';
-  h+='</div></div>';
-  // Bilibili clips
-  if(song.bili&&song.bili.length){
-    h+='<div class="detail-section"><div class="detail-label">// 录播片段 ('+song.bili.length+'个)</div><div class="detail-bili-list">';
-    song.bili.forEach(function(c,i){
-      var label=(c.dt||'?')+(c.d?' · '+Math.floor(c.d/60)+':'+String(c.d%60).padStart(2,'0'):'');
-      h+='<a class="detail-bili-item" href="https://www.bilibili.com/video/'+c.bv+'" target="_blank" rel="noopener">'+label+'</a>';
-    });
-    h+='</div></div>';
-  }
-  h+='</div>';
-  row.insertAdjacentHTML('afterend',h);
-  row.classList.add('has-detail');
-  openDetailRow=row;
-}
-
 function renderTagFilters(){
   var tm={};SONGS.forEach(function(s){if(s.tags)s.tags.forEach(function(t){tm[t]=(tm[t]||0)+1;});});
   var sorted=Object.keys(tm).sort(function(a,b){return tm[b]-tm[a];});
@@ -1343,132 +1168,7 @@ function bindExport(){
   });
 }
 
-// ═══════ INSIGHTS ═══════
-var insightsRendered={};
-function getAllDates(){
-  var dm={};
-  Object.keys(SONG_DATES).forEach(function(name){
-    SONG_DATES[name].forEach(function(d){dm[d]=(dm[d]||0)+1;});
-  });
-  return dm;
-}
-function renderHeatmap(year){
-  if(!year){
-    var years={};Object.keys(SONG_DATES).forEach(function(n){SONG_DATES[n].forEach(function(d){var y=d.slice(0,4);if(y>='2022')years[y]=1;});});
-    year=Object.keys(years).sort().pop()||'2026';
-  }
-  var dm=getAllDates();
-  var ctrl=document.getElementById('heatmapControls');
-  var years={};Object.keys(dm).forEach(function(d){var y=d.slice(0,4);years[y]=1;});
-  ctrl.innerHTML=Object.keys(years).sort().map(function(y){
-    return'<button class="heatmap-year-btn'+(y===year?' active':'')+'" onclick="renderHeatmap(\''+y+'\')">'+y+'</button>';
-  }).join('');
-  var jan1=new Date(year+'-01-01'),dec31=new Date(year+'-12-31');
-  var startDay=jan1.getDay()||7;
-  var cells=[];
-  var cur=new Date(jan1);
-  while(cur<=dec31){
-    var ds=cur.toISOString().slice(0,10);
-    var cnt=dm[ds]||0;
-    var lv=cnt>=5?5:cnt;
-    cells.push({date:ds,count:cnt,level:lv,day:cur.getDay()||7,month:cur.getMonth()});
-    cur.setDate(cur.getDate()+1);
-  }
-  var months=['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
-  var weekLabels=['','一','','三','','五',''];
-  var html='<div style="display:flex">';
-  html+='<div class="heatmap-days">'+weekLabels.map(function(l){return'<span>'+l+'</span>';}).join('')+'</div>';
-  html+='<div class="heatmap-grid" style="grid-template-columns:repeat(53,13px);grid-template-rows:repeat(7,13px);grid-auto-flow:column">';
-  var week=0,lastMonth=-1;
-  cells.forEach(function(c){
-    var dayIdx=c.day-1;
-    if(dayIdx===0&&c.date!==year+'-01-01')week++;
-    var col=week+1,row=dayIdx+1;
-    html+='<div class="heatmap-cell" data-count="'+c.level+'" style="grid-column:'+col+';grid-row:'+row+'" title="'+c.date+': '+(c.count?c.count+'首':'无演唱')+'"></div>';
-  });
-  html+='</div></div>';
-  html+='<div style="display:flex;gap:16px;margin-top:6px;font-family:var(--font-m);font-size:10px;color:var(--text-dim)">';
-  var mPos={};cells.forEach(function(c,i){if(c.month!==lastMonth){mPos[c.month]=Math.floor(i/7);lastMonth=c.month;}});
-  Object.keys(mPos).sort(function(a,b){return a-b;}).forEach(function(m){
-    html+='<span style="position:relative;left:'+(mPos[m]*15)+'px">'+months[m]+'</span>';
-  });
-  html+='</div>';
-  document.getElementById('heatmapWrap').innerHTML=html;
-  document.getElementById('heatmapLegend').innerHTML='<span>少</span>'+
-    [0,1,2,3,4,5].map(function(l){return'<div class="heatmap-cell" data-count="'+l+'" style="width:11px;height:11px;display:inline-block"></div>';}).join('')+
-    '<span>多</span>';
-}
-function renderTrendChart(){
-  if(typeof Chart==='undefined'){document.getElementById('trendChart').parentElement.innerHTML='<p style="text-align:center;color:var(--text-dim)">Chart.js 加载中...</p>';return;}
-  var dm=getAllDates();
-  var monthly={};
-  Object.keys(dm).forEach(function(d){var m=d.slice(0,7);monthly[m]=(monthly[m]||0)+dm[d];});
-  var newMonthly={};
-  SONGS.forEach(function(s){if(s.first){var m=s.first.slice(0,7);newMonthly[m]=(newMonthly[m]||0)+1;}});
-  var labels=Object.keys(monthly).sort();
-  if(!labels.length)return;
-  var perfData=labels.map(function(m){return monthly[m]||0;});
-  var newData=labels.map(function(m){return newMonthly[m]||0;});
-  var ctx=document.getElementById('trendChart');
-  if(ctx._chart)ctx._chart.destroy();
-  ctx._chart=new Chart(ctx,{type:'line',data:{labels:labels,datasets:[
-    {label:'演唱次数',data:perfData,borderColor:'#00FFFF',backgroundColor:'rgba(0,255,255,.1)',fill:true,tension:.3,pointRadius:2,borderWidth:2},
-    {label:'新歌数',data:newData,borderColor:'#FF00FF',backgroundColor:'rgba(255,0,255,.1)',fill:true,tension:.3,pointRadius:2,borderWidth:2}
-  ]},options:{responsive:true,plugins:{legend:{labels:{color:'#A0A0B0',font:{family:'Share Tech Mono'}}}},
-    scales:{x:{ticks:{color:'#A0A0B0',maxRotation:45,font:{size:9}},grid:{color:'rgba(45,27,78,.5)'}},
-    y:{ticks:{color:'#A0A0B0'},grid:{color:'rgba(45,27,78,.5)'}}}}});
-}
-function renderTagChart(){
-  if(typeof Chart==='undefined')return;
-  var tm={};SONGS.forEach(function(s){if(s.tags)s.tags.forEach(function(t){tm[t]=(tm[t]||0)+1;});});
-  var sorted=Object.entries(tm).sort(function(a,b){return b[1]-a[1];}).slice(0,15);
-  var tagColors={'流行':'#ff6b9d','摇滚':'#ff4757','抒情':'#70a1ff','R&B':'#ffa502','电子':'#7bed9f',
-    'Vocaloid':'#a29bfe','动画':'#ff6348','古风':'#eccc68','独立':'#2ed573','民谣':'#a4b0be',
-    'K-Pop':'#ff7979','爵士':'#badc58','经典':'#c4c4c4','影视':'#686de0','City Pop':'#fd79a8'};
-  var labels=sorted.map(function(e){return e[0];});
-  var data=sorted.map(function(e){return e[1];});
-  var colors=labels.map(function(l){return tagColors[l]||'#A0A0B0';});
-  var ctx=document.getElementById('tagChart');
-  if(ctx._chart)ctx._chart.destroy();
-  ctx._chart=new Chart(ctx,{type:'doughnut',data:{labels:labels,datasets:[{data:data,backgroundColor:colors,borderColor:'#090014',borderWidth:2}]},
-    options:{responsive:true,plugins:{legend:{position:'right',labels:{color:'#A0A0B0',font:{family:'Share Tech Mono',size:11},padding:8}},
-    tooltip:{callbacks:{label:function(c){return c.label+': '+c.raw+'首 ('+Math.round(c.raw/data.reduce(function(a,b){return a+b;},0)*100)+'%)';}}}}}});
-}
-function renderArtistChart(){
-  if(typeof Chart==='undefined')return;
-  var am={};SONGS.forEach(function(s){var a=s.artist||'未知';if(!am[a])am[a]={songs:0,perf:0};am[a].songs++;am[a].perf+=s.count||1;});
-  var top20=Object.entries(am).sort(function(a,b){return b[1].songs-a[1].songs;}).slice(0,20);
-  var labels=top20.map(function(e){return e[0];});
-  var songData=top20.map(function(e){return e[1].songs;});
-  var perfData=top20.map(function(e){return e[1].perf;});
-  var ctx=document.getElementById('artistChart');
-  if(ctx._chart)ctx._chart.destroy();
-  ctx._chart=new Chart(ctx,{type:'bar',data:{labels:labels,datasets:[
-    {label:'歌曲数',data:songData,backgroundColor:'rgba(255,0,255,.6)',borderColor:'#FF00FF',borderWidth:1},
-    {label:'演唱次数',data:perfData,backgroundColor:'rgba(0,255,255,.4)',borderColor:'#00FFFF',borderWidth:1}
-  ]},options:{indexAxis:'y',responsive:true,plugins:{legend:{labels:{color:'#A0A0B0',font:{family:'Share Tech Mono'}}}},
-    scales:{x:{ticks:{color:'#A0A0B0'},grid:{color:'rgba(45,27,78,.5)'}},
-    y:{ticks:{color:'#A0A0B0',font:{size:11}},grid:{display:false}}}}});
-}
-function bindInsights(){
-  var navBtns=document.querySelectorAll('.insights-nav-btn');
-  navBtns.forEach(function(btn){
-    btn.addEventListener('click',function(){
-      navBtns.forEach(function(b){b.classList.remove('active');});
-      btn.classList.add('active');
-      document.querySelectorAll('.insights-panel').forEach(function(p){p.classList.remove('active');});
-      var panel=document.getElementById('panel-'+btn.dataset.chart);
-      panel.classList.add('active');
-      var chart=btn.dataset.chart;
-      if(chart==='heatmap'&&!insightsRendered.heatmap){renderHeatmap();insightsRendered.heatmap=true;}
-      if(chart==='trend'&&!insightsRendered.trend){renderTrendChart();insightsRendered.trend=true;}
-      if(chart==='tags'&&!insightsRendered.tags){renderTagChart();insightsRendered.tags=true;}
-      if(chart==='artists'&&!insightsRendered.artists){renderArtistChart();insightsRendered.artists=true;}
-    });
-  });
-}
-
-function init(){renderStats();renderLangFilters();renderTagFilters();renderSongList();bindEvents();bindBlindBox();bindPlayer();bindContribute();bindExport();bindInsights();
+function init(){renderStats();renderLangFilters();renderTagFilters();renderSongList();bindEvents();bindBlindBox();bindPlayer();bindContribute();bindExport();
   // Handle initial hash (e.g. #lang-日语) — instant reveal + scroll
   if(window.location.hash){
     setTimeout(()=>{
@@ -1551,15 +1251,13 @@ function renderSongList(){
     container.innerHTML=pageSongs.map(s=>{
       const gr=rankMap[s.name],isTop10=gr<=10;
       const tier=s.count>=5?'frequent':(s.count>=2?'occasional':'rare');
-      const hlName=highlightText(s.name,searchQuery);
-      const hlArtist=highlightText(s.artist||'—',searchQuery);
-      const transInfo=s.translated?`<small>${highlightText(s.translated,searchQuery)}</small>`:'';
+      const transInfo=s.translated?`<small>${s.translated}</small>`:'';
       const tagBdg=(s.tags&&s.tags.length)?`<span class="tag-badges">${s.tags.map(t=>'<span class="tag-badge tag-'+t+'">'+t+'</span>').join('')}</span>`:'';
       const dateStr=s.last||'—';
       const pb=playBtnHTML(s);
-      return`<div class="song-row tier-${tier} ${isTop10?'top10-row':''}" onclick="toggleDetail(this,SONGS.find(x=>x.name==='${s.name.replace(/'/g,"\\'")}'))">
-        <span class="idx">${isTop10?'★'+gr:gr}</span>${pb}<span class="name">${hlName}${transInfo}${tagBdg}</span>
-        <span class="artist">${hlArtist}</span><span class="lang"><span class="lang-badge lang-${s.lang}">${s.lang}</span></span>
+      return`<div class="song-row tier-${tier} ${isTop10?'top10-row':''}">
+        <span class="idx">${isTop10?'★'+gr:gr}</span>${pb}<span class="name">${s.name}${transInfo}${tagBdg}</span>
+        <span class="artist">${s.artist||'—'}</span><span class="lang"><span class="lang-badge lang-${s.lang}">${s.lang}</span></span>
         <span class="count">${s.count}</span><span class="dates">${dateStr}</span></div>`;
     }).join('');
   }
@@ -1587,13 +1285,11 @@ function renderFrequent(){
   if(q)list=list.filter(s=>s.name.toLowerCase().includes(q)||s.artist.toLowerCase().includes(q));
   list.sort((a,b)=>b.count-a.count||a.name.localeCompare(b.name,'zh'));
   const freqCont=document.getElementById('freqList');freqCont.innerHTML=list.map((s,i)=>{
-    const hlName=highlightText(s.name,q);
-    const hlArtist=highlightText(s.artist||'—',q);
-    const transInfo=s.translated?`<small>${highlightText(s.translated,q)}</small>`:'';
+    const transInfo=s.translated?`<small>${s.translated}</small>`:'';
     const tagBdg=(s.tags&&s.tags.length)?`<span class="tag-badges">${s.tags.map(t=>'<span class="tag-badge tag-'+t+'">'+t+'</span>').join('')}</span>`:'';
     const dateStr=s.last||'—';
-    return`<div class="song-row tier-frequent ${i<10?'top10-row':''}" onclick="toggleDetail(this,SONGS.find(x=>x.name==='${s.name.replace(/'/g,"\\'")}'))"><span class="idx">${i<10?'★':''}${i+1}</span>
-      ${playBtnHTML(s)}<span class="name">${hlName}${transInfo}${tagBdg}</span><span class="artist">${hlArtist}</span>
+    return`<div class="song-row tier-frequent ${i<10?'top10-row':''}"><span class="idx">${i<10?'★':''}${i+1}</span>
+      ${playBtnHTML(s)}<span class="name">${s.name}${transInfo}${tagBdg}</span><span class="artist">${s.artist||'—'}</span>
       <span class="lang"><span class="lang-badge lang-${s.lang}">${s.lang}</span></span>
       <span class="count">${s.count}</span><span class="dates">${dateStr}</span></div>`;
   }).join('');
@@ -1864,7 +1560,6 @@ function bindEvents(){
       if(currentSection==='frequent'){renderFrequent();}
       if(currentSection==='lang'){renderByLang();revealRows(sec,true);bindLangNav();}
       if(currentSection==='artist'){renderByArtist();revealCards(sec);}
-      if(currentSection==='insights'){var activeBtn=document.querySelector('.insights-nav-btn.active');if(activeBtn)activeBtn.click();}
       if(currentSection==='all'){renderSongList();}
     });
   });
