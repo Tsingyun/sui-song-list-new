@@ -36,6 +36,8 @@ try:
             if name and date_str:
                 # Parse "2022/9/4，2022/9/5，..." into sorted array
                 dates = [d.strip().replace('/', '-') for d in date_str.replace('，', ',').split(',') if d.strip()]
+                # Filter out garbage dates before 2022-09 (e.g. 1901-11-xx)
+                dates = [d for d in dates if d.split('-')[0].isdigit() and int(d.split('-')[0]) >= 2022]
                 dates.sort()
                 if name in date_lookup:
                     date_lookup[name] = sorted(set(date_lookup[name] + dates))
@@ -69,7 +71,10 @@ print(f'Auto-calculated stats: {total} songs, {performances} performances, {freq
 dates_map = {}
 for s in data['songs']:
     if s.get('dates'):
-        dates_map[s['name']] = s['dates']
+        # Filter out garbage dates before 2022
+        valid = [d for d in s['dates'] if d.split('-')[0].isdigit() and int(d.split('-')[0]) >= 2022]
+        if valid:
+            dates_map[s['name']] = valid
         del s['dates']  # Removed from SONGS, served via SONG_DATES
 dates_json = json.dumps(dates_map, ensure_ascii=False)
 songs_json = json.dumps(data['songs'], ensure_ascii=False)
@@ -196,10 +201,11 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
 .song-row:hover{background:rgba(0,255,255,.08);box-shadow:inset 0 0 30px rgba(0,255,255,.06);border-left:3px solid var(--cyan);padding-left:3px}
 .song-row span{padding:10px 10px;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .song-row .idx{font-family:var(--font-m);font-size:12px;color:var(--text-dim);text-align:center}
-.song-row .name{font-weight:500;color:var(--text);cursor:pointer;transition:color .15s}
+.song-row .name{font-weight:500;color:var(--text);cursor:pointer;transition:color .15s;display:flex;align-items:center;gap:8px;overflow:visible;white-space:normal}
+.song-row .name .song-title{flex-shrink:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .song-row .name:hover{color:var(--accent)}
 .song-row .name:active{color:var(--cyan)}
-.song-row .name small{display:block;font-size:11px;color:var(--text-dim);font-weight:300;margin-top:1px}
+.song-row .name .song-title small{display:block;font-size:11px;color:var(--text-dim);font-weight:300;margin-top:1px}
 .song-row .artist{color:var(--text-dim);font-size:13px}
 .song-row .lang{font-family:var(--font-m);font-size:11px;text-align:center}
 .song-row .count{font-family:var(--font-m);font-size:14px;font-weight:700;text-align:center}
@@ -458,7 +464,7 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
   .section-tab{padding:10px 12px;font-size:11px;letter-spacing:1px}
   .table-header,.song-row{grid-template-columns:36px 30px 1fr 70px 56px 44px 105px}
   .table-header span,.song-row span{padding:8px 6px;font-size:12px}
-  .song-row .name small{font-size:10px}
+  .song-row .name .song-title small{font-size:10px}
   .artist-grid{grid-template-columns:1fr}
   .grid-bg{height:35vh}
   .blindbox-btn{width:60px;height:60px;font-size:26px;bottom:20px;left:20px}
@@ -598,9 +604,9 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
 .cb-status.error{color:var(--magenta)}
 
 /* ═══════ TAG BADGES ═══════ */
-.tag-badges{display:flex;gap:3px;flex-wrap:wrap;margin-top:2px}
-.tag-badge{display:inline-block;padding:0 5px;font-size:9px;font-family:var(--font-m);letter-spacing:.5px;
-  border:1px solid;line-height:16px;white-space:nowrap;opacity:.85}
+.tag-badges{display:inline-flex;gap:3px;flex-wrap:nowrap;margin-top:0;flex-shrink:0}
+.tag-badge{display:inline-block;padding:1px 4px;font-size:8px;font-family:var(--font-m);letter-spacing:.3px;
+  border:1px solid;line-height:12px;white-space:nowrap;opacity:.7;border-radius:2px}
 .tag-流行{border-color:#ff6b9d;color:#ff6b9d}.tag-摇滚{border-color:#ff4757;color:#ff4757}
 .tag-抒情{border-color:#70a1ff;color:#70a1ff}.tag-R&B{border-color:#ffa502;color:#ffa502}
 .tag-电子{border-color:#7bed9f;color:#7bed9f}.tag-Vocaloid{border-color:#a29bfe;color:#a29bfe}
@@ -658,8 +664,75 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
 
 /* ═══════ SEARCH HIGHLIGHT ═══════ */
 mark{background:rgba(0,255,255,.2);color:var(--cyan);padding:0 1px;border-radius:1px}
+
+/* ═══════ SONG DETAIL PANEL ═══════ */
+.song-row.has-detail{border-bottom:none}
+.song-detail{
+  grid-column:1/-1;padding:12px 16px;
+  background:rgba(26,16,60,.95);backdrop-filter:blur(12px);
+  border:1px solid var(--border);border-top:none;
+  animation:detailSlide .2s ease;font-size:13px;
+}
+@keyframes detailSlide{from{opacity:0;max-height:0}to{opacity:1;max-height:500px}}
+.detail-section{margin-bottom:10px}
+.detail-label{font-family:var(--font-m);font-size:10px;color:var(--text-dim);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+.detail-dates{display:flex;gap:4px;flex-wrap:wrap}
+.detail-date{font-family:var(--font-m);font-size:11px;padding:2px 8px;border:1px solid var(--border);color:var(--text-dim)}
+.detail-date.first-date{border-color:var(--orange);color:var(--orange)}
+.detail-date.last-date{border-color:var(--cyan);color:var(--cyan)}
+.detail-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.detail-link{
+  font-family:var(--font-m);font-size:11px;padding:4px 14px;
+  border:1px solid var(--border);color:var(--text-dim);
+  cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block;
+}
+.detail-link:hover{border-color:var(--cyan);color:var(--cyan)}
+.detail-link.netease:hover{border-color:var(--magenta);color:var(--magenta)}
+.detail-bili-list{display:flex;gap:6px;flex-wrap:wrap}
+.detail-bili-item{
+  font-family:var(--font-m);font-size:10px;padding:3px 10px;
+  border:1px solid rgba(0,255,255,.2);color:var(--cyan);
+  cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block;
+}
+.detail-bili-item:hover{background:rgba(0,255,255,.1)}
+
+/* ═══════ INSIGHTS TAB ═══════ */
+.insights-nav{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.insights-nav-btn{
+  font-family:var(--font-m);font-size:12px;padding:8px 20px;
+  border:1px solid var(--border);background:transparent;
+  color:var(--text-dim);cursor:pointer;transition:all .2s;letter-spacing:1px;
+}
+.insights-nav-btn:hover{border-color:var(--magenta);color:var(--magenta)}
+.insights-nav-btn.active{border-color:var(--magenta);color:var(--magenta);background:rgba(255,0,255,.08)}
+.insights-panel{display:none}
+.insights-panel.active{display:block}
+.chart-container{
+  position:relative;padding:20px;
+  border:1px solid var(--border);background:rgba(26,16,60,.6);
+  margin-bottom:20px;
+}
+.chart-title{font-family:var(--font-h);font-size:14px;color:var(--text);letter-spacing:2px;margin-bottom:16px}
+.chart-canvas-wrap{position:relative;width:100%;max-width:900px;margin:0 auto}
+
+/* Heatmap */
+.heatmap-wrap{overflow-x:auto;padding-bottom:10px}
+.heatmap-grid{display:inline-grid;gap:2px}
+.heatmap-cell{width:13px;height:13px;border-radius:2px;transition:all .15s;cursor:default}
+.heatmap-cell:hover{outline:1px solid var(--cyan);outline-offset:1px}
+.heatmap-cell[data-count="0"]{background:rgba(255,255,255,.04)}
+.heatmap-cell[data-count="1"]{background:rgba(255,153,0,.2)}
+.heatmap-cell[data-count="2"]{background:rgba(255,153,0,.4)}
+.heatmap-cell[data-count="3"]{background:rgba(255,153,0,.6)}
+.heatmap-cell[data-count="4"]{background:rgba(255,153,0,.8)}
+.heatmap-cell[data-count="5"]{background:var(--orange);box-shadow:0 0 4px rgba(255,153,0,.5)}
+.heatmap-days{display:flex;flex-direction:column;gap:2px;font-family:var(--font-m);font-size:9px;color:var(--text-dim);padding-right:6px;justify-content:space-around}
+.heatmap-legend{display:flex;gap:4px;align-items:center;font-family:var(--font-m);font-size:10px;color:var(--text-dim);margin-top:8px}
+.heatmap-year-btn{font-family:var(--font-m);font-size:11px;padding:4px 12px;border:1px solid var(--border);background:transparent;color:var(--text-dim);cursor:pointer;transition:all .2s;margin-right:6px}
+.heatmap-year-btn:hover,.heatmap-year-btn.active{border-color:var(--orange);color:var(--orange)}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
 </head>
 <body>
 
@@ -683,6 +756,7 @@ mark{background:rgba(0,255,255,.2);color:var(--cyan);padding:0 1px;border-radius
     <button class="section-tab" data-section="frequent">常唱金曲</button>
     <button class="section-tab" data-section="lang">语言分类</button>
     <button class="section-tab" data-section="artist">原唱分类</button>
+    <button class="section-tab" data-section="insights">数据洞察</button>
   </div>
 
   <div class="section active" id="sec-all">
@@ -727,6 +801,41 @@ mark{background:rgba(0,255,255,.2);color:var(--cyan);padding:0 1px;border-radius
   <div class="section" id="sec-artist">
     <div class="controls"><div class="search-box"><input type="text" id="artistSearch" placeholder="搜索原唱..."></div></div>
     <div class="artist-grid" id="artistGrid"></div>
+  </div>
+
+  <div class="section" id="sec-insights">
+    <div class="insights-nav">
+      <button class="insights-nav-btn active" data-chart="heatmap">演唱日历</button>
+      <button class="insights-nav-btn" data-chart="trend">月度趋势</button>
+      <button class="insights-nav-btn" data-chart="tags">标签分布</button>
+      <button class="insights-nav-btn" data-chart="artists">原唱 Top 20</button>
+    </div>
+    <div class="insights-panel active" id="panel-heatmap">
+      <div class="chart-container">
+        <div class="chart-title">PERFORMANCE_CALENDAR</div>
+        <div id="heatmapControls" style="margin-bottom:12px;"></div>
+        <div id="heatmapWrap" style="overflow-x:auto"></div>
+        <div id="heatmapLegend" style="margin-top:8px"></div>
+      </div>
+    </div>
+    <div class="insights-panel" id="panel-trend">
+      <div class="chart-container">
+        <div class="chart-title">MONTHLY_TREND</div>
+        <div class="chart-canvas-wrap"><canvas id="trendChart"></canvas></div>
+      </div>
+    </div>
+    <div class="insights-panel" id="panel-tags">
+      <div class="chart-container">
+        <div class="chart-title">TAG_DISTRIBUTION</div>
+        <div class="chart-canvas-wrap" style="max-width:500px"><canvas id="tagChart"></canvas></div>
+      </div>
+    </div>
+    <div class="insights-panel" id="panel-artists">
+      <div class="chart-container">
+        <div class="chart-title">TOP_ARTISTS</div>
+        <div class="chart-canvas-wrap"><canvas id="artistChart"></canvas></div>
+      </div>
+    </div>
   </div>
 
   <div class="footer">
@@ -880,8 +989,7 @@ function playBtnHTML(s){
 function playSong(btn,e){
   e.stopPropagation();
   const row=btn.closest('.song-row');
-  const nameEl=row.querySelector('.name');
-  const songName=nameEl.childNodes[0].textContent.trim();
+  const songName=row.getAttribute('data-song');
   const song=SONGS.find(s=>s.name===songName);
   if(!song||!song.bili||!song.bili.length)return;
   currentPlaySong=song;currentClipIdx=0;
@@ -893,8 +1001,7 @@ function playSong(btn,e){
 function searchBili(btn,e){
   e.stopPropagation();
   const row=btn.closest('.song-row');
-  const nameEl=row.querySelector('.name');
-  const songName=nameEl.childNodes[0].textContent.trim();
+  const songName=row.getAttribute('data-song');
   const url='https://search.bilibili.com/all?keyword='+encodeURIComponent('岁己SUI '+songName+' 歌切');
   const a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener';document.body.appendChild(a);a.click();a.remove();
 }
@@ -1100,6 +1207,60 @@ function highlightText(text,query){
   return text.slice(0,idx)+'<mark>'+text.slice(idx,idx+query.length)+'</mark>'+text.slice(idx+query.length);
 }
 
+// ═══════ SONG DETAIL PANEL (safe: data-attribute + delegation) ═══════
+var openDetailRow=null;
+function toggleDetail(row){
+  var songName=row.dataset.song;
+  var song=SONGS.find(function(x){return x.name===songName;});
+  if(!song)return;
+  var existing=row.nextElementSibling;
+  if(existing&&existing.classList.contains('song-detail')){
+    existing.remove();row.classList.remove('has-detail');openDetailRow=null;return;
+  }
+  if(openDetailRow){var prev=openDetailRow.nextElementSibling;if(prev&&prev.classList.contains('song-detail'))prev.remove();openDetailRow.classList.remove('has-detail');}
+  var dates=SONG_DATES[song.name]||[];
+  var h='<div class="song-detail">';
+  if(dates.length){
+    h+='<div class="detail-section"><div class="detail-label">// 演唱记录 ('+dates.length+'次)</div><div class="detail-dates">';
+    dates.forEach(function(d){
+      var cls='detail-date';
+      if(d===dates[0])cls+=' first-date';
+      if(d===dates[dates.length-1])cls+=' last-date';
+      h+='<span class="'+cls+'">'+d+'</span>';
+    });
+    h+='</div></div>';
+  }
+  if(song.tags&&song.tags.length){
+    h+='<div class="detail-section"><div class="detail-label">// 分类标签</div><div class="tag-badges">';
+    song.tags.forEach(function(t){h+='<span class="tag-badge tag-'+t+'">'+t+'</span>';});
+    h+='</div></div>';
+  }
+  h+='<div class="detail-section"><div class="detail-label">// 外部链接</div><div class="detail-links">';
+  h+='<a class="detail-link netease" href="https://music.163.com/#/search/m/?s='+encodeURIComponent(song.name+' '+(song.artist||''))+'" target="_blank" rel="noopener">♪ 网易云搜索</a>';
+  h+='<a class="detail-link" href="https://search.bilibili.com/all?keyword='+encodeURIComponent('岁己SUI '+song.name+' 歌切')+'" target="_blank" rel="noopener">▶ B站搜索</a>';
+  h+='</div></div>';
+  if(song.bili&&song.bili.length){
+    h+='<div class="detail-section"><div class="detail-label">// 录播片段 ('+song.bili.length+'个)</div><div class="detail-bili-list">';
+    song.bili.forEach(function(c){
+      var label=(c.dt||'?')+(c.d?' · '+Math.floor(c.d/60)+':'+String(c.d%60).padStart(2,'0'):'');
+      h+='<a class="detail-bili-item" href="https://www.bilibili.com/video/'+c.bv+'" target="_blank" rel="noopener">'+label+'</a>';
+    });
+    h+='</div></div>';
+  }
+  h+='</div>';
+  row.insertAdjacentHTML('afterend',h);
+  row.classList.add('has-detail');
+  openDetailRow=row;
+}
+function bindDetailClick(container){
+  container.addEventListener('click',function(e){
+    if(e.target.closest('.play-btn,.detail-link,.detail-bili-item'))return;
+    var row=e.target.closest('.song-row');
+    if(!row||!row.dataset.song||!container.contains(row))return;
+    toggleDetail(row);
+  });
+}
+
 function renderTagFilters(){
   var tm={};SONGS.forEach(function(s){if(s.tags)s.tags.forEach(function(t){tm[t]=(tm[t]||0)+1;});});
   var sorted=Object.keys(tm).sort(function(a,b){return tm[b]-tm[a];});
@@ -1179,7 +1340,149 @@ function bindExport(){
   });
 }
 
-function init(){renderStats();renderLangFilters();renderTagFilters();renderSongList();bindEvents();bindBlindBox();bindPlayer();bindContribute();bindExport();
+// ═══════ INSIGHTS ═══════
+var insightsRendered={};
+function getAllDates(){
+  var dm={};
+  Object.keys(SONG_DATES).forEach(function(name){
+    SONG_DATES[name].forEach(function(d){
+      var p=d.split('-');if(p.length<3||p[0].length!==4)return;
+      var norm=p[0]+'-'+('0'+p[1]).slice(-2)+'-'+('0'+p[2]).slice(-2);
+      if(norm<'2022-09')return;
+      dm[norm]=(dm[norm]||0)+1;
+    });
+  });
+  return dm;
+}
+function renderHeatmap(year){
+  if(!year){
+    var dm=getAllDates();
+    var years={};Object.keys(dm).forEach(function(d){var y=d.slice(0,4);years[y]=1;});
+    year=Object.keys(years).sort().pop()||'2026';
+  }
+  var dm=getAllDates();
+  var ctrl=document.getElementById('heatmapControls');
+  var years={};Object.keys(dm).forEach(function(d){var y=d.slice(0,4);years[y]=1;});
+  ctrl.innerHTML=Object.keys(years).sort().map(function(y){
+    return `<button class="heatmap-year-btn${y===year?' active':''}" onclick="renderHeatmap('${y}')">${y}</button>`;
+  }).join('');
+  var jan1=new Date(parseInt(year),0,1),dec31=new Date(parseInt(year),11,31);
+  function lds(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+  var cells=[];
+  var cur=new Date(jan1);
+  while(cur<=dec31){
+    var ds=lds(cur);
+    var cnt=dm[ds]||0;
+    var lv=cnt>=5?5:cnt;
+    cells.push({date:ds,count:cnt,level:lv,day:cur.getDay()||7,month:cur.getMonth()});
+    cur.setDate(cur.getDate()+1);
+  }
+  var weekLabels=['','一','','三','','五',''];
+  var week=0;
+  cells.forEach(function(c){
+    var dayIdx=c.day-1;
+    if(dayIdx===0&&c.date!==lds(jan1))week++;
+    c.col=week+1;c.row=dayIdx+1;
+  });
+  var totalWeeks=week+2;
+  var html='<div style="display:flex">';
+  html+='<div class="heatmap-days">'+weekLabels.map(function(l){return '<span>'+l+'</span>';}).join('')+'</div>';
+  html+='<div class="heatmap-grid" style="grid-template-columns:repeat('+totalWeeks+',13px);grid-template-rows:repeat(7,13px);grid-auto-flow:column">';
+  cells.forEach(function(c){
+    html+='<div class="heatmap-cell" data-count="'+c.level+'" style="grid-column:'+c.col+';grid-row:'+c.row+'" title="'+c.date+': '+(c.count?c.count+'首':'无演唱')+'"></div>';
+  });
+  html+='</div></div>';
+  var months=['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+  html+='<div style="display:inline-grid;grid-template-columns:repeat('+totalWeeks+',13px);gap:2px;margin-top:6px;font-family:var(--font-m);font-size:10px;color:var(--text-dim)">';
+  var mPos={},lastMonth=-1;cells.forEach(function(c){if(c.month!==lastMonth){mPos[c.month]=c.col;lastMonth=c.month;}});
+  Object.keys(mPos).sort(function(a,b){return a-b;}).forEach(function(m){
+    html+='<span style="grid-column:'+mPos[m]+'">'+months[m]+'</span>';
+  });
+  html+='</div>';
+  document.getElementById('heatmapWrap').innerHTML=html;
+  document.getElementById('heatmapLegend').innerHTML='<span>少</span>'+
+    [0,1,2,3,4,5].map(function(l){return '<div class="heatmap-cell" data-count="'+l+'" style="width:11px;height:11px;display:inline-block"></div>';}).join('')+
+    '<span>多</span>';
+}
+function renderTrendChart(){
+  if(typeof Chart==='undefined')return;
+  function toMonth(d){var p=d.split('-');if(p.length<2||p[0].length!==4)return null;return p[0]+'-'+('0'+p[1]).slice(-2);}
+  var dm=getAllDates();
+  var monthly={},newMonthly={};
+  Object.keys(dm).forEach(function(d){var m=toMonth(d);if(m&&m>='2022-09'){monthly[m]=(monthly[m]||0)+dm[d];}});
+  SONGS.forEach(function(s){if(s.first){var m=toMonth(s.first);if(m&&m>='2022-09'){newMonthly[m]=(newMonthly[m]||0)+1;}}});
+  var allMonths={};Object.keys(monthly).forEach(function(m){allMonths[m]=1;});Object.keys(newMonthly).forEach(function(m){allMonths[m]=1;});
+  var sorted=Object.keys(allMonths).sort();
+  if(!sorted.length)return;
+  var start=sorted[0],end=sorted[sorted.length-1];
+  var labels=[],perfData=[],newData=[];
+  var cur=new Date(start+'-01');var endDate=new Date(end+'-01');
+  while(cur<=endDate){
+    var y=cur.getFullYear(),mo=String(cur.getMonth()+1).padStart(2,'0');
+    var key=y+'-'+mo;labels.push(key);perfData.push(monthly[key]||0);newData.push(newMonthly[key]||0);
+    cur.setMonth(cur.getMonth()+1);
+  }
+  var ctx=document.getElementById('trendChart');
+  if(ctx._chart)ctx._chart.destroy();
+  ctx._chart=new Chart(ctx,{type:'line',data:{labels:labels,datasets:[
+    {label:'演唱次数',data:perfData,borderColor:'#00FFFF',backgroundColor:'rgba(0,255,255,.1)',fill:true,tension:.3,pointRadius:2,borderWidth:2},
+    {label:'新歌数',data:newData,borderColor:'#FF00FF',backgroundColor:'rgba(255,0,255,.1)',fill:true,tension:.3,pointRadius:2,borderWidth:2}
+  ]},options:{responsive:true,plugins:{legend:{labels:{color:'#A0A0B0',font:{family:'Share Tech Mono'}}},
+    tooltip:{callbacks:{title:function(items){return items[0].label.replace('-','年')+'月'}}}},
+    scales:{x:{ticks:{color:'#A0A0B0',maxRotation:60,autoSkip:true,maxTicksLimit:20,font:{size:10},
+      callback:function(val,idx){var l=this.getLabelForValue(val);return l.replace('-','年')+'月';}},grid:{color:'rgba(45,27,78,.5)'}},
+    y:{ticks:{color:'#A0A0B0'},grid:{color:'rgba(45,27,78,.5)'}}}}});
+}
+function renderTagChart(){
+  if(typeof Chart==='undefined')return;
+  var tm={};SONGS.forEach(function(s){if(s.tags)s.tags.forEach(function(t){tm[t]=(tm[t]||0)+1;});});
+  var sorted=Object.entries(tm).sort(function(a,b){return b[1]-a[1];}).slice(0,15);
+  var tagColors={'流行':'#ff6b9d','摇滚':'#ff4757','抒情':'#70a1ff','R&B':'#ffa502','电子':'#7bed9f',
+    'Vocaloid':'#a29bfe','动画':'#ff6348','古风':'#eccc68','独立':'#2ed573','民谣':'#a4b0be',
+    'K-Pop':'#ff7979','爵士':'#badc58','经典':'#c4c4c4','影视':'#686de0','City Pop':'#fd79a8'};
+  var labels=sorted.map(function(e){return e[0];});
+  var data=sorted.map(function(e){return e[1];});
+  var colors=labels.map(function(l){return tagColors[l]||'#A0A0B0';});
+  var ctx=document.getElementById('tagChart');
+  if(ctx._chart)ctx._chart.destroy();
+  ctx._chart=new Chart(ctx,{type:'doughnut',data:{labels:labels,datasets:[{data:data,backgroundColor:colors,borderColor:'#090014',borderWidth:2}]},
+    options:{responsive:true,plugins:{legend:{position:'right',labels:{color:'#A0A0B0',font:{family:'Share Tech Mono',size:11},padding:8}},
+    tooltip:{callbacks:{label:function(c){return c.label+': '+c.raw+'首 ('+Math.round(c.raw/data.reduce(function(a,b){return a+b;},0)*100)+'%)';}}}}}});
+}
+function renderArtistChart(){
+  if(typeof Chart==='undefined')return;
+  var am={};SONGS.forEach(function(s){var a=s.artist||'未知';if(!am[a])am[a]={songs:0,perf:0};am[a].songs++;am[a].perf+=s.count||1;});
+  var top20=Object.entries(am).sort(function(a,b){return b[1].songs-a[1].songs;}).slice(0,20);
+  var labels=top20.map(function(e){return e[0];});
+  var songData=top20.map(function(e){return e[1].songs;});
+  var perfData=top20.map(function(e){return e[1].perf;});
+  var ctx=document.getElementById('artistChart');
+  if(ctx._chart)ctx._chart.destroy();
+  ctx._chart=new Chart(ctx,{type:'bar',data:{labels:labels,datasets:[
+    {label:'歌曲数',data:songData,backgroundColor:'rgba(255,0,255,.6)',borderColor:'#FF00FF',borderWidth:1},
+    {label:'演唱次数',data:perfData,backgroundColor:'rgba(0,255,255,.4)',borderColor:'#00FFFF',borderWidth:1}
+  ]},options:{indexAxis:'y',responsive:true,plugins:{legend:{labels:{color:'#A0A0B0',font:{family:'Share Tech Mono'}}}},
+    scales:{x:{ticks:{color:'#A0A0B0'},grid:{color:'rgba(45,27,78,.5)'}},
+    y:{ticks:{color:'#A0A0B0',font:{size:11}},grid:{display:false}}}}});
+}
+function bindInsights(){
+  var navBtns=document.querySelectorAll('.insights-nav-btn');
+  navBtns.forEach(function(btn){
+    btn.addEventListener('click',function(){
+      navBtns.forEach(function(b){b.classList.remove('active');});
+      btn.classList.add('active');
+      document.querySelectorAll('.insights-panel').forEach(function(p){p.classList.remove('active');});
+      document.getElementById('panel-'+btn.dataset.chart).classList.add('active');
+      var chart=btn.dataset.chart;
+      if(chart==='heatmap'&&!insightsRendered.heatmap){renderHeatmap();insightsRendered.heatmap=true;}
+      if(chart==='trend'&&!insightsRendered.trend){renderTrendChart();insightsRendered.trend=true;}
+      if(chart==='tags'&&!insightsRendered.tags){renderTagChart();insightsRendered.tags=true;}
+      if(chart==='artists'&&!insightsRendered.artists){renderArtistChart();insightsRendered.artists=true;}
+    });
+  });
+}
+
+function init(){renderStats();renderLangFilters();renderTagFilters();renderSongList();bindEvents();bindBlindBox();bindPlayer();bindContribute();bindExport();bindInsights();
   // Handle initial hash (e.g. #lang-日语) — instant reveal + scroll
   if(window.location.hash){
     setTimeout(()=>{
@@ -1268,13 +1571,14 @@ function renderSongList(){
       const tagBdg=(s.tags&&s.tags.length)?`<span class="tag-badges">${s.tags.map(t=>'<span class="tag-badge tag-'+t+'">'+t+'</span>').join('')}</span>`:'';
       const dateStr=s.last||'—';
       const pb=playBtnHTML(s);
-      return`<div class="song-row tier-${tier} ${isTop10?'top10-row':''}">
-        <span class="idx">${isTop10?'★'+gr:gr}</span>${pb}<span class="name">${hlName}${transInfo}${tagBdg}</span>
+      return`<div class="song-row tier-${tier} ${isTop10?'top10-row':''}" data-song="${s.name}" style="cursor:pointer">
+        <span class="idx">${isTop10?'★'+gr:gr}</span>${pb}<span class="name"><span class="song-title">${hlName}${transInfo}</span>${tagBdg}</span>
         <span class="artist">${hlArtist}</span><span class="lang"><span class="lang-badge lang-${s.lang}">${s.lang}</span></span>
         <span class="count">${s.count}</span><span class="dates">${dateStr}</span></div>`;
     }).join('');
   }
   renderPagination(filtered.length,totalPages);
+  bindDetailClick(container);
   requestAnimationFrame(()=>revealRows(container));
   document.getElementById('pageInfo').textContent=`> ${filtered.length} 首 | 第 ${currentPage}/${totalPages||1} 页`;
 }
@@ -1303,11 +1607,12 @@ function renderFrequent(){
     const transInfo=s.translated?`<small>${highlightText(s.translated,q)}</small>`:'';
     const tagBdg=(s.tags&&s.tags.length)?`<span class="tag-badges">${s.tags.map(t=>'<span class="tag-badge tag-'+t+'">'+t+'</span>').join('')}</span>`:'';
     const dateStr=s.last||'—';
-    return`<div class="song-row tier-frequent ${i<10?'top10-row':''}"><span class="idx">${i<10?'★':''}${i+1}</span>
-      ${playBtnHTML(s)}<span class="name">${hlName}${transInfo}${tagBdg}</span><span class="artist">${hlArtist}</span>
+    return`<div class="song-row tier-frequent ${i<10?'top10-row':''}" data-song="${s.name}" style="cursor:pointer"><span class="idx">${i<10?'★':''}${i+1}</span>
+      ${playBtnHTML(s)}<span class="name"><span class="song-title">${hlName}${transInfo}</span>${tagBdg}</span><span class="artist">${hlArtist}</span>
       <span class="lang"><span class="lang-badge lang-${s.lang}">${s.lang}</span></span>
       <span class="count">${s.count}</span><span class="dates">${dateStr}</span></div>`;
   }).join('');
+  bindDetailClick(freqCont);
   requestAnimationFrame(()=>revealRows(freqCont));
 }
 
@@ -1575,6 +1880,7 @@ function bindEvents(){
       if(currentSection==='frequent'){renderFrequent();}
       if(currentSection==='lang'){renderByLang();revealRows(sec,true);bindLangNav();}
       if(currentSection==='artist'){renderByArtist();revealCards(sec);}
+      if(currentSection==='insights'){var ab=document.querySelector('.insights-nav-btn.active');if(ab)ab.click();}
       if(currentSection==='all'){renderSongList();}
     });
   });
