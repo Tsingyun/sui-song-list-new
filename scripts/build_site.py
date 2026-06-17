@@ -489,6 +489,7 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
   .stats-grid{grid-template-columns:repeat(2,1fr)}
   .contribute-btn{bottom:76px;right:20px;font-size:11px;padding:8px 12px}
   .export-btn{bottom:126px;right:20px;font-size:11px;padding:8px 12px}
+  .stats-link{bottom:176px;right:20px;font-size:11px;padding:8px 12px}
   .export-panel{right:20px;bottom:170px}
   .cb-modal{width:95%}
   .back-top{right:20px;width:36px;height:36px;font-size:14px;bottom:24px}
@@ -642,6 +643,19 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
 }
 .export-btn.visible{opacity:1;transform:translateY(0);pointer-events:auto}
 .export-btn:hover{background:var(--orange);color:var(--void);box-shadow:0 0 24px rgba(255,153,0,.45);letter-spacing:4px}
+
+/* ═══════ STATS LINK ═══════ */
+.stats-link{
+  position:fixed;bottom:192px;right:30px;z-index:100;
+  padding:10px 18px;border:1px solid var(--magenta);
+  background:rgba(26,16,60,.9);backdrop-filter:blur(10px);
+  color:var(--magenta);font-family:var(--font-cjk);font-size:13px;font-weight:700;
+  letter-spacing:2px;text-decoration:none;
+  transition:all .3s cubic-bezier(.4,0,.2,1);
+  opacity:0;transform:translateY(20px);pointer-events:none;
+}
+.stats-link.visible{opacity:1;transform:translateY(0);pointer-events:auto}
+.stats-link:hover{background:var(--magenta);color:var(--void);box-shadow:0 0 24px rgba(255,0,255,.45);letter-spacing:4px}
 .export-panel{
   position:fixed;bottom:182px;right:30px;z-index:101;
   display:none;flex-direction:column;gap:6px;
@@ -886,6 +900,8 @@ mark{background:rgba(0,255,255,.2);color:var(--cyan);padding:0 1px;border-radius
 
 <!-- EXPORT BUTTON -->
 <button class="export-btn" id="exportBtn">导出歌单</button>
+
+<a class="stats-link" id="statsLink" href="https://tsingyun.github.io/sui-song-stats/" target="_blank" rel="noopener">点歌统计</a>
 
 <!-- EXPORT PANEL -->
 <div class="export-panel" id="exportPanel">
@@ -1928,6 +1944,7 @@ function bindEvents(){
   document.getElementById('sortSelect').addEventListener('change',e=>{currentSort=e.target.value;currentPage=1;renderSongList();});
   window.addEventListener('scroll',()=>{
     document.getElementById('backTop').classList.toggle('visible',window.scrollY>400);
+    document.getElementById('statsLink').classList.toggle('visible',window.scrollY>400);
   });
 }
 
