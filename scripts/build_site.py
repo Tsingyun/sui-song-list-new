@@ -96,7 +96,7 @@ html = r'''<!DOCTYPE html>
   --void:#090014;--card:rgba(26,16,60,.82);--magenta:#FF00FF;--cyan:#00FFFF;--orange:#FF9900;
   --text:#E0E0E0;--text-dim:#A0A0B0;--border:#2D1B4E;
   --glow-m:0 0 20px rgba(255,0,255,.35);--glow-c:0 0 20px rgba(0,255,255,.25);
-  --font-h:'Orbitron',sans-serif;--font-m:'Cascadia Code','Fira Code','JetBrains Mono','Consolas','Share Tech Mono',monospace;
+  --font-h:'Orbitron',sans-serif;--font-m:'Cascadia Code','Fira Code','JetBrains Mono','Consolas','Share Tech Mono','Noto Sans SC','Noto Sans JP','Microsoft YaHei','Malgun Gothic','Apple SD Gothic Neo',sans-serif;
   --font-cjk:'Noto Sans SC','Noto Sans JP','Microsoft YaHei','Malgun Gothic','Apple SD Gothic Neo',sans-serif;
   --ls-tight:1px;--ls-normal:2px;--ls-wide:4px;--ls-hero:6px;
 }
