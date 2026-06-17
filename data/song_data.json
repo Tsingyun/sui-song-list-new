@@ -427,10 +427,10 @@
       "translated": "",
       "artist": "陈粒",
       "lang": "中文",
-      "count": 10,
-      "tier": "常唱",
+      "count": 11,
+      "tier": "frequent",
       "first": "2024-01-06",
-      "last": "2026-04-26",
+      "last": "2026-06-17",
       "tags": [
         "独立",
         "摇滚"
@@ -673,10 +673,10 @@
       "translated": "离去之原",
       "artist": "初音未来/みきとP",
       "lang": "日语",
-      "count": 8,
-      "tier": "常唱",
+      "count": 9,
+      "tier": "frequent",
       "first": "2022-09-05",
-      "last": "2026-03-13",
+      "last": "2026-06-17",
       "tags": [
         "流行"
       ]
@@ -1199,10 +1199,10 @@
       "translated": "地球最后的告白",
       "artist": "kemu/GUMI",
       "lang": "日语",
-      "count": 7,
-      "tier": "常唱",
+      "count": 8,
+      "tier": "frequent",
       "first": "2022-10-15",
-      "last": "2026-03-23",
+      "last": "2026-06-17",
       "tags": [
         "流行"
       ]
@@ -1348,10 +1348,10 @@
       "translated": "",
       "artist": "郭顶",
       "lang": "中文",
-      "count": 7,
-      "tier": "常唱",
+      "count": 8,
+      "tier": "frequent",
       "first": "2023-02-06",
-      "last": "2025-11-25",
+      "last": "2026-06-17",
       "tags": [
         "流行"
       ]
@@ -1361,10 +1361,10 @@
       "translated": "",
       "artist": "汉堡黄",
       "lang": "中文",
-      "count": 7,
-      "tier": "常唱",
+      "count": 8,
+      "tier": "frequent",
       "first": "2023-03-11",
-      "last": "2025-05-28",
+      "last": "2026-06-17",
       "tags": [
         "流行"
       ]
@@ -8963,10 +8963,10 @@
       "translated": "",
       "artist": "*Luna",
       "lang": "日语",
-      "count": 1,
-      "tier": "稀有",
+      "count": 2,
+      "tier": "occasional",
       "first": "2026-02-28",
-      "last": "2026-02-28",
+      "last": "2026-06-17",
       "tags": [
         "Vocaloid",
         "流行"
@@ -12994,10 +12994,10 @@
       "translated": "",
       "artist": "元若蓝",
       "lang": "中文",
-      "count": 1,
-      "tier": "稀有",
+      "count": 2,
+      "tier": "occasional",
       "first": "2026-05-02",
-      "last": "2026-05-02",
+      "last": "2026-06-17",
       "tags": [
         "流行",
         "抒情"
