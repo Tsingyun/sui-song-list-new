@@ -12,6 +12,7 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)
 DATA_DIR = os.path.join(PROJECT_ROOT, 'data')
 DATA_FILE = os.path.join(DATA_DIR, 'song_data.json')
+COMPLETE_FILE = os.path.join(DATA_DIR, 'sui_song_list_complete.json')
 
 def load_data():
     with open(DATA_FILE, 'r', encoding='utf-8') as f:
@@ -79,6 +80,24 @@ def rebuild_site():
         print(f'Build failed: {result.stderr}', file=sys.stderr)
         sys.exit(1)
 
+def update_complete_file(song_name, date_str):
+    """Append a date to sui_song_list_complete.json for heatmap data."""
+    if not os.path.exists(COMPLETE_FILE):
+        return
+    with open(COMPLETE_FILE, 'r', encoding='utf-8') as f:
+        complete = json.load(f)
+    # Convert YYYY-MM-DD to YYYY/M/D format for complete file
+    parts = date_str.split('-')
+    date_key = f'{parts[0]}/{int(parts[1])}/{int(parts[2])}'
+    for entry in complete:
+        if entry.get('song_name', '') == song_name:
+            old = entry.get('date_list', '')
+            if date_key not in old:
+                entry['date_list'] = old + '，' + date_key if old else date_key
+            break
+    with open(COMPLETE_FILE, 'w', encoding='utf-8') as f:
+        json.dump(complete, f, ensure_ascii=False, indent=2)
+
 def main():
     parser = argparse.ArgumentParser(description='Quick add/update songs for 岁己SUI song list')
     parser.add_argument('--name', '-n', help='Song name')
@@ -139,6 +158,11 @@ def main():
             print(f'  [Added]   {song["name"]} ({song.get("artist","")}, {song.get("lang","")}) date={song["last"]}')
 
     save_data(data)
+
+    # Also update sui_song_list_complete.json for heatmap
+    for action, song in changes:
+        if args.date or args.batch:
+            update_complete_file(song['name'], song['last'])
 
     if not args.no_rebuild:
         rebuild_site()
