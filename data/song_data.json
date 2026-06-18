@@ -1808,10 +1808,10 @@
       "translated": "拟春",
       "artist": "やなぎなぎ",
       "lang": "日语",
-      "count": 6,
-      "tier": "常唱",
+      "count": 7,
+      "tier": "frequent",
       "first": "2022-09-07",
-      "last": "2025-11-18",
+      "last": "2026-06-18",
       "tags": [
         "抒情",
         "流行"
@@ -3687,10 +3687,10 @@
       "translated": "",
       "artist": "林俊杰",
       "lang": "中文",
-      "count": 4,
-      "tier": "偶尔",
+      "count": 5,
+      "tier": "frequent",
       "first": "2022-10-08",
-      "last": "2025-02-02",
+      "last": "2026-06-18",
       "tags": [
         "流行",
         "抒情"
@@ -8353,10 +8353,10 @@
       "translated": "咬住秒针",
       "artist": "ずっと真夜中でいいのに。",
       "lang": "日语",
-      "count": 2,
-      "tier": "偶尔",
+      "count": 3,
+      "tier": "occasional",
       "first": "2022-11-20",
-      "last": "2025-11-03",
+      "last": "2026-06-18",
       "tags": [
         "流行"
       ]
