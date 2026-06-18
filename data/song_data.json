@@ -1965,7 +1965,7 @@
       ]
     },
     {
-      "name": "真夜中のドア~Stay With Me",
+      "name": "真夜中のドア〜Stay With Me",
       "translated": "午夜之门~留在我身边",
       "artist": "松原みき",
       "lang": "日语",
@@ -4176,7 +4176,7 @@
       ]
     },
     {
-      "name": "Departures ~あなたにおくるアイの歌~",
+      "name": "Departures 〜あなたにおくるアイの歌〜",
       "translated": "离别~赠于你的爱之歌~",
       "artist": "EGOIST",
       "lang": "日语",
@@ -4380,7 +4380,7 @@
       ]
     },
     {
-      "name": "あなたに出会わなければ~夏雪冬花~",
+      "name": "あなたに出会わなければ〜夏雪冬花〜",
       "translated": "如果不曾遇见你~夏雪冬花~",
       "artist": "Aimer",
       "lang": "日语",
@@ -6548,7 +6548,7 @@
       ]
     },
     {
-      "name": "secret base ~君がくれたもの~",
+      "name": "secret base 〜君がくれたもの〜",
       "translated": "secret base ～你所赠予之物～",
       "artist": "茅野愛衣/戸松遥/早見沙織",
       "lang": "日语",
@@ -11943,7 +11943,7 @@
       ]
     },
     {
-      "name": "可愛くてごめん",
+      "name": "可愛くてごめん",
       "translated": "这么可爱真是抱歉",
       "artist": "早見沙織",
       "lang": "日语",
@@ -12441,26 +12441,13 @@
       ]
     },
     {
-      "name": "好き！雪！本気(マジ)マジック",
-      "translated": "",
-      "artist": "Mitchie M初音ミク",
-      "lang": "日语",
-      "count": 1,
-      "tier": "稀有",
-      "first": "2023-05-06",
-      "last": "2023-05-06",
-      "tags": [
-        "Vocaloid"
-      ]
-    },
-    {
       "name": "好き！雪！本気マジック",
       "translated": "",
       "artist": "Mitchie M（初音ミク）",
       "lang": "日语",
-      "count": 2,
-      "tier": "稀有",
-      "first": "2023-08-19",
+      "count": 3,
+      "tier": "occasional",
+      "first": "2023-05-06",
       "last": "2025-12-24",
       "tags": [
         "Vocaloid",

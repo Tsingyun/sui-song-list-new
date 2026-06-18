@@ -5920,32 +5920,6 @@
         "date": "2023-04-29"
       }
     ],
-    "真夜中のドア~Stay With Me": [
-      {
-        "bvid": "BV1qSbwzZEK6",
-        "title": "【岁己SUI】真夜中のドア~Stay With Me~ 8.2直播歌切",
-        "duration": 276,
-        "date": "2025-08-10"
-      },
-      {
-        "bvid": "BV1X14y1k7Xr",
-        "title": "【岁己SUI】真夜中のドアStay With Me   9.5直播歌切",
-        "duration": 275,
-        "date": "2023-09-05"
-      },
-      {
-        "bvid": "BV1ih411M7Wn",
-        "title": "【岁己SUI】Stay With Me   4.10直播歌切",
-        "duration": 274,
-        "date": "2023-04-10"
-      },
-      {
-        "bvid": "BV1kK411C7sp",
-        "title": "【岁己SUI】Stay With Me   1.14直播歌切",
-        "duration": 267,
-        "date": "2023-01-15"
-      }
-    ],
     "神仙说他也不懂": [
       {
         "bvid": "BV12V9bYNEaf",
@@ -10134,32 +10108,6 @@
         "date": "2023-08-20"
       }
     ],
-    "Departures ~あなたにおくるアイの歌~": [
-      {
-        "bvid": "BV14v421C7va",
-        "title": "【岁己SUI】Departures〜あなたにおくるアイの歌〜   2.19直播歌切",
-        "duration": 250,
-        "date": "2024-02-19"
-      },
-      {
-        "bvid": "BV1XK411k7zN",
-        "title": "【岁己SUI】Departures〜あなたにおくるアイの歌〜   1.19直播歌切",
-        "duration": 253,
-        "date": "2023-01-20"
-      },
-      {
-        "bvid": "BV1wt4y1E7g2",
-        "title": "Departures ~あなたにおくるアイの歌~ (外部歌切)",
-        "duration": 0,
-        "date": ""
-      },
-      {
-        "bvid": "BV1Xg411S77i",
-        "title": "Departures ~あなたにおくるアイの歌~ (外部歌切)",
-        "duration": 0,
-        "date": ""
-      }
-    ],
     "FINAL DISTANCE": [
       {
         "bvid": "BV1P7x7e1EJS",
@@ -10404,26 +10352,6 @@
       {
         "bvid": "BV1vD4y1k7qT",
         "title": "trust you (外部歌切)",
-        "duration": 0,
-        "date": ""
-      }
-    ],
-    "あなたに出会わなければ~夏雪冬花~": [
-      {
-        "bvid": "BV1zmknBFEyV",
-        "title": "【岁己SUI】あなたに出会わなければ~夏雪冬花~【20260118歌切】",
-        "duration": 359,
-        "date": "2026-01-21"
-      },
-      {
-        "bvid": "BV1k84y157r9",
-        "title": "【岁己SUI】あなたに出会わなければ 〜夏雪冬花〜   2.9直播歌切",
-        "duration": 350,
-        "date": "2023-02-07"
-      },
-      {
-        "bvid": "BV1da41137Z5",
-        "title": "あなたに出会わなければ~夏雪冬花~ (外部歌切)",
         "duration": 0,
         "date": ""
       }
@@ -16228,20 +16156,6 @@
         "date": "2024-08-22"
       }
     ],
-    "好き！雪！本気(マジ)マジック": [
-      {
-        "bvid": "BV16LB1BWEYG",
-        "title": "【岁己SUI】好き！雪！本気マジック【20251224直播歌切】",
-        "duration": 197,
-        "date": "2025-12-25"
-      },
-      {
-        "bvid": "BV1QT411b725",
-        "title": "【岁己SUI】好き！雪！本気マジック   5.6直播歌切",
-        "duration": 198,
-        "date": "2023-05-06"
-      }
-    ],
     "好き！雪！本気マジック": [
       {
         "bvid": "BV16LB1BWEYG",
@@ -17420,6 +17334,78 @@
         "title": "【岁己SUI】就让这大雨全部落下   5.26直播歌切",
         "duration": 249,
         "date": "2023-05-27"
+      }
+    ],
+    "Departures 〜あなたにおくるアイの歌〜": [
+      {
+        "bvid": "BV14v421C7va",
+        "title": "【岁己SUI】Departures〜あなたにおくるアイの歌〜   2.19直播歌切",
+        "duration": 250,
+        "date": "2024-02-19"
+      },
+      {
+        "bvid": "BV1XK411k7zN",
+        "title": "【岁己SUI】Departures〜あなたにおくるアイの歌〜   1.19直播歌切",
+        "duration": 253,
+        "date": "2023-01-20"
+      },
+      {
+        "bvid": "BV1wt4y1E7g2",
+        "title": "Departures ~あなたにおくるアイの歌~ (外部歌切)",
+        "duration": 0,
+        "date": ""
+      },
+      {
+        "bvid": "BV1Xg411S77i",
+        "title": "Departures ~あなたにおくるアイの歌~ (外部歌切)",
+        "duration": 0,
+        "date": ""
+      }
+    ],
+    "あなたに出会わなければ〜夏雪冬花〜": [
+      {
+        "bvid": "BV1zmknBFEyV",
+        "title": "【岁己SUI】あなたに出会わなければ~夏雪冬花~【20260118歌切】",
+        "duration": 359,
+        "date": "2026-01-21"
+      },
+      {
+        "bvid": "BV1k84y157r9",
+        "title": "【岁己SUI】あなたに出会わなければ 〜夏雪冬花〜   2.9直播歌切",
+        "duration": 350,
+        "date": "2023-02-07"
+      },
+      {
+        "bvid": "BV1da41137Z5",
+        "title": "あなたに出会わなければ~夏雪冬花~ (外部歌切)",
+        "duration": 0,
+        "date": ""
+      }
+    ],
+    "真夜中のドア~Stay With Me": [
+      {
+        "bvid": "BV1qSbwzZEK6",
+        "title": "【岁己SUI】真夜中のドア~Stay With Me~ 8.2直播歌切",
+        "duration": 276,
+        "date": "2025-08-10"
+      },
+      {
+        "bvid": "BV1X14y1k7Xr",
+        "title": "【岁己SUI】真夜中のドアStay With Me   9.5直播歌切",
+        "duration": 275,
+        "date": "2023-09-05"
+      },
+      {
+        "bvid": "BV1ih411M7Wn",
+        "title": "【岁己SUI】Stay With Me   4.10直播歌切",
+        "duration": 274,
+        "date": "2023-04-10"
+      },
+      {
+        "bvid": "BV1kK411C7sp",
+        "title": "【岁己SUI】Stay With Me   1.14直播歌切",
+        "duration": 267,
+        "date": "2023-01-15"
       }
     ]
   },
