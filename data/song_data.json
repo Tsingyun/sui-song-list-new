@@ -4180,10 +4180,10 @@
       "translated": "离别~赠于你的爱之歌~",
       "artist": "EGOIST",
       "lang": "日语",
-      "count": 3,
-      "tier": "偶尔",
+      "count": 4,
+      "tier": "occasional",
       "first": "2022-09-07",
-      "last": "2024-02-19",
+      "last": "2025-11-07",
       "tags": [
         "动画",
         "抒情"
@@ -6096,7 +6096,7 @@
       ]
     },
     {
-      "name": "Don't Look Back in Anger",
+      "name": "Don't Look Back In Anger",
       "translated": "",
       "artist": "Oasis",
       "lang": "英文",
@@ -9242,20 +9242,6 @@
       "last": "2022-09-16",
       "tags": [
         "流行"
-      ]
-    },
-    {
-      "name": "Departures",
-      "translated": "",
-      "artist": "EGOIST",
-      "lang": "英文",
-      "count": 1,
-      "tier": "稀有",
-      "first": "2025-11-07",
-      "last": "2025-11-07",
-      "tags": [
-        "动画",
-        "抒情"
       ]
     },
     {
