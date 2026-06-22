@@ -462,9 +462,14 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
   .stat-num{font-size:1.5rem}
   .controls{gap:8px}
   .section-tab{padding:10px 12px;font-size:11px;letter-spacing:1px}
-  .table-header,.song-row{grid-template-columns:36px 30px 1fr 70px 56px 44px 105px}
-  .table-header span,.song-row span{padding:8px 6px;font-size:12px}
+  .table-header,.song-row{grid-template-columns:36px 28px 1fr 80px 50px 42px 90px}
+  .table-header span,.song-row span{padding:8px 4px;font-size:12px}
   .song-row .name .song-title small{font-size:10px}
+  .song-row .artist{font-size:11px;white-space:normal;overflow:visible;line-height:1.3}
+  .song-row .dates{font-size:10px}
+  /* Tags on tablet */
+  .tag-badges{flex-wrap:wrap;gap:2px}
+  .tag-badge{font-size:7px;padding:1px 3px}
   .artist-grid{grid-template-columns:1fr}
   .grid-bg{height:35vh}
   .blindbox-btn{width:60px;height:60px;font-size:26px;bottom:20px;left:20px}
@@ -484,8 +489,35 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
   .bg-pos-btn{right:70px;width:32px;height:32px;font-size:10px}
 }
 @media(max-width:480px){
-  .table-header,.song-row{grid-template-columns:30px 28px 1fr 54px 44px 100px}
-  .table-header span:nth-child(5),.song-row span:nth-child(5){display:none}
+  /* ── Song row: 2-row stacked card layout ── */
+  .table-header,.song-row{
+    grid-template-columns:26px 1fr 40px;
+    grid-template-rows:auto auto;
+    gap:2px 6px;
+    align-items:center;
+  }
+  .song-row{padding:10px 6px;min-height:56px}
+  .song-row:hover{transform:none;border-left:2px solid var(--cyan);padding-left:4px}
+  /* Row 1: idx | name+tags | count */
+  .table-header span:nth-child(1),.song-row .idx{grid-column:1;grid-row:1}
+  .table-header span:nth-child(3),.song-row .name{grid-column:2;grid-row:1}
+  .table-header span:nth-child(6),.song-row .count{grid-column:3;grid-row:1}
+  /* Row 2: artist (wide) | dates */
+  .table-header span:nth-child(4),.song-row .artist{grid-column:1/span 2;grid-row:2}
+  .table-header span:nth-child(7),.song-row .dates{grid-column:3;grid-row:2}
+  /* Hide play button, lang badge, and ♪ header on mobile */
+  .song-row .play-btn,.table-header span:nth-child(2),.table-header span:nth-child(5),.song-row .lang{display:none}
+  /* ── Typography adjustments ── */
+  .song-row .name{overflow:visible;font-size:13px;padding:2px 0}
+  .song-row .name .song-title small{font-size:10px}
+  .song-row .artist{white-space:normal;overflow:visible;font-size:11px;line-height:1.35;padding:0;color:var(--text-dim)}
+  .song-row .dates{white-space:normal;font-size:10px;text-align:right;padding:0}
+  .song-row .count{font-size:16px;font-weight:700}
+  .song-row .idx{font-size:10px;padding:2px;text-align:center}
+  /* ── Tags: smaller + wrap ── */
+  .tag-badges{flex-wrap:wrap;gap:2px;margin-top:2px}
+  .tag-badge{font-size:7px;padding:1px 3px;border-radius:2px}
+  /* ── Other mobile elements ── */
   .stats-grid{grid-template-columns:repeat(2,1fr)}
   .contribute-btn{bottom:76px;right:20px;font-size:11px;padding:8px 12px}
   .export-btn{bottom:126px;right:20px;font-size:11px;padding:8px 12px}
@@ -496,6 +528,9 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
   /* Background illustration - mobile */
   .bg-illust{opacity:.14;background-position:50% 92%}
   .bg-overlay{background:radial-gradient(ellipse at 50% 40%,transparent 10%,rgba(9,0,20,.6) 50%,rgba(9,0,20,.94) 100%)}
+  /* ── Table header mobile styling ── */
+  .table-header{padding:6px 6px;font-size:10px;min-height:auto}
+  .table-header span:nth-child(4),.table-header span:nth-child(7){font-size:10px;color:var(--text-dim)}
 }
 
 /* ═══════ CONTRIBUTE (我要补充) ═══════ */
