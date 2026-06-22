@@ -15318,38 +15318,6 @@
         "date": "2023-08-14"
       }
     ],
-    "rain stops,good-bye": [
-      {
-        "bvid": "BV1T4waeYEug",
-        "title": "【岁己SUI】Rain Stops,Goodbye   1.21直播歌切",
-        "duration": 394,
-        "date": "2025-01-21"
-      },
-      {
-        "bvid": "BV1G5yeYqEfu",
-        "title": "【岁己SUI】rain stops, good-bye   10.19直播歌切",
-        "duration": 395,
-        "date": "2024-10-20"
-      },
-      {
-        "bvid": "BV1xh4y1B7ZQ",
-        "title": "【岁己SUI】Rain Stops,Goodbye   10.20直播歌切",
-        "duration": 392,
-        "date": "2023-10-21"
-      },
-      {
-        "bvid": "BV1dgy9BnEVV",
-        "title": "【岁己SUI】rain stops, good‑bye【20251101直播歌切】",
-        "duration": 395,
-        "date": "2025-11-02"
-      },
-      {
-        "bvid": "BV1xmWRzGE9J",
-        "title": "【岁己SUI】rain stops, good‑bye【20251020直播歌切】",
-        "duration": 394,
-        "date": "2025-10-22"
-      }
-    ],
     "someone you loved": [
       {
         "bvid": "BV1ntYJewE5p",
@@ -17446,6 +17414,38 @@
         "title": "【岁己SUI】Stay With Me   1.14直播歌切",
         "duration": 267,
         "date": "2023-01-15"
+      }
+    ],
+    "rain stops, good-bye": [
+      {
+        "bvid": "BV1T4waeYEug",
+        "title": "【岁己SUI】Rain Stops,Goodbye   1.21直播歌切",
+        "duration": 394,
+        "date": "2025-01-21"
+      },
+      {
+        "bvid": "BV1G5yeYqEfu",
+        "title": "【岁己SUI】rain stops, good-bye   10.19直播歌切",
+        "duration": 395,
+        "date": "2024-10-20"
+      },
+      {
+        "bvid": "BV1xh4y1B7ZQ",
+        "title": "【岁己SUI】Rain Stops,Goodbye   10.20直播歌切",
+        "duration": 392,
+        "date": "2023-10-21"
+      },
+      {
+        "bvid": "BV1dgy9BnEVV",
+        "title": "【岁己SUI】rain stops, good‑bye【20251101直播歌切】",
+        "duration": 395,
+        "date": "2025-11-02"
+      },
+      {
+        "bvid": "BV1xmWRzGE9J",
+        "title": "【岁己SUI】rain stops, good‑bye【20251020直播歌切】",
+        "duration": 394,
+        "date": "2025-10-22"
       }
     ]
   },
