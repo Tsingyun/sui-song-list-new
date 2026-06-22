@@ -1,9 +1,9 @@
 {
   "stats": {
     "total_songs": 916,
-    "matched_songs": 916,
+    "matched_songs": 915,
     "unmatched_songs": 276,
-    "total_clips": 2591
+    "total_clips": 2594
   },
   "matches": {
     "君の知らない物語": [
@@ -5550,34 +5550,8 @@
     ],
     "春擬き": [
       {
-        "bvid": "BV1ELyjBpEnU",
-        "title": "【岁己SUI】春擬き【20251118直播歌切】",
-        "duration": 266,
-        "date": "2025-11-19"
-      },
-      {
-        "bvid": "BV1DFXXYMEnB",
-        "title": "【岁己SUI】春擬き   2.28直播歌切",
-        "duration": 265,
-        "date": "2025-03-01"
-      },
-      {
-        "bvid": "BV1fP411s79G",
-        "title": "春擬き (外部歌切)",
-        "duration": 0,
-        "date": ""
-      },
-      {
-        "bvid": "BV1LN4y1N7Z2",
-        "title": "春擬き (外部歌切)",
-        "duration": 0,
-        "date": ""
-      },
-      {
-        "bvid": "BV1Fe411u7ap",
-        "title": "春擬き (外部歌切)",
-        "duration": 0,
-        "date": ""
+        "bvid": "BV1V9j66jEZ6",
+        "title": "【岁己SUI】春擬き【20260618歌切】"
       }
     ],
     "最长的电影": [
@@ -9348,28 +9322,8 @@
     ],
     "心墙": [
       {
-        "bvid": "BV1oTFkeME72",
-        "title": "【岁己SUI】心墙   2.2直播歌切",
-        "duration": 224,
-        "date": "2025-02-02"
-      },
-      {
-        "bvid": "BV1Wm421N7ir",
-        "title": "【岁己SUI】心墙   5.30直播歌切",
-        "duration": 227,
-        "date": "2024-05-30"
-      },
-      {
-        "bvid": "BV1aN4y1J7MW",
-        "title": "【岁己SUI】心墙   1.25直播歌切",
-        "duration": 226,
-        "date": "2024-01-25"
-      },
-      {
-        "bvid": "BV1zg411Y71e",
-        "title": "心墙 (外部歌切)",
-        "duration": 0,
-        "date": ""
+        "bvid": "BV1V9j66jEQ1",
+        "title": "【岁己SUI】心墙【20260618歌切】"
       }
     ],
     "恋爱告急": [
@@ -14402,16 +14356,8 @@
     ],
     "秒針を噛む": [
       {
-        "bvid": "BV1211iB4EaA",
-        "title": "【岁己SUI】秒針を噛む【20251103直播歌切】",
-        "duration": 263,
-        "date": "2025-11-04"
-      },
-      {
-        "bvid": "BV1GD4y1s7U8",
-        "title": "秒針を噛む (外部歌切)",
-        "duration": 0,
-        "date": ""
+        "bvid": "BV1YujB6BE8T",
+        "title": "【岁己SUI】秒針を噛む【20260618歌切】"
       }
     ],
     "童话镇": [
