@@ -506,10 +506,10 @@
       "translated": "",
       "artist": "ヨルシカ",
       "lang": "日语",
-      "count": 10,
-      "tier": "常唱",
+      "count": 11,
+      "tier": "frequent",
       "first": "2022-11-26",
-      "last": "2026-03-05",
+      "last": "2026-06-22",
       "tags": [
         "摇滚",
         "流行"
@@ -1686,10 +1686,10 @@
       "translated": "",
       "artist": "初音ミク/みきとP",
       "lang": "日语",
-      "count": 6,
-      "tier": "常唱",
+      "count": 7,
+      "tier": "frequent",
       "first": "2022-09-17",
-      "last": "2026-03-23",
+      "last": "2026-06-22",
       "tags": [
         "流行"
       ]
@@ -3081,10 +3081,10 @@
       "translated": "鸟之诗",
       "artist": "Lia",
       "lang": "日语",
-      "count": 5,
-      "tier": "常唱",
+      "count": 6,
+      "tier": "frequent",
       "first": "2023-01-12",
-      "last": "2024-12-25",
+      "last": "2026-06-22",
       "tags": [
         "动画",
         "抒情"
@@ -4180,7 +4180,7 @@
       "translated": "离别~赠于你的爱之歌~",
       "artist": "EGOIST",
       "lang": "日语",
-      "count": 4,
+      "count": 5,
       "tier": "occasional",
       "first": "2022-09-07",
       "last": "2025-11-07",
@@ -6100,10 +6100,10 @@
       "translated": "",
       "artist": "Oasis",
       "lang": "英文",
-      "count": 2,
-      "tier": "偶尔",
+      "count": 3,
+      "tier": "occasional",
       "first": "2024-08-10",
-      "last": "2026-05-17",
+      "last": "2026-06-22",
       "tags": [
         "摇滚",
         "经典"
@@ -6236,10 +6236,10 @@
       "translated": "",
       "artist": "巡音ルカ/Yunomi-P",
       "lang": "日语",
-      "count": 2,
-      "tier": "偶尔",
+      "count": 3,
+      "tier": "occasional",
       "first": "2024-03-01",
-      "last": "2025-11-27",
+      "last": "2026-06-22",
       "tags": [
         "Vocaloid"
       ]
@@ -8334,21 +8334,6 @@
       ]
     },
     {
-      "name": "私じゃなかったんだね",
-      "translated": "",
-      "artist": "Aimer",
-      "lang": "日语",
-      "count": 2,
-      "tier": "偶尔",
-      "first": "2025-10-06",
-      "last": "2025-11-23",
-      "tags": [
-        "动画",
-        "抒情",
-        "流行"
-      ]
-    },
-    {
       "name": "秒針を噛む",
       "translated": "咬住秒针",
       "artist": "ずっと真夜中でいいのに。",
@@ -10216,7 +10201,7 @@
       "translated": "",
       "artist": "The Script",
       "lang": "英文",
-      "count": 3,
+      "count": 4,
       "tier": "稀有",
       "first": "2023-01-14",
       "last": "2025-11-01",
@@ -15718,6 +15703,16 @@
         "Vocaloid",
         "抒情"
       ]
+    },
+    {
+      "name": "私じゃなかったんだね。",
+      "translated": "",
+      "artist": "",
+      "lang": "中文",
+      "count": 3,
+      "tier": "rare",
+      "first": "2026-06-22",
+      "last": "2026-06-22"
     }
   ]
 }
