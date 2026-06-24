@@ -4,7 +4,7 @@
 
 收录 **1,156** 首歌曲、**3,294** 次演唱记录，支持在线播放 B站录播片段。
 
-**[>>> 在线预览 <<<](https://tsingyun.github.io/sui-song-list-new/)**
+**[>>> suijisui.uk <<<](https://suijisui.uk)** · [GitHub Pages 镜像](https://tsingyun.github.io/sui-song-list-new/) · [点歌统计](https://stats.suijisui.uk)
 
 <p align="center">
   <img src="docs/screenshot.png" alt="岁己SUI 歌单档案网站截图" width="90%">
