@@ -1,8 +1,8 @@
 {
   "stats": {
     "total_songs": 1191,
-    "matched_songs": 915,
-    "unmatched_songs": 276,
+    "matched_songs": 916,
+    "unmatched_songs": 275,
     "total_clips": 2594
   },
   "matches": {
@@ -4836,26 +4836,6 @@
         "date": ""
       }
     ],
-    "シュガーソングとビターステップ (Sugar Song and Bitter Step)": [
-      {
-        "bvid": "BV1MLUhBWEQY",
-        "title": "【岁己SUI】シュガーソングとビターステップ【20251125直播歌切】",
-        "duration": 246,
-        "date": "2025-11-26"
-      },
-      {
-        "bvid": "BV1BC4ueUEuq",
-        "title": "【岁己SUI】Sugar Song and Bitter Step    10.1直播歌切",
-        "duration": 252,
-        "date": "2024-10-02"
-      },
-      {
-        "bvid": "BV1WN4y197YG",
-        "title": "【岁己SUI】Sugar Song and Bitter Step   9.5直播歌切",
-        "duration": 252,
-        "date": "2023-09-05"
-      }
-    ],
     "シリウスの心臓": [
       {
         "bvid": "BV17c41167Ff",
@@ -8326,20 +8306,6 @@
         "date": "2024-08-07"
       }
     ],
-    "God knows...": [
-      {
-        "bvid": "BV1ig4y1M7CZ",
-        "title": "【岁己SUI】God knows...   4.6直播歌切",
-        "duration": 278,
-        "date": "2023-04-06"
-      },
-      {
-        "bvid": "BV1bN411N73o",
-        "title": "【岁己SUI】God knows...    3.30直播歌切",
-        "duration": 279,
-        "date": "2023-03-31"
-      }
-    ],
     "Henceforth": [
       {
         "bvid": "BV1ytJV6FEmz",
@@ -8516,14 +8482,6 @@
         "date": ""
       }
     ],
-    "Rolling star": [
-      {
-        "bvid": "BV1Re411T7x4",
-        "title": "Rolling star (外部歌切)",
-        "duration": 0,
-        "date": ""
-      }
-    ],
     "Snow halation": [
       {
         "bvid": "BV1nLB1BWETC",
@@ -8594,20 +8552,6 @@
         "title": "【岁己SUI】Too Bad   12.03直播歌切",
         "duration": 276,
         "date": "2024-12-04"
-      }
-    ],
-    "Virtual to LIVE": [
-      {
-        "bvid": "BV1cs4y1N7Rb",
-        "title": "【岁己SUI】Virtual to Live   4.15直播歌切",
-        "duration": 267,
-        "date": "2023-04-15"
-      },
-      {
-        "bvid": "BV1Hs4y1s7fU",
-        "title": "【岁己SUI】Virtual to Live   1.29直播歌切",
-        "duration": 267,
-        "date": "2023-01-30"
       }
     ],
     "me me she": [
@@ -10070,20 +10014,6 @@
         "date": "2025-04-23"
       }
     ],
-    "City Of Stars": [
-      {
-        "bvid": "BV1MSJ3z7E7T",
-        "title": "【岁己SU】City Of Stars   5.17直播歌切",
-        "duration": 151,
-        "date": "2025-05-18"
-      },
-      {
-        "bvid": "BV1Pe4y1i79i",
-        "title": "City Of Stars (外部歌切)",
-        "duration": 0,
-        "date": ""
-      }
-    ],
     "Daybreak Frontline": [
       {
         "bvid": "BV1gsS3BzEjt",
@@ -10332,20 +10262,6 @@
         "date": "2023-10-29"
       }
     ],
-    "trust you": [
-      {
-        "bvid": "BV1Uj411F7o7",
-        "title": "【岁己SUI】trust you   4.6直播歌切",
-        "duration": 291,
-        "date": "2023-04-07"
-      },
-      {
-        "bvid": "BV1vD4y1k7qT",
-        "title": "trust you (外部歌切)",
-        "duration": 0,
-        "date": ""
-      }
-    ],
     "あの夏が飽和する": [
       {
         "bvid": "BV1VUoNB5EjR",
@@ -10540,14 +10456,6 @@
         "title": "【岁己SUI】シンクロサイクロトロン・スピリチュアライザー。   6.21直播歌切",
         "duration": 284,
         "date": "2025-06-30"
-      }
-    ],
-    "ダイヤモンド クレバス": [
-      {
-        "bvid": "BV1jyZNYhEHR",
-        "title": "【岁己SUI】ダイヤモンド クレバス   3.23直播歌切",
-        "duration": 336,
-        "date": "2025-03-26"
       }
     ],
     "メルト": [
@@ -12370,22 +12278,6 @@
         "date": "2023-02-25"
       }
     ],
-    "Beautiful World": [
-      {
-        "bvid": "BV1eR4y1r76R",
-        "title": "Beautiful World (外部歌切)",
-        "duration": 0,
-        "date": ""
-      }
-    ],
-    "Bling Bling Bling": [
-      {
-        "bvid": "BV14u411G77b",
-        "title": "【岁己SUI】Bling Bling Bling   7.30直播歌切",
-        "duration": 282,
-        "date": "2023-07-30"
-      }
-    ],
     "Break Free": [
       {
         "bvid": "BV1mt4y1L7ZA",
@@ -12400,14 +12292,6 @@
         "title": "【岁己SUI】Call Me Maybe【20260319歌切】",
         "duration": 194,
         "date": "2026-03-20"
-      }
-    ],
-    "Catch You Catch Me": [
-      {
-        "bvid": "BV1WM41157G1",
-        "title": "【岁己SUI】Catch You Catch Me   4.26直播歌切",
-        "duration": 224,
-        "date": "2023-04-26"
       }
     ],
     "City of Stars": [
@@ -12536,14 +12420,6 @@
         "date": "2024-08-18"
       }
     ],
-    "I'm Not the Only One": [
-      {
-        "bvid": "BV1pe4y1r7xW",
-        "title": "I'm Not the Only One (外部歌切)",
-        "duration": 0,
-        "date": ""
-      }
-    ],
     "Just Be Friends": [
       {
         "bvid": "BV13sS3BzEKG",
@@ -12564,20 +12440,6 @@
         "title": "【岁己SUI】Just The Two Of Us【20260210歌切】",
         "duration": 239,
         "date": "2026-02-11"
-      }
-    ],
-    "Last Night,Good Night": [
-      {
-        "bvid": "BV1xL411i7U6",
-        "title": "【岁己SUI】Last Night, Good Night   6.9直播歌切",
-        "duration": 360,
-        "date": "2023-06-10"
-      },
-      {
-        "bvid": "BV1UG4y1z79f",
-        "title": "Last Night,Good Night (外部歌切)",
-        "duration": 0,
-        "date": ""
       }
     ],
     "Let It Be": [
@@ -12916,14 +12778,6 @@
         "title": "ninelie (外部歌切)",
         "duration": 0,
         "date": ""
-      }
-    ],
-    "secret base ~君がくれたもの~": [
-      {
-        "bvid": "BV1cM4y1x75S",
-        "title": "【岁己SUI】secret base ~君がくれたもの~（part）   7.22夏日泳装发布回直播歌切",
-        "duration": 138,
-        "date": "2023-07-22"
       }
     ],
     "あおぞら": [
@@ -14852,14 +14706,6 @@
         "date": "2023-10-17"
       }
     ],
-    "Bang Bang": [
-      {
-        "bvid": "BV18d4y137Ad",
-        "title": "Bang Bang (外部歌切)",
-        "duration": 0,
-        "date": ""
-      }
-    ],
     "Be The One": [
       {
         "bvid": "BV1WL411878J",
@@ -15166,14 +15012,6 @@
         "date": "2023-01-15"
       }
     ],
-    "Time after time～花舞う街で～": [
-      {
-        "bvid": "BV17f421Q7L4",
-        "title": "【岁己SUI】迷宫   6.27直播歌切",
-        "duration": 214,
-        "date": "2024-06-27"
-      }
-    ],
     "Try Everything": [
       {
         "bvid": "BV1kEm8BBErE",
@@ -15202,14 +15040,6 @@
         "title": "【岁己SUI】Virtual to Live   1.29直播歌切",
         "duration": 267,
         "date": "2023-01-30"
-      }
-    ],
-    "We Will Rock You": [
-      {
-        "bvid": "BV1VX4y127fa",
-        "title": "【岁己SUI】We Will Rock You   5.6直播歌切",
-        "duration": 102,
-        "date": "2023-05-06"
       }
     ],
     "You(=I)": [
@@ -17336,32 +17166,6 @@
         "date": ""
       }
     ],
-    "真夜中のドア~Stay With Me": [
-      {
-        "bvid": "BV1qSbwzZEK6",
-        "title": "【岁己SUI】真夜中のドア~Stay With Me~ 8.2直播歌切",
-        "duration": 276,
-        "date": "2025-08-10"
-      },
-      {
-        "bvid": "BV1X14y1k7Xr",
-        "title": "【岁己SUI】真夜中のドアStay With Me   9.5直播歌切",
-        "duration": 275,
-        "date": "2023-09-05"
-      },
-      {
-        "bvid": "BV1ih411M7Wn",
-        "title": "【岁己SUI】Stay With Me   4.10直播歌切",
-        "duration": 274,
-        "date": "2023-04-10"
-      },
-      {
-        "bvid": "BV1kK411C7sp",
-        "title": "【岁己SUI】Stay With Me   1.14直播歌切",
-        "duration": 267,
-        "date": "2023-01-15"
-      }
-    ],
     "rain stops, good-bye": [
       {
         "bvid": "BV1T4waeYEug",
@@ -17392,6 +17196,210 @@
         "title": "【岁己SUI】rain stops, good‑bye【20251020直播歌切】",
         "duration": 394,
         "date": "2025-10-22"
+      }
+    ],
+    "Catch You Catch Me": [
+      {
+        "bvid": "BV1WM41157G1",
+        "title": "【岁己SUI】Catch You Catch Me   4.26直播歌切",
+        "duration": 224,
+        "date": "2023-04-26"
+      }
+    ],
+    "シュガーソングとビターステップ (Sugar Song and Bitter Step)": [
+      {
+        "bvid": "BV1MLUhBWEQY",
+        "title": "【岁己SUI】シュガーソングとビターステップ【20251125直播歌切】",
+        "duration": 246,
+        "date": "2025-11-26"
+      },
+      {
+        "bvid": "BV1BC4ueUEuq",
+        "title": "【岁己SUI】Sugar Song and Bitter Step    10.1直播歌切",
+        "duration": 252,
+        "date": "2024-10-02"
+      },
+      {
+        "bvid": "BV1WN4y197YG",
+        "title": "【岁己SUI】Sugar Song and Bitter Step   9.5直播歌切",
+        "duration": 252,
+        "date": "2023-09-05"
+      }
+    ],
+    "God knows...": [
+      {
+        "bvid": "BV1ig4y1M7CZ",
+        "title": "【岁己SUI】God knows...   4.6直播歌切",
+        "duration": 278,
+        "date": "2023-04-06"
+      },
+      {
+        "bvid": "BV1bN411N73o",
+        "title": "【岁己SUI】God knows...    3.30直播歌切",
+        "duration": 279,
+        "date": "2023-03-31"
+      }
+    ],
+    "Rolling star": [
+      {
+        "bvid": "BV1Re411T7x4",
+        "title": "Rolling star (外部歌切)",
+        "duration": 0,
+        "date": ""
+      }
+    ],
+    "Virtual to LIVE": [
+      {
+        "bvid": "BV1cs4y1N7Rb",
+        "title": "【岁己SUI】Virtual to Live   4.15直播歌切",
+        "duration": 267,
+        "date": "2023-04-15"
+      },
+      {
+        "bvid": "BV1Hs4y1s7fU",
+        "title": "【岁己SUI】Virtual to Live   1.29直播歌切",
+        "duration": 267,
+        "date": "2023-01-30"
+      }
+    ],
+    "City Of Stars": [
+      {
+        "bvid": "BV1MSJ3z7E7T",
+        "title": "【岁己SU】City Of Stars   5.17直播歌切",
+        "duration": 151,
+        "date": "2025-05-18"
+      },
+      {
+        "bvid": "BV1Pe4y1i79i",
+        "title": "City Of Stars (外部歌切)",
+        "duration": 0,
+        "date": ""
+      }
+    ],
+    "trust you": [
+      {
+        "bvid": "BV1Uj411F7o7",
+        "title": "【岁己SUI】trust you   4.6直播歌切",
+        "duration": 291,
+        "date": "2023-04-07"
+      },
+      {
+        "bvid": "BV1vD4y1k7qT",
+        "title": "trust you (外部歌切)",
+        "duration": 0,
+        "date": ""
+      }
+    ],
+    "ダイヤモンド クレバス": [
+      {
+        "bvid": "BV1jyZNYhEHR",
+        "title": "【岁己SUI】ダイヤモンド クレバス   3.23直播歌切",
+        "duration": 336,
+        "date": "2025-03-26"
+      }
+    ],
+    "Beautiful World": [
+      {
+        "bvid": "BV1eR4y1r76R",
+        "title": "Beautiful World (外部歌切)",
+        "duration": 0,
+        "date": ""
+      }
+    ],
+    "Bling Bling Bling": [
+      {
+        "bvid": "BV14u411G77b",
+        "title": "【岁己SUI】Bling Bling Bling   7.30直播歌切",
+        "duration": 282,
+        "date": "2023-07-30"
+      }
+    ],
+    "I'm Not the Only One": [
+      {
+        "bvid": "BV1pe4y1r7xW",
+        "title": "I'm Not the Only One (外部歌切)",
+        "duration": 0,
+        "date": ""
+      }
+    ],
+    "Last Night,Good Night": [
+      {
+        "bvid": "BV1xL411i7U6",
+        "title": "【岁己SUI】Last Night, Good Night   6.9直播歌切",
+        "duration": 360,
+        "date": "2023-06-10"
+      },
+      {
+        "bvid": "BV1UG4y1z79f",
+        "title": "Last Night,Good Night (外部歌切)",
+        "duration": 0,
+        "date": ""
+      }
+    ],
+    "secret base ~君がくれたもの~": [
+      {
+        "bvid": "BV1cM4y1x75S",
+        "title": "【岁己SUI】secret base ~君がくれたもの~（part）   7.22夏日泳装发布回直播歌切",
+        "duration": 138,
+        "date": "2023-07-22"
+      }
+    ],
+    "Bang Bang": [
+      {
+        "bvid": "BV18d4y137Ad",
+        "title": "Bang Bang (外部歌切)",
+        "duration": 0,
+        "date": ""
+      }
+    ],
+    "Time after time～花舞う街で～": [
+      {
+        "bvid": "BV17f421Q7L4",
+        "title": "【岁己SUI】迷宫   6.27直播歌切",
+        "duration": 214,
+        "date": "2024-06-27"
+      }
+    ],
+    "We Will Rock You": [
+      {
+        "bvid": "BV1VX4y127fa",
+        "title": "【岁己SUI】We Will Rock You   5.6直播歌切",
+        "duration": 102,
+        "date": "2023-05-06"
+      }
+    ],
+    "真夜中のドア~Stay With Me": [
+      {
+        "bvid": "BV1qSbwzZEK6",
+        "title": "【岁己SUI】真夜中のドア~Stay With Me~ 8.2直播歌切",
+        "duration": 276,
+        "date": "2025-08-10"
+      },
+      {
+        "bvid": "BV1X14y1k7Xr",
+        "title": "【岁己SUI】真夜中のドアStay With Me   9.5直播歌切",
+        "duration": 275,
+        "date": "2023-09-05"
+      },
+      {
+        "bvid": "BV1ih411M7Wn",
+        "title": "【岁己SUI】Stay With Me   4.10直播歌切",
+        "duration": 274,
+        "date": "2023-04-10"
+      },
+      {
+        "bvid": "BV1kK411C7sp",
+        "title": "【岁己SUI】Stay With Me   1.14直播歌切",
+        "duration": 267,
+        "date": "2023-01-15"
+      }
+    ],
+    "雛鳥": [
+      {
+        "bvid": "BV1Uqa4z9EM8",
+        "title": "【岁己SUI】雛鳥",
+        "duration": 0,
+        "date": ""
       }
     ]
   },
@@ -17661,7 +17669,6 @@
     "采茶纪",
     "銀河録",
     "長く短い祭",
-    "雛鳥",
     "雪绒花",
     "青春舞曲",
     "青空のラプソディ",
