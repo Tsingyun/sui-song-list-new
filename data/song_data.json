@@ -414,10 +414,10 @@
       "translated": "",
       "artist": "张悬",
       "lang": "中文",
-      "count": 10,
-      "tier": "常唱",
+      "count": 11,
+      "tier": "frequent",
       "first": "2022-09-30",
-      "last": "2024-10-11",
+      "last": "2026-06-28",
       "tags": [
         "流行"
       ]
@@ -3860,10 +3860,10 @@
       "translated": "",
       "artist": "杨丞琳",
       "lang": "中文",
-      "count": 5,
-      "tier": "偶尔",
+      "count": 6,
+      "tier": "frequent",
       "first": "2022-11-14",
-      "last": "2026-01-06",
+      "last": "2026-06-28",
       "tags": [
         "流行"
       ]
@@ -4994,10 +4994,10 @@
       "translated": "",
       "artist": "陶喆",
       "lang": "中文",
-      "count": 3,
-      "tier": "偶尔",
+      "count": 4,
+      "tier": "occasional",
       "first": "2023-07-30",
-      "last": "2023-10-27",
+      "last": "2026-06-28",
       "tags": [
         "R&B",
         "流行"
