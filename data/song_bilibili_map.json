@@ -1,9 +1,9 @@
 {
   "stats": {
     "total_songs": 1188,
-    "matched_songs": 916,
-    "unmatched_songs": 272,
-    "total_clips": 2594
+    "matched_songs": 918,
+    "unmatched_songs": 270,
+    "total_clips": 2617
   },
   "matches": {
     "君の知らない物語": [
@@ -652,6 +652,12 @@
         "title": "【岁己SUI】还是会寂寞   6.20直播歌切",
         "duration": 267,
         "date": "2023-06-20"
+      },
+      {
+        "bvid": "BV1sQ7s6xEVw",
+        "title": "还是会寂寞 20260624",
+        "duration": 0,
+        "date": ""
       }
     ],
     "たばこ": [
@@ -1068,6 +1074,12 @@
         "title": "乌梅子酱 (外部歌切)",
         "duration": 0,
         "date": ""
+      },
+      {
+        "bvid": "BV1m3Th6DE7U",
+        "title": "乌梅子酱 20260630",
+        "duration": 0,
+        "date": ""
       }
     ],
     "倒带": [
@@ -1472,6 +1484,12 @@
         "title": "宝贝 (外部歌切)",
         "duration": 0,
         "date": ""
+      },
+      {
+        "bvid": "BV1mBT36hEv4",
+        "title": "宝贝 20260628",
+        "duration": 0,
+        "date": ""
       }
     ],
     "虚拟": [
@@ -1616,6 +1634,12 @@
         "title": "【岁己SUI】Pretender   8.25直播歌切",
         "duration": 323,
         "date": "2023-08-25"
+      },
+      {
+        "bvid": "BV1TVTh6nEWu",
+        "title": "Pretender 20260630",
+        "duration": 0,
+        "date": ""
       }
     ],
     "Simon": [
@@ -1822,6 +1846,12 @@
         "title": "【岁己SUI】嘘月   10.22直播歌切",
         "duration": 289,
         "date": "2023-10-24"
+      },
+      {
+        "bvid": "BV1Xp7T6HEYQ",
+        "title": "嘘月 20260622",
+        "duration": 0,
+        "date": ""
       }
     ],
     "大笨钟": [
@@ -5282,6 +5312,12 @@
         "title": "小夜子 (外部歌切)",
         "duration": 0,
         "date": ""
+      },
+      {
+        "bvid": "BV1Xp7T6HE8D",
+        "title": "小夜子 20260622",
+        "duration": 0,
+        "date": ""
       }
     ],
     "少女レイ": [
@@ -6240,6 +6276,12 @@
         "title": "【岁己SUI】蜉蝣   2.22直播歌切",
         "duration": 249,
         "date": "2024-02-22"
+      },
+      {
+        "bvid": "BV1dsjU6MEHC",
+        "title": "蜉蝣 20260623",
+        "duration": 0,
+        "date": ""
       }
     ],
     "词不达意": [
@@ -6916,6 +6958,12 @@
         "title": "【岁己SUI】丑马   2.2直播歌切",
         "duration": 207,
         "date": "2024-02-03"
+      },
+      {
+        "bvid": "BV13Djm6aEUD",
+        "title": "丑马 20260623",
+        "duration": 0,
+        "date": ""
       }
     ],
     "你听得到": [
@@ -7176,6 +7224,12 @@
       {
         "bvid": "BV1XN41177ny",
         "title": "如果的事 (外部歌切)",
+        "duration": 0,
+        "date": ""
+      },
+      {
+        "bvid": "BV1mETc6eEvR",
+        "title": "如果的事 20260629",
         "duration": 0,
         "date": ""
       }
@@ -8014,6 +8068,12 @@
         "title": "被驯服的象 (外部歌切)",
         "duration": 0,
         "date": ""
+      },
+      {
+        "bvid": "BV1vsjU6MEUd",
+        "title": "被驯服的象 20260623",
+        "duration": 0,
+        "date": ""
       }
     ],
     "踊り子": [
@@ -8206,6 +8266,12 @@
       {
         "bvid": "BV1os4y1W7Ms",
         "title": "鳥の詩 (外部歌切)",
+        "duration": 0,
+        "date": ""
+      },
+      {
+        "bvid": "BV1MD7K65Err",
+        "title": "鳥の詩 20260622",
         "duration": 0,
         "date": ""
       }
@@ -8790,6 +8856,12 @@
       {
         "bvid": "BV1wM4m1R7o7",
         "title": "プラネタリウム (外部歌切)",
+        "duration": 0,
+        "date": ""
+      },
+      {
+        "bvid": "BV12VTh6JEhz",
+        "title": "プラネタリウム 20260630",
         "duration": 0,
         "date": ""
       }
@@ -9580,6 +9652,12 @@
       {
         "bvid": "BV1jM411C7jr",
         "title": "理想情人 (外部歌切)",
+        "duration": 0,
+        "date": ""
+      },
+      {
+        "bvid": "BV1mBT36hEnQ",
+        "title": "理想情人 20260628",
         "duration": 0,
         "date": ""
       }
@@ -10628,6 +10706,12 @@
         "title": "【岁己SUI】五块钱的伞   1.2直播歌切",
         "duration": 220,
         "date": "2025-01-03"
+      },
+      {
+        "bvid": "BV1m3Th6DE6Y",
+        "title": "五块钱的伞 20260630",
+        "duration": 0,
+        "date": ""
       }
     ],
     "你啊你啊": [
@@ -11044,6 +11128,12 @@
         "title": "【岁己SUI】小镇姑娘   7.30直播歌切",
         "duration": 258,
         "date": "2023-07-30"
+      },
+      {
+        "bvid": "BV1mBT36hEin",
+        "title": "小镇姑娘 20260628",
+        "duration": 0,
+        "date": ""
       }
     ],
     "左耳": [
@@ -12328,6 +12418,12 @@
         "title": "【岁己SUI】Don't Look Back In Anger   8.12直播歌切",
         "duration": 293,
         "date": "2025-08-17"
+      },
+      {
+        "bvid": "BV1MD7K65EHB",
+        "title": "DLBIA 20260622",
+        "duration": 0,
+        "date": ""
       }
     ],
     "ENDLESS STORY": [
@@ -12426,6 +12522,12 @@
         "title": "【岁己SUI】Just Be Friends【20251127直播歌切】",
         "duration": 367,
         "date": "2025-11-28"
+      },
+      {
+        "bvid": "BV1tD7K65E14",
+        "title": "JBF 20260622",
+        "duration": 0,
+        "date": ""
       }
     ],
     "Just The Two Of Us": [
@@ -14852,6 +14954,12 @@
         "title": "【岁己SUI】I Really Want to Stay At Your House   6.15直播歌切",
         "duration": 245,
         "date": "2024-06-15"
+      },
+      {
+        "bvid": "BV1mETc6eEEc",
+        "title": "IRWTSAYH 20260629",
+        "duration": 0,
+        "date": ""
       }
     ],
     "Kiss Me": [
@@ -17144,6 +17252,12 @@
         "title": "Departures ~あなたにおくるアイの歌~ (外部歌切)",
         "duration": 0,
         "date": ""
+      },
+      {
+        "bvid": "BV1Xp7T6HEgK",
+        "title": "Departures 20260622",
+        "duration": 0,
+        "date": ""
       }
     ],
     "あなたに出会わなければ〜夏雪冬花〜": [
@@ -17196,6 +17310,12 @@
         "title": "【岁己SUI】rain stops, good‑bye【20251020直播歌切】",
         "duration": 394,
         "date": "2025-10-22"
+      },
+      {
+        "bvid": "BV1MD7K65E6c",
+        "title": "rain stops 20260622",
+        "duration": 0,
+        "date": ""
       }
     ],
     "Catch You Catch Me": [
@@ -17401,6 +17521,22 @@
         "duration": 0,
         "date": ""
       }
+    ],
+    "私じゃなかったんだね。": [
+      {
+        "bvid": "BV1Xp7T6HEbS",
+        "title": "私じゃなかったんだね。 20260622",
+        "duration": 0,
+        "date": ""
+      }
+    ],
+    "Dear Mr 「F」": [
+      {
+        "bvid": "BV1mETc6eEqq",
+        "title": "Dear Mr F 20260629",
+        "duration": 0,
+        "date": ""
+      }
     ]
   },
   "unmatched": [
@@ -17452,7 +17588,6 @@
     "Butter-Fly",
     "Counting Stars",
     "Cry On My Shoulder",
-    "Dear Mr 「F」",
     "Dear No One",
     "Departures",
     "Diamonds",
@@ -17674,7 +17809,6 @@
     "风吹麦浪",
     "香水",
     "鲜花",
-    "黑色柳丁",
-    "私じゃなかったんだね。"
+    "黑色柳丁"
   ]
 }

@@ -318,10 +318,10 @@
       "translated": "",
       "artist": "李荣浩",
       "lang": "中文",
-      "count": 10,
-      "tier": "常唱",
+      "count": 11,
+      "tier": "frequent",
       "first": "2022-12-11",
-      "last": "2025-02-18",
+      "last": "2026-06-30",
       "tags": [
         "流行"
       ]
@@ -454,10 +454,10 @@
       "translated": "伪装者",
       "artist": "Official髭男dism",
       "lang": "日语",
-      "count": 9,
-      "tier": "常唱",
+      "count": 10,
+      "tier": "frequent",
       "first": "2022-09-11",
-      "last": "2026-05-21",
+      "last": "2026-06-30",
       "tags": [
         "流行"
       ]
@@ -3380,10 +3380,10 @@
       "translated": "星象仪",
       "artist": "大冢爱",
       "lang": "日语",
-      "count": 4,
-      "tier": "偶尔",
+      "count": 5,
+      "tier": "frequent",
       "first": "2023-12-16",
-      "last": "2025-10-23",
+      "last": "2026-06-30",
       "tags": [
         "流行"
       ]
@@ -4626,10 +4626,10 @@
       "translated": "",
       "artist": "ChiliChill",
       "lang": "中文",
-      "count": 3,
-      "tier": "偶尔",
+      "count": 4,
+      "tier": "occasional",
       "first": "2025-01-02",
-      "last": "2025-12-09",
+      "last": "2026-06-30",
       "tags": [
         "独立",
         "流行"
