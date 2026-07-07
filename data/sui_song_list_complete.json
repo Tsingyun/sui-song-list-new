@@ -13,7 +13,7 @@
   {
     "index": 2,
     "song_name": "The Everlasting Guilty Crown",
-    "song_translated_name": null,
+    "song_translated_name": "永恒的罪恶王冠",
     "artist": "EGOIST",
     "date_list": "2022/9/4，2022/10/4，2023/1/19，2025/7/5",
     "remarks": "TV动画《罪恶王冠》OP2",
@@ -827,7 +827,7 @@
   {
     "index": 76,
     "song_name": "Glow",
-    "song_translated_name": null,
+    "song_translated_name": "昏红",
     "artist": "初音ミク/Keeno",
     "date_list": "2022/9/12，2023/6/21",
     "remarks": null,
@@ -2147,7 +2147,7 @@
   {
     "index": 196,
     "song_name": "Call Me Maybe",
-    "song_translated_name": null,
+    "song_translated_name": "有空叩我",
     "artist": "Carly Rae Jepsen",
     "date_list": "2022/10/20，2026/3/18",
     "remarks": null,
@@ -2345,7 +2345,7 @@
   {
     "index": 214,
     "song_name": "Monster",
-    "song_translated_name": null,
+    "song_translated_name": "怪物",
     "artist": "YOASOBI",
     "date_list": "2022/10/31",
     "remarks": "TV动画《BEASTARS》第二季OP",
@@ -2389,7 +2389,7 @@
   {
     "index": 218,
     "song_name": "あの夢をなぞって",
-    "song_translated_name": null,
+    "song_translated_name": "描绘着那场梦",
     "artist": "YOASOBI",
     "date_list": "2022/10/31，2023/11/4，2023/9/21，2024/3/10，2024/12/19",
     "remarks": null,
@@ -4930,7 +4930,7 @@
   {
     "index": 449,
     "song_name": "同じ夜",
-    "song_translated_name": null,
+    "song_translated_name": "相同的夜晚",
     "artist": "椎名林檎",
     "date_list": "2023/4/22",
     "remarks": null,
@@ -5502,7 +5502,7 @@
   {
     "index": 501,
     "song_name": "最高の片想い",
-    "song_translated_name": null,
+    "song_translated_name": "最美的单思",
     "artist": "田井中彩智",
     "date_list": "2023/5/7，2025/3/27，2026/2/26",
     "remarks": "TV动画《彩云国物语》第一季的片尾曲",
@@ -6404,7 +6404,7 @@
   {
     "index": 583,
     "song_name": "天ノ弱",
-    "song_translated_name": null,
+    "song_translated_name": "天之弱",
     "artist": "GUMI/164",
     "date_list": "2023/6/21，2024/12/30，2026/5/21",
     "remarks": null,
@@ -6547,7 +6547,7 @@
   {
     "index": 596,
     "song_name": "銀河録",
-    "song_translated_name": null,
+    "song_translated_name": "银河录",
     "artist": "はるまきごはん/初音ミク",
     "date_list": "2023/6/23",
     "remarks": null,
@@ -6657,7 +6657,7 @@
   {
     "index": 606,
     "song_name": "YUBIKIRI-GENMAN",
-    "song_translated_name": null,
+    "song_translated_name": "拉勾勾",
     "artist": "Mili",
     "date_list": "2022/9/11，2024/6/20，2025/4/19",
     "remarks": null,
@@ -6855,7 +6855,7 @@
   {
     "index": 624,
     "song_name": "Lemon Tree",
-    "song_translated_name": null,
+    "song_translated_name": "柠檬树",
     "artist": "Fool's Garden",
     "date_list": "2022/9/21",
     "remarks": null,
@@ -6976,7 +6976,7 @@
   {
     "index": 635,
     "song_name": "SWEET MEMORIES",
-    "song_translated_name": null,
+    "song_translated_name": "甜蜜回忆",
     "artist": "松田圣子",
     "date_list": "2022/9/25，2022/12/28，2024/3/18",
     "remarks": null,
@@ -7141,7 +7141,7 @@
   {
     "index": 650,
     "song_name": "Good Day",
-    "song_translated_name": null,
+    "song_translated_name": "好日子",
     "artist": "IU",
     "date_list": "2022/10/9",
     "remarks": null,
@@ -7427,7 +7427,7 @@
   {
     "index": 676,
     "song_name": "一番の宝物",
-    "song_translated_name": null,
+    "song_translated_name": "最珍贵的宝物",
     "artist": "YUI",
     "date_list": "2023/7/17，2023/9/4",
     "remarks": "TV动画《Angel Beats》ED最终回",
@@ -7438,7 +7438,7 @@
   {
     "index": 677,
     "song_name": "アヤノの幸福理論",
-    "song_translated_name": null,
+    "song_translated_name": "文乃的幸福理论",
     "artist": "じん/IA",
     "date_list": "2023/7/17",
     "remarks": null,
@@ -7449,7 +7449,7 @@
   {
     "index": 678,
     "song_name": "summertime",
-    "song_translated_name": null,
+    "song_translated_name": "夏日时光",
     "artist": "cinnamons/evening cinema",
     "date_list": "2023/7/22",
     "remarks": null,
@@ -7966,7 +7966,7 @@
   {
     "index": 725,
     "song_name": "Henceforth",
-    "song_translated_name": null,
+    "song_translated_name": "从今往后",
     "artist": "orangestar/IA",
     "date_list": "2023/8/20，2023/8/8，2025/2/18，2026/6/12",
     "remarks": null,
@@ -8054,7 +8054,7 @@
   {
     "index": 733,
     "song_name": "oblivious",
-    "song_translated_name": null,
+    "song_translated_name": "忘却",
     "artist": "Kalafina",
     "date_list": "2023/8/14",
     "remarks": "动画电影《空之境界》ED1",
@@ -8153,7 +8153,7 @@
   {
     "index": 742,
     "song_name": "曇天",
-    "song_translated_name": null,
+    "song_translated_name": "阴天",
     "artist": "DOES",
     "date_list": "2023/8/20",
     "remarks": "TV动画《银魂》OP5 ",
@@ -8340,7 +8340,7 @@
   {
     "index": 759,
     "song_name": "いかないで",
-    "song_translated_name": null,
+    "song_translated_name": "别走",
     "artist": "想太/歌愛ユキ",
     "date_list": "2023/8/29，2023/12/27，2025/8/24",
     "remarks": null,
@@ -8593,7 +8593,7 @@
   {
     "index": 782,
     "song_name": "宵々古今",
-    "song_translated_name": null,
+    "song_translated_name": "宵宵古今",
     "artist": "reol",
     "date_list": "2023/10/7",
     "remarks": null,
@@ -8703,7 +8703,7 @@
   {
     "index": 792,
     "song_name": "Lost Stars",
-    "song_translated_name": null,
+    "song_translated_name": "迷失的星星",
     "artist": "Adam Levine",
     "date_list": "2023/10/20，2024/1/19，2024/8/10，2026/1/16",
     "remarks": "电影《歌曲改变人生》插曲",
@@ -8956,7 +8956,7 @@
   {
     "index": 815,
     "song_name": "ひまわりの約束",
-    "song_translated_name": null,
+    "song_translated_name": "向日葵的约定",
     "artist": "秦基博",
     "date_list": "2023/12/16，2023/12/19，2024/1/23，2024/11/7，2024/4/25，2025/4/24，2026/4/20",
     "remarks": null,
@@ -9077,7 +9077,7 @@
   {
     "index": 826,
     "song_name": "Remember Me",
-    "song_translated_name": null,
+    "song_translated_name": "请记住我",
     "artist": "Gael Garcia Bernal",
     "date_list": "2024/1/6，2024/11/13，2024/12/7",
     "remarks": null,
@@ -9198,7 +9198,7 @@
   {
     "index": 837,
     "song_name": "海に行く",
-    "song_translated_name": null,
+    "song_translated_name": "去海边",
     "artist": "茶太",
     "date_list": "2024/1/4，2024/2/5，2024/5/20，2025/1/4，2025/12/2",
     "remarks": null,
@@ -9330,7 +9330,7 @@
   {
     "index": 849,
     "song_name": "愛してる",
-    "song_translated_name": null,
+    "song_translated_name": "我爱你",
     "artist": "高鈴",
     "date_list": "2024/3/1",
     "remarks": null,
@@ -9495,7 +9495,7 @@
   {
     "index": 864,
     "song_name": "星が瞬くこんな夜に",
-    "song_translated_name": null,
+    "song_translated_name": "在繁星闪耀的夜晚",
     "artist": "supercell",
     "date_list": "2024/4/6，2024/8/10，2025/8/16",
     "remarks": null,
@@ -9539,7 +9539,7 @@
   {
     "index": 868,
     "song_name": "さようなら、花泥棒さん",
-    "song_translated_name": null,
+    "song_translated_name": "再见了，盗花人",
     "artist": "鎖那",
     "date_list": "2024/12/15，2024/4/22，2025/10/28",
     "remarks": null,
@@ -9550,7 +9550,7 @@
   {
     "index": 869,
     "song_name": "彼女は旅に出る",
-    "song_translated_name": null,
+    "song_translated_name": "她踏上了旅途",
     "artist": "鎖那",
     "date_list": "2024/4/22，2025/12/16，2026/6/5",
     "remarks": null,
@@ -9561,7 +9561,7 @@
   {
     "index": 870,
     "song_name": "エイリアンズ",
-    "song_translated_name": null,
+    "song_translated_name": "外星人",
     "artist": "KIRINJI",
     "date_list": "2024/12/9，2024/4/23，2024/5/28，2024/8/1，2025/3/9，2026/3/26",
     "remarks": null,
@@ -9572,7 +9572,7 @@
   {
     "index": 871,
     "song_name": "花の塔",
-    "song_translated_name": null,
+    "song_translated_name": "花之塔",
     "artist": "さユり",
     "date_list": "2024/4/22，2026/4/8",
     "remarks": null,
@@ -9671,7 +9671,7 @@
   {
     "index": 880,
     "song_name": "ラプンツェル",
-    "song_translated_name": null,
+    "song_translated_name": "长发公主",
     "artist": "n-buna/初音ミク",
     "date_list": "2024/5/13",
     "remarks": null,
@@ -9693,7 +9693,7 @@
   {
     "index": 882,
     "song_name": "真夏の通り雨",
-    "song_translated_name": null,
+    "song_translated_name": "盛夏的阵雨",
     "artist": "宇多田ヒカル",
     "date_list": "2024/5/17，2025/1/20",
     "remarks": null,
@@ -9847,7 +9847,7 @@
   {
     "index": 896,
     "song_name": "だんご大家族",
-    "song_translated_name": null,
+    "song_translated_name": "团子大家族",
     "artist": "茶太",
     "date_list": "2024/6/1",
     "remarks": null,
@@ -9946,7 +9946,7 @@
   {
     "index": 905,
     "song_name": "夜の国",
-    "song_translated_name": null,
+    "song_translated_name": "夜之国",
     "artist": "Annabel",
     "date_list": "2024/6/25，2025/2/9",
     "remarks": null,
@@ -9968,7 +9968,7 @@
   {
     "index": 907,
     "song_name": "小さなてのひら",
-    "song_translated_name": null,
+    "song_translated_name": "小小的手心",
     "artist": "riya",
     "date_list": "2024/6/25",
     "remarks": null,
@@ -10067,7 +10067,7 @@
   {
     "index": 916,
     "song_name": "桜色舞うころ",
-    "song_translated_name": null,
+    "song_translated_name": "樱花飞舞时",
     "artist": "中島美嘉",
     "date_list": "2024/7/14",
     "remarks": null,
@@ -10177,7 +10177,7 @@
   {
     "index": 926,
     "song_name": "GALLOWS BELL",
-    "song_translated_name": null,
+    "song_translated_name": "绞刑架之钟",
     "artist": "buzzG",
     "date_list": "2024/8/6，2025/8/24，2026/1/13，2026/3/13",
     "remarks": null,
@@ -10353,7 +10353,7 @@
   {
     "index": 942,
     "song_name": "この世界で見つけたもの",
-    "song_translated_name": null,
+    "song_translated_name": "在这个世界上发现的东西",
     "artist": "EGOIST",
     "date_list": "2024/8/17，2025/3/30，2025/6/28",
     "remarks": null,
@@ -10364,7 +10364,7 @@
   {
     "index": 943,
     "song_name": "ドレミファロンド",
-    "song_translated_name": null,
+    "song_translated_name": "音阶圆舞曲",
     "artist": "40mP/初音ミク",
     "date_list": "2024/8/18",
     "remarks": null,
@@ -10452,7 +10452,7 @@
   {
     "index": 951,
     "song_name": "星屑ビーナス",
-    "song_translated_name": null,
+    "song_translated_name": "星尘中的维纳斯",
     "artist": "Aimer",
     "date_list": "2024/8/29，2025/4/13，2026/5/7",
     "remarks": null,
@@ -10540,7 +10540,7 @@
   {
     "index": 959,
     "song_name": "ミカヅキ",
-    "song_translated_name": null,
+    "song_translated_name": "新月",
     "artist": "酸欠少女さユり",
     "date_list": "2024/9/27",
     "remarks": null,
@@ -10980,7 +10980,7 @@
   {
     "index": 999,
     "song_name": "ちょっと出かけてきます",
-    "song_translated_name": null,
+    "song_translated_name": "出门去",
     "artist": "Tia",
     "date_list": "2024/11/30，2025/4/26，2026/1/6",
     "remarks": null,
@@ -11024,7 +11024,7 @@
   {
     "index": 1003,
     "song_name": "僕らのあしあと",
-    "song_translated_name": null,
+    "song_translated_name": "我们的足迹",
     "artist": "supercell",
     "date_list": "2024/12/6",
     "remarks": null,
@@ -11178,7 +11178,7 @@
   {
     "index": 1017,
     "song_name": "小さな恋のうた",
-    "song_translated_name": null,
+    "song_translated_name": "小小恋歌",
     "artist": "MONGOL800",
     "date_list": "2025/3/1，2026/5/17",
     "remarks": null,
@@ -11233,7 +11233,7 @@
   {
     "index": 1022,
     "song_name": "Yesterday Once More",
-    "song_translated_name": null,
+    "song_translated_name": "昨日重现",
     "artist": "Carpenters",
     "date_list": "2025/3/15",
     "remarks": null,
@@ -11255,7 +11255,7 @@
   {
     "index": 1024,
     "song_name": "だから僕は音楽を辞めた",
-    "song_translated_name": null,
+    "song_translated_name": "所以我放弃了音乐",
     "artist": "ヨルシカ",
     "date_list": "2025/12/4，2025/3/25，2026/3/10，2026/4/26",
     "remarks": null,
@@ -11310,7 +11310,7 @@
   {
     "index": 1029,
     "song_name": "ユラレル",
-    "song_translated_name": null,
+    "song_translated_name": "动摇",
     "artist": "みゆな",
     "date_list": "1901/11/21，2025/4/17",
     "remarks": null,
@@ -11321,7 +11321,7 @@
   {
     "index": 1030,
     "song_name": "さよならミッドナイト",
-    "song_translated_name": null,
+    "song_translated_name": "再见午夜",
     "artist": "GUMI",
     "date_list": "2025/10/25，2025/4/19",
     "remarks": null,
@@ -11409,7 +11409,7 @@
   {
     "index": 1038,
     "song_name": "春泥棒",
-    "song_translated_name": null,
+    "song_translated_name": "春日小偷",
     "artist": "ヨルシカ",
     "date_list": "2025/12/2，2025/5/15，2025/5/7",
     "remarks": null,
@@ -11497,7 +11497,7 @@
   {
     "index": 1046,
     "song_name": "小説 夏と罰 (上)",
-    "song_translated_name": null,
+    "song_translated_name": "小说 夏与罚（上）",
     "artist": "傘村トータ/猫村いろは/KAITO",
     "date_list": "2025/7/13",
     "remarks": null,
@@ -11508,7 +11508,7 @@
   {
     "index": 1047,
     "song_name": "朝を呑む",
-    "song_translated_name": null,
+    "song_translated_name": "包容这早晨",
     "artist": "須田景凪初音ミク",
     "date_list": "2025/7/13",
     "remarks": null,
@@ -11750,7 +11750,7 @@
   {
     "index": 1069,
     "song_name": "City Of Stars",
-    "song_translated_name": null,
+    "song_translated_name": "星光之城",
     "artist": "Ryan Gosling",
     "date_list": "2022/10/16，2023/2/19，2025/5/17",
     "remarks": null,
@@ -11761,7 +11761,7 @@
   {
     "index": 1070,
     "song_name": "Fly Me to the Moon",
-    "song_translated_name": null,
+    "song_translated_name": "带我飞向月球",
     "artist": "Frank Sinatra",
     "date_list": "2022/9/10，2023/11/19，2023/2/25，2024/1/6，2025/5/27，2026/1/4，2026/4/20",
     "remarks": null,
@@ -11849,7 +11849,7 @@
   {
     "index": 1078,
     "song_name": "怪獣の花唄",
-    "song_translated_name": null,
+    "song_translated_name": "怪兽的花之歌",
     "artist": "Vaundy",
     "date_list": "2025/10/29，2025/12/4，2026/1/29",
     "remarks": null,
@@ -11893,7 +11893,7 @@
   {
     "index": 1082,
     "song_name": "言って。",
-    "song_translated_name": null,
+    "song_translated_name": "说吧。",
     "artist": "ヨルシカ",
     "date_list": "2023/6/22，2025/1/19，2025/10/28，2026/3/18",
     "remarks": null,
@@ -11959,7 +11959,7 @@
   {
     "index": 1088,
     "song_name": "For フルーツバスケット",
-    "song_translated_name": null,
+    "song_translated_name": "For 水果篮子",
     "artist": "岡崎律子",
     "date_list": "2026/2/5，2026/5/24",
     "remarks": null,
@@ -12003,7 +12003,7 @@
   {
     "index": 1092,
     "song_name": "Let It Be",
-    "song_translated_name": null,
+    "song_translated_name": "顺其自然",
     "artist": "The Beatles",
     "date_list": "2022/9/6，2023/10/20，2023/2/19，2023/2/6，2023/3/8，2024/8/10，2026/5/17",
     "remarks": null,
@@ -12135,7 +12135,7 @@
   {
     "index": 1104,
     "song_name": "ビードロ模様",
-    "song_translated_name": null,
+    "song_translated_name": "夏末光景",
     "artist": "やなぎなぎ",
     "date_list": "2025/10/28，2025/12/21",
     "remarks": null,
@@ -12234,7 +12234,7 @@
   {
     "index": 1113,
     "song_name": "悪魔の子",
-    "song_translated_name": null,
+    "song_translated_name": "恶魔之子",
     "artist": "ヒグチアイ",
     "date_list": "2025/11/27，2026/4/20",
     "remarks": null,
@@ -12410,7 +12410,7 @@
   {
     "index": 1131,
     "song_name": "Into the Unknown",
-    "song_translated_name": null,
+    "song_translated_name": "未知的真相",
     "artist": "Idina Menzel",
     "date_list": "2022/11/4",
     "remarks": null,
@@ -12443,7 +12443,7 @@
   {
     "index": 1134,
     "song_name": "Letter Song",
-    "song_translated_name": null,
+    "song_translated_name": "致十年后的我",
     "artist": "doriko（初音ミク）",
     "date_list": "2026/2/9",
     "remarks": null,
@@ -12454,7 +12454,7 @@
   {
     "index": 1135,
     "song_name": "Let It Go",
-    "song_translated_name": null,
+    "song_translated_name": "随它吧",
     "artist": "Idina Menzel",
     "date_list": "2022/11/4",
     "remarks": null,
@@ -12498,7 +12498,7 @@
   {
     "index": 1139,
     "song_name": "Moon River",
-    "song_translated_name": null,
+    "song_translated_name": "月亮河",
     "artist": "Audrey Hepburn",
     "date_list": "2023/7/25",
     "remarks": null,
@@ -12586,7 +12586,7 @@
   {
     "index": 1147,
     "song_name": "Try Everything",
-    "song_translated_name": null,
+    "song_translated_name": "尝试一切",
     "artist": "Shakira",
     "date_list": "2023/1/27，2023/8/14，2025/12/10",
     "remarks": null,
@@ -12663,7 +12663,7 @@
   {
     "index": 1154,
     "song_name": "tune the rainbow",
-    "song_translated_name": null,
+    "song_translated_name": "调律彩虹",
     "artist": "坂本真綾",
     "date_list": "2024/12/7",
     "remarks": null,
@@ -12674,7 +12674,7 @@
   {
     "index": 1155,
     "song_name": "あなたがいた森",
-    "song_translated_name": null,
+    "song_translated_name": "曾有你的森林",
     "artist": "樹海",
     "date_list": "2026/3/8",
     "remarks": null,
@@ -12685,7 +12685,7 @@
   {
     "index": 1156,
     "song_name": "さよならの夏",
-    "song_translated_name": null,
+    "song_translated_name": "道别之夏",
     "artist": "手嶌葵",
     "date_list": "2025/12/28",
     "remarks": null,
@@ -12762,7 +12762,7 @@
   {
     "index": 1163,
     "song_name": "サマータイムレコード",
-    "song_translated_name": null,
+    "song_translated_name": "夏令时记录",
     "artist": "じん（初音ミク）",
     "date_list": "2025/11/20",
     "remarks": null,
@@ -12773,7 +12773,7 @@
   {
     "index": 1164,
     "song_name": "センチメンタルな愛慕心",
-    "song_translated_name": null,
+    "song_translated_name": "多情善感的爱慕心",
     "artist": "ハチ（米津玄師）",
     "date_list": "2025/12/9",
     "remarks": null,
@@ -12784,7 +12784,7 @@
   {
     "index": 1165,
     "song_name": "センチメートル",
-    "song_translated_name": null,
+    "song_translated_name": "厘米",
     "artist": "the peggies",
     "date_list": "2026/5/2",
     "remarks": null,
@@ -12795,7 +12795,7 @@
   {
     "index": 1166,
     "song_name": "ダイアモンド クレバス",
-    "song_translated_name": null,
+    "song_translated_name": "钻石裂痕",
     "artist": "May'n/中島愛",
     "date_list": "2025/3/23",
     "remarks": null,
@@ -12806,7 +12806,7 @@
   {
     "index": 1167,
     "song_name": "トリノコシティ",
-    "song_translated_name": null,
+    "song_translated_name": "孤雏市",
     "artist": "164（初音ミク）",
     "date_list": "2026/5/3",
     "remarks": null,
@@ -12817,7 +12817,7 @@
   {
     "index": 1168,
     "song_name": "ハイドアンド・シーク",
-    "song_translated_name": null,
+    "song_translated_name": "捉迷藏",
     "artist": "バルーン",
     "date_list": "2026/1/19",
     "remarks": null,
@@ -12828,7 +12828,7 @@
   {
     "index": 1169,
     "song_name": "フォニイ",
-    "song_translated_name": null,
+    "song_translated_name": "伪物",
     "artist": "可不/ツミキ",
     "date_list": "",
     "remarks": null,
@@ -12949,7 +12949,7 @@
   {
     "index": 1180,
     "song_name": "刹那プラス",
-    "song_translated_name": null,
+    "song_translated_name": "刹那Plus",
     "artist": "バルーン",
     "date_list": "2025/12/9",
     "remarks": null,
@@ -12971,7 +12971,7 @@
   {
     "index": 1182,
     "song_name": "割れたリンゴ",
-    "song_translated_name": null,
+    "song_translated_name": "破碎的苹果",
     "artist": "渡辺麻友",
     "date_list": "2025/12/9",
     "remarks": null,
@@ -13015,7 +13015,7 @@
   {
     "index": 1186,
     "song_name": "君との明日",
-    "song_translated_name": null,
+    "song_translated_name": "与你的明天",
     "artist": "西野カナ",
     "date_list": "2026/2/5",
     "remarks": null,
@@ -13521,7 +13521,7 @@
   {
     "index": 1232,
     "song_name": "行かないで",
-    "song_translated_name": null,
+    "song_translated_name": "不要走",
     "artist": "中森明菜",
     "date_list": "2025/8/24",
     "remarks": null,
@@ -13532,7 +13532,7 @@
   {
     "index": 1233,
     "song_name": "貴方の恋人になりたい",
-    "song_translated_name": null,
+    "song_translated_name": "想成为你的恋人",
     "artist": "まふまふ",
     "date_list": "2026/6/11",
     "remarks": null,
@@ -13576,7 +13576,7 @@
   {
     "index": 1237,
     "song_name": "運命のルーレット廻して",
-    "song_translated_name": null,
+    "song_translated_name": "转动命运之轮",
     "artist": "ZARD",
     "date_list": "2026/5/20",
     "remarks": null,
@@ -13642,7 +13642,7 @@
   {
     "index": 1243,
     "song_name": "雪は何色",
-    "song_translated_name": null,
+    "song_translated_name": "雪为何色",
     "artist": "LiSA",
     "date_list": "2025/12/4",
     "remarks": null,
