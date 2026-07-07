@@ -967,10 +967,10 @@
       "translated": "",
       "artist": "初音ミク/古川本舗",
       "lang": "日语",
-      "count": 7,
-      "tier": "常唱",
+      "count": 8,
+      "tier": "frequent",
       "first": "2022-09-15",
-      "last": "2025-09-04",
+      "last": "2026-07-05",
       "tags": [
         "流行"
       ]
@@ -4263,10 +4263,10 @@
       "translated": "灯球",
       "artist": "ずっと真夜中でいいのに。",
       "lang": "日语",
-      "count": 3,
-      "tier": "偶尔",
+      "count": 4,
+      "tier": "occasional",
       "first": "2022-09-11",
-      "last": "2026-03-18",
+      "last": "2026-07-04",
       "tags": [
         "流行"
       ]
@@ -8786,10 +8786,10 @@
       "translated": "",
       "artist": "COPY/洛天依/乐正绫",
       "lang": "中文",
-      "count": 2,
-      "tier": "偶尔",
+      "count": 3,
+      "tier": "occasional",
       "first": "2024-11-28",
-      "last": "2026-03-01",
+      "last": "2026-07-05",
       "tags": [
         "流行"
       ]
@@ -10887,10 +10887,10 @@
       "translated": "",
       "artist": "ハチ（米津玄師）",
       "lang": "日语",
-      "count": 1,
-      "tier": "稀有",
+      "count": 2,
+      "tier": "occasional",
       "first": "2025-11-28",
-      "last": "2025-11-28",
+      "last": "2026-07-04",
       "tags": [
         "Vocaloid",
         "抒情"
@@ -13719,10 +13719,10 @@
       "translated": "",
       "artist": "米白",
       "lang": "中文",
-      "count": 1,
-      "tier": "稀有",
+      "count": 2,
+      "tier": "occasional",
       "first": "2023-05-07",
-      "last": "2023-05-07",
+      "last": "2026-07-05",
       "tags": [
         "流行"
       ]
@@ -15713,6 +15713,16 @@
       "tier": "rare",
       "first": "2026-06-22",
       "last": "2026-06-22"
+    },
+    {
+      "name": "失恋ソング沢山聴いて泣いてばかりの私はもう。",
+      "translated": "",
+      "artist": "",
+      "lang": "中文",
+      "count": 1,
+      "tier": "rare",
+      "first": "2026-07-06",
+      "last": "2026-07-06"
     }
   ]
 }

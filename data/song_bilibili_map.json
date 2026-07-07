@@ -3,7 +3,7 @@
     "total_songs": 1188,
     "matched_songs": 918,
     "unmatched_songs": 270,
-    "total_clips": 2617
+    "total_clips": 2622
   },
   "matches": {
     "君の知らない物語": [
@@ -3388,6 +3388,12 @@
       {
         "bvid": "BV1Ce411k7Hy",
         "title": "Alice (外部歌切)",
+        "duration": 0,
+        "date": ""
+      },
+      {
+        "bvid": "BV1YpM46DEJU",
+        "title": "Alice 20260705",
         "duration": 0,
         "date": ""
       }
@@ -10248,6 +10254,12 @@
         "title": "【岁己SUI】MILABO【20260319歌切】",
         "duration": 267,
         "date": "2026-03-20"
+      },
+      {
+        "bvid": "BV1QsM46JEzZ",
+        "title": "MILABO 20260704",
+        "duration": 0,
+        "date": ""
       }
     ],
     "Remember Me": [
@@ -14682,6 +14694,12 @@
         "title": "【岁己SUI】霜雪千年【20260301歌切】",
         "duration": 241,
         "date": "2026-03-02"
+      },
+      {
+        "bvid": "BV1YpM46DEvn",
+        "title": "霜雪千年 20260705",
+        "duration": 0,
+        "date": ""
       }
     ],
     "青花瓷": [
@@ -15442,6 +15460,12 @@
         "title": "【岁己SUI】メリュー【20251128直播歌切】",
         "duration": 230,
         "date": "2025-11-29"
+      },
+      {
+        "bvid": "BV1asM46JEXb",
+        "title": "メリュー 20260704",
+        "duration": 0,
+        "date": ""
       }
     ],
     "メリーメリー（Merry Merry）": [
@@ -16546,6 +16570,12 @@
         "title": "【岁己SUI】横竖撇点折   5.7直播歌切",
         "duration": 228,
         "date": "2023-05-08"
+      },
+      {
+        "bvid": "BV1apM46DE1U",
+        "title": "横竖撇点折 20260705",
+        "duration": 0,
+        "date": ""
       }
     ],
     "欧若拉": [
