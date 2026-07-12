@@ -767,10 +767,10 @@
       "translated": "",
       "artist": "曾轶可",
       "lang": "中文",
-      "count": 8,
-      "tier": "常唱",
+      "count": 9,
+      "tier": "frequent",
       "first": "2022-09-10",
-      "last": "2024-12-25",
+      "last": "2026-07-11",
       "tags": [
         "流行"
       ]
@@ -964,10 +964,10 @@
       "translated": "",
       "artist": "周杰伦",
       "lang": "中文",
-      "count": 8,
-      "tier": "常唱",
+      "count": 9,
+      "tier": "frequent",
       "first": "2023-04-29",
-      "last": "2025-04-01",
+      "last": "2026-07-12",
       "tags": [
         "流行",
         "R&B"
@@ -2642,10 +2642,10 @@
       "translated": "",
       "artist": "林宥嘉",
       "lang": "中文",
-      "count": 6,
-      "tier": "常唱",
+      "count": 7,
+      "tier": "frequent",
       "first": "2023-01-25",
-      "last": "2025-06-08",
+      "last": "2026-07-12",
       "tags": [
         "抒情",
         "流行"
@@ -3339,10 +3339,10 @@
       "translated": "视力检查",
       "artist": "GUMI/40mP",
       "lang": "日语",
-      "count": 4,
-      "tier": "偶尔",
+      "count": 5,
+      "tier": "frequent",
       "first": "2023-10-19",
-      "last": "2025-11-27",
+      "last": "2026-07-11",
       "tags": [
         "流行"
       ]
@@ -15724,6 +15724,16 @@
       "tier": "rare",
       "first": "2026-06-22",
       "last": "2026-06-22"
+    },
+    {
+      "name": "落泪",
+      "translated": "",
+      "artist": "",
+      "lang": "中文",
+      "count": 1,
+      "tier": "rare",
+      "first": "2026-07-11",
+      "last": "2026-07-11"
     }
   ]
 }
