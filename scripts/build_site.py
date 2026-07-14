@@ -795,7 +795,7 @@ mark{background:rgba(0,255,255,.2);color:var(--cyan);padding:0 1px;border-radius
   <section class="hero">
     <div class="hero-label">// SUI_SONG_DATABASE v2.0</div>
     <h1 class="hero-title">岁己SUI</h1>
-    <div class="hero-sub">完 整 歌 单 档 案 &nbsp;<span>▸</span>&nbsp; <span>2022.09 — 2026.06</span></div>
+    <div class="hero-sub">完 整 歌 单 档 案 &nbsp;<span>▸</span>&nbsp; <span>2022.09 — 2026.07</span></div>
   </section>
 
   <div class="stats-grid" id="statsGrid"></div>
@@ -890,7 +890,7 @@ mark{background:rgba(0,255,255,.2);color:var(--cyan);padding:0 1px;border-radius
   <div class="footer">
     <p>部分数据来源：<a href="https://www.suijisui.space" target="_blank">suijisui.space</a>（<a href="https://github.com/PQL87/sui-song-list" target="_blank">GitHub: PQL87/sui-song-list</a>）</p>
     <p style="margin-top:10px;"><a href="https://github.com/Tsingyun/sui-song-list-new" class="gh-btn" target="_blank">◈ 项目源码 GitHub ◈</a></p>
-    <p style="margin-top:10px;">2022.09 — 2026.06</p>
+    <p style="margin-top:10px;">2022.09 — 2026.07</p>
   </div>
 </div>
 
