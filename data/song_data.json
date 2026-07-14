@@ -238,10 +238,10 @@
       "translated": "烟草",
       "artist": "コレサワ",
       "lang": "日语",
-      "count": 11,
-      "tier": "常唱",
+      "count": 12,
+      "tier": "frequent",
       "first": "2022-09-09",
-      "last": "2025-07-06",
+      "last": "2026-07-14",
       "tags": [
         "流行"
       ]
@@ -5785,10 +5785,10 @@
       "translated": "",
       "artist": "周杰伦",
       "lang": "中文",
-      "count": 3,
-      "tier": "偶尔",
+      "count": 4,
+      "tier": "occasional",
       "first": "2023-10-02",
-      "last": "2025-03-15",
+      "last": "2026-07-14",
       "tags": [
         "流行",
         "R&B"
@@ -11794,10 +11794,10 @@
       "translated": "",
       "artist": "周深",
       "lang": "中文",
-      "count": 1,
-      "tier": "稀有",
+      "count": 2,
+      "tier": "occasional",
       "first": "2025-12-10",
-      "last": "2025-12-10",
+      "last": "2026-07-14",
       "tags": [
         "抒情",
         "流行"
@@ -15379,10 +15379,10 @@
       "translated": "",
       "artist": "双笙",
       "lang": "中文",
-      "count": 1,
-      "tier": "稀有",
+      "count": 2,
+      "tier": "occasional",
       "first": "2026-03-08",
-      "last": "2026-03-08",
+      "last": "2026-07-14",
       "tags": [
         "古风",
         "流行"
