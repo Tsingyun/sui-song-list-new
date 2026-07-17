@@ -2,7 +2,7 @@
 
 > **SUI_SONG_DATABASE V4.1** — 为虚拟主播 [岁己SUI](https://space.bilibili.com/1954091502) 打造的 Vaporwave 风格歌单网站，配有岁己SUI角色插画背景
 
-收录 **1,156** 首歌曲、**3,294** 次演唱记录，支持在线播放 B站录播片段。
+收录 **1,157** 首歌曲、**3,325** 次演唱记录，支持在线播放 B站录播片段。
 
 **[>>> suijisui.uk <<<](https://suijisui.uk)** · [GitHub Pages 镜像](https://tsingyun.github.io/sui-song-list-new/) · [点歌统计](https://stats.suijisui.uk)
 
@@ -23,7 +23,7 @@
 + 单文件 HTML 架构
   - 所有 CSS / JS / 数据内嵌，零外部依赖
   - 可直接用浏览器打开，也可通过 GitHub Pages 部署
-  - 文件体积约 698 KB（含 1156 首歌曲完整数据 + 1231 首日期记录 + 背景插画 WebP）
+  - 文件体积约 704 KB（含 1157 首歌曲完整数据 + 背景插画 WebP）
   - 外部依赖：SheetJS（xlsx）CDN 用于 Excel 导出、Chart.js CDN 用于数据可视化图表
 
 数据:
@@ -132,14 +132,14 @@
 
 | 指标 | 数量 |
 |------|------|
-| 歌曲总数 | 1,156 |
-| 演唱总次数 | 3,294 |
-| 常唱 (5+次) | 235 首 |
-| 偶尔 (2–4次) | 430 首 |
-| 仅唱一次 | 491 首 |
-| B站视频匹配 | 915 首 (79%) |
+| 歌曲总数 | 1,157 |
+| 演唱总次数 | 3,325 |
+| 常唱 (5+次) | 238 首 |
+| 偶尔 (2–4次) | 432 首 |
+| 仅唱一次 | 487 首 |
+| B站视频匹配 | 921 首 (80%) |
 | 演唱日期可追溯 | 1,231 首 |
-| 收录时间跨度 | 2022.09 — 2026.06 |
+| 收录时间跨度 | 2022.09 — 2026.07 |
 
 ---
 
@@ -195,11 +195,11 @@ sui-song-list-new/
 │
 ├── data/                            数据文件
 │   ├── sui_song_list_complete.json   完整歌单数据（含日期列表）
-│   ├── song_data.json                歌曲数据库（1156首）
-│   └── song_bilibili_map.json        歌曲-视频匹配（915首）
+│   ├── song_data.json                歌曲数据库（1157首）
+│   └── song_bilibili_map.json        歌曲-视频匹配（921首）
 │
 └── docs/                            GitHub Pages 部署
-    ├── index.html                    最终网站（单文件，~698KB）
+    ├── index.html                    最终网站（单文件，~704KB）
     ├── screenshot.png                网站截图
     └── assets/                       静态资源
         ├── bg-illust.webp            背景插画（桌面版，151KB）
@@ -308,11 +308,11 @@ B站 API 存在 `-352` 限流机制：
 
 ### 单文件架构
 
-整个网站是一个 ~698KB 的 HTML 文件，包含：
+整个网站是一个 ~704KB 的 HTML 文件，包含：
 - 所有 CSS 样式
 - 所有 JavaScript 逻辑（含动画、交互、数据渲染、Chart.js 图表）
-- 1156 首歌曲的完整数据（JSON 内嵌）
-- 915 首歌曲的 B站视频匹配数据
+- 1157 首歌曲的完整数据（JSON 内嵌）
+- 921 首歌曲的 B站视频匹配数据
 - 1231 首歌曲的演唱日期记录（SONG_DATES 查找表）
 
 外部依赖：SheetJS（xlsx）CDN（用于 Excel 导出）、Chart.js CDN（用于数据洞察图表）。背景插图以 WebP 格式存于 `docs/assets/`，通过 CSS `url()` 引用。
