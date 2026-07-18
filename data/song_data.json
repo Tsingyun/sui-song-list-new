@@ -305,10 +305,10 @@
       "translated": "干花",
       "artist": "優里",
       "lang": "日语",
-      "count": 10,
-      "tier": "常唱",
+      "count": 11,
+      "tier": "frequent",
       "first": "2022-09-09",
-      "last": "2026-01-19",
+      "last": "2026-07-17",
       "tags": [
         "流行"
       ]
@@ -4936,10 +4936,10 @@
       "translated": "",
       "artist": "韦礼安",
       "lang": "中文",
-      "count": 3,
-      "tier": "偶尔",
+      "count": 4,
+      "tier": "occasional",
       "first": "2024-05-01",
-      "last": "2024-08-29",
+      "last": "2026-07-17",
       "tags": [
         "流行",
         "R&B"
@@ -13354,10 +13354,10 @@
       "translated": "",
       "artist": "方大同",
       "lang": "中文",
-      "count": 1,
-      "tier": "稀有",
+      "count": 2,
+      "tier": "occasional",
       "first": "2025-06-08",
-      "last": "2025-06-08",
+      "last": "2026-07-17",
       "tags": [
         "流行"
       ]
@@ -15734,6 +15734,16 @@
       "tier": "rare",
       "first": "2026-07-11",
       "last": "2026-07-11"
+    },
+    {
+      "name": "犯错",
+      "translated": "",
+      "artist": "顾峰、沈丹丹",
+      "lang": "中文",
+      "count": 1,
+      "tier": "rare",
+      "first": "2026-07-17",
+      "last": "2026-07-17"
     }
   ]
 }
