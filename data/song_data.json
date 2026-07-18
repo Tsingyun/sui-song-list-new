@@ -617,10 +617,10 @@
       "translated": "",
       "artist": "RADWIMPS",
       "lang": "日语",
-      "count": 10,
-      "tier": "常唱",
+      "count": 11,
+      "tier": "frequent",
       "first": "2023-01-07",
-      "last": "2025-12-21",
+      "last": "2026-07-18",
       "tags": [
         "流行",
         "R&B"
@@ -631,10 +631,10 @@
       "translated": "",
       "artist": "EGOIST",
       "lang": "日语",
-      "count": 8,
-      "tier": "常唱",
+      "count": 9,
+      "tier": "frequent",
       "first": "2022-09-17",
-      "last": "2026-02-14",
+      "last": "2026-07-18",
       "tags": [
         "动画",
         "抒情"
@@ -1710,10 +1710,10 @@
       "translated": "",
       "artist": "初音ミク/みきとP",
       "lang": "日语",
-      "count": 6,
-      "tier": "常唱",
+      "count": 7,
+      "tier": "frequent",
       "first": "2022-09-16",
-      "last": "2025-11-24",
+      "last": "2026-07-18",
       "tags": [
         "流行"
       ]
@@ -15744,6 +15744,16 @@
       "tier": "rare",
       "first": "2026-07-17",
       "last": "2026-07-17"
+    },
+    {
+      "name": "Lover Girl",
+      "translated": "",
+      "artist": "",
+      "lang": "英文",
+      "count": 1,
+      "tier": "rare",
+      "first": "2026-07-18",
+      "last": "2026-07-18"
     }
   ]
 }
