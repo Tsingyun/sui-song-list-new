@@ -1,95 +1,118 @@
 """
-Bilibili Playlist Scraper
-Extracts video BV numbers, titles from a B站 user's playlist/collection page.
-Uses Playwright headless browser to handle SPA JavaScript rendering.
+Bilibili Playlist Scraper (rewritten)
+Extracts video BV numbers + titles from a B站 user's playlist/collection page,
+with login cookie support, reverse-sort toggle, and <img alt> title extraction.
 
 Usage:
-    python scrape_bilibili_playlist.py "https://space.bilibili.com/9669499/lists/6453496"
+    set BILI_COOKIE="SESSDATA=...; bili_jct=...; ..."   (env)
+    python scrape_bilibili_playlist.py "<playlist_url>?type=season" [--max-pages N]
 """
-
 import asyncio
+import os
 import re
 import sys
 from playwright.async_api import async_playwright
 
 
-async def scrape_playlist(url: str) -> list[dict]:
-    """
-    Navigate to a B站 playlist, go to the last page, and extract video data.
+async def scrape(url: str, cookie_str: str, max_pages: int) -> list:
+    cookies = []
+    if cookie_str:
+        for pair in cookie_str.split(';'):
+            pair = pair.strip()
+            if not pair or '=' not in pair:
+                continue
+            k, v = pair.split('=', 1)
+            cookies.append({
+                'name': k.strip(),
+                'value': v.strip(),
+                'domain': '.bilibili.com',
+                'path': '/',
+            })
 
-    Returns:
-        List of dicts with keys: bvid, title
-    """
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True)
-        page = await browser.new_page(viewport={'width': 1920, 'height': 1080})
+        context = await browser.new_context(viewport={'width': 1920, 'height': 1080})
+        if cookies:
+            await context.add_cookies(cookies)
+        page = await context.new_page()
 
-        print(f'Loading {url}...')
-        await page.goto(url, wait_until='networkidle', timeout=30000)
-        await page.wait_for_timeout(2000)
-
-        # Go to last page by clicking the highest-numbered page button
-        page_num = await page.evaluate('''() => {
-            const btns = document.querySelectorAll('.vui_button');
-            let maxNum = 0;
-            let targetBtn = null;
-            btns.forEach(b => {
-                const num = parseInt(b.textContent.trim());
-                if (!isNaN(num) && num > maxNum) {
-                    maxNum = num;
-                    targetBtn = b;
-                }
-            });
-            if (targetBtn) {
-                targetBtn.click();
-                return maxNum;
-            }
-            return 0;
-        }''')
-
-        if page_num == 0:
-            print('ERROR: Could not find pagination')
-            await browser.close()
-            return []
-
-        print(f'Navigated to last page (page {page_num})')
+        print(f'Loading {url} ...')
+        await page.goto(url, wait_until='networkidle', timeout=45000)
         await page.wait_for_timeout(3000)
 
-        # Extract unique video entries (deduplicate by BV number)
-        videos = await page.evaluate('''() => {
-            const seen = new Set();
-            const results = [];
-            document.querySelectorAll('a[href*="/video/BV"]').forEach(a => {
-                const href = a.getAttribute('href');
-                const text = a.textContent.trim();
-                const bvMatch = href.match(/BV[a-zA-Z0-9]{10}/);
-                if (bvMatch && !seen.has(bvMatch[0]) && text.includes('【')) {
-                    seen.add(bvMatch[0]);
-                    results.push({bvid: bvMatch[0], title: text});
-                }
-            });
-            return results;
-        }''')
+        # Click "倒序排序" (reverse sort) so newest clips appear on page 1
+        try:
+            await page.click('.sort-mode', timeout=8000)
+            await page.wait_for_selector('.menu-popover__panel-item', timeout=8000)
+            items = page.locator('.menu-popover__panel-item')
+            clicked = False
+            for i in range(await items.count()):
+                t = (await items.nth(i).inner_text()).strip()
+                if '倒序' in t:
+                    await items.nth(i).click()
+                    clicked = True
+                    break
+            print('reverse-sort toggle:', 'clicked' if clicked else 'NOT FOUND')
+        except Exception as e:
+            print('sort toggle error:', e)
+        await page.wait_for_timeout(4000)
+
+        all_videos = []
+        seen = set()
+        for pg in range(1, max_pages + 1):
+            vids = await page.evaluate('''() => {
+                const seen = new Set(); const res = [];
+                document.querySelectorAll('a[href*="/video/BV"]').forEach(a => {
+                    const href = a.getAttribute('href') || '';
+                    const m = href.match(/BV[a-zA-Z0-9]{10}/);
+                    const img = a.querySelector('img');
+                    const alt = img ? img.getAttribute('alt') : '';
+                    const text = a.textContent;
+                    let dur = '';
+                    const dm = text.match(/(\\d{1,2}):(\\d{2})/);
+                    if (dm) dur = dm[1] + ':' + dm[2];
+                    if (m && !seen.has(m[0])) {
+                        seen.add(m[0]);
+                        res.push({bvid: m[0], title: (alt || text).trim(), duration: dur});
+                    }
+                });
+                return res;
+            }''')
+            for v in vids:
+                if v['bvid'] not in seen:
+                    seen.add(v['bvid'])
+                    all_videos.append(v)
+            print(f'page {pg}: {len(vids)} links (cumulative {len(all_videos)})')
+            if pg < max_pages:
+                try:
+                    nxt = page.locator('.vui_button', has_text='下一页')
+                    if await nxt.count() > 0:
+                        await nxt.first.click()
+                        await page.wait_for_timeout(3000)
+                    else:
+                        print('no next-page button, stop')
+                        break
+                except Exception as e:
+                    print('pagination error:', e)
+                    break
 
         await browser.close()
-        return videos
+        return all_videos
 
 
 def main():
     if len(sys.argv) < 2:
-        print('Usage: python scrape_bilibili_playlist.py <playlist_url>')
-        print('Example: python scrape_bilibili_playlist.py "https://space.bilibili.com/9669499/lists/6453496"')
+        print('Usage: python scrape_bilibili_playlist.py "<url>?type=season" [--max-pages N]')
         sys.exit(1)
-
     url = sys.argv[1]
-    videos = asyncio.run(scrape_playlist(url))
-
-    print(f'\n=== Last page videos ({len(videos)}) ===')
-    for v in videos:
-        print(f'{v["bvid"]} | {v["title"]}')
-
-    if not videos:
-        print('No videos found. The playlist may be empty or require authentication.')
+    cookie_str = os.environ.get('BILI_COOKIE', '')
+    max_pages = 3
+    if '--max-pages' in sys.argv:
+        max_pages = int(sys.argv[sys.argv.index('--max-pages') + 1])
+    vids = asyncio.run(scrape(url, cookie_str, max_pages))
+    print(f'\n=== Total unique videos: {len(vids)} ===')
+    for v in vids:
+        print(f"{v['bvid']} | {v['title']}")
 
 
 if __name__ == '__main__':
