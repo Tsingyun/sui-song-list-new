@@ -1,10 +1,12 @@
 """
 Match scraped B站歌切 clips into data/song_bilibili_map.json.
 
+默认无 cookie 即可抓取（普通浏览器可访问）。仅当设置了 BILI_COOKIE 时才带登录态。
+
 Usage:
-  # scrape fresh (needs BILI_COOKIE env or /tmp/bili_cookie.txt) and also cache clips:
+  # 无 cookie 直接抓最新并匹配：
   python match_clips.py --save-clips /tmp/bili_clips.json
-  # reuse cached clips (no cookie needed):
+  # 复用缓存的 clips（完全离线，不需要 cookie）：
   python match_clips.py --clips-file /tmp/bili_clips.json
 """
 import argparse
@@ -51,9 +53,8 @@ async def run(save_clips=None, clips_file=None, max_pages=3):
             vids = json.load(f)
         print(f'loaded {len(vids)} clips from {clips_file}')
     else:
-        cookie = os.environ.get('BILI_COOKIE') or (
-            open('/tmp/bili_cookie.txt').read().strip()
-            if os.path.exists('/tmp/bili_cookie.txt') else '')
+        # cookie 可选：设置了 BILI_COOKIE 才带，否则无登录直接抓
+        cookie = os.environ.get('BILI_COOKIE', '')
         vids = await scrape(PLAYLIST, cookie, max_pages)
         if save_clips:
             with open(save_clips, 'w', encoding='utf-8') as f:

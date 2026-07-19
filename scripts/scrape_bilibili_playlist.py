@@ -1,11 +1,18 @@
 """
-Bilibili Playlist Scraper (rewritten)
-Extracts video BV numbers + titles from a B站 user's playlist/collection page,
-with login cookie support, reverse-sort toggle, and <img alt> title extraction.
+Bilibili Playlist Scraper (cookie-free by default)
+
+B站歌单列表对"已登录"和"无登录的普通浏览器"都开放。
+之前失败是因为 headless 被识别成自动化脚本、返回了登录墙。
+解决办法：隐藏 navigator.webdriver + 使用真实 UA，无 cookie 也能正常抓取。
+
+COOKIE 现在是可选的：仅在设置了 BILI_COOKIE 环境变量（或传入 --cookie）时才带上，
+用于加速或访问私有列表；不设置也能跑。
 
 Usage:
-    set BILI_COOKIE="SESSDATA=...; bili_jct=...; ..."   (env)
+    # 无 cookie（推荐，普通浏览器即可访问）
     python scrape_bilibili_playlist.py "<playlist_url>?type=season" [--max-pages N]
+    # 带 cookie（可选）
+    BILI_COOKIE="SESSDATA=...; ..." python scrape_bilibili_playlist.py "<url>?type=season"
 """
 import asyncio
 import os
@@ -13,8 +20,12 @@ import re
 import sys
 from playwright.async_api import async_playwright
 
+# 真实桌面浏览器 UA，避免被识别为 bot
+UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+      "(KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36")
 
-async def scrape(url: str, cookie_str: str, max_pages: int) -> list:
+
+async def scrape(url: str, cookie_str: str = None, max_pages: int = 3) -> list:
     cookies = []
     if cookie_str:
         for pair in cookie_str.split(';'):
@@ -30,17 +41,33 @@ async def scrape(url: str, cookie_str: str, max_pages: int) -> list:
             })
 
     async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=True)
-        context = await browser.new_context(viewport={'width': 1920, 'height': 1080})
+        browser = await p.chromium.launch(
+            headless=True,
+            args=["--disable-blink-features=AutomationControlled", "--no-sandbox"],
+        )
+        context = await browser.new_context(
+            user_agent=UA,
+            viewport={'width': 1721, 'height': 1305},
+            locale='zh-CN',
+        )
+        # 关键：隐藏 webdriver 标记，让 B站当成普通浏览器
+        await context.add_init_script(
+            "Object.defineProperty(navigator, 'webdriver', {get: () => undefined});"
+        )
         if cookies:
             await context.add_cookies(cookies)
         page = await context.new_page()
 
-        print(f'Loading {url} ...')
-        await page.goto(url, wait_until='networkidle', timeout=45000)
+        print(f'Loading {url} (cookie={"yes" if cookies else "NO"}) ...')
+        await page.goto(url, wait_until='domcontentloaded', timeout=60000)
+        # 等歌切链接真实渲染出来（SPA 不保证 networkidle）
+        try:
+            await page.wait_for_selector('a[href*="/video/BV"]', timeout=30000)
+        except Exception as e:
+            print('WARN: 30s 内未出现歌切链接，可能仍被挡：', e)
         await page.wait_for_timeout(3000)
 
-        # Click "倒序排序" (reverse sort) so newest clips appear on page 1
+        # 点击"倒序排序"，让最新歌切出现在第 1 页
         try:
             await page.click('.sort-mode', timeout=8000)
             await page.wait_for_selector('.menu-popover__panel-item', timeout=8000)
@@ -102,13 +129,15 @@ async def scrape(url: str, cookie_str: str, max_pages: int) -> list:
 
 def main():
     if len(sys.argv) < 2:
-        print('Usage: python scrape_bilibili_playlist.py "<url>?type=season" [--max-pages N]')
+        print('Usage: python scrape_bilibili_playlist.py "<url>?type=season" [--max-pages N] [--cookie "..."]')
         sys.exit(1)
     url = sys.argv[1]
     cookie_str = os.environ.get('BILI_COOKIE', '')
     max_pages = 3
     if '--max-pages' in sys.argv:
         max_pages = int(sys.argv[sys.argv.index('--max-pages') + 1])
+    if '--cookie' in sys.argv:
+        cookie_str = sys.argv[sys.argv.index('--cookie') + 1]
     vids = asyncio.run(scrape(url, cookie_str, max_pages))
     print(f'\n=== Total unique videos: {len(vids)} ===')
     for v in vids:
