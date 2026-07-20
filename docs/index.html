@@ -187,6 +187,15 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
 /* FOOTER */
 .footer{text-align:center;padding:40px 0 30px;font-family:var(--font-m);font-size:11px;color:var(--text-dim);letter-spacing:var(--ls-normal);border-top:1px solid var(--border);margin-top:40px}
 .footer a{color:var(--cyan);text-decoration:none;transition:all .2s}.footer a:hover{color:#fff;text-shadow:0 0 14px rgba(0,255,255,.7);letter-spacing:3px}
+.ver-badge{display:inline-block;margin-top:14px;padding:3px 14px;border:1px solid rgba(0,255,255,.3);border-radius:20px;color:var(--cyan);font-family:var(--font-cjk);font-size:11px;letter-spacing:2px;background:rgba(0,255,255,.06);box-shadow:0 0 12px rgba(0,255,255,.12)}
+.changelog{margin:18px auto 0;max-width:660px;text-align:left;font-family:var(--font-cjk)}
+.changelog summary{cursor:pointer;color:var(--magenta);font-size:12px;letter-spacing:2px;list-style:none;text-align:center;transition:all .2s;user-select:none;-webkit-user-select:none}
+.changelog summary::-webkit-details-marker{display:none}
+.changelog summary:hover{color:#fff;text-shadow:0 0 14px rgba(255,0,255,.6)}
+.changelog ul{margin:14px 0 0;padding:14px 0 0;list-style:none;border-top:1px solid var(--border)}
+.changelog li{font-size:11px;line-height:1.95;color:var(--text-dim);padding:2px 0}
+.cl-date{display:inline-block;min-width:80px;margin-right:8px;color:var(--cyan);font-family:var(--font-m);font-size:10px;opacity:.85;vertical-align:top}
+.changelog li span.cl-text{display:inline-block;max-width:calc(100% - 92px)}
 .gh-btn{display:inline-block;font-size:13px;letter-spacing:3px;border:1px solid var(--cyan);padding:6px 16px;color:var(--cyan);text-decoration:none;transition:all .25s}
 .gh-btn:hover{background:var(--cyan);color:var(--void)!important;box-shadow:0 0 20px rgba(0,255,255,.35);text-shadow:none}
 
@@ -837,6 +846,19 @@ mark{background:rgba(0,255,255,.2);color:var(--cyan);padding:0 1px;border-radius
     <p>部分数据来源：<a href="https://www.suijisui.space" target="_blank">suijisui.space</a>（<a href="https://github.com/PQL87/sui-song-list" target="_blank">GitHub: PQL87/sui-song-list</a>）</p>
     <p style="margin-top:10px;"><a href="https://github.com/Tsingyun/sui-song-list-new" class="gh-btn" target="_blank">◈ 项目源码 GitHub ◈</a></p>
     <p style="margin-top:10px;">2022.09 — 2026.07</p>
+    <p><span class="ver-badge">界面版本 v2.0</span></p>
+    <details class="changelog">
+      <summary>更新日志（功能更新）</summary>
+      <ul>
+        <li><span class="cl-date">2026-07-21</span><span class="cl-text">播放器套上复古 CRT 电视机外框（兔耳天线 / 扫描线 / SUI◈TV 商标 / 电源灯 / 双旋钮装饰）</span></li>
+        <li><span class="cl-date">2026-07-21</span><span class="cl-text">播放器放大/还原图标改为清晰的窗口展开 / 还原样式，放大改为左下角原地生长</span></li>
+        <li><span class="cl-date">2026-07-21</span><span class="cl-text">播放器新增放大/还原按钮，解决小窗下 B站 进度条与音量过小</span></li>
+        <li><span class="cl-date">2026-07-21</span><span class="cl-text">播放器重构：全宽底栏 → 左下角可拖拽浮动 16:9 小窗</span></li>
+        <li><span class="cl-date">2026-07-21</span><span class="cl-text">四个浮动按钮（导出/点歌统计/我要补充/返回顶部）显示时机统一并加平滑渐变动画</span></li>
+        <li><span class="cl-date">2026-07-21</span><span class="cl-text">鼠标光标点击热区从头顶修正到小鸟翅膀</span></li>
+        <li><span class="cl-date">2026-07-17</span><span class="cl-text">确立 Vaporwave 稳定版基线，废弃此前的反设计 / Visual Neon 重构版本</span></li>
+      </ul>
+    </details>
   </div>
 </div>
 
