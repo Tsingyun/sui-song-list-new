@@ -370,6 +370,10 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
 .player-bili-link:hover{background:var(--magenta);color:#fff;box-shadow:0 0 8px rgba(255,0,255,.25)}
 .player-close{font-family:var(--font-m);font-size:17px;color:var(--text-dim);cursor:pointer;background:none;border:none;transition:all .2s;width:26px;height:26px;display:flex;align-items:center;justify-content:center;border-radius:50%;flex-shrink:0}
 .player-close:hover{color:var(--magenta);background:rgba(255,0,255,.12)}
+.player-maximize{font-family:var(--font-m);font-size:14px;color:var(--text-dim);cursor:pointer;background:none;border:none;transition:all .2s;width:26px;height:26px;display:flex;align-items:center;justify-content:center;border-radius:50%;flex-shrink:0}
+.player-maximize:hover{color:var(--cyan);background:rgba(0,255,255,.12)}
+/* 放大时让 B站原生控制条（进度条/音量）变大更好点 */
+.player-panel.maximized{width:min(92vw,720px)}
 /* 16:9 video container */
 .player-video{position:relative;width:100%;padding-bottom:56.25%;background:#000;overflow:hidden}
 .player-video iframe{position:absolute;top:0;left:0;width:100%!important;height:100%!important;border:none;display:block}
@@ -928,6 +932,7 @@ mark{background:rgba(0,255,255,.2);color:var(--cyan);padding:0 1px;border-radius
     <div class="player-controls">
       <select class="player-clip-select" id="clipSelect" style="display:none"></select>
       <a class="player-bili-link" id="biliLink" href="#" target="_blank" title="在B站观看">B站</a>
+      <button class="player-maximize" id="playerMaximize" title="放大 / 还原">&#9972;</button>
       <button class="player-close" id="playerClose" title="关闭播放器">&times;</button>
     </div>
   </div>
@@ -1000,6 +1005,9 @@ function closePlayer(){
   currentPlaySong=null;
   setTimeout(()=>{
     if(!panel.classList.contains('open')){
+      panel.classList.remove('maximized');
+      const mb=document.getElementById('playerMaximize');
+      if(mb){mb.innerHTML='&#9972;';mb.title='放大 / 还原';}
       panel.style.left='';panel.style.top='';panel.style.right='';panel.style.bottom='';
     }
   },400);
@@ -1039,6 +1047,28 @@ function bindPlayer(){
   dragEl.addEventListener('touchstart',onStart,{passive:false});
   document.addEventListener('touchmove',onMove,{passive:false});
   document.addEventListener('touchend',onEnd);
+  // 放大 / 还原：让 B站原生进度条与音量按钮变大更好点
+  const maxBtn=document.getElementById('playerMaximize');
+  let savedPos=null;
+  maxBtn.addEventListener('click',()=>{
+    if(!panel.classList.contains('maximized')){
+      savedPos={left:panel.style.left,top:panel.style.top,bottom:panel.style.bottom,right:panel.style.right};
+      panel.classList.add('maximized');
+      const pw=panel.offsetWidth,ph=panel.offsetHeight,pad=10;
+      const nx=Math.max(pad,(window.innerWidth-pw)/2);
+      const ny=Math.max(pad,(window.innerHeight-ph)/2);
+      panel.style.bottom='auto';panel.style.right='auto';
+      panel.style.left=nx+'px';panel.style.top=ny+'px';
+      maxBtn.innerHTML='&#9970;';maxBtn.title='还原';
+    }else{
+      panel.classList.remove('maximized');
+      if(savedPos){
+        panel.style.left=savedPos.left;panel.style.top=savedPos.top;
+        panel.style.bottom=savedPos.bottom;panel.style.right=savedPos.right;
+      }
+      maxBtn.innerHTML='&#9972;';maxBtn.title='放大 / 还原';
+    }
+  });
 }
 
 function animateStats(){
