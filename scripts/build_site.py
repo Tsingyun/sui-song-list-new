@@ -939,7 +939,12 @@ mark{background:rgba(0,255,255,.2);color:var(--cyan);padding:0 1px;border-radius
         <li><span class="cl-date">2026-07-21</span><span class="cl-text">播放器重构：全宽底栏 → 左下角可拖拽浮动 16:9 小窗</span></li>
         <li><span class="cl-date">2026-07-21</span><span class="cl-text">四个浮动按钮（导出/点歌统计/我要补充/返回顶部）显示时机统一并加平滑渐变动画</span></li>
         <li><span class="cl-date">2026-07-21</span><span class="cl-text">鼠标光标点击热区从头顶修正到小鸟翅膀</span></li>
-        <li><span class="cl-date">2026-07-17</span><span class="cl-text">确立 Vaporwave 稳定版基线，废弃此前的反设计 / Visual Neon 重构版本</span></li>
+        <li><span class="cl-date">2026-07-07</span><span class="cl-text">中文译名批量补全（280 首外语歌中 82 首新增公认中文译名）</span></li>
+        <li><span class="cl-date">2026-06-23</span><span class="cl-text">移动端 / 平板响应式优化（2 行堆叠卡片、标签换行、原唱与日期完整显示）</span></li>
+        <li><span class="cl-date">2026-06-14</span><span class="cl-text">岁己SUI 角色插画背景层 + 毛玻璃增强 + 4 种位置切换（含横屏面部居中）</span></li>
+        <li><span class="cl-date">2026-06-14</span><span class="cl-text">自定义小鸟鼠标光标、网站 favicon（岁图标）、全量动画与字体排版优化</span></li>
+        <li><span class="cl-date">2026-06-14</span><span class="cl-text">语言分类锚点跳转白屏修复；批量合并 30 对重复歌曲；艺术家与歌名全面审计修复</span></li>
+        <li><span class="cl-date">基线</span><span class="cl-text">四视角浏览 / 搜索高亮 / 多维排序筛选 / 23 种流派标签 / 歌曲详情面板 / 数据洞察图表（热力图·趋势·分布·原唱 Top20）/ 歌单导出 / 盲盒抽歌 / 在线播放 / 演唱日期悬浮提示 / 单击复制 / "我要补充" 共创 / 统计卡片筛选 / "点歌统计" 跳转</span></li>
       </ul>
     </details>
   </div>
