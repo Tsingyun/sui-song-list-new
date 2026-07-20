@@ -438,7 +438,7 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
 .play-dot{position:absolute;top:-2px;right:-2px;width:7px;height:7px;border-radius:50%;background:var(--orange);box-shadow:0 0 6px rgba(255,153,0,.6);font-style:normal}
 
 /* ═══ 浮动播放器 — 左下角 16:9 小窗 ═══ */
-.player-panel{position:fixed;bottom:20px;left:20px;width:420px;z-index:500;background:rgba(9,0,20,.94);border:1px solid rgba(0,255,255,.25);border-radius:12px;backdrop-filter:blur(24px);box-shadow:0 8px 32px rgba(0,0,0,.6),0 0 20px rgba(0,255,255,.08),inset 0 1px 0 rgba(255,255,255,.04);opacity:0;transform:scale(.92) translateY(20px);pointer-events:none;transition:opacity .35s cubic-bezier(.4,0,.2,1),transform .35s cubic-bezier(.4,0,.2,1);overflow:hidden;font-size:0}
+.player-panel{position:fixed;bottom:20px;left:20px;width:420px;z-index:500;background:rgba(9,0,20,.94);border:1px solid rgba(0,255,255,.25);border-radius:12px;backdrop-filter:blur(24px);box-shadow:0 8px 32px rgba(0,0,0,.6),0 0 20px rgba(0,255,255,.08),inset 0 1px 0 rgba(255,255,255,.04);opacity:0;transform:scale(.92) translateY(20px);pointer-events:none;transition:opacity .35s cubic-bezier(.4,0,.2,1),transform .35s cubic-bezier(.4,0,.2,1),width .3s ease,height .3s ease;overflow:hidden;font-size:0}
 .player-panel.open{opacity:1;transform:scale(1) translateY(0);pointer-events:auto}
 .player-drag{cursor:grab;display:flex;align-items:center;padding:8px 12px 6px;gap:8px;border-bottom:1px solid rgba(0,255,255,.1);user-select:none;-webkit-user-select:none}
 .player-drag:active{cursor:grabbing}
@@ -1015,7 +1015,7 @@ mark{background:rgba(0,255,255,.2);color:var(--cyan);padding:0 1px;border-radius
     <div class="player-controls">
       <select class="player-clip-select" id="clipSelect" style="display:none"></select>
       <a class="player-bili-link" id="biliLink" href="#" target="_blank" title="在B站观看">B站</a>
-      <button class="player-maximize" id="playerMaximize" title="放大 / 还原">&#9972;</button>
+      <button class="player-maximize" id="playerMaximize" title="放大 / 还原"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></button>
       <button class="player-close" id="playerClose" title="关闭播放器">&times;</button>
     </div>
   </div>
@@ -1079,6 +1079,8 @@ function openPlayer(song,clipIdx){
   iframe.src='https://player.bilibili.com/player.html?bvid='+clip.bv+'&autoplay=1&high_quality=1&danmaku=0';
   panel.classList.add('open');
 }
+const ICON_MAX='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>';
+const ICON_RESTORE='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="9" width="13" height="11" rx="1"/><path d="M9 9V6a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-3"/></svg>';
 function closePlayer(){
   const panel=document.getElementById('playerPanel');
   const iframe=document.getElementById('playerIframe');
@@ -1090,7 +1092,7 @@ function closePlayer(){
     if(!panel.classList.contains('open')){
       panel.classList.remove('maximized');
       const mb=document.getElementById('playerMaximize');
-      if(mb){mb.innerHTML='&#9972;';mb.title='放大 / 还原';}
+      if(mb){mb.innerHTML=ICON_MAX;mb.title='放大';}
       panel.style.left='';panel.style.top='';panel.style.right='';panel.style.bottom='';
     }
   },400);
@@ -1137,19 +1139,16 @@ function bindPlayer(){
     if(!panel.classList.contains('maximized')){
       savedPos={left:panel.style.left,top:panel.style.top,bottom:panel.style.bottom,right:panel.style.right};
       panel.classList.add('maximized');
-      const pw=panel.offsetWidth,ph=panel.offsetHeight,pad=10;
-      const nx=Math.max(pad,(window.innerWidth-pw)/2);
-      const ny=Math.max(pad,(window.innerHeight-ph)/2);
-      panel.style.bottom='auto';panel.style.right='auto';
-      panel.style.left=nx+'px';panel.style.top=ny+'px';
-      maxBtn.innerHTML='&#9970;';maxBtn.title='还原';
+      // 在左下角原地放大，不跳到屏幕中心
+      panel.style.bottom='20px';panel.style.left='20px';panel.style.right='auto';panel.style.top='auto';
+      maxBtn.innerHTML=ICON_RESTORE;maxBtn.title='还原';
     }else{
       panel.classList.remove('maximized');
       if(savedPos){
         panel.style.left=savedPos.left;panel.style.top=savedPos.top;
         panel.style.bottom=savedPos.bottom;panel.style.right=savedPos.right;
       }
-      maxBtn.innerHTML='&#9972;';maxBtn.title='放大 / 还原';
+      maxBtn.innerHTML=ICON_MAX;maxBtn.title='放大';
     }
   });
 }
