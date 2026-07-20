@@ -408,12 +408,18 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
 .player-maximize{font-family:var(--font-m);font-size:14px;color:var(--text-dim);cursor:pointer;background:none;border:none;transition:all .2s;width:26px;height:26px;display:flex;align-items:center;justify-content:center;border-radius:50%;flex-shrink:0}
 .player-maximize:hover{color:var(--cyan);background:rgba(0,255,255,.12)}
 
+/* ═══════ RESPONSIVE ═══════ */
+
+/* ── Tablet (≤768px): keep table layout, refine spacing, shrink player ── */
 @media(max-width:768px){
   .hero{padding:50px 0 24px}
-  .stats-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .stats-grid{gap:10px;margin-bottom:30px}
   .stat-num{font-size:1.5rem}
+  .stat-card{padding:14px 10px}
   .controls{gap:8px}
   .section-tab{padding:10px 12px;font-size:11px;letter-spacing:1px}
+  .section-tabs{overflow-x:auto;-webkit-overflow-scrolling:touch;flex-wrap:nowrap;scrollbar-width:none}
+  .section-tabs::-webkit-scrollbar{display:none}
   .table-header,.song-row{grid-template-columns:36px 28px 1fr 80px 50px 42px 90px}
   .table-header span,.song-row span{padding:8px 4px;font-size:12px}
   .song-row .name .song-title small{font-size:10px}
@@ -442,50 +448,108 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
   .bg-illust{opacity:.18;background-image:url('assets/bg-illust-sm.webp');background-position:50% 90%}
   .bg-overlay{background:radial-gradient(ellipse at 50% 40%,transparent 15%,rgba(9,0,20,.55) 55%,rgba(9,0,20,.9) 100%)}
   .bg-pos-btn{right:70px;width:32px;height:32px;font-size:10px}
+  /* Charts */
+  .chart-container{padding:16px}
+  .export-panel{right:14px}
 }
-@media(max-width:480px){
-  /* ── Song row: 2-row stacked card layout ── */
-  .table-header,.song-row{
-    grid-template-columns:26px 1fr 40px;
-    grid-template-rows:auto auto;
-    gap:2px 6px;
-    align-items:center;
+/* Tablet landscape: tighten vertical rhythm */
+@media(max-width:768px) and (orientation:landscape){
+  .hero{padding:30px 0 16px}
+  .grid-bg{height:26vh}
+  .stats-grid{margin-bottom:20px}
+}
+
+/* ── Phone (≤640px): stacked card rows, full-width controls, touch FABs ── */
+@media(max-width:640px){
+  .container{padding:0 14px}
+  .hero{padding:44px 0 20px}
+  .hero-sub{margin-bottom:20px}
+  /* Controls: search full width, filters/sort wrap */
+  .controls{gap:8px}
+  .search-box{flex:1 1 100%;min-width:0}
+  .filter-btn{flex:1 1 auto;padding:9px 10px;font-size:11px;letter-spacing:1px}
+  .sort-select{flex:1 1 100%}
+  /* Stats: 2 columns */
+  .stats-grid{grid-template-columns:repeat(2,1fr);gap:8px}
+  .stat-card{padding:12px 8px}
+  .stat-num{font-size:1.4rem}
+  .stat-label{font-size:12px}
+  /* Table chrome hidden; rows become independent cards */
+  .table-header{display:none}
+  .table-wrap{background:transparent;border:none;box-shadow:none}
+  .song-row{
+    grid-template-columns:18px 1fr 46px;
+    grid-template-rows:auto auto auto;
+    grid-template-areas:"idx name play" "idx artist count" "idx dates dates";
+    gap:2px 8px;padding:11px 10px;min-height:0;align-items:center;
+    border-radius:8px;margin-bottom:6px;background:rgba(26,16,60,.6);
+    border:1px solid rgba(255,0,255,.12);border-left:2px solid rgba(0,255,255,.4);
   }
-  .song-row{padding:10px 6px;min-height:56px}
-  .song-row:hover{transform:none;border-left:2px solid var(--cyan);padding-left:4px}
-  /* Row 1: idx | name+tags | count */
-  .table-header span:nth-child(1),.song-row .idx{grid-column:1;grid-row:1}
-  .table-header span:nth-child(3),.song-row .name{grid-column:2;grid-row:1}
-  .table-header span:nth-child(6),.song-row .count{grid-column:3;grid-row:1}
-  /* Row 2: artist (wide) | dates */
-  .table-header span:nth-child(4),.song-row .artist{grid-column:1/span 2;grid-row:2}
-  .table-header span:nth-child(7),.song-row .dates{grid-column:3;grid-row:2}
-  /* Hide play button, lang badge, and ♪ header on mobile */
-  .song-row .play-btn,.table-header span:nth-child(2),.table-header span:nth-child(5),.song-row .lang{display:none}
-  /* ── Typography adjustments ── */
-  .song-row .name{overflow:visible;font-size:13px;padding:2px 0}
+  .song-row:hover{transform:none;border-left:2px solid var(--cyan);padding-left:10px}
+  .song-row .idx{grid-area:idx;grid-row:1 / span 3;align-self:start;font-size:10px;padding:2px 0;text-align:center}
+  .song-row .name{grid-area:name;font-size:14px;padding:0;overflow:visible}
+  .song-row .name .song-title{white-space:normal}
   .song-row .name .song-title small{font-size:10px}
-  .song-row .artist{white-space:normal;overflow:visible;font-size:11px;line-height:1.35;padding:0;color:var(--text-dim)}
-  .song-row .dates{white-space:normal;font-size:10px;text-align:right;padding:0}
-  .song-row .count{font-size:16px;font-weight:700}
-  .song-row .idx{font-size:10px;padding:2px;text-align:center}
-  /* ── Tags: smaller + wrap ── */
-  .tag-badges{flex-wrap:wrap;gap:2px;margin-top:2px}
-  .tag-badge{font-size:7px;padding:1px 3px;border-radius:2px}
-  /* ── Other mobile elements ── */
-  .stats-grid{grid-template-columns:repeat(2,1fr)}
-  .contribute-btn{bottom:76px;right:20px;font-size:11px;padding:8px 12px}
-  .export-btn{bottom:126px;right:20px;font-size:11px;padding:8px 12px}
-  .stats-link{bottom:176px;right:20px;font-size:11px;padding:8px 12px}
-  .export-panel{right:20px;bottom:170px}
-  .cb-modal{width:95%}
-  .back-top{right:20px;width:36px;height:36px;font-size:14px;bottom:24px}
-  /* Background illustration - mobile */
-  .bg-illust{opacity:.14;background-position:50% 92%}
-  .bg-overlay{background:radial-gradient(ellipse at 50% 40%,transparent 10%,rgba(9,0,20,.6) 50%,rgba(9,0,20,.94) 100%)}
-  /* ── Table header mobile styling ── */
-  .table-header{padding:6px 6px;font-size:10px;min-height:auto}
-  .table-header span:nth-child(4),.table-header span:nth-child(7){font-size:10px;color:var(--text-dim)}
+  .song-row .play-btn{grid-area:play;width:30px;height:30px;font-size:12px;align-self:center}
+  .song-row .artist{grid-area:artist;font-size:11px;line-height:1.35;padding:0;white-space:normal;color:var(--text-dim)}
+  .song-row .count{grid-area:count;font-size:17px;font-weight:700;text-align:right;padding:0}
+  .song-row .dates{grid-area:dates;font-size:10px;text-align:right;padding:0;white-space:normal;line-height:1.3}
+  .song-row .lang{display:none}
+  .song-row .tag-badges{flex-wrap:wrap;gap:2px;margin-top:2px}
+  .song-row .tag-badge{font-size:7px;padding:1px 3px;border-radius:2px}
+  /* Inline song detail expansion */
+  .song-detail{padding:12px 14px;font-size:12px;border-radius:0 0 8px 8px}
+  .detail-bili-item,.detail-link{font-size:10px;padding:3px 9px}
+  /* Lang nav + insights nav */
+  .lang-quick-nav{gap:6px;padding:10px 0}
+  .lang-quick-nav a{padding:5px 12px;font-size:13px}
+  .insights-nav{gap:6px}
+  .insights-nav-btn{padding:7px 14px;font-size:11px}
+  .chart-container{padding:14px}
+  .chart-canvas-wrap canvas{max-width:100%}
+  /* Floating action buttons — right-side touch stack */
+  .back-top{bottom:18px;right:14px;width:42px;height:42px;font-size:16px}
+  .contribute-btn{bottom:70px;right:14px;font-size:11px;padding:9px 13px;letter-spacing:1px}
+  .export-btn{bottom:120px;right:14px;font-size:11px;padding:9px 13px;letter-spacing:1px}
+  .stats-link{bottom:170px;right:14px;font-size:11px;padding:9px 13px;letter-spacing:1px}
+  .export-panel{right:14px;bottom:158px}
+  /* Modals */
+  .bb-body{padding:30px 18px}
+  .cb-body{padding:18px}
+  .cb-result-value input{width:100%}
+  /* Footer changelog */
+  .changelog{max-width:100%}
+  .cl-date{min-width:64px;font-size:9px}
+  .changelog li span.cl-text{max-width:calc(100% - 72px)}
+  /* Player on phone: keep full-width, trim decoration */
+  .tv-brand{font-size:8px}
+  .player-song-name{font-size:12px}
+  .player-clip-select{max-width:90px;font-size:9px}
+}
+
+/* ── Small phone (≤360px): ultra-compact ── */
+@media(max-width:360px){
+  .container{padding:0 12px}
+  .hero{padding:38px 0 18px}
+  .hero-title{letter-spacing:1px}
+  .stats-grid{gap:6px}
+  .stat-card{padding:10px 6px}
+  .stat-num{font-size:1.25rem}
+  .stat-label{font-size:11px}
+  .song-row{grid-template-columns:16px 1fr 40px;gap:2px 6px;padding:10px 8px}
+  .song-row .name{font-size:13px}
+  .song-row .play-btn{width:28px;height:28px}
+  .song-row .count{font-size:15px}
+  .section-tab{padding:9px 10px;font-size:10px}
+  .contribute-btn,.export-btn,.stats-link{font-size:10px;padding:8px 11px}
+  .contribute-btn{bottom:66px}
+  .export-btn{bottom:114px}
+  .stats-link{bottom:162px}
+  .back-top{width:38px;height:38px;font-size:14px}
+  .tv-cabinet{border-radius:10px;padding:6px 6px 5px}
+  .player-drag{padding:5px 6px 3px}
+  .player-song-artist{display:none}
+  .player-clip-select{max-width:72px}
 }
 
 /* ═══════ CONTRIBUTE (我要补充) ═══════ */
@@ -846,10 +910,11 @@ mark{background:rgba(0,255,255,.2);color:var(--cyan);padding:0 1px;border-radius
     <p>部分数据来源：<a href="https://www.suijisui.space" target="_blank">suijisui.space</a>（<a href="https://github.com/PQL87/sui-song-list" target="_blank">GitHub: PQL87/sui-song-list</a>）</p>
     <p style="margin-top:10px;"><a href="https://github.com/Tsingyun/sui-song-list-new" class="gh-btn" target="_blank">◈ 项目源码 GitHub ◈</a></p>
     <p style="margin-top:10px;">2022.09 — 2026.07</p>
-    <p><span class="ver-badge">界面版本 v2.0</span></p>
+    <p><span class="ver-badge">界面版本 v2.1</span></p>
     <details class="changelog">
       <summary>更新日志（功能更新）</summary>
       <ul>
+        <li><span class="cl-date">2026-07-21</span><span class="cl-text">移动端彻底重做：多断点（768/640/360）适配，歌单改卡片式并保留播放按钮，控件全宽、浮动按钮触控栈、图表与弹窗自适应</span></li>
         <li><span class="cl-date">2026-07-21</span><span class="cl-text">播放器套上复古 CRT 电视机外框（兔耳天线 / 扫描线 / SUI◈TV 商标 / 电源灯 / 双旋钮装饰）</span></li>
         <li><span class="cl-date">2026-07-21</span><span class="cl-text">播放器放大/还原图标改为清晰的窗口展开 / 还原样式，放大改为左下角原地生长</span></li>
         <li><span class="cl-date">2026-07-21</span><span class="cl-text">播放器新增放大/还原按钮，解决小窗下 B站 进度条与音量过小</span></li>
