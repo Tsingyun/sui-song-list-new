@@ -932,10 +932,11 @@ mark{background:rgba(0,255,255,.2);color:var(--cyan);padding:0 1px;border-radius
     <p>部分数据来源：<a href="https://www.suijisui.space" target="_blank">suijisui.space</a>（<a href="https://github.com/PQL87/sui-song-list" target="_blank">GitHub: PQL87/sui-song-list</a>）</p>
     <p style="margin-top:10px;"><a href="https://github.com/Tsingyun/sui-song-list-new" class="gh-btn" target="_blank">◈ 项目源码 GitHub ◈</a></p>
     <p style="margin-top:10px;">2022.09 — 2026.07</p>
-    <p><span class="ver-badge">界面版本 v2.2</span></p>
+    <p><span class="ver-badge">界面版本 v2.3</span></p>
     <details class="changelog">
       <summary>更新日志（功能更新）</summary>
       <ul>
+        <li><span class="cl-date">2026-07-21</span><span class="cl-text">修复更新日志（页脚）展开后页面不自动滚动：展开时按内容高度把内容滚入视口（短内容贴底 / 长内容从标题起），桌面与移动端一致</span></li>
         <li><span class="cl-date">2026-07-21</span><span class="cl-text">移动端体验精修：修单击歌名误触复制（改详情内显式按钮）、搜索框 16px 防 iOS 缩放、刘海/Home 条安全区适配、横屏播放器可关闭、播放按钮放大到 42px、横屏手机布局、点按反馈、字号下限、弹窗锁背景滚动、播放时隐藏盲盒、拖拽用 visualViewport 防抖动、分类标签滚动吸附、搜索聚焦防键盘遮挡</span></li>
         <li><span class="cl-date">2026-07-21</span><span class="cl-text">移动端彻底重做：多断点（768/640/360）适配，歌单改卡片式并保留播放按钮，控件全宽、浮动按钮触控栈、图表与弹窗自适应</span></li>
         <li><span class="cl-date">2026-07-21</span><span class="cl-text">播放器套上复古 CRT 电视机外框（兔耳天线 / 扫描线 / SUI◈TV 商标 / 电源灯 / 双旋钮装饰）</span></li>
@@ -2115,6 +2116,20 @@ function bindEvents(){
   window.addEventListener('scroll',onScroll);
   onScroll();
 }
+
+// 更新日志展开后自动滚动，确保弹出内容进入视口
+(function(){
+  const cl=document.querySelector('.changelog');
+  if(!cl)return;
+  cl.addEventListener('toggle',()=>{
+    if(!cl.open)return;
+    requestAnimationFrame(()=>{
+      const vh=window.innerHeight||document.documentElement.clientHeight;
+      const block=cl.offsetHeight>vh*0.85?'start':'end';
+      cl.scrollIntoView({behavior:'smooth',block});
+    });
+  });
+})();
 
 init();
 </script>
