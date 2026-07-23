@@ -1521,11 +1521,14 @@ function toggleDetail(row){
   row.classList.add('has-detail');
   openDetailRow=row;
 }
-function bindDetailClick(container){
-  container.addEventListener('click',function(e){
+function bindDetailClick(){
+  // 用 document 级事件委托，只绑定一次，覆盖所有列表容器（含搜索/排序/翻页后动态重渲染的行）
+  if(window.__detailBound)return;
+  window.__detailBound=true;
+  document.addEventListener('click',function(e){
     if(e.target.closest('.play-btn,.detail-link,.detail-bili-item'))return;
     var row=e.target.closest('.song-row');
-    if(!row||!row.dataset.song||!container.contains(row))return;
+    if(!row||!row.dataset.song)return;
     toggleDetail(row);
   });
 }
@@ -1748,7 +1751,7 @@ function bindInsights(){
   });
 }
 
-function init(){renderStats();renderLangFilters();renderTagFilters();renderSongList();bindEvents();bindBlindBox();bindPlayer();bindContribute();bindExport();bindInsights();
+function init(){renderStats();renderLangFilters();renderTagFilters();renderSongList();bindEvents();bindBlindBox();bindPlayer();bindContribute();bindExport();bindInsights();bindDetailClick();
   // Handle initial hash (e.g. #lang-日语) — instant reveal + scroll
   if(window.location.hash){
     setTimeout(()=>{
@@ -1844,7 +1847,6 @@ function renderSongList(){
     }).join('');
   }
   renderPagination(filtered.length,totalPages);
-  bindDetailClick(container);
   requestAnimationFrame(()=>revealRows(container));
   document.getElementById('pageInfo').textContent=`> ${filtered.length} 首 | 第 ${currentPage}/${totalPages||1} 页`;
 }
@@ -1878,7 +1880,6 @@ function renderFrequent(){
       <span class="lang"><span class="lang-badge lang-${s.lang}">${s.lang}</span></span>
       <span class="count">${s.count}</span><span class="dates">${dateStr}</span></div>`;
   }).join('');
-  bindDetailClick(freqCont);
   requestAnimationFrame(()=>revealRows(freqCont));
 }
 
