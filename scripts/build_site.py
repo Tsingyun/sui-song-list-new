@@ -1526,7 +1526,7 @@ function bindDetailClick(){
   if(window.__detailBound)return;
   window.__detailBound=true;
   document.addEventListener('click',function(e){
-    if(e.target.closest('.play-btn,.detail-link,.detail-bili-item'))return;
+    if(e.target.closest('.play-btn,.detail-link,.detail-bili-item,.detail-copy-btn'))return;
     var row=e.target.closest('.song-row');
     if(!row||!row.dataset.song)return;
     toggleDetail(row);
@@ -1945,16 +1945,23 @@ function copySongText(songName){
   const lastDate=(dArr&&dArr.length)?dArr[dArr.length-1]:'—';
   const totalInfo=dArr&&dArr.length?`｜共演唱${dArr.length}次`:'';
   const text=`🎵 ${songName}｜最近演唱：${lastDate}${totalInfo}`;
-  navigator.clipboard.writeText(text).then(()=>{
-    showCopyToast(`✅ 已复制：${songName}`);
-  }).catch(()=>{
-    // Fallback for older browsers
-    const ta=document.createElement('textarea');
-    ta.value=text;ta.style.position='fixed';ta.style.opacity='0';
-    document.body.appendChild(ta);ta.select();
-    document.execCommand('copy');document.body.removeChild(ta);
-    showCopyToast(`✅ 已复制：${songName}`);
-  });
+  function fallback(){
+    try{
+      const ta=document.createElement('textarea');
+      ta.value=text;ta.style.position='fixed';ta.style.top='-9999px';ta.style.left='-9999px';ta.style.opacity='0';
+      document.body.appendChild(ta);ta.focus();ta.select();
+      const ok=document.execCommand('copy');
+      document.body.removeChild(ta);
+      showCopyToast(ok?`✅ 已复制：${songName}`:`⚠️ 复制失败，请手动长按选择`);
+    }catch(err){
+      showCopyToast(`⚠️ 复制失败：${songName}`);
+    }
+  }
+  try{
+    if(navigator.clipboard&&typeof navigator.clipboard.writeText==='function'){
+      navigator.clipboard.writeText(text).then(function(){showCopyToast(`✅ 已复制：${songName}`);}).catch(fallback);
+    }else{fallback();}
+  }catch(err){fallback();}
 }
 
 function renderByLang(){
