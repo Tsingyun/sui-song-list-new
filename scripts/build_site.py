@@ -1493,7 +1493,8 @@ function toggleDetail(row){
   }
   if(openDetailRow){var prev=openDetailRow.nextElementSibling;if(prev&&prev.classList.contains('song-detail'))prev.remove();openDetailRow.classList.remove('has-detail');document.body.classList.remove('detail-open');}
   var dates=SONG_DATES[song.name]||[];
-  var h='<div class="song-detail">';
+  var esc=song.name.replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  var h='<div class="song-detail" data-song="'+esc+'">';
   if(dates.length){
     h+='<div class="detail-section"><div class="detail-label">// 演唱记录 ('+dates.length+'次)</div><div class="detail-dates">';
     dates.forEach(function(d){
@@ -1512,7 +1513,7 @@ function toggleDetail(row){
   h+='<div class="detail-section"><div class="detail-label">// 外部链接</div><div class="detail-links">';
   h+='<a class="detail-link netease" href="https://music.163.com/#/search/m/?s='+encodeURIComponent(song.name+' '+(song.artist||''))+'" target="_blank" rel="noopener">♪ 网易云搜索</a>';
   h+='<a class="detail-link" href="https://search.bilibili.com/all?keyword='+encodeURIComponent('岁己SUI '+song.name+' 歌切')+'" target="_blank" rel="noopener">▶ B站搜索</a>';
-  h+='<button class="detail-copy-btn" type="button" onclick="copySongText('+JSON.stringify(song.name)+')">⧉ 复制歌名</button>';
+  h+='<button class="detail-copy-btn" type="button">⧉ 复制歌名</button>';
   h+='</div></div>';
   if(song.bili&&song.bili.length){
     h+='<div class="detail-section"><div class="detail-label">// 录播片段 ('+song.bili.length+'个)</div><div class="detail-bili-list">';
@@ -1533,7 +1534,13 @@ function bindDetailClick(){
   if(window.__detailBound)return;
   window.__detailBound=true;
   document.addEventListener('click',function(e){
-    if(e.target.closest('.play-btn,.detail-link,.detail-bili-item,.detail-copy-btn'))return;
+    var copyBtn=e.target.closest('.detail-copy-btn');
+    if(copyBtn){
+      var det=copyBtn.closest('.song-detail');
+      if(det&&det.dataset.song)copySongText(det.dataset.song);
+      return;
+    }
+    if(e.target.closest('.play-btn,.detail-link,.detail-bili-item'))return;
     var row=e.target.closest('.song-row');
     if(!row||!row.dataset.song)return;
     toggleDetail(row);
