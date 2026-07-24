@@ -1460,6 +1460,10 @@ function bindDetailClick(){
     if(e.target.closest('.play-btn,.detail-link,.detail-bili-item'))return;
     var row=e.target.closest('.song-row');
     if(!row||!row.dataset.song)return;
+    // 点歌名行：展开时自动复制一次（收起不再复制，避免冗余误触）
+    if(!row.classList.contains('has-detail')){
+      copySongText(row.dataset.song);
+    }
     toggleDetail(row);
   });
 }
