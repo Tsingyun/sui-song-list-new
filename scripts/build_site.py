@@ -601,7 +601,7 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
   .song-row .tag-badges{flex-wrap:wrap;gap:2px;margin-top:2px}
   .song-row .tag-badge{font-size:9px;padding:1px 3px;border-radius:2px}
   /* Inline song detail expansion */
-  .song-detail{padding:12px 14px;font-size:12px;border-radius:0 0 8px 8px}
+  .song-detail{padding:12px 14px;font-size:12px;border-radius:0 0 8px 8px;max-height:62vh;overflow-y:auto}
   .detail-bili-item,.detail-link{font-size:10px;padding:3px 9px}
   /* Lang nav + insights nav */
   .lang-quick-nav{gap:6px;padding:10px 0}
@@ -667,6 +667,12 @@ body{background:var(--void);color:var(--text);font-family:var(--font-cjk);line-h
 }
 .contribute-btn.visible{opacity:1;transform:translateY(0);pointer-events:auto}
 .contribute-btn:hover{background:var(--cyan);color:var(--void);box-shadow:0 0 24px rgba(0,255,255,.45);letter-spacing:4px}
+/* 详情展开时收起角落悬浮按钮(FAB)，避免其覆盖详情面板内的复制/链接按钮（移动端尤为明显） */
+body.detail-open .contribute-btn,
+body.detail-open .export-btn,
+body.detail-open .back-top,
+body.detail-open .blindbox-btn,
+body.detail-open .stats-link{opacity:0!important;pointer-events:none!important;}
 
 .cb-overlay{
   display:none;position:fixed;inset:0;z-index:8500;
@@ -839,12 +845,12 @@ mark{background:rgba(0,255,255,.2);color:var(--cyan);padding:0 1px;border-radius
 /* ═══════ SONG DETAIL PANEL ═══════ */
 .song-row.has-detail{border-bottom:none}
 .song-detail{
-  grid-column:1/-1;padding:12px 16px;
+  grid-column:1/-1;padding:12px 16px;position:relative;z-index:5;
   background:rgba(26,16,60,.95);backdrop-filter:blur(12px);
   border:1px solid var(--border);border-top:none;
   animation:detailSlide .2s ease;font-size:13px;
 }
-@keyframes detailSlide{from{opacity:0;max-height:0}to{opacity:1;max-height:500px}}
+@keyframes detailSlide{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .detail-section{margin-bottom:10px}
 .detail-label{font-family:var(--font-m);font-size:10px;color:var(--text-dim);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
 .detail-dates{display:flex;gap:4px;flex-wrap:wrap}
@@ -1483,9 +1489,9 @@ function toggleDetail(row){
   if(!song)return;
   var existing=row.nextElementSibling;
   if(existing&&existing.classList.contains('song-detail')){
-    existing.remove();row.classList.remove('has-detail');openDetailRow=null;return;
+    existing.remove();row.classList.remove('has-detail');openDetailRow=null;document.body.classList.remove('detail-open');return;
   }
-  if(openDetailRow){var prev=openDetailRow.nextElementSibling;if(prev&&prev.classList.contains('song-detail'))prev.remove();openDetailRow.classList.remove('has-detail');}
+  if(openDetailRow){var prev=openDetailRow.nextElementSibling;if(prev&&prev.classList.contains('song-detail'))prev.remove();openDetailRow.classList.remove('has-detail');document.body.classList.remove('detail-open');}
   var dates=SONG_DATES[song.name]||[];
   var h='<div class="song-detail">';
   if(dates.length){
@@ -1520,6 +1526,7 @@ function toggleDetail(row){
   row.insertAdjacentHTML('afterend',h);
   row.classList.add('has-detail');
   openDetailRow=row;
+  document.body.classList.add('detail-open');
 }
 function bindDetailClick(){
   // 用 document 级事件委托，只绑定一次，覆盖所有列表容器（含搜索/排序/翻页后动态重渲染的行）
