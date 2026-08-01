@@ -6563,10 +6563,10 @@
       "translated": "secret base ～你所赠予之物～",
       "artist": "茅野愛衣/戸松遥/早見沙織",
       "lang": "日语",
-      "count": 2,
-      "tier": "偶尔",
+      "count": 3,
+      "tier": "occasional",
       "first": "2023-07-22",
-      "last": "2023-11-09",
+      "last": "2026-08-01",
       "tags": [
         "流行"
       ]
@@ -15799,16 +15799,6 @@
       "name": "JANE DOE",
       "translated": "",
       "artist": "米津玄師、宇多田ヒカル",
-      "lang": "日语",
-      "count": 1,
-      "tier": "rare",
-      "first": "2026-08-01",
-      "last": "2026-08-01"
-    },
-    {
-      "name": "secret base ~君がくれたもの~",
-      "translated": "",
-      "artist": "",
       "lang": "日语",
       "count": 1,
       "tier": "rare",
