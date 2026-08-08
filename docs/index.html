@@ -811,6 +811,11 @@ mark{background:rgba(0,255,255,.2);color:var(--cyan);padding:0 1px;border-radius
 
 /* Heatmap */
 .heatmap-wrap{overflow-x:auto;padding-bottom:10px}
+#heatmapWrap{overflow-x:auto;padding-bottom:6px;scrollbar-width:none;-ms-overflow-style:none;cursor:grab}
+#heatmapWrap::-webkit-scrollbar{display:none;height:0}
+#heatmapWrap:active{cursor:grabbing}
+.heatmap-scroll-hint{font-family:var(--font-m);font-size:10px;color:var(--text-dim);text-align:center;margin-top:2px;letter-spacing:.6px;opacity:.65;transition:opacity .4s ease;user-select:none;pointer-events:none}
+.heatmap-scroll-hint.hide{opacity:0}
 .heatmap-grid{display:inline-grid;gap:3px}
 .heatmap-cell{width:20px;height:20px;border-radius:4px;transition:transform .12s ease,box-shadow .2s ease,outline .15s ease;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:var(--font-m);font-size:10px;font-weight:700;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.65);position:relative}
 .heatmap-cell:hover{outline:2px solid var(--cyan);outline-offset:1px;transform:scale(1.22);z-index:4}
@@ -912,7 +917,8 @@ mark{background:rgba(0,255,255,.2);color:var(--cyan);padding:0 1px;border-radius
         <div class="chart-title">PERFORMANCE_CALENDAR</div>
         <div class="chart-hint">格子里的数字 = 当天演唱的歌曲数 · 悬停查看当日歌单 · 点击歌名直达歌曲详情</div>
         <div id="heatmapControls" style="margin-bottom:12px;"></div>
-        <div id="heatmapWrap" style="overflow-x:auto"></div>
+        <div id="heatmapWrap"></div>
+        <div class="heatmap-scroll-hint" id="heatmapHint">← 拖动或滚动滚轮查看全年 →</div>
         <div id="heatmapLegend" style="margin-top:8px"></div>
       </div>
     </div>
@@ -1691,7 +1697,7 @@ function renderHeatmap(year){
     var num=c.count>0?c.count:'';
     var bg=c.count>0?heatColor(c.count):'';
     var glow=c.count>=10?'box-shadow:0 0 8px '+heatColor(c.count)+',0 0 2px rgba(255,255,255,.6);':'';
-    var style='grid-column:'+c.col+';grid-row:'+c.row+(bg?';background:'+bg:'')+(glow?glow:'');
+    var style='grid-column:'+c.col+';grid-row:'+c.row+(bg?';background:'+bg+';':'')+(glow?';'+glow:'');
     html+='<div class="heatmap-cell" data-date="'+c.date+'" data-count="'+c.level+'" style="'+style+'" title="'+c.date+': '+(c.count?c.count+'首':'无演唱')+'">'+num+'</div>';
   });
   html+='</div></div>';
@@ -1707,11 +1713,33 @@ function renderHeatmap(year){
     [0,1,2,4,7,12,18].map(function(c){return '<div class="heatmap-cell" style="width:16px;height:16px;cursor:default;pointer-events:none;background:'+heatColor(c)+'"></div>';}).join('')+
     '<span>多</span><span style="margin-left:10px;color:var(--text-dim)">· 格子里的数字 = 当天演唱的歌曲数</span>';
   bindHeatmapEvents();
+  updateHeatmapHint();
+}
+function updateHeatmapHint(){
+  var wrap=document.getElementById('heatmapWrap');
+  var hint=document.getElementById('heatmapHint');
+  if(!wrap||!hint)return;
+  if(wrap.scrollWidth>wrap.clientWidth){hint.style.display='block';hint.classList.remove('hide');}
+  else{hint.style.display='none';}
 }
 function bindHeatmapEvents(){
   if(window.__hmBound)return;
   window.__hmBound=true;
   var wrap=document.getElementById('heatmapWrap');
+  var hint=document.getElementById('heatmapHint');
+  var isDown=false,startX=0,startScroll=0,moved=false;
+  wrap.addEventListener('mousedown',function(e){isDown=true;moved=false;startX=e.pageX;startScroll=wrap.scrollLeft;});
+  window.addEventListener('mouseup',function(){isDown=false;});
+  wrap.addEventListener('mousemove',function(e){
+    if(!isDown)return;
+    var dx=e.pageX-startX;
+    if(Math.abs(dx)>4){moved=true;wrap.scrollLeft=startScroll-dx;hideHeatTip();if(hint)hint.classList.add('hide');}
+  });
+  wrap.addEventListener('wheel',function(e){
+    if(wrap.scrollWidth>wrap.clientWidth&&e.deltaY!==0){wrap.scrollLeft+=e.deltaY;e.preventDefault();if(hint)hint.classList.add('hide');}
+  },{passive:false});
+  // 拖拽后拦截误触发的 click（避免误跳转到歌名）
+  wrap.addEventListener('click',function(e){if(moved){e.stopPropagation();e.preventDefault();moved=false;}},true);
   wrap.addEventListener('mouseover',function(e){var cell=e.target.closest('.heatmap-cell[data-date]');if(cell)showHeatTip(cell.dataset.date,cell);});
   wrap.addEventListener('mouseout',function(e){var cell=e.target.closest('.heatmap-cell[data-date]');if(cell)hideHeatTip();});
   wrap.addEventListener('click',function(e){
