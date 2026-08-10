@@ -1886,10 +1886,10 @@
       "translated": "歌虽无形",
       "artist": "doriko/初音ミク",
       "lang": "日语",
-      "count": 6,
-      "tier": "常唱",
+      "count": 7,
+      "tier": "frequent",
       "first": "2022-09-12",
-      "last": "2025-11-29",
+      "last": "2026-08-10",
       "tags": [
         "流行"
       ]
@@ -8824,10 +8824,10 @@
       "translated": "幻化成风",
       "artist": "つじあやの",
       "lang": "日语",
-      "count": 2,
-      "tier": "偶尔",
+      "count": 3,
+      "tier": "occasional",
       "first": "2023-10-13",
-      "last": "2025-06-30",
+      "last": "2026-08-10",
       "tags": [
         "动画",
         "流行"
