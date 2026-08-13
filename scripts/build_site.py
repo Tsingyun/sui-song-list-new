@@ -19,9 +19,17 @@ try:
 except:
     print('No bilibili matching data found')
 
+# 波浪号归一化：全角〜(U+301C)/～(U+FF5E) 统一成半角~(U+007E)
+# 歌单歌名与 map key 可能因全角/半角波浪号写法不同而无法精确匹配（已知坑，
+# 例如「真夜中のドア〜Stay With Me」歌单用全角〜，map key 为半角~，导致歌切丢失）
+def _norm_tilde(s):
+    return s.replace('\u301c', '~').replace('\uff5e', '~')
+
+bili_norm = {_norm_tilde(k): v for k, v in bili_map.items()}
+
 # Merge bili data into songs (compact format)
 for song in data['songs']:
-    clips = bili_map.get(song['name'], [])
+    clips = bili_norm.get(_norm_tilde(song['name']), [])
     if clips:
         song['bili'] = [{'bv': c['bvid'], 't': c['title'], 'd': c.get('duration', 0), 'dt': c.get('date', '')} for c in clips]
 

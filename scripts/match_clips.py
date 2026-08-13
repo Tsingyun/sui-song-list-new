@@ -65,6 +65,13 @@ async def run(save_clips=None, clips_file=None, max_pages=3):
         data = json.load(f)
     names = {s['name'] for s in data['songs']}
 
+    # 波浪号归一化：全角〜(U+301C)/～(U+FF5E) -> 半角~(U+007E)
+    # 避免歌单(全角〜)与歌切标题(半角~)因写法不同而无法匹配
+    def _norm_tilde(s):
+        return s.replace('\u301c', '~').replace('\uff5e', '~')
+
+    norm_name_map = {_norm_tilde(n): n for n in names}
+
     with open(os.path.join(BASE, 'data', 'song_bilibili_map.json'), encoding='utf-8') as f:
         m = json.load(f)
     matches = m.setdefault('matches', {})
@@ -76,9 +83,12 @@ async def run(save_clips=None, clips_file=None, max_pages=3):
         if not nm:
             skipped.append(v['title'])
             continue
-        if nm not in names:
+        nm_norm = _norm_tilde(nm)
+        if nm_norm not in norm_name_map:
             skipped.append('NOT_IN_DB: ' + v['title'])
             continue
+        # map key 统一存归一化(半角~)形式，与 build_site.py 的查找一致
+        store_name = nm_norm
         date = f"{datestr[:4]}-{datestr[4:6]}-{datestr[6:]}" if datestr else None
         entry = {
             'bvid': v['bvid'],
@@ -86,7 +96,7 @@ async def run(save_clips=None, clips_file=None, max_pages=3):
             'duration': dur_to_sec(v.get('duration', '')),
             'date': date,
         }
-        lst = matches.setdefault(nm, [])
+        lst = matches.setdefault(store_name, [])
         if not any(e['bvid'] == v['bvid'] for e in lst):
             lst.append(entry)
             added += 1
