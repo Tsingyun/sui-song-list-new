@@ -2,7 +2,7 @@
 
 > **SUI_SONG_DATABASE V4.1** — 为虚拟主播 [岁己SUI](https://space.bilibili.com/1954091502) 打造的 Vaporwave 风格歌单网站，配有岁己SUI角色插画背景
 
-收录 **1,164** 首歌曲、**3,365** 次演唱记录，支持在线播放 B站录播片段。
+收录 **1,164** 首歌曲、**3,367** 次演唱记录，支持在线播放 B站录播片段。
 
 **[>>> suijisui.uk <<<](https://suijisui.uk)** · [GitHub Pages 镜像](https://tsingyun.github.io/sui-song-list-new/) · [点歌统计](https://stats.suijisui.uk)
 
