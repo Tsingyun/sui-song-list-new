@@ -23,13 +23,32 @@ PLAYLIST = "https://space.bilibili.com/9669499/lists/6453496?type=season"
 
 
 def name_from_title(title):
-    m = re.match(r'【岁己SUI】(.*?)【(\d{8})歌切】', title)
-    if m:
-        return m.group(1).strip(), m.group(2)
-    m2 = re.match(r'【岁己SUI】(.*)', title)
+    """从歌切标题提取歌名与日期。兼容多种格式：
+      - 【岁己SUI】歌名【20260830歌切】
+      - 【岁己SUI】歌名【20260830歌切·活动名】
+      - 【岁己SUI】歌名「20260830歌切」        （「」包裹）
+      - 【岁己SUI】歌名【20260830】            （旧格式无"歌切"字样）
+      - 【岁己SUI】歌名                        （无日期）
+    """
+    m = re.match(r'【岁己SUI】\s*(.*)', title)
+    if not m:
+        return None, None
+    body = m.group(1).strip()
+    # 提取 8 位日期（可能在 【】 或 「」 中）
+    dm = re.search(r'[【「](\d{8})', body)
+    date = dm.group(1) if dm else None
+    # 去掉清唱专场前缀：人头麦清唱~歌名 （如「人头麦清唱~水星记」）
+    m2 = re.match(r'^人头麦清唱[~～]\s*(.+)$', body)
     if m2:
-        return m2.group(1).strip(), None
-    return None, None
+        body = m2.group(1).strip()
+    # 去除【...】注解括号（活动名/歌切/日期）
+    body = re.sub(r'【[^】]*】', '', body)
+    # 仅当「...」内含日期(8位)或"歌切"时才去除，避免误删歌名内的「」(如 Dear Mr「F」)
+    body = re.sub(r'「[^」]*(?:\d{8}|歌切)[^」]*」', '', body)
+    # 兜底：去掉残留的单个【】
+    body = body.replace('【', '').replace('】', '')
+    body = body.strip()
+    return (body or None), date
 
 
 def dur_to_sec(d):
@@ -72,7 +91,11 @@ async def run(save_clips=None, clips_file=None, max_pages=3):
         return s.replace('\u301c', '~').replace('\uff5e', '~')
 
     def _norm(s):
-        return _norm_tilde(s).lower().strip()
+        s = _norm_tilde(s).lower().strip()
+        # 去除首尾标点/括号/引号，兼容歌单与歌切标题的标点差异
+        # 例：あの夏が飽和する。vs あの夏が飽和する、Mela！vs Mela!、Dear Mr「F」vs Dear Mr 「F」
+        s = s.strip('。、！？.!?…~～「」『』“”‘’()（）[]【】/\\ ')
+        return s
 
     norm_name_map = {_norm(n): n for n in names}
 
