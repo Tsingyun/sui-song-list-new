@@ -17,7 +17,6 @@ import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from scrape_bilibili_playlist import scrape
 
 BASE = r'C:\Users\Tsing\WorkBuddy\2026-06-14-11-54-35\sui-song-list-new'
 PLAYLIST = "https://space.bilibili.com/9669499/lists/6453496?type=season"
@@ -54,6 +53,7 @@ async def run(save_clips=None, clips_file=None, max_pages=3):
         print(f'loaded {len(vids)} clips from {clips_file}')
     else:
         # cookie 可选：设置了 BILI_COOKIE 才带，否则无登录直接抓
+        from scrape_bilibili_playlist import scrape  # 仅在需要抓取时才依赖 playwright
         cookie = os.environ.get('BILI_COOKIE', '')
         vids = await scrape(PLAYLIST, cookie, max_pages)
         if save_clips:
@@ -65,12 +65,16 @@ async def run(save_clips=None, clips_file=None, max_pages=3):
         data = json.load(f)
     names = {s['name'] for s in data['songs']}
 
-    # 波浪号归一化：全角〜(U+301C)/～(U+FF5E) -> 半角~(U+007E)
-    # 避免歌单(全角〜)与歌切标题(半角~)因写法不同而无法匹配
+    # 归一化：波浪号 + 大小写
+    # 1) 全角〜(U+301C)/～(U+FF5E) -> 半角~(U+007E)，避免写法不同漏配
+    # 2) lower() 忽略大小写，避免如歌切 "Tune The Rainbow" 与歌单 "tune the rainbow" 不符而漏配
     def _norm_tilde(s):
         return s.replace('\u301c', '~').replace('\uff5e', '~')
 
-    norm_name_map = {_norm_tilde(n): n for n in names}
+    def _norm(s):
+        return _norm_tilde(s).lower().strip()
+
+    norm_name_map = {_norm(n): n for n in names}
 
     with open(os.path.join(BASE, 'data', 'song_bilibili_map.json'), encoding='utf-8') as f:
         m = json.load(f)
@@ -83,12 +87,12 @@ async def run(save_clips=None, clips_file=None, max_pages=3):
         if not nm:
             skipped.append(v['title'])
             continue
-        nm_norm = _norm_tilde(nm)
+        nm_norm = _norm(nm)
         if nm_norm not in norm_name_map:
             skipped.append('NOT_IN_DB: ' + v['title'])
             continue
-        # map key 统一存归一化(半角~)形式，与 build_site.py 的查找一致
-        store_name = nm_norm
+        # store_name 用歌单原名（而非歌切标题写法），保证与 build_site.py 按 song['name'] 查找时 key 完全一致
+        store_name = norm_name_map[nm_norm]
         date = f"{datestr[:4]}-{datestr[4:6]}-{datestr[6:]}" if datestr else None
         entry = {
             'bvid': v['bvid'],

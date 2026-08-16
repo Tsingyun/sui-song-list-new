@@ -142,7 +142,7 @@
 | 常唱 (5+次) | 239 首 |
 | 偶尔 (2–4次) | 435 首 |
 | 仅唱一次 | 490 首 |
-| B站视频匹配 | 923 首 (80%) |
+| B站视频匹配 | 932 首 (80%) |
 | 演唱日期可追溯 | 1,163 首 |
 | 收录时间跨度 | 2022.02 — 2026.08 |
 
@@ -201,7 +201,7 @@ sui-song-list-new/
 ├── data/                            数据文件
 │   ├── sui_song_list_complete.json   完整歌单数据（含日期列表）
 │   ├── song_data.json                歌曲数据库（1164首）
-│   └── song_bilibili_map.json        歌曲-视频匹配（923首）
+│   └── song_bilibili_map.json        歌曲-视频匹配（932首）
 │
 └── docs/                            GitHub Pages 部署
     ├── index.html                    最终网站（单文件，~726KB）
@@ -319,7 +319,7 @@ B站 API 存在 `-352` 限流机制：
 - 所有 CSS 样式
 - 所有 JavaScript 逻辑（含动画、交互、数据渲染、Chart.js 图表）
 - 1164 首歌曲的完整数据（JSON 内嵌）
-- 923 首歌曲的 B站视频匹配数据
+- 932 首歌曲的 B站视频匹配数据
 - 1163 首歌曲的演唱日期记录（SONG_DATES 查找表）
 
 外部依赖：SheetJS（xlsx）CDN（用于 Excel 导出）、Chart.js CDN（用于数据洞察图表）。背景插图以 WebP 格式存于 `docs/assets/`，通过 CSS `url()` 引用。

@@ -1,9 +1,9 @@
 {
   "stats": {
     "total_songs": 1164,
-    "matched_songs": 930,
-    "unmatched_songs": 234,
-    "total_clips": 2663
+    "matched_songs": 932,
+    "unmatched_songs": 232,
+    "total_clips": 2665
   },
   "matches": {
     "君の知らない物語": [
@@ -17837,6 +17837,22 @@
         "duration": 359,
         "date": "2026-01-18"
       }
+    ],
+    "secret base 〜君がくれたもの〜": [
+      {
+        "bvid": "BV1ft3d6DEnM",
+        "title": "【岁己SUI】secret base ~君がくれたもの~【20260801歌切】",
+        "duration": 347,
+        "date": "2026-08-01"
+      }
+    ],
+    "tune the rainbow": [
+      {
+        "bvid": "BV1643d6HEN1",
+        "title": "【岁己SUI】Tune The Rainbow【20260730歌切】",
+        "duration": 330,
+        "date": "2026-07-30"
+      }
     ]
   },
   "unmatched": [
@@ -17860,7 +17876,6 @@
     "Rolling in the Deep",
     "everytime you kissed me",
     "moonlight",
-    "secret base 〜君がくれたもの〜",
     "ノーチラス",
     "ワールドイズマイン",
     "君はロックを聴かない",
@@ -17933,7 +17948,6 @@
     "hacking to the gate",
     "mnemonic",
     "thank u, next",
-    "tune the rainbow",
     "vivi",
     "いけないボーダーライン",
     "うっせぇわ",
