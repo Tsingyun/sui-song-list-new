@@ -5990,10 +5990,10 @@
       "translated": "",
       "artist": "陈绮贞",
       "lang": "中文",
-      "count": 3,
-      "tier": "偶尔",
+      "count": 4,
+      "tier": "occasional",
       "first": "2023-04-05",
-      "last": "2025-03-16",
+      "last": "2026-08-18",
       "tags": [
         "独立",
         "流行"
@@ -15848,6 +15848,16 @@
       "tier": "rare",
       "first": "2026-08-01",
       "last": "2026-08-01"
+    },
+    {
+      "name": "思念是一种病",
+      "translated": "",
+      "artist": "齐秦",
+      "lang": "中文",
+      "count": 1,
+      "tier": "rare",
+      "first": "2026-08-18",
+      "last": "2026-08-18"
     }
   ]
 }

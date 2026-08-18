@@ -2,7 +2,7 @@
 
 > **SUI_SONG_DATABASE V4.1** — 为虚拟主播 [岁己SUI](https://space.bilibili.com/1954091502) 打造的 Vaporwave 风格歌单网站，配有岁己SUI角色插画背景
 
-收录 **1,164** 首歌曲、**3,369** 次演唱记录，支持在线播放 B站录播片段。
+收录 **1,165** 首歌曲、**3,371** 次演唱记录，支持在线播放 B站录播片段。
 
 **[>>> suijisui.uk <<<](https://suijisui.uk)** · [GitHub Pages 镜像](https://tsingyun.github.io/sui-song-list-new/) · [点歌统计](https://stats.suijisui.uk)
 
@@ -23,7 +23,7 @@
 + 单文件 HTML 架构
   - 所有 CSS / JS / 数据内嵌，零外部依赖
   - 可直接用浏览器打开，也可通过 GitHub Pages 部署
-  - 文件体积约 736 KB（含 1164 首歌曲完整数据 + 背景插画 WebP）
+  - 文件体积约 736 KB（含 1165 首歌曲完整数据 + 背景插画 WebP）
   - 外部依赖：SheetJS（xlsx）CDN 用于 Excel 导出、Chart.js CDN 用于数据可视化图表
 
 数据:
@@ -137,11 +137,11 @@
 
 | 指标 | 数量 |
 |------|------|
-| 歌曲总数 | 1,164 |
-| 演唱总次数 | 3,369 |
+| 歌曲总数 | 1,165 |
+| 演唱总次数 | 3,371 |
 | 常唱 (5+次) | 239 首 |
 | 偶尔 (2–4次) | 435 首 |
-| 仅唱一次 | 490 首 |
+| 仅唱一次 | 491 首 |
 | B站视频匹配 | 932 首 (80%) |
 | 演唱日期可追溯 | 1,163 首 |
 | 收录时间跨度 | 2022.02 — 2026.08 |
@@ -200,7 +200,7 @@ sui-song-list-new/
 │
 ├── data/                            数据文件
 │   ├── sui_song_list_complete.json   完整歌单数据（含日期列表）
-│   ├── song_data.json                歌曲数据库（1164首）
+│   ├── song_data.json                歌曲数据库（1165首）
 │   └── song_bilibili_map.json        歌曲-视频匹配（932首）
 │
 └── docs/                            GitHub Pages 部署
@@ -318,7 +318,7 @@ B站 API 存在 `-352` 限流机制：
 整个网站是一个 ~726KB 的 HTML 文件，包含：
 - 所有 CSS 样式
 - 所有 JavaScript 逻辑（含动画、交互、数据渲染、Chart.js 图表）
-- 1164 首歌曲的完整数据（JSON 内嵌）
+- 1165 首歌曲的完整数据（JSON 内嵌）
 - 932 首歌曲的 B站视频匹配数据
 - 1163 首歌曲的演唱日期记录（SONG_DATES 查找表）
 
