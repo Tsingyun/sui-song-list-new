@@ -4208,10 +4208,10 @@
       "translated": "离别~赠于你的爱之歌~",
       "artist": "EGOIST",
       "lang": "日语",
-      "count": 5,
-      "tier": "occasional",
+      "count": 6,
+      "tier": "frequent",
       "first": "2022-09-07",
-      "last": "2026-06-22",
+      "last": "2026-08-25",
       "tags": [
         "动画",
         "抒情",
@@ -15858,6 +15858,16 @@
       "tier": "rare",
       "first": "2026-08-18",
       "last": "2026-08-18"
+    },
+    {
+      "name": "希望有羽毛和翅膀",
+      "translated": "",
+      "artist": "知更鸟",
+      "lang": "中文",
+      "count": 1,
+      "tier": "rare",
+      "first": "2026-08-25",
+      "last": "2026-08-25"
     }
   ]
 }

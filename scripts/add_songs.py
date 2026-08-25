@@ -23,10 +23,19 @@ def save_data(data):
         json.dump(data, f, ensure_ascii=False, indent=2)
     print(f'Saved {DATA_FILE}')
 
+def _norm_tilde(s):
+    """波浪号归一化：全角〜(U+301C)/～(U+FF5E) -> 半角~(U+007E)。"""
+    return s.replace('\u301c', '~').replace('\uff5e', '~')
+
 def find_song(songs, name):
-    """Find a song by name (exact match, case-insensitive fallback)."""
+    """Find a song by name (exact match, tilde-normalized, case-insensitive fallback)."""
     for s in songs:
         if s['name'] == name:
+            return s
+    # 波浪号归一化（全角〜/～ -> 半角~），避免同歌因写法不同被当成两首
+    target = _norm_tilde(name)
+    for s in songs:
+        if _norm_tilde(s['name']) == target:
             return s
     lower = name.lower()
     for s in songs:
