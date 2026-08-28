@@ -66,7 +66,7 @@ sui-song-list-new/
 ```json
 {
   "stats": { "total": 1166, "performances": 3379, "frequent": 240, "occasional": 434, "once": 492 },
-  "lang_counts": [ { "lang": "中文", "count": 667 }, { "lang": "日语", "count": 393 }, ... ],
+  "lang_counts": [ { "lang": "中文", "count": 666 }, { "lang": "日语", "count": 393 }, ... ],
   "top_artists": [ ["周杰伦", 68], ["ヨルシカ", 33], ... ],
   "songs": [ ... ]
 }
