@@ -15,7 +15,7 @@
 - **架构**: 单文件 HTML（约704KB），所有 CSS、JS、数据全部内嵌在 `docs/index.html` 中
 - **视觉风格**: Vaporwave / 赛博朋克（Orbitron + Share Tech Mono 字体、霓虹光效、CRT 扫描线、透视网格）
 - **外部依赖**: SheetJS（xlsx）CDN 用于 Excel 导出、Chart.js CDN 用于数据洞察图表
-- **数据规模**: 1166首歌曲、3379次演唱记录、932首歌有B站录播匹配（截至 2026-08-28）
+- **数据规模**: 1166首歌曲、3381次演唱记录、932首歌有B站录播匹配（截至 2026-08-29）
 
 ---
 
@@ -65,7 +65,7 @@ sui-song-list-new/
 **顶层结构：**
 ```json
 {
-  "stats": { "total": 1166, "performances": 3379, "frequent": 240, "occasional": 434, "once": 492 },
+  "stats": { "total": 1166, "performances": 3381, "frequent": 241, "occasional": 433, "once": 492 },
   "lang_counts": [ { "lang": "中文", "count": 666 }, { "lang": "日语", "count": 393 }, ... ],
   "top_artists": [ ["周杰伦", 68], ["ヨルシカ", 33], ... ],
   "songs": [ ... ]
