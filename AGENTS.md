@@ -15,7 +15,7 @@
 - **架构**: 单文件 HTML（约704KB），所有 CSS、JS、数据全部内嵌在 `docs/index.html` 中
 - **视觉风格**: Vaporwave / 赛博朋克（Orbitron + Share Tech Mono 字体、霓虹光效、CRT 扫描线、透视网格）
 - **外部依赖**: SheetJS（xlsx）CDN 用于 Excel 导出、Chart.js CDN 用于数据洞察图表
-- **数据规模**: 1166首歌曲、3381次演唱记录、932首歌有B站录播匹配（截至 2026-08-29）
+- **数据规模**: 1167首歌曲、3384次演唱记录、932首歌有B站录播匹配（截至 2026-09-04）
 
 ---
 
@@ -41,7 +41,7 @@ sui-song-list-new/
 │   ├── add_songs.py                    ← 工具: 快速添加/更新歌曲的 CLI 脚本
 │   └── scrape_bilibili_playlist.py     ← 工具: Playwright 翻页提取B站列表最后一页 BV 号
 ├── data/
-│   ├── song_data.json                  ← 核心数据库（1166首歌曲，含 stats、lang_counts 和 tags）
+│   ├── song_data.json                  ← 核心数据库（1167首歌曲，含 stats、lang_counts 和 tags）
 │   ├── song_bilibili_map.json          ← 歌曲-视频匹配结果（932首歌）
 │   ├── sui_song_list_complete.json     ← 原始数据（来自 suijisui.space，仅 rebuild_final.py 使用）
 │   ├── bilibili_videos.json            ← B站视频原始数据（fetch 产出，.gitignore 排除）
@@ -65,7 +65,7 @@ sui-song-list-new/
 **顶层结构：**
 ```json
 {
-  "stats": { "total": 1166, "performances": 3381, "frequent": 241, "occasional": 433, "once": 492 },
+  "stats": { "total": 1167, "performances": 3384, "frequent": 241, "occasional": 433, "once": 493 },
   "lang_counts": [ { "lang": "中文", "count": 666 }, { "lang": "日语", "count": 393 }, ... ],
   "top_artists": [ ["周杰伦", 68], ["ヨルシカ", 33], ... ],
   "songs": [ ... ]
@@ -273,7 +273,7 @@ B站 API 返回的 `pubdate` 是**视频上传时间**，不是直播日期。�
 4. **包含匹配**: 歌曲名包含在视频标题中，但要求长度比 >= 0.7（防止"光"匹配到"月光蟲"）
 5. **BVID 交叉验证**: 原始数据中已有的 BVID 直接匹配
 
-匹配率约 80%（932/1166）。
+匹配率约 80%（932/1167）。
 
 ---
 

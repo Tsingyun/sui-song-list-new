@@ -1475,10 +1475,10 @@
       "translated": "",
       "artist": "初音ミク/livetune",
       "lang": "日语",
-      "count": 6,
-      "tier": "常唱",
+      "count": 7,
+      "tier": "frequent",
       "first": "2022-12-17",
-      "last": "2024-10-22",
+      "last": "2026-09-04",
       "tags": [
         "Vocaloid",
         "流行"
@@ -6657,10 +6657,10 @@
       "translated": "光降",
       "artist": "Kalafina",
       "lang": "日语",
-      "count": 2,
-      "tier": "偶尔",
+      "count": 3,
+      "tier": "occasional",
       "first": "2022-10-16",
-      "last": "2025-12-15",
+      "last": "2026-09-04",
       "tags": [
         "抒情",
         "动画"
@@ -15868,6 +15868,16 @@
       "tier": "rare",
       "first": "2026-08-25",
       "last": "2026-08-25"
+    },
+    {
+      "name": "星降る海",
+      "translated": "",
+      "artist": "Aqu3ra",
+      "lang": "日语",
+      "count": 1,
+      "tier": "rare",
+      "first": "2026-09-04",
+      "last": "2026-09-04"
     }
   ]
 }
