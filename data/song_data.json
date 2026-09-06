@@ -719,10 +719,10 @@
       "translated": "",
       "artist": "ChiliChill",
       "lang": "中文",
-      "count": 8,
-      "tier": "常唱",
+      "count": 9,
+      "tier": "frequent",
       "first": "2023-04-30",
-      "last": "2026-03-12",
+      "last": "2026-09-06",
       "tags": [
         "独立",
         "流行"
@@ -5290,10 +5290,10 @@
       "translated": "",
       "artist": "Bo Peep/洛天依",
       "lang": "中文",
-      "count": 3,
-      "tier": "偶尔",
+      "count": 4,
+      "tier": "occasional",
       "first": "2023-04-30",
-      "last": "2024-01-23",
+      "last": "2026-09-06",
       "tags": [
         "流行"
       ]
@@ -9525,10 +9525,10 @@
       "translated": "致十年后的我",
       "artist": "doriko（初音ミク）",
       "lang": "日语",
-      "count": 1,
-      "tier": "稀有",
+      "count": 2,
+      "tier": "occasional",
       "first": "2026-02-09",
-      "last": "2026-02-09",
+      "last": "2026-09-06",
       "tags": [
         "Vocaloid",
         "抒情"
