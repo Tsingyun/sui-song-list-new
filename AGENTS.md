@@ -79,7 +79,7 @@ sui-song-list-new/
 {
   "name": "流沙",                    // 歌曲名（必填，唯一标识）
   "translated": "",                  // 译名（可选，如日文歌的中文名）
-  "artist": "陶喆",                  // 原唱歌手
+  "artist": "陶喆",                  // 原唱歌手；Vocaloid/术力口歌须写成 "P主/歌姬" 斜杠分隔（如 "ジミーサムP/初音ミク"），P主在前、歌姬在后
   "lang": "中文",                    // 语言分类：中文 / 日语 / 英文 / 韩语
   "count": 7,                        // 演唱次数
   "tier": "frequent",               // 频率等级：frequent(5+) / occasional(2-4) / rare(1)

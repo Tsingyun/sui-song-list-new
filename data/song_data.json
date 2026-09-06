@@ -196,7 +196,7 @@
     {
       "name": "想和你迎着台风去看海",
       "translated": "",
-      "artist": "洛天依/桑拿猫黑糖",
+      "artist": "桑拿猫黑糖/洛天依",
       "lang": "中文",
       "count": 13,
       "tier": "frequent",
@@ -675,7 +675,7 @@
     {
       "name": "サリシノハラ",
       "translated": "离去之原",
-      "artist": "初音未来/みきとP",
+      "artist": "みきとP/初音未来",
       "lang": "日语",
       "count": 9,
       "tier": "frequent",
@@ -688,7 +688,7 @@
     {
       "name": "メルト",
       "translated": "融化",
-      "artist": "初音ミク/supercell",
+      "artist": "supercell/初音ミク",
       "lang": "日语",
       "count": 3,
       "tier": "常唱",
@@ -872,7 +872,7 @@
     {
       "name": "繁华唱遍",
       "translated": "",
-      "artist": "乐正绫",
+      "artist": "纳兰寻风/乐正绫",
       "lang": "中文",
       "count": 8,
       "tier": "常唱",
@@ -982,7 +982,7 @@
     {
       "name": "Alice",
       "translated": "",
-      "artist": "初音ミク/古川本舗",
+      "artist": "古川本舗/初音ミク",
       "lang": "日语",
       "count": 8,
       "tier": "frequent",
@@ -1050,7 +1050,7 @@
     {
       "name": "アスノヨゾラ哨戒班",
       "translated": "明日的夜空哨戒班",
-      "artist": "IA/Orangestar",
+      "artist": "Orangestar/IA",
       "lang": "日语",
       "count": 7,
       "tier": "常唱",
@@ -1473,7 +1473,7 @@
     {
       "name": "Tell Your World",
       "translated": "",
-      "artist": "初音ミク/livetune",
+      "artist": "livetune/初音ミク",
       "lang": "日语",
       "count": 7,
       "tier": "frequent",
@@ -1651,7 +1651,7 @@
     {
       "name": "回る空うさぎ",
       "translated": "月兔回旋于空中",
-      "artist": "初音ミク/Orangestar",
+      "artist": "Orangestar/初音ミク",
       "lang": "日语",
       "count": 7,
       "tier": "常唱",
@@ -1704,7 +1704,7 @@
     {
       "name": "小夜子",
       "translated": "",
-      "artist": "初音ミク/みきとP",
+      "artist": "みきとP/初音ミク",
       "lang": "日语",
       "count": 7,
       "tier": "frequent",
@@ -1717,7 +1717,7 @@
     {
       "name": "少女レイ",
       "translated": "",
-      "artist": "初音ミク/みきとP",
+      "artist": "みきとP/初音ミク",
       "lang": "日语",
       "count": 7,
       "tier": "frequent",
@@ -1757,7 +1757,7 @@
     {
       "name": "快晴",
       "translated": "",
-      "artist": "初音ミク/Orangestar",
+      "artist": "Orangestar/初音ミク",
       "lang": "日语",
       "count": 6,
       "tier": "常唱",
@@ -1868,7 +1868,7 @@
     {
       "name": "桃花笑",
       "translated": "",
-      "artist": "洛天依/言和/乐正绫",
+      "artist": "西门振/洛天依/言和/乐正绫",
       "lang": "中文",
       "count": 6,
       "tier": "常唱",
@@ -2030,7 +2030,7 @@
     {
       "name": "空想フォレスト",
       "translated": "空想森林",
-      "artist": "IA/Jin",
+      "artist": "じん/IA",
       "lang": "日语",
       "count": 6,
       "tier": "常唱",
@@ -2546,7 +2546,7 @@
     {
       "name": "夜明けと蛍",
       "translated": "黎明与萤火",
-      "artist": "初音ミク/n-buna",
+      "artist": "n-buna/初音ミク",
       "lang": "日语",
       "count": 5,
       "tier": "常唱",
@@ -2694,7 +2694,7 @@
     {
       "name": "文学少年の憂鬱",
       "translated": "文学少年的忧郁",
-      "artist": "初音ミク/ナノウ",
+      "artist": "ナノウ/初音ミク",
       "lang": "日语",
       "count": 5,
       "tier": "常唱",
@@ -2884,7 +2884,7 @@
     {
       "name": "福寿草",
       "translated": "",
-      "artist": "初音ミク/ぐにょ",
+      "artist": "ぐにょ/初音ミク",
       "lang": "日语",
       "count": 5,
       "tier": "常唱",
@@ -3145,7 +3145,7 @@
     {
       "name": "GALLOWS BELL",
       "translated": "绞刑架之钟",
-      "artist": "buzzG",
+      "artist": "buzzG/GUMI",
       "lang": "日语",
       "count": 4,
       "tier": "偶尔",
@@ -3340,7 +3340,7 @@
     {
       "name": "ねこみみスイッチ",
       "translated": "猫耳开关",
-      "artist": "初音ミク/daniwellP",
+      "artist": "daniwellP/初音ミク",
       "lang": "日语",
       "count": 3,
       "tier": "偶尔",
@@ -3353,7 +3353,7 @@
     {
       "name": "シリョクケンサ",
       "translated": "视力检查",
-      "artist": "GUMI/40mP",
+      "artist": "40mP/GUMI",
       "lang": "日语",
       "count": 5,
       "tier": "frequent",
@@ -3379,7 +3379,7 @@
     {
       "name": "ハッピーシンセサイザ",
       "translated": "快乐合成器",
-      "artist": "GUMI/巡音ルカ/EasyPop",
+      "artist": "EasyPop/GUMI/巡音ルカ",
       "lang": "日语",
       "count": 4,
       "tier": "偶尔",
@@ -3872,7 +3872,7 @@
     {
       "name": "独りんぼエンヴィー",
       "translated": "孑然妒火",
-      "artist": "初音ミク/koyori",
+      "artist": "koyori/初音ミク",
       "lang": "日语",
       "count": 4,
       "tier": "偶尔",
@@ -4166,7 +4166,7 @@
     {
       "name": "CHO-DARI-",
       "translated": "",
-      "artist": "初音ミク/23.exe",
+      "artist": "23.exe/初音ミク",
       "lang": "日语",
       "count": 3,
       "tier": "偶尔",
@@ -4193,7 +4193,7 @@
     {
       "name": "Daybreak Frontline",
       "translated": "拂晓前线",
-      "artist": "IA/Orangestar",
+      "artist": "Orangestar/IA",
       "lang": "日语",
       "count": 3,
       "tier": "偶尔",
@@ -4374,7 +4374,7 @@
     {
       "name": "crack",
       "translated": "",
-      "artist": "初音ミク/Keeno",
+      "artist": "Keeno/初音ミク",
       "lang": "日语",
       "count": 3,
       "tier": "偶尔",
@@ -4524,7 +4524,7 @@
     {
       "name": "グリグリメガネと月光蟲",
       "translated": "",
-      "artist": "古川本舗",
+      "artist": "古川本舗/初音ミク",
       "lang": "日语",
       "count": 3,
       "tier": "偶尔",
@@ -4551,7 +4551,7 @@
     {
       "name": "シンクロサイクロトロン・スピリチュアライザー。",
       "translated": "同步回旋加速器",
-      "artist": "GUMI",
+      "artist": "砂粒/GUMI",
       "lang": "日语",
       "count": 1,
       "tier": "偶尔",
@@ -4578,7 +4578,7 @@
     {
       "name": "ワールド・ランプシェード",
       "translated": "世界灯罩",
-      "artist": "GUMI",
+      "artist": "buzzG/GUMI",
       "lang": "日语",
       "count": 3,
       "tier": "偶尔",
@@ -4617,7 +4617,7 @@
     {
       "name": "三月雨",
       "translated": "",
-      "artist": "洛天依",
+      "artist": "Wing翼/洛天依",
       "lang": "中文",
       "count": 3,
       "tier": "偶尔",
@@ -4794,7 +4794,7 @@
     {
       "name": "勾指起誓",
       "translated": "",
-      "artist": "洛天依/ilem",
+      "artist": "ilem/洛天依",
       "lang": "中文",
       "count": 3,
       "tier": "偶尔",
@@ -4904,7 +4904,7 @@
     {
       "name": "外婆桥",
       "translated": "",
-      "artist": "洛天依/翻夜",
+      "artist": "翻夜/洛天依",
       "lang": "中文",
       "count": 3,
       "tier": "偶尔",
@@ -4930,7 +4930,7 @@
     {
       "name": "天ノ弱",
       "translated": "天之弱",
-      "artist": "GUMI/164",
+      "artist": "164/GUMI",
       "lang": "日语",
       "count": 3,
       "tier": "偶尔",
@@ -5514,7 +5514,7 @@
     {
       "name": "白鸟过河滩",
       "translated": "",
-      "artist": "洛天依/ilem",
+      "artist": "ilem/洛天依",
       "lang": "中文",
       "count": 4,
       "tier": "occasional",
@@ -6083,7 +6083,7 @@
     {
       "name": "CH4NGE",
       "translated": "",
-      "artist": "可不/ギガP",
+      "artist": "ギガP/可不",
       "lang": "日语",
       "count": 2,
       "tier": "偶尔",
@@ -6219,7 +6219,7 @@
     {
       "name": "Glow",
       "translated": "昏红",
-      "artist": "初音ミク/Keeno",
+      "artist": "Keeno/初音ミク",
       "lang": "日语",
       "count": 2,
       "tier": "偶尔",
@@ -6272,7 +6272,7 @@
     {
       "name": "Just Be Friends",
       "translated": "",
-      "artist": "巡音ルカ/Yunomi-P",
+      "artist": "Yunomi-P/巡音ルカ",
       "lang": "日语",
       "count": 3,
       "tier": "occasional",
@@ -6299,7 +6299,7 @@
     {
       "name": "Last Night,Good Night",
       "translated": "",
-      "artist": "kz（初音ミク）",
+      "artist": "kz/初音ミク",
       "lang": "日语",
       "count": 2,
       "tier": "偶尔",
@@ -6397,7 +6397,7 @@
     {
       "name": "Rainbow Girl",
       "translated": "",
-      "artist": "40mP",
+      "artist": "40mP/初音ミク",
       "lang": "英文",
       "count": 5,
       "tier": "偶尔",
@@ -6602,7 +6602,7 @@
     {
       "name": "あおぞら",
       "translated": "",
-      "artist": "40mP（初音ミク）",
+      "artist": "40mP/初音ミク",
       "lang": "日语",
       "count": 2,
       "tier": "偶尔",
@@ -6616,7 +6616,7 @@
     {
       "name": "からくりピエロ",
       "translated": "活动小丑",
-      "artist": "初音ミク/40mP",
+      "artist": "40mP/初音ミク",
       "lang": "日语",
       "count": 2,
       "tier": "偶尔",
@@ -6845,7 +6845,7 @@
     {
       "name": "ロキ",
       "translated": "ROKI",
-      "artist": "鏡音リン/みきとP",
+      "artist": "みきとP/鏡音リン",
       "lang": "日语",
       "count": 2,
       "tier": "偶尔",
@@ -6859,7 +6859,7 @@
     {
       "name": "ワールドイズマイン",
       "translated": "世界第一公主殿下",
-      "artist": "初音ミク",
+      "artist": "supercell/初音ミク",
       "lang": "日语",
       "count": 2,
       "tier": "偶尔",
@@ -7037,7 +7037,7 @@
     {
       "name": "东京不太热",
       "translated": "",
-      "artist": "洛天依",
+      "artist": "Z新豪/洛天依",
       "lang": "中文",
       "count": 2,
       "tier": "偶尔",
@@ -7118,7 +7118,7 @@
     {
       "name": "兔子先生",
       "translated": "",
-      "artist": "洛天依/小桦啊小桦",
+      "artist": "小桦啊小桦/洛天依",
       "lang": "中文",
       "count": 3,
       "tier": "occasional",
@@ -7305,7 +7305,7 @@
     {
       "name": "命に嫌われている",
       "translated": "被生命所厌恶",
-      "artist": "初音ミク/カンザキイオリ",
+      "artist": "カンザキイオリ/初音ミク",
       "lang": "日语",
       "count": 2,
       "tier": "偶尔",
@@ -7386,7 +7386,7 @@
     {
       "name": "夕日坂",
       "translated": "",
-      "artist": "Doriko",
+      "artist": "Dorico/初音ミク",
       "lang": "日语",
       "count": 3,
       "tier": "occasional",
@@ -8567,7 +8567,7 @@
     {
       "name": "虎視眈々",
       "translated": "虎视眈眈",
-      "artist": "初音ミク/鏡音リン/巡音ルカ/GUMI/IA/梅とら",
+      "artist": "梅とら/初音ミク/鏡音リン/巡音ルカ/GUMI/IA",
       "lang": "日语",
       "count": 2,
       "tier": "偶尔",
@@ -8814,7 +8814,7 @@
     {
       "name": "雨き声残響",
       "translated": "",
-      "artist": "IA/Orangestar",
+      "artist": "Orangestar/IA",
       "lang": "日语",
       "count": 2,
       "tier": "偶尔",
@@ -8990,7 +8990,7 @@
     {
       "name": "8.32",
       "translated": "",
-      "artist": "*Luna",
+      "artist": "*Luna/v flower",
       "lang": "日语",
       "count": 2,
       "tier": "occasional",
@@ -9046,7 +9046,7 @@
     {
       "name": "Alice in 冷凍庫",
       "translated": "",
-      "artist": "Orangestar",
+      "artist": "Orangestar/IA",
       "lang": "日语",
       "count": 2,
       "tier": "稀有",
@@ -9170,7 +9170,7 @@
     {
       "name": "Blessing",
       "translated": "",
-      "artist": "初音ミク/鏡音リン/鏡音レン/巡音ルカ/KAITO/MEIKO/halyosy",
+      "artist": "halyosy/初音ミク/鏡音リン/鏡音レン/巡音ルカ/KAITO/MEIKO",
       "lang": "日语",
       "count": 1,
       "tier": "稀有",
@@ -9197,7 +9197,7 @@
     {
       "name": "Connecting",
       "translated": "",
-      "artist": "初音ミク/镜音リン/镜音レン/巡音ルカ/KAITO/MEIKO/halyosy",
+      "artist": "halyosy/初音ミク/镜音リン/镜音レン/巡音ルカ/KAITO/MEIKO",
       "lang": "日语",
       "count": 1,
       "tier": "稀有",
@@ -9332,7 +9332,7 @@
     {
       "name": "ECHO",
       "translated": "",
-      "artist": "GUMI/Crusher-P",
+      "artist": "Crusher-P/GUMI",
       "lang": "日语",
       "count": 1,
       "tier": "稀有",
@@ -9482,7 +9482,7 @@
     {
       "name": "LUVORATORRRRRY!",
       "translated": "",
-      "artist": "GUMI / 鏡音リン / ギガP / Reol",
+      "artist": "ギガP/Reol/鏡音リン/GUMI",
       "lang": "日语",
       "count": 1,
       "tier": "稀有",
@@ -9523,7 +9523,7 @@
     {
       "name": "Letter Song",
       "translated": "致十年后的我",
-      "artist": "doriko（初音ミク）",
+      "artist": "dorico/初音ミク",
       "lang": "日语",
       "count": 2,
       "tier": "occasional",
@@ -9647,7 +9647,7 @@
     {
       "name": "Mr.Music",
       "translated": "",
-      "artist": "初音ミク/鏡音リン/鏡音レン/巡音ルカ/Megpoid/歌爱ユキ/れるりり",
+      "artist": "れるりり/初音ミク/鏡音リン/鏡音レン/巡音ルカ/Megpoid/歌爱ユキ",
       "lang": "日语",
       "count": 1,
       "tier": "稀有",
@@ -9690,7 +9690,7 @@
     {
       "name": "No Logic",
       "translated": "",
-      "artist": "巡音ルカ/ジミーサムP",
+      "artist": "ジミーサムP/巡音ルカ",
       "lang": "日语",
       "count": 1,
       "tier": "稀有",
@@ -10395,7 +10395,7 @@
     {
       "name": "さよならミッドナイト",
       "translated": "再见午夜",
-      "artist": "GUMI",
+      "artist": "YurryCanon/ユリイ・カノン/GUMI",
       "lang": "日语",
       "count": 2,
       "tier": "稀有",
@@ -10408,7 +10408,7 @@
     {
       "name": "しんかいしょうじょ",
       "translated": "深海少女",
-      "artist": "初音ミク/ゆうゆ",
+      "artist": "ゆうゆ/初音ミク",
       "lang": "日语",
       "count": 1,
       "tier": "稀有",
@@ -10461,7 +10461,7 @@
     {
       "name": "とりのこしてィ",
       "translated": "",
-      "artist": "まふまふ",
+      "artist": "40mP/初音ミク",
       "lang": "日语",
       "count": 1,
       "tier": "稀有",
@@ -10613,7 +10613,7 @@
     {
       "name": "クリームソーダとシャンデリア",
       "translated": "奶油苏打与冕形灯",
-      "artist": "ハチ（米津玄師）",
+      "artist": "ハチ（米津玄師）/初音ミク",
       "lang": "日语",
       "count": 1,
       "tier": "稀有",
@@ -10640,7 +10640,7 @@
     {
       "name": "コールボーイ",
       "translated": "",
-      "artist": "syudou",
+      "artist": "syudou/初音ミク",
       "lang": "日语",
       "count": 1,
       "tier": "稀有",
@@ -10655,7 +10655,7 @@
     {
       "name": "サマータイムレコード",
       "translated": "夏令时记录",
-      "artist": "じん（初音ミク）",
+      "artist": "じん/初音ミク",
       "lang": "日语",
       "count": 2,
       "tier": "occasional",
@@ -10710,7 +10710,7 @@
     {
       "name": "スキキライ",
       "translated": "喜欢讨厌",
-      "artist": "镜音リン/镜音リン/HoneyWorks",
+      "artist": "HoneyWorks/镜音リン",
       "lang": "日语",
       "count": 1,
       "tier": "稀有",
@@ -10723,7 +10723,7 @@
     {
       "name": "センチメンタルな愛慕心",
       "translated": "多情善感的爱慕心",
-      "artist": "ハチ（米津玄師）",
+      "artist": "ハチ（米津玄師）/初音ミク",
       "lang": "日语",
       "count": 1,
       "tier": "稀有",
@@ -10777,7 +10777,7 @@
     {
       "name": "トリノコシティ",
       "translated": "孤雏市",
-      "artist": "164（初音ミク）",
+      "artist": "164/初音ミク",
       "lang": "日语",
       "count": 1,
       "tier": "稀有",
@@ -10817,7 +10817,7 @@
     {
       "name": "ハイドアンド・シーク",
       "translated": "捉迷藏",
-      "artist": "バルーン",
+      "artist": "19's Sound Factory/初音ミク",
       "lang": "日语",
       "count": 1,
       "tier": "稀有",
@@ -10859,7 +10859,7 @@
     {
       "name": "ヒビカセ",
       "translated": "让其响彻",
-      "artist": "初音ミク/ギガP",
+      "artist": "ギガP/初音ミク",
       "lang": "日语",
       "count": 1,
       "tier": "稀有",
@@ -10898,7 +10898,7 @@
     {
       "name": "フォニイ",
       "translated": "伪物",
-      "artist": "可不/ツミキ",
+      "artist": "ツミキ/可不",
       "lang": "日语",
       "count": 1,
       "tier": "稀有",
@@ -10937,7 +10937,7 @@
     {
       "name": "メリュー",
       "translated": "",
-      "artist": "ハチ（米津玄師）",
+      "artist": "ハチ（米津玄師）/初音ミク",
       "lang": "日语",
       "count": 2,
       "tier": "occasional",
@@ -10951,7 +10951,7 @@
     {
       "name": "メリーメリ",
       "translated": "",
-      "artist": "バルーン",
+      "artist": "一億円P/初音ミク",
       "lang": "日语",
       "count": 1,
       "tier": "稀有",
@@ -10966,7 +10966,7 @@
     {
       "name": "メリーメリー",
       "translated": "",
-      "artist": "初音ミク",
+      "artist": "一億円P/初音ミク",
       "lang": "日语",
       "count": 1,
       "tier": "稀有",
@@ -11019,7 +11019,7 @@
     {
       "name": "リモコン",
       "translated": "遥控器",
-      "artist": "镜音リン/镜音リン/じーざす",
+      "artist": "じーざす/镜音リン",
       "lang": "日语",
       "count": 1,
       "tier": "稀有",
@@ -11032,7 +11032,7 @@
     {
       "name": "ロストワンの号哭",
       "translated": "Lost One的号哭",
-      "artist": "镜音铃/Neru（押入れP）",
+      "artist": "Neru/鏡音リン",
       "lang": "日语",
       "count": 1,
       "tier": "稀有",
@@ -11098,7 +11098,7 @@
     {
       "name": "一心不乱",
       "translated": "",
-      "artist": "巡音ルカ/初音ミク/GUMI/梅とら",
+      "artist": "梅とら/巡音ルカ/初音ミク/GUMI",
       "lang": "日语",
       "count": 1,
       "tier": "稀有",
@@ -11323,7 +11323,7 @@
     {
       "name": "九九八十一",
       "translated": "",
-      "artist": "乐正绫",
+      "artist": "乌龟Sui/墨兰花语/乐正绫",
       "lang": "中文",
       "count": 1,
       "tier": "稀有",
@@ -11724,7 +11724,7 @@
     {
       "name": "刹那プラス",
       "translated": "刹那Plus",
-      "artist": "バルーン",
+      "artist": "みきとP/初音ミク",
       "lang": "日语",
       "count": 1,
       "tier": "稀有",
@@ -11821,7 +11821,7 @@
     {
       "name": "劣等上等",
       "translated": "",
-      "artist": "镜音リン/镜音リン/ギガ",
+      "artist": "ギガP/鏡音リン",
       "lang": "日语",
       "count": 1,
       "tier": "稀有",
@@ -11862,7 +11862,7 @@
     {
       "name": "千本桜",
       "translated": "千本樱",
-      "artist": "初音ミク/黒うさP",
+      "artist": "黒うさP/初音ミク",
       "lang": "日语",
       "count": 1,
       "tier": "稀有",
@@ -12133,7 +12133,7 @@
     {
       "name": "嘘つき",
       "translated": "",
-      "artist": "バルーン",
+      "artist": "バルーン/初音ミク",
       "lang": "日语",
       "count": 1,
       "tier": "稀有",
@@ -12295,7 +12295,7 @@
     {
       "name": "夢と葉桜",
       "translated": "梦与叶樱",
-      "artist": "初音ミク/青木月光",
+      "artist": "青木月光/初音ミク",
       "lang": "日语",
       "count": 1,
       "tier": "稀有",
@@ -12467,7 +12467,7 @@
     {
       "name": "好き！雪！本気マジック",
       "translated": "",
-      "artist": "Mitchie M（初音ミク）",
+      "artist": "Mitchie M/初音ミク",
       "lang": "日语",
       "count": 3,
       "tier": "occasional",
@@ -12521,7 +12521,7 @@
     {
       "name": "妄想感傷代償連盟",
       "translated": "",
-      "artist": "DECO*27",
+      "artist": "DECO*27/初音ミク",
       "lang": "中文",
       "count": 1,
       "tier": "稀有",
@@ -12989,7 +12989,7 @@
     {
       "name": "心做し",
       "translated": "",
-      "artist": "蝶々P（GUMI）",
+      "artist": "蝶々P/GUMI",
       "lang": "日语",
       "count": 1,
       "tier": "稀有",
@@ -13017,7 +13017,7 @@
     {
       "name": "心拍数#0822",
       "translated": "",
-      "artist": "蝶々P",
+      "artist": "蝶々P/初音ミク",
       "lang": "中文",
       "count": 3,
       "tier": "occasional",
@@ -13153,7 +13153,7 @@
     {
       "name": "恋爱语音导航",
       "translated": "",
-      "artist": "洛天依",
+      "artist": "小野道/初音ミク",
       "lang": "中文",
       "count": 1,
       "tier": "稀有",
@@ -13247,7 +13247,7 @@
     {
       "name": "愛して愛して愛して",
       "translated": "爱我爱我爱我",
-      "artist": "初音ミク/きくお",
+      "artist": "きくお/初音ミク",
       "lang": "日语",
       "count": 1,
       "tier": "稀有",
@@ -13328,7 +13328,7 @@
     {
       "name": "我没有歌能给你听",
       "translated": "",
-      "artist": "洛天依/乐正绫/ilem",
+      "artist": "ilem/洛天依/乐正绫",
       "lang": "中文",
       "count": 1,
       "tier": "稀有",
@@ -13649,7 +13649,7 @@
     {
       "name": "朝を呑む",
       "translated": "包容这早晨",
-      "artist": "須田景凪初音ミク",
+      "artist": "バルーン/初音ミク",
       "lang": "日语",
       "count": 1,
       "tier": "稀有",
@@ -13662,7 +13662,7 @@
     {
       "name": "本色",
       "translated": "",
-      "artist": "洛天依",
+      "artist": "十个HTT呀啦索/洛天依",
       "lang": "中文",
       "count": 1,
       "tier": "稀有",
@@ -14011,7 +14011,7 @@
     {
       "name": "深夜诗人",
       "translated": "",
-      "artist": "洛天依/言和/ilem",
+      "artist": "ilem/洛天依/言和",
       "lang": "中文",
       "count": 1,
       "tier": "稀有",
@@ -14037,7 +14037,7 @@
     {
       "name": "深海少女",
       "translated": "",
-      "artist": "ゆうゆ（初音ミク）",
+      "artist": "ゆうゆ/初音ミク",
       "lang": "中文",
       "count": 1,
       "tier": "稀有",
@@ -14051,7 +14051,7 @@
     {
       "name": "火葬场之歌",
       "translated": "",
-      "artist": "ilem（洛天依）",
+      "artist": "ilem/洛天依",
       "lang": "中文",
       "count": 1,
       "tier": "稀有",
@@ -14386,7 +14386,7 @@
     {
       "name": "病名は愛だった",
       "translated": "病名为爱",
-      "artist": "鏡音リン/鏡音レン/Neru",
+      "artist": "Neru/鏡音リン/鏡音レン",
       "lang": "日语",
       "count": 1,
       "tier": "稀有",
@@ -14685,7 +14685,7 @@
     {
       "name": "続・へたくそユートピア政策",
       "translated": "",
-      "artist": "バルーン",
+      "artist": "バルーン/初音ミク",
       "lang": "日语",
       "count": 1,
       "tier": "稀有",
@@ -14987,7 +14987,7 @@
     {
       "name": "莉回る空うさぎ",
       "translated": "",
-      "artist": "ハチ（米津玄師）",
+      "artist": "ハチ（米津玄師）/初音ミク",
       "lang": "日语",
       "count": 1,
       "tier": "稀有",
@@ -15190,7 +15190,7 @@
     {
       "name": "貴方の恋人になりたい",
       "translated": "想成为你的恋人",
-      "artist": "まふまふ",
+      "artist": "チョーキューメイ/初音ミク",
       "lang": "日语",
       "count": 1,
       "tier": "稀有",
@@ -15542,7 +15542,7 @@
     {
       "name": "雛鳥",
       "translated": "雏鸟",
-      "artist": "花譜",
+      "artist": "カンザキイオリ/花譜",
       "lang": "日语",
       "count": 1,
       "tier": "稀有",
@@ -15748,7 +15748,7 @@
     {
       "name": "愛言葉IV",
       "translated": "",
-      "artist": "初音未来",
+      "artist": "DECO*27/初音未来",
       "lang": "日语",
       "count": 1,
       "tier": "rare",
@@ -15832,7 +15832,7 @@
     {
       "name": "蜜月アン・ドゥ・トロワ",
       "translated": "",
-      "artist": "镜音铃/DATEKEN",
+      "artist": "DATEKEN/鏡音リン",
       "lang": "日语",
       "count": 1,
       "tier": "rare",
