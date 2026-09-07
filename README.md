@@ -200,7 +200,7 @@ sui-song-list-new/
 │
 ├── data/                            数据文件
 │   ├── sui_song_list_complete.json   完整歌单数据（含日期列表）
-│   ├── song_data.json                歌曲数据库（1166首）
+│   ├── song_data.json                歌曲数据库（1167首）
 │   └── song_bilibili_map.json        歌曲-视频匹配（932首）
 │
 └── docs/                            GitHub Pages 部署
