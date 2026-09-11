@@ -375,7 +375,7 @@ occ_n = sum(1 for s in songs if 2 <= s['count'] <= 4)
 once_n = sum(1 for s in songs if s['count'] == 1)
 
 ws1.merge_cells('A2:I2')
-stats = f'{len(songs)} 首歌  ·  {total_perf} 次演唱  ·  常唱 {freq_n}  ·  偶尔 {occ_n}  ·  仅1次 {once_n}  ·  2022.09 – 2026.06'
+stats = f'{len(songs)} 首歌  ·  {total_perf} 次演唱  ·  常唱 {freq_n}  ·  偶尔 {occ_n}  ·  仅1次 {once_n}  ·  2022.09 – 2026.09'
 set_cell(ws1, 2, 1, stats, font_subtitle, None, Alignment(horizontal='left', vertical='center'))
 ws1.row_dimensions[2].height = 22
 
