@@ -402,10 +402,10 @@
       "translated": "",
       "artist": "陈绮贞",
       "lang": "中文",
-      "count": 11,
-      "tier": "常唱",
+      "count": 12,
+      "tier": "frequent",
       "first": "2023-04-05",
-      "last": "2025-11-10",
+      "last": "2026-09-11",
       "tags": [
         "独立",
         "流行"
@@ -3022,10 +3022,10 @@
       "translated": "舞者",
       "artist": "Vaundy",
       "lang": "日语",
-      "count": 6,
-      "tier": "常唱",
+      "count": 7,
+      "tier": "frequent",
       "first": "2024-07-21",
-      "last": "2025-11-25",
+      "last": "2026-09-11",
       "tags": [
         "摇滚",
         "流行"
@@ -4416,10 +4416,10 @@
       "translated": "如果不曾遇见你~夏雪冬花~",
       "artist": "Aimer",
       "lang": "日语",
-      "count": 3,
-      "tier": "偶尔",
+      "count": 4,
+      "tier": "occasional",
       "first": "2022-09-05",
-      "last": "2026-01-18",
+      "last": "2026-09-08",
       "tags": [
         "动画",
         "抒情",
@@ -15878,6 +15878,16 @@
       "tier": "rare",
       "first": "2026-09-04",
       "last": "2026-09-04"
+    },
+    {
+      "name": "我的秘密",
+      "translated": "",
+      "artist": "邓紫棋",
+      "lang": "中文",
+      "count": 1,
+      "tier": "rare",
+      "first": "2026-09-08",
+      "last": "2026-09-08"
     }
   ]
 }
