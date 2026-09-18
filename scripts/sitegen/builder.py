@@ -7,6 +7,7 @@ Output: docs/index.html  (deterministic — no timestamps inside the payload).
 import base64
 import json
 import os
+import shutil
 
 from . import datalayer, reqstats
 
@@ -44,6 +45,17 @@ def js_bundle():
     return '\n'.join(read_asset('js', f) for f in files)
 
 
+def copy_static_assets():
+    """Binary art assets referenced by relative path from docs/index.html."""
+    out_dir = os.path.join(DOCS_DIR, 'assets')
+    os.makedirs(out_dir, exist_ok=True)
+    for fn in ['logo.png', 'sui-avatar.webp', 'sui-chibi.webp',
+               'sui-fullbody.webp', 'sui-short.webp', 'sui-bird.png', 'sui-cursor.png']:
+        src = os.path.join(ASSETS_DIR, fn)
+        if os.path.exists(src):
+            shutil.copy(src, os.path.join(out_dir, fn))
+
+
 def build():
     payload = {'songs': datalayer.build_song_payload(),
                'requests': reqstats.build_request_payload()}
@@ -61,5 +73,6 @@ def build():
     out = os.path.join(DOCS_DIR, 'index.html')
     with open(out, 'w', encoding='utf-8') as f:
         f.write(html)
+    copy_static_assets()
     print('Written: %s (%.1f KB)' % (out, os.path.getsize(out) / 1024))
     return out

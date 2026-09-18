@@ -77,6 +77,8 @@
 
     container.innerHTML =
       '<div class="song-hero">' +
+      '<img class="song-sui" src="assets/sui-short.webp" alt="" aria-hidden="true" loading="lazy">' +
+      '<img class="sui-seal" src="assets/sui-avatar.webp" alt="岁己SUI" title="岁己SUI" loading="lazy">' +
       '<div class="crumbs"><a href="' + C.buildHash('songs') + '">SONGS</a> / #' + (rank || '—') + '</div>' +
       '<h1>' + esc(song.name) + '</h1>' +
       (song.t ? '<div class="tr-name">' + esc(song.t) + '</div>' : '') +

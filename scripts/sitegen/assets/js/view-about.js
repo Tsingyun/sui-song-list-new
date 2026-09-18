@@ -5,7 +5,11 @@
   var esc = C.esc;
 
   var CHANGELOG = [
-    ['v3.0', '全新重制：场刊档案式视觉系统、hash 路由（歌曲详情可分享）、原生集成点歌统计（占比 / 🔥 连续点歌）、手写 SVG 图表（移除 Chart.js 依赖）、响应式重做']
+    ['v3.4', '点歌统计完整并入：原独立统计站的全部内容（最近 15 天 / 月·季·年·总榜 / 热门歌曲与常被一起点 / 观众喜好与新朋旧友 / 跨月冠军 / 成就殿堂 / 时间区间筛选 / 观众与歌曲详情 / CSV·JSON·Excel·PNG 导出 / 搜索彩蛋）迁入本站「点歌统计」页，并使用本站视觉体系重写；全站已不再指向外部统计站'],
+    ['v3.4', '恢复自定义小鸟鼠标光标（仅在鼠标设备上启用，热区对齐翅膀，不影响触屏与性能）'],
+    ['v3.3', '岁己视觉识别升级：首页主视觉换为 2023 形象双马尾全身立绘（透明背景人物立于舞台线，光环浮动，身后大光环水印，竖排金印铭文），歌曲详情页短发立绘从右上探出（印章叠盖），页脚小鸟吉祥物入驻，洞察图表配色统一至岁己身份色（瞳色绯红 / 贝雷藏青）'],
+    ['v3.2', '岁己视觉识别系统：配色提取自立绘（瞳色绯红 / 贝雷藏青 / 光环金 / 发丝冰蓝 / 樱花粉），光环符号融入版式，藏青页脚与场刊照片式首页主视觉，歌曲详情页岁己印鉴，点歌之王 Q 版立绘；首页点歌速览改为 3 秒轮播（点歌之王 / 最近点歌 / 常点歌曲 / 本月连续，悬停暂停、圆点可切换）'],
+    ['v3.1', '站点 LOGO 与顶栏品牌位更换为岁己的小鸟']
   ];
 
   var OLD_LOG = [
@@ -21,7 +25,7 @@
   function render(params, container) {
     container.innerHTML =
       '<div class="sec-head"><div class="sec-kicker">ABOUT</div>' +
-      '<h2 class="sec-title">关于本站 <span class="sec-sub">SUI SONG ARCHIVE v3.0</span></h2></div>' +
+      '<h2 class="sec-title">关于本站 <span class="sec-sub">SUI SONG ARCHIVE v3.4</span></h2></div>' +
 
       '<div class="about-cols"><div class="about-block">' +
       '<h3>这是什么</h3>' +
@@ -34,7 +38,7 @@
       '<li>歌曲基础数据：<a href="https://www.suijisui.space" target="_blank" rel="noopener">suijisui.space</a>（GitHub: <a href="https://github.com/PQL87/sui-song-list" target="_blank" rel="noopener">PQL87/sui-song-list</a>）</li>' +
       '<li>演唱日期：suijisui.space + 本地统计表（2024-06 起以本地表为准）</li>' +
       '<li>录播片段：岁己SUI 的 B站投稿合集（标题归一化多策略匹配）</li>' +
-      '<li>点歌数据：<a href="https://stats.suijisui.uk" target="_blank" rel="noopener">sui-song-stats</a> 项目（从原始点歌记录实时派生）</li>' +
+      '<li>点歌数据：直播间点歌记录（原 sui-song-stats 项目，2026-09 已完整并入本站「点歌统计」）</li>' +
       '</ul>' +
 
       '<h3>数据怎么更新</h3>' +
@@ -64,7 +68,7 @@
       '<div class="about-block">' +
       '<h3>链接</h3>' +
       '<div class="link-list">' +
-      '<a href="https://stats.suijisui.uk" target="_blank" rel="noopener">点歌统计完整版<span class="mono">STATS</span></a>' +
+      '<a href="#/requests">点歌统计<span class="mono">REQUESTS</span></a>' +
       '<a href="https://space.bilibili.com/1954091502" target="_blank" rel="noopener">岁己SUI 的 B站主页<span class="mono">BILIBILI</span></a>' +
       '<a href="https://github.com/Tsingyun/sui-song-list-new" target="_blank" rel="noopener">项目源码<span class="mono">GITHUB</span></a>' +
       '<a href="https://github.com/Tsingyun/sui-song-list-new/issues/new?labels=contribution,song-data" target="_blank" rel="noopener">提交歌曲补充<span class="mono">ISSUE</span></a>' +

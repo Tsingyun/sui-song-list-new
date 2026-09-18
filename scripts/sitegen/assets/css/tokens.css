@@ -14,11 +14,20 @@
   --line: #ded4c0;
   --line-strong: #b6a88d;
 
-  /* 强调 */
-  --accent: #b5371d;          /* 朱红 —— 仅用于激活态/关键数字/标记 */
-  --accent-deep: #8e2a15;
-  --accent-soft: rgba(181, 55, 29, .07);
+  /* 强调 —— 提取自岁己立绘：瞳色绯红 / 贝雷藏青 / 光环金 / 发丝冰蓝 / 樱花粉 */
+  --accent: #ae3132;          /* 瞳色绯红 —— 仅用于激活态/关键数字/标记 */
+  --accent-deep: #8c2721;
+  --accent-soft: rgba(174, 49, 50, .07);
   --green: #33604e;           /* 次级状态（偶尔/成功） */
+
+  /* 岁己身份色 */
+  --navy: #333949;            /* 贝雷藏青 */
+  --navy-deep: #272c3b;       /* 深色版面底 */
+  --navy-line: #4a5368;       /* 深色版面描边 */
+  --gold: #c9a76c;            /* 光环金 */
+  --gold-soft: rgba(201, 167, 108, .55);
+  --ice: #9db8dc;             /* 发丝冰蓝 */
+  --pink: #e3b7c1;            /* 樱花粉 */
 
   /* 字体 */
   --serif: 'Noto Serif SC', 'Songti SC', 'SimSun', serif;

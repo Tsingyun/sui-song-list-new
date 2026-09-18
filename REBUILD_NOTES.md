@@ -59,7 +59,8 @@ scripts/add_songs.py           日常加歌 CLI（更新 count/last/tier → 追
 19. 我要补充：查重 → MusicBrainz/网易云联网匹配原唱 + 歌名语言探测 → 预填 GitHub Issue
     （labels=contribution,song-data）
 20. 返回顶部；页脚数据来源/GitHub 链接/时间跨度 `2022.09 — 2026.09`/版本徽章/更新日志折叠
-21. 「点歌统计」外链（stats.suijisui.uk，独立站点）
+21. 「点歌统计」为站内页面 `#/requests`（2026-09：原独立站点 stats.suijisui.uk 的全部功能已并入，
+    外链与跳转入口已全部移除，全站不再引用该站点）
 
 ## 4. 不可改变的业务规则
 

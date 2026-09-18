@@ -26,8 +26,175 @@ Business rules (fixed, see REBUILD_NOTES.md §4):
 
 观众等级 Lv.1-5   thresholds: 1-10 / 11-30 / 31-60 / 61-100 / 100+
 月度冠军 👑       every audience tied at the month's top count
+
+The 2026-09 merge of the sister site (stats.suijisui.uk / Tsingyun/sui-song-stats)
+added these derived boards, all computed from raw_data with the same rules the
+stats repo used — never hand-patched:
+
+跨月冠军 championStreaks
+    Champion of month M = whoever topped that month's board (ties all crowned).
+    A streak = a run of CALENDAR-CONTIGUOUS months (2024-12 -> 2025-01 counts)
+    where the same audience kept the crown; only runs >= 2 are reported, and each
+    audience keeps its single LONGEST run.
+
+成就殿堂 achievements
+    点歌之王 (top of the total board) / 百首俱乐部 (everyone >= 100 requests) /
+    一周年纪念 (data span >= 1 year) / 忠实观众 (most distinct months requested).
+
+新朋友 newcomers / 老朋友回归 returners
+    newcomer  = first-ever request inside the last 90 days (relative to the last
+                request date in raw_data).
+    returner  = longest gap between two requests of the same audience >= 180 days.
+    (Both were data-only fields on the stats site — never rendered — and are kept
+    here so the merged payload is a superset of the old one.)
+
+歌曲共现网络 network   top-30 songs (nodes) + top-50 co-occurrence pairs (edges),
+    where a pair counts only when >= 2 distinct audiences requested BOTH songs.
+
+搜索索引 searchIndex  songs / audiences / dates, for the request-page search box.
 """
 from collections import Counter, defaultdict
+
+try:  # stdlib only; optional import guard keeps the module importable anywhere
+    from datetime import date as _date, datetime as _datetime
+except Exception:  # pragma: no cover
+    _date = _datetime = None
+
+DAY = 86400000  # documented but unused constant kept for reference
+
+
+def _days_between(a, b):
+    """Whole days from ISO date a to ISO date b (b - a)."""
+    da = _datetime.strptime(a, '%Y-%m-%d').date()
+    db = _datetime.strptime(b, '%Y-%m-%d').date()
+    return (db - da).days
+
+
+def compute_champion_streaks(monthly_counter):
+    """Runs of calendar-contiguous months where the same audience topped the month."""
+    month_champs = defaultdict(set)
+    for month, counter in monthly_counter.items():
+        if not counter:
+            continue
+        top = max(counter.values())
+        for aud, c in counter.items():
+            if c == top:
+                month_champs[aud].add(month)
+
+    out = []
+    for aud, months in month_champs.items():
+        ms = sorted(months, key=month_index)
+        best = None
+        run = [ms[0]]
+        for prev, cur in zip(ms, ms[1:]):
+            if month_index(cur) == month_index(prev) + 1:
+                run.append(cur)
+            else:
+                if best is None or len(run) > len(best):
+                    best = run
+                run = [cur]
+        if best is None or len(run) > len(best):
+            best = run
+        if len(best) >= 2:
+            out.append({'n': aud, 'months': best, 'len': len(best)})
+    out.sort(key=lambda x: (-x['len'], month_index(x['months'][0])))
+    return out
+
+
+def compute_achievements(raw, total_board, meta, aud_months):
+    """点歌之王 / 百首俱乐部 / 一周年纪念 / 忠实观众."""
+    ach = []
+    if total_board:
+        top = total_board[0]
+        ach.append({'id': 'song_king', 'name': '点歌之王', 'emoji': '👑',
+                    'desc': '%s 以 %d 次点歌夺得冠军' % (top['n'], top['c']),
+                    'audience': top['n'], 'count': top['c']})
+    for row in total_board:
+        if row['c'] >= 100:
+            ach.append({'id': '100club_' + row['n'], 'name': '百首俱乐部', 'emoji': '🎯',
+                        'desc': '%s 点歌 %d 次，突破百首大关！' % (row['n'], row['c']),
+                        'audience': row['n'], 'count': row['c']})
+    start, end = meta.get('start', ''), meta.get('end', '')
+    if start and end and _days_between(start, end) >= 365:
+        ach.append({'id': 'anniversary_1', 'name': '一周年纪念', 'emoji': '📅',
+                    'desc': '岁己的点歌系统已经运行超过一年了！（%s 至今）' % start,
+                    'count': meta.get('total', 0)})
+    best_a, best_m = None, 0
+    for aud, months in aud_months.items():
+        if len(months) > best_m:
+            best_m, best_a = len(months), aud
+    if best_a:
+        ach.append({'id': 'consistent', 'name': '忠实观众', 'emoji': '🌟',
+                    'desc': '%s 在 %d 个不同的月份里点过歌，是最忠实的观众！' % (best_a, best_m),
+                    'audience': best_a, 'count': best_m})
+    return ach
+
+
+def compute_newcomers(raw, last_date, window=90):
+    """Audiences whose FIRST request falls in the last `window` days."""
+    if not last_date:
+        return []
+    first_seen = {}
+    counts = Counter()
+    for e in raw:
+        aud, d = e['audience'], e['date']
+        counts[aud] += 1
+        if aud not in first_seen or d < first_seen[aud]:
+            first_seen[aud] = d
+    out = []
+    for aud, first in first_seen.items():
+        gap = _days_between(first, last_date)
+        if 0 <= gap <= window:
+            out.append({'n': aud, 'first': first, 'count': counts[aud], 'ago': gap})
+    out.sort(key=lambda x: (-x['ago'], x['n']))
+    return out
+
+
+def compute_returners(raw, min_gap=180):
+    """Audiences with a >= min_gap-day silence between two of their requests."""
+    dates = defaultdict(set)
+    counts = Counter()
+    for e in raw:
+        dates[e['audience']].add(e['date'])
+        counts[e['audience']] += 1
+    out = []
+    for aud, ds in dates.items():
+        ds = sorted(ds)
+        if len(ds) < 2:
+            continue
+        best = None
+        for prev, cur in zip(ds, ds[1:]):
+            gap = _days_between(prev, cur)
+            if best is None or gap > best[0]:
+                best = (gap, prev, cur)
+        if best and best[0] >= min_gap:
+            out.append({'n': aud, 'gap': best[0], 'from': best[1], 'to': best[2],
+                        'count': counts[aud]})
+    out.sort(key=lambda x: (-x['gap'], x['n']))
+    return out[:12]
+
+
+def compute_song_network(raw, top_nodes=30, top_edges=50):
+    """Song co-occurrence graph: who gets requested by the same audiences."""
+    aud_songs = defaultdict(set)
+    song_cnt = Counter()
+    for e in raw:
+        aud_songs[e['audience']].add(e['song'])
+        song_cnt[e['song']] += 1
+    top = [s for s, _ in song_cnt.most_common(100)]
+    cooc = {}
+    for i in range(len(top)):
+        for j in range(i + 1, len(top)):
+            s1, s2 = top[i], top[j]
+            c = sum(1 for ss in aud_songs.values() if s1 in ss and s2 in ss)
+            if c >= 2:
+                cooc[(min(s1, s2), max(s1, s2))] = c
+    edges = sorted(cooc.items(), key=lambda kv: -kv[1])[:top_edges]
+    return {
+        'nodes': [{'id': s, 'c': song_cnt[s]} for s in
+                  [s for s, _ in song_cnt.most_common(top_nodes)]],
+        'edges': [{'a': k[0], 'b': k[1], 'w': v} for k, v in edges],
+    }
 
 
 def floor_shares(counts, scale=100):
@@ -170,8 +337,11 @@ def build_request_payload():
             if inter < 2:
                 continue
             similar.append({'a1': a, 'a2': b, 'overlap': inter,
+                            'total1': len(aud_songs[a]), 'total2': len(aud_songs[b]),
                             'jaccard': round(inter / len(aud_songs[a] | aud_songs[b]), 3)})
     similar.sort(key=lambda x: (-x['jaccard'], -x['overlap']))
+    similar = similar[:30]
+
     similar = similar[:30]
 
     # champions per month (ties all crowned)
@@ -189,17 +359,32 @@ def build_request_payload():
     # so the same floor+remainder rule runs at 0.1% granularity there.
     king = total.most_common(1)[0] if total else ('', 0)
 
+    # ---- merged from the stats site (all derived, never hand-patched) ----
+    meta = {
+        'total': len(raw),
+        'audiences': len(total),
+        'songs': len(song_total),
+        'start': dates[0] if dates else '',
+        'end': dates[-1] if dates else '',
+        'liveDays': len(live_dates),
+    }
+    total_board = _board(total, with_level=True)
+
+    # compact raw records (d/s/a) so the page can filter, search and export
+    # without a second data file: ~40 KB for the current 863 records.
+    raw_c = [{'d': e['date'], 's': e['song'], 'a': e['audience']} for e in raw]
+
+    achievements = compute_achievements(raw, total_board, meta, aud_day)
+    champ_streaks = compute_champion_streaks(monthly)
+    newcomers = compute_newcomers(raw, meta['end'])
+    returners = compute_returners(raw)
+    network = compute_song_network(raw)
+    # 搜索索引不入 payload：前端从 raw 一次性派生即可（省 ~19KB 且不会失同步）
+
     return {
-        'meta': {
-            'total': len(raw),
-            'audiences': len(total),
-            'songs': len(song_total),
-            'start': dates[0] if dates else '',
-            'end': dates[-1] if dates else '',
-            'liveDays': len(live_dates),
-        },
+        'meta': meta,
         'boards': {
-            'total': _board(total, with_level=True),
+            'total': total_board,
             'song': _board(song_total, scale=1000),
             'monthly': {m: _board(c) for m, c in sorted(monthly.items())},
             'quarterly': {q: _board(c) for q, c in sorted(quarterly_c.items())},
@@ -216,4 +401,11 @@ def build_request_payload():
         'heat': [{'d': d, 'c': daily[d]} for d in sorted(daily)],
         'liveDates': live_dates,
         'king': {'n': king[0], 'c': king[1]},
+        # merged from the stats site
+        'raw': raw_c,
+        'achievements': achievements,
+        'champStreaks': champ_streaks,
+        'newcomers': newcomers,
+        'returners': returners,
+        'network': network,
     }

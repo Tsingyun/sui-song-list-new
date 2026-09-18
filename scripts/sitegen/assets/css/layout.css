@@ -78,11 +78,19 @@
   outline: none;
 }
 
-/* 页脚 */
+/* 页脚 —— 岁己藏青版面：贝雷藏青底 + 女仆装条纹肌理 + 光环金勾边 */
 .site-foot {
-  border-top: 1px solid var(--ink);
-  background: var(--paper-deep);
+  border-top: 1px solid var(--gold);
+  background: linear-gradient(180deg, #2d3345, var(--navy-deep));
   margin-top: var(--space-8);
+  position: relative;
+  overflow: hidden;
+}
+.site-foot::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(115deg, transparent 0 11px, rgba(246, 242, 234, .028) 11px 12px);
+  pointer-events: none;
 }
 .site-foot-inner {
   max-width: var(--w-page);
@@ -91,22 +99,24 @@
   display: grid;
   grid-template-columns: 1.4fr 1fr 1fr;
   gap: var(--space-6);
+  position: relative;
 }
 .foot-col h4 {
   font-family: var(--mono);
   font-size: var(--fs-xs);
   letter-spacing: .2em;
-  color: var(--ink-3);
+  color: var(--gold);
   margin-bottom: .8rem;
   font-weight: 500;
 }
-.foot-col p, .foot-col li { font-size: var(--fs-sm); color: var(--ink-2); line-height: 2; }
+.foot-col p, .foot-col li { font-size: var(--fs-sm); color: rgba(246, 242, 234, .68); line-height: 2; }
 .foot-col ul { list-style: none; }
-.foot-col a:hover { color: var(--accent-deep); }
+.foot-col a { color: rgba(246, 242, 234, .85); }
+.foot-col a:hover { color: var(--gold); }
 .foot-span {
   font-family: var(--mono);
   font-size: var(--fs-sm);
-  color: var(--ink);
+  color: #f0ebe0;
   letter-spacing: .08em;
 }
 .foot-ver {
@@ -114,23 +124,37 @@
   margin-top: .5rem;
   font-family: var(--mono);
   font-size: var(--fs-xs);
-  color: var(--ink-3);
-  border: 1px solid var(--line-strong);
+  color: var(--gold);
+  border: 1px solid var(--gold-soft);
   padding: .1rem .6rem;
   border-radius: 999px;
 }
-.foot-base { border-top: 1px solid var(--line); }
+.foot-base { border-top: 1px solid rgba(246, 242, 234, .1); position: relative; }
 .foot-base-inner {
   max-width: var(--w-page);
   margin: 0 auto;
   padding: .9rem 1.25rem;
   font-family: var(--mono);
   font-size: var(--fs-xs);
-  color: var(--ink-3);
+  color: rgba(246, 242, 234, .42);
   display: flex;
   justify-content: space-between;
   gap: 1rem;
   flex-wrap: wrap;
+}
+.foot-sakura {
+  display: inline-block;
+  width: 11px; height: 11px;
+  vertical-align: -1px;
+  margin-right: .35em;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='%23e3b7c1'%3E%3Cellipse cx='12' cy='5.6' rx='3.4' ry='4.8'/%3E%3Cellipse cx='12' cy='18.4' rx='3.4' ry='4.8'/%3E%3Cellipse cx='5.6' cy='12' rx='4.8' ry='3.4'/%3E%3Cellipse cx='18.4' cy='12' rx='4.8' ry='3.4'/%3E%3Cellipse cx='7.4' cy='7.4' rx='3.4' ry='3.4' transform='rotate(45 7.4 7.4)'/%3E%3Cellipse cx='16.6' cy='16.6' rx='3.4' ry='3.4' transform='rotate(45 16.6 16.6)'/%3E%3C/g%3E%3Ccircle cx='12' cy='12' r='2.4' fill='%23f4e3b0'/%3E%3C/svg%3E") no-repeat center / contain;
+}
+/* 小鸟吉祥物（银喉长尾山雀）：藏青底上的品牌彩蛋 */
+.foot-bird {
+  width: 24px; height: auto;
+  vertical-align: -7px;
+  margin-right: .45em;
+  opacity: .92;
 }
 
 /* 返回顶部 */

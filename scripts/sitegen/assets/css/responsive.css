@@ -28,6 +28,15 @@
   :root { --fs-2xl: 1.65rem; }
   .view { padding: var(--space-5) .9rem var(--space-7); }
   .masthead { padding: var(--space-5) 0 var(--space-4); }
+  .masthead-inner { grid-template-columns: minmax(0, 1fr); gap: var(--space-5); }
+  .hero-figure { max-width: 230px; margin: 0 auto; }
+  .hero-watermark { width: 320px; height: 150px; top: -34px; right: -30px; opacity: .1; }
+  .hero-halo { width: 64px; height: 30px; top: -24px; }
+  .hero-figure figcaption { display: none; }
+  .song-hero .song-sui { display: none; }
+  .sui-seal { top: 1.1rem; }
+  /* 轮播三项在窄屏换行为两行：抬高下限避免轮换时高度跳动 */
+  .req-rotate .rbody { min-height: 3.6rem; }
 
   /* 顶栏折叠：品牌 + 横滚导航 + 收纳更多入口 */
   .head-actions { display: none; }
@@ -81,8 +90,9 @@
   .song-figures .fig-label { font-size: var(--fs-xs); }
 
   .timeline-year { grid-template-columns: 2.4rem 1fr; gap: .5rem; }
-  .hbar { grid-template-columns: 6.2rem 1fr 4.2rem; gap: .5rem; }
+  .hbar { grid-template-columns: minmax(4rem, 6.2rem) minmax(0, 1fr) auto; gap: .5rem; }
   .hbar .hlabel { font-size: var(--fs-sm); }
+  .hbar .hnum { font-size: var(--fs-xs); }
 
   .modal { max-height: 92vh; }
   .modal-root .overlay { padding: .6rem; align-items: end; }

@@ -166,8 +166,11 @@
       kicker: 'BLIND BOX',
       title: '随机一首',
       body: '<div class="rnd-slot mono" style="height:3.2rem;overflow:hidden;border:1px solid var(--line);border-radius:5px;position:relative;background:var(--paper);">' +
-        '<div class="rnd-reel" style="transition:transform 2.4s cubic-bezier(.15,.8,.25,1);"></div></div>' +
-        '<div class="rnd-result" style="display:none;margin-top:1.2rem;text-align:center;">' +
+        '<div class="rnd-reel" style="transition:transform 2.4s cubic-bezier(.15,.8,.25,1);"></div>' +
+        '<div class="rnd-hint" style="position:absolute;inset:0;display:grid;place-items:center;background:var(--paper);font-size:var(--fs-sm);color:var(--ink-3);letter-spacing:.08em;transition:opacity .25s ease;">' +
+        '? ? ? &nbsp;·&nbsp; 共 ' + D.fmtInt(songs.length) + ' 首 · 点击「抽一首」开始</div>' +
+        '</div>' +
+        '<div class="rnd-result" aria-live="polite" style="display:none;margin-top:1.2rem;text-align:center;">' +
         '<div class="rnd-name" style="font-family:var(--serif);font-size:1.7rem;font-weight:900;"></div>' +
         '<div class="rnd-meta mono" style="font-size:var(--fs-sm);color:var(--ink-3);margin-top:.3rem;"></div>' +
         '<div class="rnd-actions" style="display:flex;gap:.5rem;justify-content:center;margin-top:1rem;"></div>' +
@@ -175,64 +178,76 @@
         '<div style="text-align:center;margin-top:1.2rem;"><button type="button" class="btn btn-primary" id="rndDraw">抽一首</button></div>'
     });
     var reel = api.body.querySelector('.rnd-reel');
-    var drawn = false;
+    var hint = api.body.querySelector('.rnd-hint');
+    var btn = api.body.querySelector('#rndDraw');
+    var result = api.body.querySelector('.rnd-result');
+    var rolling = false;
+
+    /* 滚动单元：只放无信息量的音符符号，
+       抽取前与滚动过程中都不出现任何真实歌名，结果只在动画结束后揭晓 */
+    var GLYPHS = ['♪', '♫', '♩', '♬'];
+    function fillMask(n) {
+      var html = '';
+      for (var i = 0; i < n; i++) {
+        html += '<div style="height:3.2rem;display:grid;place-items:center;font-size:1.35rem;color:var(--line-strong);">' +
+          GLYPHS[i % GLYPHS.length] + '</div>';
+      }
+      reel.innerHTML = html;
+    }
 
     function pick() {
       return songs[Math.floor(Math.random() * songs.length)];
     }
-    function fillPreview() {
-      reel.style.transition = 'none';
-      reel.style.transform = 'translateY(0)';
-      reel.innerHTML = Array.from({ length: 8 }, pick).map(function (s) {
-        return '<div style="height:3.2rem;display:grid;place-items:center;font-size:1.05rem;">' + esc(s.name) + '</div>';
-      }).join('');
-    }
-    fillPreview();
 
-    api.body.querySelector('#rndDraw').addEventListener('click', function () {
-      if (drawn) return;
-      drawn = true;
-      var picked = pick();
-      var items = Array.from({ length: 30 }, pick);
-      items.push(picked);
+    function roll(steps, done) {
+      fillMask(steps + 1);
       reel.style.transition = 'none';
       reel.style.transform = 'translateY(0)';
-      reel.innerHTML = items.map(function (s) {
-        return '<div style="height:3.2rem;display:grid;place-items:center;font-size:1.05rem;">' + esc(s.name) + '</div>';
-      }).join('');
       requestAnimationFrame(function () {
         requestAnimationFrame(function () {
           reel.style.transition = 'transform 2.4s cubic-bezier(.15,.8,.25,1)';
-          reel.style.transform = 'translateY(-' + (items.length - 1) * 3.2 + 'rem)';
+          reel.style.transform = 'translateY(-' + steps * 3.2 + 'rem)';
         });
       });
-      setTimeout(function () {
-        var result = api.body.querySelector('.rnd-result');
-        result.style.display = '';
-        result.querySelector('.rnd-name').textContent = picked.name;
-        result.querySelector('.rnd-meta').textContent =
-          (picked.artist || '—') + ' · ' + picked.lang + ' · ' + D.tierName(picked.count) +
-          ' · 演唱 ' + picked.count + ' 次';
-        var actions = result.querySelector('.rnd-actions');
-        if (picked.bili && picked.bili.length) {
-          actions.innerHTML = '';
-          var play = C.h('<button type="button" class="btn btn-primary">▶ 播放这首歌</button>');
-          play.addEventListener('click', function () { api.close(); C.openPlayer(picked, 0); });
-          actions.appendChild(play);
-        } else {
-          actions.innerHTML = '';
-          var search = C.h('<button type="button" class="btn">↗ 在B站搜索</button>');
-          search.addEventListener('click', function () {
-            openExternal('https://search.bilibili.com/all?keyword=' +
-              encodeURIComponent('岁己SUI ' + picked.name + ' 歌切'));
-          });
-          actions.appendChild(search);
-        }
-        drawn = false;
-        reel.querySelectorAll('div').forEach(function (d, i) {
-          if (i === items.length - 1) d.style.color = 'var(--accent)';
+      setTimeout(done, 2500);
+    }
+
+    function showResult(picked) {
+      result.style.display = '';
+      result.querySelector('.rnd-name').textContent = picked.name;
+      result.querySelector('.rnd-meta').textContent =
+        (picked.artist || '—') + ' · ' + picked.lang + ' · ' + D.tierName(picked.count) +
+        ' · 演唱 ' + picked.count + ' 次';
+      var actions = result.querySelector('.rnd-actions');
+      actions.innerHTML = '';
+      if (picked.bili && picked.bili.length) {
+        var play = C.h('<button type="button" class="btn btn-primary">▶ 播放这首歌</button>');
+        play.addEventListener('click', function () { api.close(); C.openPlayer(picked, 0); });
+        actions.appendChild(play);
+      } else {
+        var search = C.h('<button type="button" class="btn">↗ 在B站搜索</button>');
+        search.addEventListener('click', function () {
+          openExternal('https://search.bilibili.com/all?keyword=' +
+            encodeURIComponent('岁己SUI ' + picked.name + ' 歌切'));
         });
-      }, 2500);
+        actions.appendChild(search);
+      }
+    }
+
+    btn.addEventListener('click', function () {
+      if (rolling) return;
+      rolling = true;
+      btn.disabled = true;
+      btn.textContent = '抽取中…';
+      result.style.display = 'none';
+      hint.style.opacity = '0';
+      var picked = pick();
+      roll(24, function () {
+        showResult(picked);
+        btn.disabled = false;
+        btn.textContent = '再抽一次';
+        rolling = false;
+      });
     });
   }
 
@@ -474,10 +489,10 @@
       '<div class="foot-col"><h4>SUI SONG ARCHIVE</h4>' +
       '<p class="foot-span">' + esc(S.first.slice(0, 7).replace('-', '.')) + ' — ' + esc(S.last.slice(0, 7).replace('-', '.')) + '</p>' +
       '<p>收录歌曲 ' + D.fmtInt(S.total) + ' 首 · 演唱 ' + D.fmtInt(S.performances) + ' 次 · 点歌 ' + D.fmtInt(R.total) + ' 次</p>' +
-      '<span class="foot-ver">界面版本 v3.0</span></div>' +
+      '<span class="foot-ver">界面版本 v3.4</span></div>' +
       '<div class="foot-col"><h4>数据来源</h4><ul>' +
       '<li><a href="https://www.suijisui.space" target="_blank" rel="noopener">suijisui.space</a>（PQL87/sui-song-list）</li>' +
-      '<li><a href="https://stats.suijisui.uk" target="_blank" rel="noopener">stats.suijisui.uk</a> · 点歌统计完整版</li>' +
+      '<li><a href="#/requests">点歌统计（已并入本站）</a> · 源自直播间点歌记录</li>' +
       '<li>岁己SUI 的 B站 投稿合集</li></ul></div>' +
       '<div class="foot-col"><h4>参与</h4><ul>' +
       '<li><a href="#/about">更新日志与说明</a></li>' +
@@ -485,8 +500,8 @@
       '<li><a href="#" id="footContribute">我要补充歌曲</a></li></ul></div>' +
       '</div>' +
       '<div class="foot-base"><div class="foot-base-inner">' +
-      '<span>suijisui.uk</span>' +
-      '<span>为虚拟主播 岁己SUI 而建 · 小岁小岁我们喜欢你</span>' +
+      '<span><img class="foot-bird" src="assets/sui-bird.png" alt="" aria-hidden="true">suijisui.uk</span>' +
+      '<span><span class="foot-sakura" aria-hidden="true"></span>为虚拟主播 岁己SUI 而建 · 小岁小岁我们喜欢你</span>' +
       '</div></div>';
     foot.querySelector('#footContribute').addEventListener('click', function (e) {
       e.preventDefault();
