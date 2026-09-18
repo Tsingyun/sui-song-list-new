@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>岁己SUI · 歌单档案</title>
+<meta name="description" content="虚拟主播岁己SUI的完整歌单档案：演唱记录、录播片段、数据洞察与点歌统计。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23b5371d'/%3E%3Ctext x='32' y='45' font-size='36' text-anchor='middle' fill='%23f7f3ec' font-family='serif' font-weight='700'%3E%E5%B2%81%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@600;700;900&display=swap" rel="stylesheet">
+<!--INLINE_CSS-->
+</head>
+<body>
+<a class="skip-link" href="#view">跳到主要内容</a>
+
+<header class="site-head">
+  <div class="site-head-inner">
+    <a class="brand" href="#/">
+      <span class="brand-mark" aria-hidden="true">岁</span>
+      <span class="brand-text">岁己SUI<em>歌单档案</em></span>
+    </a>
+    <nav class="site-nav" id="siteNav" aria-label="站内导航">
+      <a href="#/" data-nav="home">首页</a>
+      <a href="#/songs" data-nav="songs">歌曲</a>
+      <a href="#/frequent" data-nav="frequent">常唱金曲</a>
+      <a href="#/languages" data-nav="languages">语言</a>
+      <a href="#/artists" data-nav="artists">原唱</a>
+      <a href="#/insights" data-nav="insights">洞察</a>
+      <a href="#/requests" data-nav="requests">点歌</a>
+      <a href="#/about" data-nav="about">关于</a>
+    </nav>
+    <div class="head-actions">
+      <button type="button" class="btn btn-ghost btn-sm" id="globalRandom">盲盒抽歌</button>
+      <button type="button" class="btn btn-primary btn-sm" id="globalContribute">我要补充</button>
+    </div>
+  </div>
+</header>
+
+<main id="view" class="view" tabindex="-1" aria-live="polite"></main>
+
+<footer class="site-foot" id="siteFoot"></footer>
+
+<!-- floating player -->
+<div class="player" id="playerPanel" hidden>
+  <div class="player-bar" id="playerDrag">
+    <div class="player-titles">
+      <span class="player-song" id="playerSongName"></span>
+      <span class="player-meta" id="playerSongMeta"></span>
+    </div>
+    <div class="player-tools">
+      <select class="player-select" id="playerClipSelect" aria-label="切换录播版本"></select>
+      <a class="player-link" id="playerBiliLink" target="_blank" rel="noopener">B站</a>
+      <button type="button" class="player-btn" id="playerMaximize" aria-label="放大播放器" title="放大">⤢</button>
+      <button type="button" class="player-btn" id="playerClose" aria-label="关闭播放器" title="关闭">✕</button>
+    </div>
+  </div>
+  <div class="player-body">
+    <iframe id="playerIframe" allowfullscreen scrolling="no" frameborder="0"
+      allow="autoplay; encrypted-media; fullscreen" referrerpolicy="no-referrer"></iframe>
+  </div>
+</div>
+
+<!-- modal root / toast / tooltip -->
+<div class="modal-root" id="modalRoot"></div>
+<div class="toast-root" id="toastRoot" aria-live="assertive"></div>
+<div class="tip" id="globalTip" hidden></div>
+
+<button type="button" class="back-top" id="backTop" aria-label="返回顶部" title="返回顶部">↑</button>
+
+<!--INLINE_DATA-->
+<!--INLINE_JS-->
+</body>
+</html>
