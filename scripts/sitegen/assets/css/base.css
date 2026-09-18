@@ -34,6 +34,9 @@ mark {
 
 img, svg, iframe { display: block; max-width: 100%; }
 
+/* hidden 属性优先于任何 display 声明 */
+[hidden] { display: none !important; }
+
 /* 数字一律等宽 */
 .num, .mono {
   font-family: var(--mono);

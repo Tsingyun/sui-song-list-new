@@ -43,6 +43,9 @@
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && modalStack.length) modalStack[modalStack.length - 1].close();
   });
+  C.closeAllModals = function () {
+    while (modalStack.length) modalStack[modalStack.length - 1].close();
+  };
 
   /* ═══════ 浮动播放器 ═══════ */
   var player = {
@@ -162,16 +165,16 @@
     var api = C.openModal({
       kicker: 'BLIND BOX',
       title: '随机一首',
-      body: '<div class="bb-slot mono" style="height:3.2rem;overflow:hidden;border:1px solid var(--line);border-radius:5px;position:relative;background:var(--paper);">' +
-        '<div class="bb-reel" style="transition:transform 2.4s cubic-bezier(.15,.8,.25,1);"></div></div>' +
-        '<div class="bb-result" style="display:none;margin-top:1.2rem;text-align:center;">' +
-        '<div class="bb-name" style="font-family:var(--serif);font-size:1.7rem;font-weight:900;"></div>' +
-        '<div class="bb-meta mono" style="font-size:var(--fs-sm);color:var(--ink-3);margin-top:.3rem;"></div>' +
-        '<div class="bb-actions" style="display:flex;gap:.5rem;justify-content:center;margin-top:1rem;"></div>' +
+      body: '<div class="rnd-slot mono" style="height:3.2rem;overflow:hidden;border:1px solid var(--line);border-radius:5px;position:relative;background:var(--paper);">' +
+        '<div class="rnd-reel" style="transition:transform 2.4s cubic-bezier(.15,.8,.25,1);"></div></div>' +
+        '<div class="rnd-result" style="display:none;margin-top:1.2rem;text-align:center;">' +
+        '<div class="rnd-name" style="font-family:var(--serif);font-size:1.7rem;font-weight:900;"></div>' +
+        '<div class="rnd-meta mono" style="font-size:var(--fs-sm);color:var(--ink-3);margin-top:.3rem;"></div>' +
+        '<div class="rnd-actions" style="display:flex;gap:.5rem;justify-content:center;margin-top:1rem;"></div>' +
         '</div>' +
-        '<div style="text-align:center;margin-top:1.2rem;"><button type="button" class="btn btn-primary" id="bbDraw">抽一首</button></div>'
+        '<div style="text-align:center;margin-top:1.2rem;"><button type="button" class="btn btn-primary" id="rndDraw">抽一首</button></div>'
     });
-    var reel = api.body.querySelector('.bb-reel');
+    var reel = api.body.querySelector('.rnd-reel');
     var drawn = false;
 
     function pick() {
@@ -186,7 +189,7 @@
     }
     fillPreview();
 
-    api.body.querySelector('#bbDraw').addEventListener('click', function () {
+    api.body.querySelector('#rndDraw').addEventListener('click', function () {
       if (drawn) return;
       drawn = true;
       var picked = pick();
@@ -204,13 +207,13 @@
         });
       });
       setTimeout(function () {
-        var result = api.body.querySelector('.bb-result');
+        var result = api.body.querySelector('.rnd-result');
         result.style.display = '';
-        result.querySelector('.bb-name').textContent = picked.name;
-        result.querySelector('.bb-meta').textContent =
+        result.querySelector('.rnd-name').textContent = picked.name;
+        result.querySelector('.rnd-meta').textContent =
           (picked.artist || '—') + ' · ' + picked.lang + ' · ' + D.tierName(picked.count) +
           ' · 演唱 ' + picked.count + ' 次';
-        var actions = result.querySelector('.bb-actions');
+        var actions = result.querySelector('.rnd-actions');
         if (picked.bili && picked.bili.length) {
           actions.innerHTML = '';
           var play = C.h('<button type="button" class="btn btn-primary">▶ 播放这首歌</button>');

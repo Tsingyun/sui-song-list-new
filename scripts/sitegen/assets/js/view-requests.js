@@ -146,7 +146,8 @@
   function boardRow(r, i, champs, streak, kind) {
     var isChamp = champs.indexOf(r.n) !== -1;
     var lvl = r.level != null ? '<span class="lvl" data-l="' + r.level + '">Lv.' + r.level + '</span>' : '';
-    var fire = streak ? '<span class="fire" title="连续 ' + streak.len + ' 场点歌">🔥'.repeat(1) + '🔥'.repeat(streak.fires) + '</span>' : '';
+    var fire = streak ? '<span class="fire" title="连续 ' + streak.len + ' 场点歌">' +
+      '🔥'.repeat(streak.fires) + '</span>' : '';
     return '<div class="req-row" data-aud="' + esc(r.n) + '">' +
       '<span class="rk">' + String(i + 1).padStart(2, '0') + '</span>' +
       '<span class="who"><span class="nm">' + esc(r.n) + '</span>' + lvl +

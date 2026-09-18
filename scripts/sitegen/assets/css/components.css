@@ -151,7 +151,9 @@
   gap: .5rem;
   flex-wrap: wrap;
 }
+.rowrow > .row-name { flex: 0 1 auto; }
 .row-name .nm {
+  min-width: 0;
   font-weight: 500;
   overflow: hidden;
   text-overflow: ellipsis;

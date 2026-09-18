@@ -3,9 +3,9 @@
 /* 平板及以下 */
 @media (max-width: 1024px) {
   .home-grid { grid-template-columns: 1fr; gap: var(--space-6); }
-  .song-detail-grid { grid-template-columns: 1fr; }
-  .detail-side { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); align-items: start; }
-  .req-cols, .req-grid-2, .about-cols { grid-template-columns: 1fr; }
+  .song-detail-grid { grid-template-columns: minmax(0, 1fr); }
+  .detail-side { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-5); align-items: start; }
+  .req-cols, .req-grid-2, .about-cols { grid-template-columns: minmax(0, 1fr); }
 }
 
 /* 手机横屏 / 窄平板 */
@@ -18,9 +18,9 @@
   .req-head-figs { grid-template-columns: repeat(2, 1fr); }
   .req-head-figs .fig:nth-child(2n) { border-right: 0; }
   .req-head-figs .fig:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
-  .site-foot-inner { grid-template-columns: 1fr 1fr; }
+  .site-foot-inner { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
   .date-list { columns: 1; }
-  .detail-side { grid-template-columns: 1fr; }
+  .detail-side { grid-template-columns: minmax(0, 1fr); }
 }
 
 /* 手机 */

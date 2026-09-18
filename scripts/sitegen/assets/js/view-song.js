@@ -142,7 +142,7 @@
       '</aside></div>';
 
     function heroClip() {
-      return (song.bili || []).length ? song.bili.length - 1 : 0;  // 最新片段
+      return 0;  // 录播列表按时间倒序，index 0 即最新片段
     }
     var heroPlay = container.querySelector('#heroPlay');
     if (heroPlay) heroPlay.addEventListener('click', function () { C.openPlayer(song, heroClip()); });

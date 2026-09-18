@@ -70,11 +70,10 @@
       '<section><div class="sec-head"><div class="sec-kicker">MOST SUNG</div>' +
       '<h2 class="sec-title">常唱金曲 <a class="sec-link" href="' + C.buildHash('frequent') + '">全部 →</a></h2></div>' +
       '<div class="rowlist">' + top10.map(function (s, i) {
-        return '<div class="rowrow is-top10"><span class="row-idx">' + (i + 1) + '</span>' +
+        return '<div class="rowrow compact is-top10"><span class="row-idx">' + (i + 1) + '</span>' +
           '<a class="row-name" href="' + songHref(s) + '"><span class="nm">' + esc(s.name) + '</span></a>' +
           '<span class="row-count" data-tier="frequent">' + s.count + '</span>' +
-          '<span class="row-last num">' + esc(s.last || '—') + '</span>' +
-          '<span></span></div>';
+          '<span class="row-last num">' + esc(s.last || '—') + '</span></div>';
       }).join('') + '</div>' +
 
       '<div class="req-teaser" style="margin-top:2rem;">' +

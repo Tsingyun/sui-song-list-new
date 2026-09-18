@@ -78,6 +78,10 @@
 /* 工具行 */
 .home-tools { display: flex; gap: .6rem; flex-wrap: wrap; margin-top: var(--space-6); }
 
+/* 紧凑行（首页右栏等窄容器） */
+.rowrow.compact { grid-template-columns: 2rem minmax(0, 1fr) 3rem 5.4rem; }
+.rowrow.compact .row-idx { width: auto; }
+
 /* ─── 歌曲浏览 ─── */
 .toolbar { display: flex; gap: .6rem; flex-wrap: wrap; align-items: center; margin-bottom: var(--space-3); }
 .toolbar .chipbar { flex: 1 1 100%; }
@@ -112,6 +116,7 @@
   gap: var(--space-7);
   padding-top: var(--space-5);
 }
+.song-detail-grid > * { min-width: 0; }
 .song-figures {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -152,7 +157,7 @@
 .date-list span.last::after { content: ' 最新'; font-family: var(--sans); font-size: var(--fs-xs); color: var(--ink); }
 
 /* 录播片段 */
-.clip-list { border-top: 1px solid var(--line); }
+.clip-list { border-top: 1px solid var(--line); min-width: 0; }
 .clip-item {
   display: flex;
   align-items: center;
@@ -163,7 +168,9 @@
   font-size: var(--fs-md);
   width: 100%;
   text-align: left;
+  min-width: 0;
 }
+.clip-item > * { min-width: 0; }
 .clip-item:hover { background: rgba(33, 28, 21, .04); }
 .clip-item .num { color: var(--ink-3); font-size: var(--fs-sm); }
 .clip-item .dur { margin-left: auto; font-family: var(--mono); font-size: var(--fs-sm); color: var(--ink-3); }

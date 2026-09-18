@@ -58,7 +58,11 @@
   /* 旧站锚点兼容：#lang-日语 -> #/languages?_anchor=日语 */
   function compatHash(hash) {
     var m = hash.match(/^#lang-(.+)$/);
-    if (m) return '#/languages?_anchor=' + encodeURIComponent(m[1]);
+    if (m) {
+      var lang;
+      try { lang = decodeURIComponent(m[1]); } catch (e) { lang = m[1]; }
+      return '#/languages?_anchor=' + encodeURIComponent(lang);
+    }
     return null;
   }
 
@@ -102,6 +106,8 @@
     });
 
     container.innerHTML = '';
+    C.tip.hide();
+    if (C.closeAllModals) C.closeAllModals();
     fn(parsed.params, container, parsed);
     currentRoute = { name: name, params: parsed.params };
 
