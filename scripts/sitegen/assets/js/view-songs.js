@@ -115,19 +115,38 @@
 
   function renderTagChips(container, state) {
     var box = container.querySelector('#tagChips');
+    box.classList.add('tagbar');
+    /* 移动端默认收起：只展示前 VISIBLE 个高频标签，其余进"更多标签"开关。
+       桌面端 CSS 忽略折叠（全部平铺）。 */
+    var VISIBLE = 8;
     var tags = window.SUI.songs.tags;
+    var open = _tagsOpen || state.tag !== 'all';
     box.innerHTML =
       '<button type="button" class="chip' + (state.tag === 'all' ? ' active' : '') + '" data-tag="all">全部标签</button>' +
-      tags.map(function (t) {
-        return '<button type="button" class="chip' + (state.tag === t.tag ? ' active' : '') + '" data-tag="' + esc(t.tag) + '">' +
+      tags.map(function (t, i) {
+        return '<button type="button" class="chip' + (i >= VISIBLE ? ' chip-extra' : '') +
+          (state.tag === t.tag ? ' active' : '') + '" data-tag="' + esc(t.tag) + '">' +
           esc(t.tag) + ' <span class="num">' + t.count + '</span></button>';
-      }).join('');
+      }).join('') +
+      '<button type="button" class="chip tagbar-toggle" aria-expanded="' + open + '">' +
+      '<span class="lbl-more">更多标签 · ' + (tags.length - VISIBLE) + ' ▾</span>' +
+      '<span class="lbl-less">收起标签 ▴</span></button>';
+    if (open) box.classList.add('tagbar--open');
     box.querySelectorAll('.chip').forEach(function (chip) {
       chip.addEventListener('click', function () {
+        if (!chip.dataset.tag) return;   // "更多标签"开关不是筛选项
         state.tag = chip.dataset.tag; state.page = 1; syncState(state, container);
       });
     });
+    var toggle = box.querySelector('.tagbar-toggle');
+    toggle.addEventListener('click', function () {
+      _tagsOpen = !box.classList.contains('tagbar--open');
+      box.classList.toggle('tagbar--open', _tagsOpen);
+      toggle.setAttribute('aria-expanded', String(_tagsOpen));
+    });
   }
+
+  var _tagsOpen = false;
 
   /* 行渲染（被 常唱/语言 视图复用） */
   function renderRows(box, songs, query, opts) {

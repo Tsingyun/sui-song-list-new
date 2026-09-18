@@ -48,6 +48,12 @@
 }
 .chip.active .num { color: rgba(246, 242, 234, .6); }
 
+/* 标签栏折叠开关（仅移动端由 responsive.css 启用） */
+.tagbar-toggle { display: none; }
+.tagbar-toggle .lbl-less { display: none; }
+.tagbar--open .tagbar-toggle .lbl-more { display: none; }
+.tagbar--open .tagbar-toggle .lbl-less { display: inline; }
+
 /* 搜索框 */
 .search {
   position: relative;

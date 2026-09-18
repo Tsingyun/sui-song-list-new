@@ -34,6 +34,11 @@
   .brand-text em { display: none; }
   .site-nav a { padding: .4rem .55rem; font-size: var(--fs-md); }
 
+  /* 标签栏：默认折叠为 1 行左右，点"更多标签"展开全部 */
+  .tagbar .chip-extra { display: none; }
+  .tagbar--open .chip-extra { display: block; }
+  .tagbar-toggle { display: inline-flex; }
+
   /* 歌单行：两行堆叠 */
   .rowrow {
     grid-template-columns: 2rem 1fr 2.3rem;
