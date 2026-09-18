@@ -19,13 +19,10 @@
 .brand { display: flex; align-items: center; gap: .6rem; flex-shrink: 0; }
 .brand-mark {
   width: 34px; height: 34px;
-  display: grid; place-items: center;
-  background: var(--accent);
-  color: #fdf9f0;
-  font-family: var(--serif);
-  font-weight: 900;
-  font-size: 1.15rem;
-  border-radius: 6px;
+  object-fit: contain;
+  border-radius: 8px;
+  /* 小鸟是白底黑描边透明图，落在暖纸底上收一点投影避免"飘" */
+  filter: drop-shadow(0 1px 1.5px rgba(33, 28, 21, .22));
 }
 .brand-text {
   font-family: var(--serif);

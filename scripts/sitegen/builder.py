@@ -4,6 +4,7 @@
 No third-party dependencies (GitHub Actions runs this with plain stdlib).
 Output: docs/index.html  (deterministic — no timestamps inside the payload).
 """
+import base64
 import json
 import os
 
@@ -47,7 +48,11 @@ def build():
     payload = {'songs': datalayer.build_song_payload(),
                'requests': reqstats.build_request_payload()}
 
+    with open(os.path.join(ASSETS_DIR, 'logo.png'), 'rb') as f:
+        logo_uri = 'data:image/png;base64,' + base64.b64encode(f.read()).decode()
+
     html = read_asset('skeleton.html')
+    html = html.replace('__LOGO_DATA_URI__', logo_uri)
     html = html.replace('<!--INLINE_CSS-->', '<style>\n' + css_bundle() + '\n</style>')
     html = html.replace('<!--INLINE_DATA-->',
                         '<script>window.SUI=' + payload_json(payload) + ';</script>')
