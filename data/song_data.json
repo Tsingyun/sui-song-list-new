@@ -306,10 +306,10 @@
       "translated": "干花",
       "artist": "優里",
       "lang": "日语",
-      "count": 11,
+      "count": 12,
       "tier": "frequent",
       "first": "2022-09-09",
-      "last": "2026-07-17",
+      "last": "2026-09-12",
       "tags": [
         "流行"
       ]
@@ -1990,10 +1990,10 @@
       "translated": "午夜之门~留在我身边",
       "artist": "松原みき",
       "lang": "日语",
-      "count": 6,
-      "tier": "常唱",
+      "count": 7,
+      "tier": "frequent",
       "first": "2022-11-22",
-      "last": "2025-08-02",
+      "last": "2026-09-12",
       "tags": [
         "流行"
       ]
@@ -2872,10 +2872,10 @@
       "translated": "",
       "artist": "泠鸢yousa",
       "lang": "中文",
-      "count": 5,
-      "tier": "常唱",
+      "count": 6,
+      "tier": "frequent",
       "first": "2024-05-04",
-      "last": "2025-12-20",
+      "last": "2026-09-17",
       "tags": [
         "独立",
         "古风"
@@ -15896,8 +15896,18 @@
       "lang": "中文",
       "count": 1,
       "tier": "rare",
-      "first": "2026-09-12",
-      "last": "2026-09-12"
+      "first": "2026-09-13",
+      "last": "2026-09-13"
+    },
+    {
+      "name": "独自美丽",
+      "translated": "",
+      "artist": "祁紫檀",
+      "lang": "中文",
+      "count": 1,
+      "tier": "rare",
+      "first": "2026-09-14",
+      "last": "2026-09-14"
     }
   ]
 }
