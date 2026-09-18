@@ -23,6 +23,8 @@
     streaks.forEach(function (s) { streakByAud[s.n] = s; });
 
     if (q) board = board.filter(function (r) { return r.n.toLowerCase().indexOf(q) !== -1; });
+    var songBoardAll = R.boards.song;
+    if (q) songBoardAll = songBoardAll.filter(function (r) { return r.n.toLowerCase().indexOf(q) !== -1; });
 
     var shown = board.slice(0, 10);
     var rest = board.slice(10);
@@ -62,7 +64,9 @@
         champs.map(esc).join('、') + '</span>' : '') +
       '</div>' +
       '<div id="boardRows">' +
-      shown.map(function (r, i) { return boardRow(r, i, champs, streakByAud[kind === 'month' ? r.n : ''], kind); }).join('') +
+      (shown.length
+        ? shown.map(function (r, i) { return boardRow(r, i, champs, streakByAud[kind === 'month' ? r.n : ''], kind); }).join('')
+        : '<div class="empty" style="padding:1.5rem;"><p class="mono">没有找到匹配的观众</p></div>') +
       '</div>' +
       (rest.length ? '<div id="boardRest" hidden>' +
         rest.map(function (r, i) { return boardRow(r, i + 10, champs, streakByAud[kind === 'month' ? r.n : ''], kind); }).join('') +
@@ -74,18 +78,20 @@
       '<section><div class="sec-head"><div class="sec-kicker">TOP SONGS</div>' +
       '<h2 class="sec-title" style="font-size:1.2rem;">热门歌曲榜</h2></div>' +
       '<div id="songBoard">' +
-      R.boards.song.slice(0, 10).map(function (r, i) { return songRow(r, i); }).join('') +
+      songBoardAll.slice(0, 10).map(function (r, i) { return songRow(r, i); }).join('') +
       '</div>' +
-      (R.boards.song.length > 10
-        ? '<div id="songRest" hidden>' + R.boards.song.slice(10).map(songRow).join('') + '</div>' +
-          '<button type="button" class="req-expand" id="songExpand">展开全部（共 ' + R.boards.song.length + ' 首）▼</button>' : '') +
+      (songBoardAll.length > 10
+        ? '<div id="songRest" hidden>' + songBoardAll.slice(10).map(songRow).join('') + '</div>' +
+          '<button type="button" class="req-expand" id="songExpand">展开全部（共 ' + songBoardAll.length + ' 首）▼</button>' : '') +
+      (q && !songBoardAll.length ? '<div class="empty" style="padding:1.5rem;"><p class="mono">没有找到匹配的歌曲</p></div>' : '') +
       '</section>' +
 
       '<section><div class="sec-head"><div class="sec-kicker">🔥 STREAKS</div>' +
       '<h2 class="sec-title" style="font-size:1.2rem;">本月连续点歌</h2></div>' +
       (streaks.length
         ? '<div class="fire-list">' + streaks.map(function (s) {
-            return '<div class="fire-item"><span class="fire" title="连续 ' + s.len + ' 场点歌">' +
+            return '<div class="fire-item"><span class="fire" role="button" tabindex="0" data-streak="' +
+              esc(JSON.stringify(s)) + '" title="连续 ' + s.len + ' 场点歌（点击查看链）">' +
               '🔥'.repeat(s.fires) + '</span><b>' + esc(s.n) + '</b>' +
               '<span class="chain-dates">' + s.chain.join(' → ') + '</span></div>';
           }).join('') + '</div>'
@@ -130,7 +136,7 @@
       var restEl = container.querySelector('#songRest');
       var open = restEl.hidden;
       restEl.hidden = !open;
-      songExpand.textContent = open ? '收起 ▲' : '展开全部（共 ' + R.boards.song.length + ' 首）▼';
+      songExpand.textContent = open ? '收起 ▲' : '展开全部（共 ' + songBoardAll.length + ' 首）▼';
     });
 
     container.querySelectorAll('.req-row[data-aud]').forEach(function (row) {
@@ -146,8 +152,10 @@
   function boardRow(r, i, champs, streak, kind) {
     var isChamp = champs.indexOf(r.n) !== -1;
     var lvl = r.level != null ? '<span class="lvl" data-l="' + r.level + '">Lv.' + r.level + '</span>' : '';
-    var fire = streak ? '<span class="fire" title="连续 ' + streak.len + ' 场点歌">' +
-      '🔥'.repeat(streak.fires) + '</span>' : '';
+    var fire = streak
+      ? '<span class="fire" role="button" tabindex="0" data-streak="' + esc(JSON.stringify(streak)) +
+        '" title="连续 ' + streak.len + ' 场点歌（点击查看链）">' + '🔥'.repeat(streak.fires) + '</span>'
+      : '';
     return '<div class="req-row" data-aud="' + esc(r.n) + '">' +
       '<span class="rk">' + String(i + 1).padStart(2, '0') + '</span>' +
       '<span class="who"><span class="nm">' + esc(r.n) + '</span>' + lvl +
@@ -177,10 +185,23 @@
     }).join('') + '</div>';
   }
 
-  /* 🔥 悬停 -> 点歌链 */
+  /* 🔥 徽章点击 -> 点歌链详情（日期 → 当日点歌） */
   function bindStreakTips(container) {
-    container.querySelectorAll('.fire[data-title], .fire').forEach(function (el) {
-      /* tooltip 由 title 提供基础信息；链详情点击观众面板展示 */
+    container.querySelectorAll('.fire[data-streak]').forEach(function (el) {
+      var show = function (e) {
+        e.stopPropagation();
+        var s;
+        try { s = JSON.parse(el.dataset.streak); } catch (err) { return; }
+        var html = '<div class="tip-title">🔥 连续 ' + s.len + ' 场点歌</div>' +
+          s.chain.map(function (d, i) {
+            return '<div style="margin:.1rem 0;"><span class="mono">' + esc(d) + '</span>' +
+              ' <span style="color:var(--accent-deep);">' + esc((s.songs[i] || []).join('、')) + '</span></div>';
+          }).join('');
+        var rect = el.getBoundingClientRect();
+        C.tip.show(html, rect.left, rect.bottom + 4);
+      };
+      el.addEventListener('click', show);
+      el.addEventListener('keydown', function (e) { if (e.key === 'Enter') show(e); });
     });
   }
 
