@@ -1,0 +1,113 @@
+/* ═══════ 响应式 ═══════ */
+
+/* 平板及以下 */
+@media (max-width: 1024px) {
+  .home-grid { grid-template-columns: 1fr; gap: var(--space-6); }
+  .song-detail-grid { grid-template-columns: 1fr; }
+  .detail-side { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); align-items: start; }
+  .req-cols, .req-grid-2, .about-cols { grid-template-columns: 1fr; }
+}
+
+/* 手机横屏 / 窄平板 */
+@media (max-width: 820px) {
+  .rowrow { grid-template-columns: 2.4rem 1fr 4.5rem 5.6rem 2.4rem; }
+  .row-artist { display: none; }
+  .site-head-inner { padding: .55rem .9rem; gap: .8rem; }
+  .head-actions .btn-ghost { display: none; }
+  .figures { grid-template-columns: repeat(5, 1fr); }
+  .req-head-figs { grid-template-columns: repeat(2, 1fr); }
+  .req-head-figs .fig:nth-child(2n) { border-right: 0; }
+  .req-head-figs .fig:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+  .site-foot-inner { grid-template-columns: 1fr 1fr; }
+  .date-list { columns: 1; }
+  .detail-side { grid-template-columns: 1fr; }
+}
+
+/* 手机 */
+@media (max-width: 640px) {
+  :root { --fs-2xl: 1.65rem; }
+  .view { padding: var(--space-5) .9rem var(--space-7); }
+  .masthead { padding: var(--space-5) 0 var(--space-4); }
+
+  /* 顶栏折叠：品牌 + 横滚导航 + 收纳更多入口 */
+  .head-actions { display: none; }
+  .brand-text em { display: none; }
+  .site-nav a { padding: .4rem .55rem; font-size: var(--fs-md); }
+
+  /* 歌单行：两行堆叠 */
+  .rowrow {
+    grid-template-columns: 2rem 1fr 2.3rem;
+    grid-template-areas:
+      'idx name play'
+      'idx sub  play';
+    row-gap: .15rem;
+    padding: .6rem .2rem;
+  }
+  .row-idx { grid-area: idx; align-self: start; padding-top: .2rem; }
+  .row-name { grid-area: name; }
+  .row-count {
+    grid-area: sub;
+    text-align: left;
+    font-size: var(--fs-sm);
+    font-weight: 400;
+    color: var(--ink-3);
+    display: flex;
+    gap: .6rem;
+    align-items: baseline;
+  }
+  .row-count::after { content: '次'; font-family: var(--sans); font-size: var(--fs-xs); }
+  .row-last { grid-area: sub; justify-self: end; }
+  .row-play { grid-area: play; align-self: center; }
+  .rowrow::after { display: none; }
+
+  .figures { grid-template-columns: repeat(2, 1fr); }
+  .figures .fig { border-right: 0; border-bottom: 1px solid var(--line); }
+  .figures .fig:nth-child(odd) { border-right: 1px solid var(--line); }
+  .figures .fig:nth-child(n+4) { border-bottom: 0; }
+  .fig-num { font-size: 1.5rem; }
+
+  .toolbar .search { flex-basis: 100%; }
+  .toolbar .select { flex: 1; }
+  .export-wrap { position: static; }
+  .export-pop { left: 0; right: 0; }
+
+  .song-figures { grid-template-columns: repeat(3, 1fr); }
+  .song-figures .fig-num { font-size: 1.15rem; }
+  .song-figures .fig-label { font-size: var(--fs-xs); }
+
+  .timeline-year { grid-template-columns: 2.4rem 1fr; gap: .5rem; }
+  .hbar { grid-template-columns: 6.2rem 1fr 4.2rem; gap: .5rem; }
+  .hbar .hlabel { font-size: var(--fs-sm); }
+
+  .modal { max-height: 92vh; }
+  .modal-root .overlay { padding: .6rem; align-items: end; }
+  .modal { border-radius: 10px 10px 0 0; width: 100%; }
+
+  .player {
+    left: .6rem; right: .6rem; bottom: .6rem;
+    width: auto;
+  }
+  .player.maximized { width: auto; }
+
+  .req-row { grid-template-columns: 2rem minmax(0, 1fr) auto; }
+  .req-row .pctcol { display: none; }
+
+  .site-foot-inner { grid-template-columns: 1fr; gap: var(--space-5); }
+  .foot-base-inner { flex-direction: column; gap: .3rem; }
+  .back-top { right: .9rem; bottom: .9rem; }
+  .heat-cell { width: 12px; height: 12px; }
+  .heat-grid { grid-template-rows: repeat(7, 12px); }
+  .heat-scroll-hint { display: block; }
+}
+
+/* 超窄 */
+@media (max-width: 380px) {
+  .figures .fig-num { font-size: 1.25rem; }
+  .brand-text { font-size: .95rem; }
+}
+
+/* 打印 */
+@media print {
+  .site-head, .site-foot, .back-top, .player, .toolbar { display: none !important; }
+  body { background: #fff; }
+}

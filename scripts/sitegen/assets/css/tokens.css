@@ -1,0 +1,55 @@
+/* ══════════════════════════════════════════════════════════════
+   岁己SUI 歌单档案 · 设计 tokens
+   方向：场刊 / 档案簿编辑风 —— 暖纸底、墨色文字、衬线标题、
+   等宽数据字、朱红单强调色、细线分隔。无霓虹、无玻璃拟态、无卡片堆砌。
+   ══════════════════════════════════════════════════════════════ */
+:root {
+  /* 纸与墨 */
+  --paper: #f6f2ea;
+  --paper-deep: #ede7da;
+  --surface: #fdfbf7;
+  --ink: #211c15;
+  --ink-2: #5c5344;
+  --ink-3: #8f8571;
+  --line: #ded4c0;
+  --line-strong: #b6a88d;
+
+  /* 强调 */
+  --accent: #b5371d;          /* 朱红 —— 仅用于激活态/关键数字/标记 */
+  --accent-deep: #8e2a15;
+  --accent-soft: rgba(181, 55, 29, .07);
+  --green: #33604e;           /* 次级状态（偶尔/成功） */
+
+  /* 字体 */
+  --serif: 'Noto Serif SC', 'Songti SC', 'SimSun', serif;
+  --sans: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Consolas, 'Courier New', monospace;
+
+  /* 字号阶梯（1.25 倍率） */
+  --fs-xs: .6875rem;   /* 11 页码/角标 */
+  --fs-sm: .75rem;     /* 12 辅助 */
+  --fs-md: .875rem;    /* 14 正文辅助 */
+  --fs-base: 1rem;     /* 16 正文 */
+  --fs-lg: 1.1875rem;  /* 19 小标题 */
+  --fs-xl: 1.5rem;     /* 24 区块标题 */
+  --fs-2xl: 2.125rem;  /* 34 页面标题 */
+  --fs-hero: clamp(2.6rem, 6vw, 4.25rem);
+
+  /* 节奏 */
+  --space-1: .25rem;
+  --space-2: .5rem;
+  --space-3: .75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4.5rem;
+
+  --w-page: 1120px;
+  --shadow-pop: 0 2px 6px rgba(33, 28, 21, .08), 0 18px 48px rgba(33, 28, 21, .16);
+  --shadow-flat: 0 1px 3px rgba(33, 28, 21, .07);
+
+  --dur: 160ms;
+  --dur-slow: 320ms;
+  --ease: cubic-bezier(.3, .7, .3, 1);
+}

@@ -1,0 +1,80 @@
+/* ═══════ 基础 ═══════ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: var(--fs-base);
+  line-height: 1.7;
+  min-height: 100vh;
+  /* 纸张肌理：极淡的横纹，代替旧站的扫描线 */
+  background-image: repeating-linear-gradient(0deg, transparent 0 3px, rgba(33, 28, 21, .012) 3px 4px);
+}
+
+::selection { background: rgba(181, 55, 29, .18); }
+
+h1, h2, h3, h4 { font-family: var(--serif); font-weight: 700; line-height: 1.3; }
+
+a { color: inherit; text-decoration: none; }
+a:hover { color: var(--accent-deep); }
+
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+input, select, textarea { font: inherit; color: inherit; }
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+mark {
+  background: rgba(181, 55, 29, .16);
+  color: var(--accent-deep);
+  padding: 0 .05em;
+}
+
+img, svg, iframe { display: block; max-width: 100%; }
+
+/* 数字一律等宽 */
+.num, .mono {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -.01em;
+}
+
+.skip-link {
+  position: absolute; left: -9999px; top: 0; z-index: 999;
+  background: var(--ink); color: var(--paper); padding: .5rem 1rem;
+}
+.skip-link:focus { left: 0; }
+
+/* 细双线 —— 场刊版式签名 */
+.rule-double {
+  border: 0;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  height: 3px;
+}
+.rule { border: 0; border-top: 1px solid var(--line); }
+
+/* 区块头 */
+.sec-head { margin-bottom: var(--space-5); }
+.sec-kicker {
+  font-family: var(--mono);
+  font-size: var(--fs-xs);
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: .6em;
+}
+.sec-kicker::before { content: ''; width: 2.2em; height: 1px; background: var(--accent); }
+.sec-title { font-size: var(--fs-xl); margin-top: .35rem; display: flex; align-items: baseline; gap: .75rem; flex-wrap: wrap; }
+.sec-title .sec-sub { font-family: var(--mono); font-size: var(--fs-sm); color: var(--ink-3); font-weight: 400; }
+.sec-title .sec-link { margin-left: auto; font-family: var(--sans); font-size: var(--fs-md); color: var(--ink-2); }
+.sec-title .sec-link:hover { color: var(--accent-deep); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+  html { scroll-behavior: auto; }
+}
