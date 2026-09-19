@@ -491,7 +491,7 @@
       '<div class="foot-col"><h4>SUI SONG ARCHIVE</h4>' +
       '<p class="foot-span">' + esc(S.first.slice(0, 7).replace('-', '.')) + ' — ' + esc(S.last.slice(0, 7).replace('-', '.')) + '</p>' +
       '<p>收录歌曲 ' + D.fmtInt(S.total) + ' 首 · 演唱 ' + D.fmtInt(S.performances) + ' 次 · 点歌 ' + D.fmtInt(R.total) + ' 次</p>' +
-      '<span class="foot-ver">界面版本 v3.7.7</span></div>' +
+      '<span class="foot-ver">界面版本 v3.7.8</span></div>' +
       '<div class="foot-col"><h4>数据来源</h4><ul>' +
       '<li><a href="https://www.suijisui.space" target="_blank" rel="noopener">suijisui.space</a>（PQL87/sui-song-list）</li>' +
       '<li><a href="#/requests">点歌统计（已并入本站）</a> · 源自直播间点歌记录</li>' +
@@ -537,7 +537,7 @@
   /* ═══════ 主题切换（浅色 / 深色）═══════
      初始 data-theme 由 skeleton.html 的 head 内联脚本写好（防闪烁），
      这里只负责按钮交互与记忆。存储键 sui-theme：'light' | 'dark'。
-     用户主动切换过就永久记住；没切换过则跟随系统（引导脚本已处理）。 */
+     用户主动切换过就永久记住；没切换过则首开固定浅色（v3.7.8 起不跟随系统，引导脚本已处理）。 */
   function initTheme() {
     var btn = document.getElementById('themeToggle');
     if (!btn) return;

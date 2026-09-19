@@ -287,7 +287,7 @@ build_site.py ──► sitegen.builder.build()
 18. **浅色 / 深色主题（v3.7.7）**：主题属性 `html[data-theme="dark"]`，切换按钮 `#themeToggle`
     （顶栏独立圆钮，**不在 .head-actions 里** —— 窄屏该区整体隐藏，开关必须常驻）。三层机制：
     ① skeleton.html head 内联引导脚本在 CSS 生效前写好 data-theme（防 FOUC），优先级
-    `localStorage['sui-theme']` > `prefers-color-scheme` > 浅色；② components.js `initTheme()`
+    `localStorage['sui-theme']` > 浅色（**v3.7.8 起首开固定浅色、不跟随 `prefers-color-scheme`**）；② components.js `initTheme()`
     负责点击切换 + 记忆；③ tokens.css 定义深色变量块与 `color-scheme: dark`。
     **新增颜色必须走语义变量，禁止写死 hex/rgba**：随墨翻转的淡染用 `rgba(var(--ink-rgb), α)`、
     随纸翻转的蒙层用 `--paper-rgb`、恒深阴影用 `--shade-rgb`、恒深遮罩（弹层/侧栏/彩蛋）用

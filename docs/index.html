@@ -11,11 +11,10 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@600;700;900&display=swap" rel="stylesheet">
 <script>
 /* 主题引导：必须在 <style> 生效前写好 data-theme，否则深色用户会先闪一下白底（FOUC）。
-   优先级：localStorage 记忆 > 系统偏好 > 浅色。切换与记忆逻辑在 components.js。 */
+   优先级：localStorage 记忆 > 浅色。首次打开固定浅色（不跟随系统偏好），切换与记忆逻辑在 components.js。 */
 (function () {
   var t = null;
   try { t = localStorage.getItem('sui-theme'); } catch (e) {}
-  if (!t && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches) t = 'dark';
   if (t === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
 })();
 </script>
@@ -3462,7 +3461,7 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
       '<div class="foot-col"><h4>SUI SONG ARCHIVE</h4>' +
       '<p class="foot-span">' + esc(S.first.slice(0, 7).replace('-', '.')) + ' — ' + esc(S.last.slice(0, 7).replace('-', '.')) + '</p>' +
       '<p>收录歌曲 ' + D.fmtInt(S.total) + ' 首 · 演唱 ' + D.fmtInt(S.performances) + ' 次 · 点歌 ' + D.fmtInt(R.total) + ' 次</p>' +
-      '<span class="foot-ver">界面版本 v3.7.7</span></div>' +
+      '<span class="foot-ver">界面版本 v3.7.8</span></div>' +
       '<div class="foot-col"><h4>数据来源</h4><ul>' +
       '<li><a href="https://www.suijisui.space" target="_blank" rel="noopener">suijisui.space</a>（PQL87/sui-song-list）</li>' +
       '<li><a href="#/requests">点歌统计（已并入本站）</a> · 源自直播间点歌记录</li>' +
@@ -3508,7 +3507,7 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
   /* ═══════ 主题切换（浅色 / 深色）═══════
      初始 data-theme 由 skeleton.html 的 head 内联脚本写好（防闪烁），
      这里只负责按钮交互与记忆。存储键 sui-theme：'light' | 'dark'。
-     用户主动切换过就永久记住；没切换过则跟随系统（引导脚本已处理）。 */
+     用户主动切换过就永久记住；没切换过则首开固定浅色（v3.7.8 起不跟随系统，引导脚本已处理）。 */
   function initTheme() {
     var btn = document.getElementById('themeToggle');
     if (!btn) return;
@@ -5660,6 +5659,7 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
   var esc = C.esc;
 
   var CHANGELOG = [
+    ['v3.7.8', '主题策略调整：首次打开固定使用浅色主题，不再跟随系统 / 浏览器的深色偏好；手动切换与记忆不受影响，选择过深色的老访客依然保持深色'],
     ['v3.7.7', '全站新增浅色 / 深色主题切换：顶栏新增日月圆钮（独立于窄屏会整体隐藏的动作区，手机端常驻可点），点击即切换并写入 localStorage 永久记忆；未手动选择过的访客跟随系统偏好，且页面首帧前就写好主题属性，深色用户不会先闪一下白底。深色版面是同一套场刊版式的「深夜刊」——暖黑纸底、暖白墨字、绯红整体提亮保证对比度，藏青页脚 / 档案照 / 光环金等深色版面元素原样保留；散落各文件的硬编码颜色收拢为语义通道（随墨翻转的淡染、恒深阴影、恒深遮罩、随纸翻转的蒙层），打印时无论当前主题一律回到浅色纸面；画廊白底原画改挂恒浅卡纸衬底，multiply 印刷语言在深色墙上依然成立；洞察页 SVG 图表配色改为随主题翻转（次级曲线深色下改用发丝冰蓝）'],
     ['v3.7.6', '关于页新增「画廊」：四张岁己插画以装帧方式融入版面。三张白底原画不做键控抠图（主体银发与白底同色域，抠图必伤发丝与金环细线），预处理把近白噪声软钳为纯白后，用 multiply 混合模式把白底「印」进纸色页面——白底自然消失、翅尖以出血形式收在卡缘；夏日场景插画自带完整底色，沿用角色档案照的藏青装框语言。四张统一金线细框与图注，悬停轻抬升，响应式 4 → 2 → 1 列'],
     ['v3.7.5', '成就殿堂移除「一周年纪念」成就：原由点歌数据跨度 ≥ 365 天自动派生，与任何观众 / 解锁条件 / 奖励 / 独立成就计数均无关，现已删除其派生逻辑与随之产生的 start/end 死代码；成就殿堂改为仅含点歌之王 / 百首俱乐部 / 忠实观众三项。前端通用渲染与彩蛋（进入成就区视口撒彩纸）不受影响，成就本就是构建期从 raw 数据直接算出的列表，无需要清理的关联解锁 / 发放 / 进度逻辑'],
