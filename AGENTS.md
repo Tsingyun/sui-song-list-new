@@ -279,3 +279,5 @@ build_site.py ──► sitegen.builder.build()
    `.figures` 165→1145px、`.site-foot-inner` 320→1120px；加固后三者全部逐字相同
 
 15. **点歌冠军 👑 显著性规则（v3.7.4）**：冢冕只在某人**显著领先**时出现，杠绝「全员各 1 次全戴冢」的冗余。判定唯一实现 `reqstats.month_champions()`（月度榖与跨月冢军共用，前端含最近 15 天只读结果不自行重算）。回归脚本 `.zcode/workspace/default/_verify_champion.py`：覆盖 4 个代表性月份（2026-09 全员各 1 次→0 冢、2024-10 6 vs 4→1 冢、2025-03 7 vs 6→0 冢、2025-07 4 vs 2→1 冢）+ 点歌之王卡恒为 1 冢 + 最近 15 天随当月冢军 + 跨月冢军 2 条，全部断言。
+
+16. **成就殿堂移除「一周年纪念」（v3.7.5）**：成就全部由 `reqstats.compute_achievements()` 构建期从 raw 数据直接算出，无独立「解锁条件 / 奖励发放 / 进度触发 / 成就计数」配置。删除只需移除该函数内的 `anniversary_1` 派生块（及随之产生的 `start, end` 死代码），前端 `achBlock()` 通用渲染 `R.achievements` 数组、彩蛋按整个成就区进入视口触发，均不依赖具体成就，无需改动。回归脚本 `.zcode/workspace/default/_verify_achievement.py`：真实渲染点歌统计页，断言成就区恰为 3 张卡（点歌之王 / 百首俱乐部 / 忠实观众）、不含一周年纪念卡、无空状态、无页面报错。
