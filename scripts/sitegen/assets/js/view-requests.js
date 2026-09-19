@@ -203,12 +203,27 @@
 
   function briefCards(R) {
     var cards = [];
-    cards.push({
-      label: '👑 点歌之王',
-      body: '<span class="rb-item"><b>' + esc(R.king.n) + '</b>' +
-        '<span class="rb-num">' + R.king.c + '</span>' +
-        '<span class="rb-sub">次点歌 · 累计第一</span></span>'
-    });
+    /* 点歌之王 = 总榜前三。直接取「总榜」（boards.total）的头部，与页内「总榜」
+       切换用的是同一份数据、同一套排序（次数降序 → 昵称），所以不存在两套口径；
+       原来只渲染 R.king（后端 most_common(1) 取到的第一名），改于 v3.7.2 */
+    var top3 = (R.boards.total || []).slice(0, 3);
+    if (!top3.length && R.king && R.king.n) top3 = [{ n: R.king.n, c: R.king.c }];
+    if (top3.length) {
+      cards.push({
+        label: '👑 点歌之王',
+        body: top3.map(function (r, i) {
+          /* 名次写法与榜单一致（mono 两位补零），第一名沿用全站「冠军戴冠」的语言。
+             金冠槽三行都占位（只有第一名填 👑），否则三行昵称左边缘会差一个冠的宽度 */
+          return '<span class="rb-item' + (i === 0 ? ' is-1' : '') + '">' +
+            '<span class="rb-rk" title="累计点歌第 ' + (i + 1) + ' 名">' +
+            String(i + 1).padStart(2, '0') + '</span>' +
+            '<span class="rb-crown" aria-hidden="true">' + (i === 0 ? '👑' : '') + '</span>' +
+            '<b>' + esc(r.n) + '</b>' +
+            '<span class="rb-num">' + r.c + '</span>' +
+            '<span class="rb-sub">次</span></span>';
+        }).join('')
+      });
+    }
 
     var recent = Object.keys(R.lastDates || {})
       .map(function (n) { return { n: n, d: R.lastDates[n] }; })

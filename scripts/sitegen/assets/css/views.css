@@ -253,6 +253,20 @@
 .rb-num { flex-shrink: 0; font-family: var(--mono); color: var(--accent); font-weight: 600; }
 .rb-sub { flex-shrink: 0; color: var(--ink-3); font-size: var(--fs-sm); }
 .rb-fire { flex-shrink: 0; color: var(--accent-deep); letter-spacing: -.12em; }
+/* 点歌之王前三名：名次徽标与金冠槽都**定宽**（flex-basis + min-width:0，不用 ch/内容宽），
+   否则第一名加粗的徽标、👑 的 emoji 宽度都会把该行昵称往右挤，三行就对不齐了
+   （实测：靠内容撑宽时第一行昵称比后两行右移 ~3.9px）。名次写法与榜单 .rk 一致 */
+.rb-rk {
+  flex: 0 0 1.5em;
+  min-width: 0;
+  font-family: var(--mono);
+  font-size: var(--fs-sm);
+  color: var(--ink-3);
+  text-align: center;
+}
+.rb-item.is-1 .rb-rk { color: var(--gold); font-weight: 600; }
+/* 金冠槽：三行都占位（只有第一名有 👑），保证昵称左边缘对齐 */
+.rb-crown { flex: 0 0 1.45em; min-width: 0; font-size: var(--fs-sm); line-height: 1; text-align: center; }
 
 
 /* 紧凑行（首页右栏等窄容器） */

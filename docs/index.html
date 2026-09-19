@@ -1549,6 +1549,20 @@ img, svg, iframe { display: block; max-width: 100%; }
 .rb-num { flex-shrink: 0; font-family: var(--mono); color: var(--accent); font-weight: 600; }
 .rb-sub { flex-shrink: 0; color: var(--ink-3); font-size: var(--fs-sm); }
 .rb-fire { flex-shrink: 0; color: var(--accent-deep); letter-spacing: -.12em; }
+/* 点歌之王前三名：名次徽标与金冠槽都**定宽**（flex-basis + min-width:0，不用 ch/内容宽），
+   否则第一名加粗的徽标、👑 的 emoji 宽度都会把该行昵称往右挤，三行就对不齐了
+   （实测：靠内容撑宽时第一行昵称比后两行右移 ~3.9px）。名次写法与榜单 .rk 一致 */
+.rb-rk {
+  flex: 0 0 1.5em;
+  min-width: 0;
+  font-family: var(--mono);
+  font-size: var(--fs-sm);
+  color: var(--ink-3);
+  text-align: center;
+}
+.rb-item.is-1 .rb-rk { color: var(--gold); font-weight: 600; }
+/* 金冠槽：三行都占位（只有第一名有 👑），保证昵称左边缘对齐 */
+.rb-crown { flex: 0 0 1.45em; min-width: 0; font-size: var(--fs-sm); line-height: 1; text-align: center; }
 
 
 /* 紧凑行（首页右栏等窄容器） */
@@ -3265,7 +3279,7 @@ img, svg, iframe { display: block; max-width: 100%; }
       '<div class="foot-col"><h4>SUI SONG ARCHIVE</h4>' +
       '<p class="foot-span">' + esc(S.first.slice(0, 7).replace('-', '.')) + ' — ' + esc(S.last.slice(0, 7).replace('-', '.')) + '</p>' +
       '<p>收录歌曲 ' + D.fmtInt(S.total) + ' 首 · 演唱 ' + D.fmtInt(S.performances) + ' 次 · 点歌 ' + D.fmtInt(R.total) + ' 次</p>' +
-      '<span class="foot-ver">界面版本 v3.7.1</span></div>' +
+      '<span class="foot-ver">界面版本 v3.7.2</span></div>' +
       '<div class="foot-col"><h4>数据来源</h4><ul>' +
       '<li><a href="https://www.suijisui.space" target="_blank" rel="noopener">suijisui.space</a>（PQL87/sui-song-list）</li>' +
       '<li><a href="#/requests">点歌统计（已并入本站）</a> · 源自直播间点歌记录</li>' +
@@ -4570,12 +4584,27 @@ img, svg, iframe { display: block; max-width: 100%; }
 
   function briefCards(R) {
     var cards = [];
-    cards.push({
-      label: '👑 点歌之王',
-      body: '<span class="rb-item"><b>' + esc(R.king.n) + '</b>' +
-        '<span class="rb-num">' + R.king.c + '</span>' +
-        '<span class="rb-sub">次点歌 · 累计第一</span></span>'
-    });
+    /* 点歌之王 = 总榜前三。直接取「总榜」（boards.total）的头部，与页内「总榜」
+       切换用的是同一份数据、同一套排序（次数降序 → 昵称），所以不存在两套口径；
+       原来只渲染 R.king（后端 most_common(1) 取到的第一名），改于 v3.7.2 */
+    var top3 = (R.boards.total || []).slice(0, 3);
+    if (!top3.length && R.king && R.king.n) top3 = [{ n: R.king.n, c: R.king.c }];
+    if (top3.length) {
+      cards.push({
+        label: '👑 点歌之王',
+        body: top3.map(function (r, i) {
+          /* 名次写法与榜单一致（mono 两位补零），第一名沿用全站「冠军戴冠」的语言。
+             金冠槽三行都占位（只有第一名填 👑），否则三行昵称左边缘会差一个冠的宽度 */
+          return '<span class="rb-item' + (i === 0 ? ' is-1' : '') + '">' +
+            '<span class="rb-rk" title="累计点歌第 ' + (i + 1) + ' 名">' +
+            String(i + 1).padStart(2, '0') + '</span>' +
+            '<span class="rb-crown" aria-hidden="true">' + (i === 0 ? '👑' : '') + '</span>' +
+            '<b>' + esc(r.n) + '</b>' +
+            '<span class="rb-num">' + r.c + '</span>' +
+            '<span class="rb-sub">次</span></span>';
+        }).join('')
+      });
+    }
 
     var recent = Object.keys(R.lastDates || {})
       .map(function (n) { return { n: n, d: R.lastDates[n] }; })
@@ -5420,6 +5449,7 @@ img, svg, iframe { display: block; max-width: 100%; }
   var esc = C.esc;
 
   var CHANGELOG = [
+    ['v3.7.2', '点歌统计页「点歌速览」的「点歌之王」卡片由只显示第一名改为按名次展示前三名：每行含名次徽标、昵称、累计点歌次数（第一名保留金冠）。数据直接取自站点「总榜」（次数降序 → 昵称）的头部三人，与页内总榜切换共用同一份数据与排序，不存在第二套口径'],
     ['v3.7.1', '修复「顶栏标签点了没反应」：弹层遮罩原先铺在顶栏之上，点导航的事件被遮罩接走（弹层只是被关掉、页面并不跳转）。现在把顶栏层级提到所有页面级浮层之上，弹层打开 / 点歌页彩蛋显示 / 播放器拖到最顶时，点标签都能正常跳转；同时弹层主动给顶栏让位，保证 ✕ 依旧可点'],
     ['v3.7.1', '修复窄屏导航够不到的问题：导航在窄屏靠横向滚动，但滚动条被隐藏，鼠标用户看不出可滚也滚不动（360px 时 8 个标签有 4 个完全点不到）。现在窄屏显示细滚动条；并把语言页锚点条的吸顶位置改为按顶栏实测高度对齐（不再写死，字体加载后也不会错位）'],
     ['v3.7', '首页右下角的「点歌速览」模块移除，改为「盲盒抽歌」：上方池子纵向自然滚动展示随机抽样的 24 首（每次打开都是新的一批），下方一键抽取，复用顶栏盲盒的滚轮动画与结果面板（歌名 / 原唱 / 语言 / 演唱次数 + 播放或去 B站搜）'],
@@ -5449,7 +5479,7 @@ img, svg, iframe { display: block; max-width: 100%; }
   function render(params, container) {
     container.innerHTML =
       '<div class="sec-head"><div class="sec-kicker">ABOUT</div>' +
-      '<h2 class="sec-title">关于本站 <span class="sec-sub">SUI SONG ARCHIVE v3.7.1</span></h2></div>' +
+      '<h2 class="sec-title">关于本站 <span class="sec-sub">SUI SONG ARCHIVE v3.7.2</span></h2></div>' +
 
       /* ── 角色档案：本站唯一的「岁己本人出场」板块，设定均取自官方资料 ── */
       '<section class="sui-profile">' +
