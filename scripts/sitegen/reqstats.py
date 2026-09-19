@@ -48,7 +48,7 @@ stats repo used — never hand-patched:
 
 成就殿堂 achievements
     点歌之王 (top of the total board) / 百首俱乐部 (everyone >= 100 requests) /
-    一周年纪念 (data span >= 1 year) / 忠实观众 (most distinct months requested).
+    忠实观众 (most distinct months requested).
 
 新朋友 newcomers / 老朋友回归 returners
     newcomer  = first-ever request inside the last 90 days (relative to the last
@@ -150,8 +150,8 @@ def compute_champion_streaks(monthly_counter):
     return out
 
 
-def compute_achievements(raw, total_board, meta, aud_months):
-    """点歌之王 / 百首俱乐部 / 一周年纪念 / 忠实观众."""
+def compute_achievements(raw, total_board, aud_months):
+    """点歌之王 / 百首俱乐部 / 忠实观众."""
     ach = []
     if total_board:
         top = total_board[0]
@@ -163,11 +163,6 @@ def compute_achievements(raw, total_board, meta, aud_months):
             ach.append({'id': '100club_' + row['n'], 'name': '百首俱乐部', 'emoji': '🎯',
                         'desc': '%s 点歌 %d 次，突破百首大关！' % (row['n'], row['c']),
                         'audience': row['n'], 'count': row['c']})
-    start, end = meta.get('start', ''), meta.get('end', '')
-    if start and end and _days_between(start, end) >= 365:
-        ach.append({'id': 'anniversary_1', 'name': '一周年纪念', 'emoji': '📅',
-                    'desc': '岁己的点歌系统已经运行超过一年了！（%s 至今）' % start,
-                    'count': meta.get('total', 0)})
     best_a, best_m = None, 0
     for aud, months in aud_months.items():
         if len(months) > best_m:
@@ -420,7 +415,7 @@ def build_request_payload():
     # without a second data file: ~40 KB for the current 863 records.
     raw_c = [{'d': e['date'], 's': e['song'], 'a': e['audience']} for e in raw]
 
-    achievements = compute_achievements(raw, total_board, meta, aud_day)
+    achievements = compute_achievements(raw, total_board, aud_day)
     champ_streaks = compute_champion_streaks(monthly)
     newcomers = compute_newcomers(raw, meta['end'])
     returners = compute_returners(raw)
