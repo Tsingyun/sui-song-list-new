@@ -59,7 +59,9 @@ def copy_static_assets():
     out_dir = os.path.join(DOCS_DIR, 'assets')
     os.makedirs(out_dir, exist_ok=True)
     for fn in ['logo.png', 'sui-avatar.webp', 'sui-chibi.webp', 'sui-portrait.webp',
-               'sui-fullbody.webp', 'sui-short.webp', 'sui-bird.png', 'sui-cursor.png'] + HERO_ART:
+               'sui-fullbody.webp', 'sui-short.webp', 'sui-bird.png', 'sui-cursor.png',
+               'sui-gallery-ribbon.webp', 'sui-gallery-smile.webp',
+               'sui-gallery-summer.webp', 'sui-gallery-heart.webp'] + HERO_ART:
         src = os.path.join(ASSETS_DIR, fn)
         if os.path.exists(src):
             shutil.copy(src, os.path.join(out_dir, fn))

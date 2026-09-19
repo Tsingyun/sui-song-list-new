@@ -2182,6 +2182,59 @@ img, svg, iframe { display: block; max-width: 100%; }
 }
 .sui-profile-from { margin-top: .7rem; font-size: var(--fs-xs); color: var(--ink-3); }
 
+/* ─── 画廊：无透明底插画的「装帧式」融入 ───
+   三张白底原画不做键控抠图 —— 主体银发与白底同色域，抠图必伤发丝与金环细线；
+   构建前已将近白噪声软钳为纯白，页面上用 multiply 让白底在纸色上自然消失
+   （「印刷于纸上」的语言），翅尖以出血形式收在卡缘。场景插画自带完整底色，
+   沿用角色档案照的藏青装框同族语言。四张统一金线细框 + mono 图注。 */
+.sui-gallery { margin-bottom: var(--space-7); }
+.sui-gallery-intro {
+  font-size: var(--fs-md);
+  color: var(--ink-2);
+  margin: .6rem 0 var(--space-5);
+  max-width: 46em;
+}
+.sui-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-5);
+}
+.sui-gallery-item {
+  margin: 0;
+  padding: 10px 10px 0;
+  background: var(--paper);
+  border: 1px solid var(--gold-soft);
+  box-shadow: var(--shadow-flat);
+  transition: transform .25s var(--ease), box-shadow .25s var(--ease), border-color .25s var(--ease);
+}
+.sui-gallery-item:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold);
+  box-shadow: 0 10px 22px rgba(33, 28, 21, .12);
+}
+.sui-gallery-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 720 / 1024;
+  object-fit: cover;
+  object-position: top center;
+}
+/* 白底原画：multiply 融入纸面（卡底 = 纸色，白底消失） */
+.sui-gallery-item--blend img { mix-blend-mode: multiply; }
+.sui-gallery-item figcaption {
+  font-family: var(--mono);
+  font-size: var(--fs-xs);
+  letter-spacing: .06em;
+  color: var(--ink-3);
+  text-align: center;
+  padding: .65rem 0 .7rem;
+}
+@media (prefers-reduced-motion: reduce) {
+  .sui-gallery-item { transition: none; }
+  .sui-gallery-item:hover { transform: none; }
+}
+
 .about-cols { display: grid; grid-template-columns: 1.5fr 1fr; gap: var(--space-7); }
 .about-block h3 { font-size: var(--fs-lg); margin: var(--space-5) 0 .7rem; }
 .about-block h3:first-child { margin-top: 0; }
@@ -2209,6 +2262,8 @@ img, svg, iframe { display: block; max-width: 100%; }
   .req-cols, .req-grid-2, .about-cols { grid-template-columns: minmax(0, 1fr); }
   /* 角色档案：照片变窄，给设定表让位 */
   .sui-profile-grid { grid-template-columns: 210px minmax(0, 1fr); gap: var(--space-5); }
+  /* 画廊：4 列收成 2 列 */
+  .sui-gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 /* 手机横屏 / 窄平板 */
@@ -2328,6 +2383,9 @@ img, svg, iframe { display: block; max-width: 100%; }
   .sui-profile-grid { grid-template-columns: minmax(0, 1fr); }
   .sui-profile-photo { max-width: 240px; }
   .sui-profile-table > div { grid-template-columns: 3.9rem minmax(0, 1fr); }
+  /* 画廊：单列，图版限宽居中（390px 下整幅 ~340px，便于看画） */
+  .sui-gallery-grid { grid-template-columns: minmax(0, 1fr); }
+  .sui-gallery-item { max-width: 340px; margin: 0 auto; width: 100%; }
   /* 页面水印：窄屏改按「页眉饰纹」的尺度出现 —— 收进 kicker 那一行
      （标题与副标题会折行，190px 宽的大水印底部弧线会压到文字；
       49px 高时弧线正好落在 kicker 与标题之间的空隙里）。
@@ -3287,7 +3345,7 @@ img, svg, iframe { display: block; max-width: 100%; }
       '<div class="foot-col"><h4>SUI SONG ARCHIVE</h4>' +
       '<p class="foot-span">' + esc(S.first.slice(0, 7).replace('-', '.')) + ' — ' + esc(S.last.slice(0, 7).replace('-', '.')) + '</p>' +
       '<p>收录歌曲 ' + D.fmtInt(S.total) + ' 首 · 演唱 ' + D.fmtInt(S.performances) + ' 次 · 点歌 ' + D.fmtInt(R.total) + ' 次</p>' +
-      '<span class="foot-ver">界面版本 v3.7.5</span></div>' +
+      '<span class="foot-ver">界面版本 v3.7.6</span></div>' +
       '<div class="foot-col"><h4>数据来源</h4><ul>' +
       '<li><a href="https://www.suijisui.space" target="_blank" rel="noopener">suijisui.space</a>（PQL87/sui-song-list）</li>' +
       '<li><a href="#/requests">点歌统计（已并入本站）</a> · 源自直播间点歌记录</li>' +
@@ -5458,6 +5516,7 @@ img, svg, iframe { display: block; max-width: 100%; }
   var esc = C.esc;
 
   var CHANGELOG = [
+    ['v3.7.6', '关于页新增「画廊」：四张岁己插画以装帧方式融入版面。三张白底原画不做键控抠图（主体银发与白底同色域，抠图必伤发丝与金环细线），预处理把近白噪声软钳为纯白后，用 multiply 混合模式把白底「印」进纸色页面——白底自然消失、翅尖以出血形式收在卡缘；夏日场景插画自带完整底色，沿用角色档案照的藏青装框语言。四张统一金线细框与图注，悬停轻抬升，响应式 4 → 2 → 1 列'],
     ['v3.7.5', '成就殿堂移除「一周年纪念」成就：原由点歌数据跨度 ≥ 365 天自动派生，与任何观众 / 解锁条件 / 奖励 / 独立成就计数均无关，现已删除其派生逻辑与随之产生的 start/end 死代码；成就殿堂改为仅含点歌之王 / 百首俱乐部 / 忠实观众三项。前端通用渲染与彩蛋（进入成就区视口撒彩纸）不受影响，成就本就是构建期从 raw 数据直接算出的列表，无需要清理的关联解锁 / 发放 / 进度逻辑'],
     ['v3.7.4', '点歌统计「月度点歌榜」的 👑 冠军标识改为只在「显著领先」时显示：原先凡与榜首同次数的观众全部戴冠，一个月里人人都是 1 次时 TOP 10 会整排顶着皇冠（2026-09 单月就有 12 个）。现在须三条同时成立 —— 唯一第一（并列则无人戴冠）、榜首 ≥ 2 次（只被点 1 次不算）、且显著领先（榜首 ≥ 2×次高 或 领先次高 ≥ 2 次）。于是「2 次 vs 其余各 1 次」是冠军，而「全员 1 次」「5 vs 4」「11 vs 11」都不是，该月一个皇冠都不显示；跨月冠军与「最近 15 天」沿用同一判定（前端不再自行重算），跨月冠军由 4 条收敛为 2 条，全站冠冕总数 48 → 11'],
     ['v3.7.3', '修复窄屏下极偶发的横向滚动条：首页「最近演出」「常唱金曲」、点歌页「点歌头部统计」等区块所在的网格，列宽原先写成裸 1fr —— 它的最小宽度等于内容宽度，内容一长就会把列轨道顶开（放大实验实测列宽可从 331px 被顶到 1120px），因此在 360px 视口下偶发撑出横向滚动条。现改用 minmax(0, 1fr) 把列宽锁死，同类写法（数字图块、页脚栏、点歌头部统计）一并加固；页面外观与排版无变化'],
@@ -5491,7 +5550,7 @@ img, svg, iframe { display: block; max-width: 100%; }
   function render(params, container) {
     container.innerHTML =
       '<div class="sec-head"><div class="sec-kicker">ABOUT</div>' +
-      '<h2 class="sec-title">关于本站 <span class="sec-sub">SUI SONG ARCHIVE v3.7.5</span></h2></div>' +
+      '<h2 class="sec-title">关于本站 <span class="sec-sub">SUI SONG ARCHIVE v3.7.6</span></h2></div>' +
 
       /* ── 角色档案：本站唯一的「岁己本人出场」板块，设定均取自官方资料 ── */
       '<section class="sui-profile">' +
@@ -5518,6 +5577,31 @@ img, svg, iframe { display: block; max-width: 100%; }
       '<p class="sui-profile-quote">「可以邀请你跟我一起飞行吗？人类不会飞的话，我悄悄载你！」</p>' +
       '<p class="sui-profile-from">以上设定摘自岁己公开资料；本页其余内容均为本站对演唱数据的整理。</p>' +
       '</div></div></section>' +
+
+      /* ── 画廊：四张插画的装帧式陈列。白底原画不做键控抠图（主体银发与白底
+         同色域，抠图必伤发丝与金环细线），预处理钳白后以 multiply「印刷」进
+         纸色页面；场景插画自带底色，直接装框。 ── */
+      '<section class="sui-gallery">' +
+      '<div class="sec-kicker">GALLERY · 画廊</div>' +
+      '<p class="sui-gallery-intro">四张插画以「纸上印刷」的方式融入版面：白底原画与纸面同色相融、翅尖出血到卡缘，场景插画则装框陈列。</p>' +
+      '<div class="sui-gallery-grid">' +
+      '<figure class="sui-gallery-item sui-gallery-item--blend">' +
+      '<img src="assets/sui-gallery-ribbon.webp" alt="岁己SUI 插画：金枝光环与红缎带双马尾" width="720" height="1024" loading="lazy" decoding="async">' +
+      '<figcaption>01 · 金枝与缎带</figcaption>' +
+      '</figure>' +
+      '<figure class="sui-gallery-item sui-gallery-item--blend">' +
+      '<img src="assets/sui-gallery-smile.webp" alt="岁己SUI 插画：簪花微笑" width="720" height="1024" loading="lazy" decoding="async">' +
+      '<figcaption>02 · 花与笑靥</figcaption>' +
+      '</figure>' +
+      '<figure class="sui-gallery-item">' +
+      '<img src="assets/sui-gallery-summer.webp" alt="岁己SUI 插画：夏日泳圈戏水" width="720" height="1024" loading="lazy" decoding="async">' +
+      '<figcaption>03 · 夏日泳圈</figcaption>' +
+      '</figure>' +
+      '<figure class="sui-gallery-item sui-gallery-item--blend">' +
+      '<img src="assets/sui-gallery-heart.webp" alt="岁己SUI 插画：悄悄比心" width="720" height="1024" loading="lazy" decoding="async">' +
+      '<figcaption>04 · 悄悄比心</figcaption>' +
+      '</figure>' +
+      '</div></section>' +
 
       '<div class="about-cols"><div class="about-block">' +
       '<h3>这是什么</h3>' +

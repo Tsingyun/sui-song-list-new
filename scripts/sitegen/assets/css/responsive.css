@@ -11,6 +11,8 @@
   .req-cols, .req-grid-2, .about-cols { grid-template-columns: minmax(0, 1fr); }
   /* 角色档案：照片变窄，给设定表让位 */
   .sui-profile-grid { grid-template-columns: 210px minmax(0, 1fr); gap: var(--space-5); }
+  /* 画廊：4 列收成 2 列 */
+  .sui-gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 /* 手机横屏 / 窄平板 */
@@ -130,6 +132,9 @@
   .sui-profile-grid { grid-template-columns: minmax(0, 1fr); }
   .sui-profile-photo { max-width: 240px; }
   .sui-profile-table > div { grid-template-columns: 3.9rem minmax(0, 1fr); }
+  /* 画廊：单列，图版限宽居中（390px 下整幅 ~340px，便于看画） */
+  .sui-gallery-grid { grid-template-columns: minmax(0, 1fr); }
+  .sui-gallery-item { max-width: 340px; margin: 0 auto; width: 100%; }
   /* 页面水印：窄屏改按「页眉饰纹」的尺度出现 —— 收进 kicker 那一行
      （标题与副标题会折行，190px 宽的大水印底部弧线会压到文字；
       49px 高时弧线正好落在 kicker 与标题之间的空隙里）。

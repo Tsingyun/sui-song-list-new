@@ -5,6 +5,7 @@
   var esc = C.esc;
 
   var CHANGELOG = [
+    ['v3.7.6', '关于页新增「画廊」：四张岁己插画以装帧方式融入版面。三张白底原画不做键控抠图（主体银发与白底同色域，抠图必伤发丝与金环细线），预处理把近白噪声软钳为纯白后，用 multiply 混合模式把白底「印」进纸色页面——白底自然消失、翅尖以出血形式收在卡缘；夏日场景插画自带完整底色，沿用角色档案照的藏青装框语言。四张统一金线细框与图注，悬停轻抬升，响应式 4 → 2 → 1 列'],
     ['v3.7.5', '成就殿堂移除「一周年纪念」成就：原由点歌数据跨度 ≥ 365 天自动派生，与任何观众 / 解锁条件 / 奖励 / 独立成就计数均无关，现已删除其派生逻辑与随之产生的 start/end 死代码；成就殿堂改为仅含点歌之王 / 百首俱乐部 / 忠实观众三项。前端通用渲染与彩蛋（进入成就区视口撒彩纸）不受影响，成就本就是构建期从 raw 数据直接算出的列表，无需要清理的关联解锁 / 发放 / 进度逻辑'],
     ['v3.7.4', '点歌统计「月度点歌榜」的 👑 冠军标识改为只在「显著领先」时显示：原先凡与榜首同次数的观众全部戴冠，一个月里人人都是 1 次时 TOP 10 会整排顶着皇冠（2026-09 单月就有 12 个）。现在须三条同时成立 —— 唯一第一（并列则无人戴冠）、榜首 ≥ 2 次（只被点 1 次不算）、且显著领先（榜首 ≥ 2×次高 或 领先次高 ≥ 2 次）。于是「2 次 vs 其余各 1 次」是冠军，而「全员 1 次」「5 vs 4」「11 vs 11」都不是，该月一个皇冠都不显示；跨月冠军与「最近 15 天」沿用同一判定（前端不再自行重算），跨月冠军由 4 条收敛为 2 条，全站冠冕总数 48 → 11'],
     ['v3.7.3', '修复窄屏下极偶发的横向滚动条：首页「最近演出」「常唱金曲」、点歌页「点歌头部统计」等区块所在的网格，列宽原先写成裸 1fr —— 它的最小宽度等于内容宽度，内容一长就会把列轨道顶开（放大实验实测列宽可从 331px 被顶到 1120px），因此在 360px 视口下偶发撑出横向滚动条。现改用 minmax(0, 1fr) 把列宽锁死，同类写法（数字图块、页脚栏、点歌头部统计）一并加固；页面外观与排版无变化'],
@@ -38,7 +39,7 @@
   function render(params, container) {
     container.innerHTML =
       '<div class="sec-head"><div class="sec-kicker">ABOUT</div>' +
-      '<h2 class="sec-title">关于本站 <span class="sec-sub">SUI SONG ARCHIVE v3.7.5</span></h2></div>' +
+      '<h2 class="sec-title">关于本站 <span class="sec-sub">SUI SONG ARCHIVE v3.7.6</span></h2></div>' +
 
       /* ── 角色档案：本站唯一的「岁己本人出场」板块，设定均取自官方资料 ── */
       '<section class="sui-profile">' +
@@ -65,6 +66,31 @@
       '<p class="sui-profile-quote">「可以邀请你跟我一起飞行吗？人类不会飞的话，我悄悄载你！」</p>' +
       '<p class="sui-profile-from">以上设定摘自岁己公开资料；本页其余内容均为本站对演唱数据的整理。</p>' +
       '</div></div></section>' +
+
+      /* ── 画廊：四张插画的装帧式陈列。白底原画不做键控抠图（主体银发与白底
+         同色域，抠图必伤发丝与金环细线），预处理钳白后以 multiply「印刷」进
+         纸色页面；场景插画自带底色，直接装框。 ── */
+      '<section class="sui-gallery">' +
+      '<div class="sec-kicker">GALLERY · 画廊</div>' +
+      '<p class="sui-gallery-intro">四张插画以「纸上印刷」的方式融入版面：白底原画与纸面同色相融、翅尖出血到卡缘，场景插画则装框陈列。</p>' +
+      '<div class="sui-gallery-grid">' +
+      '<figure class="sui-gallery-item sui-gallery-item--blend">' +
+      '<img src="assets/sui-gallery-ribbon.webp" alt="岁己SUI 插画：金枝光环与红缎带双马尾" width="720" height="1024" loading="lazy" decoding="async">' +
+      '<figcaption>01 · 金枝与缎带</figcaption>' +
+      '</figure>' +
+      '<figure class="sui-gallery-item sui-gallery-item--blend">' +
+      '<img src="assets/sui-gallery-smile.webp" alt="岁己SUI 插画：簪花微笑" width="720" height="1024" loading="lazy" decoding="async">' +
+      '<figcaption>02 · 花与笑靥</figcaption>' +
+      '</figure>' +
+      '<figure class="sui-gallery-item">' +
+      '<img src="assets/sui-gallery-summer.webp" alt="岁己SUI 插画：夏日泳圈戏水" width="720" height="1024" loading="lazy" decoding="async">' +
+      '<figcaption>03 · 夏日泳圈</figcaption>' +
+      '</figure>' +
+      '<figure class="sui-gallery-item sui-gallery-item--blend">' +
+      '<img src="assets/sui-gallery-heart.webp" alt="岁己SUI 插画：悄悄比心" width="720" height="1024" loading="lazy" decoding="async">' +
+      '<figcaption>04 · 悄悄比心</figcaption>' +
+      '</figure>' +
+      '</div></section>' +
 
       '<div class="about-cols"><div class="about-block">' +
       '<h3>这是什么</h3>' +

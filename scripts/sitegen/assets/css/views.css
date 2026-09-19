@@ -885,6 +885,59 @@
 }
 .sui-profile-from { margin-top: .7rem; font-size: var(--fs-xs); color: var(--ink-3); }
 
+/* ─── 画廊：无透明底插画的「装帧式」融入 ───
+   三张白底原画不做键控抠图 —— 主体银发与白底同色域，抠图必伤发丝与金环细线；
+   构建前已将近白噪声软钳为纯白，页面上用 multiply 让白底在纸色上自然消失
+   （「印刷于纸上」的语言），翅尖以出血形式收在卡缘。场景插画自带完整底色，
+   沿用角色档案照的藏青装框同族语言。四张统一金线细框 + mono 图注。 */
+.sui-gallery { margin-bottom: var(--space-7); }
+.sui-gallery-intro {
+  font-size: var(--fs-md);
+  color: var(--ink-2);
+  margin: .6rem 0 var(--space-5);
+  max-width: 46em;
+}
+.sui-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-5);
+}
+.sui-gallery-item {
+  margin: 0;
+  padding: 10px 10px 0;
+  background: var(--paper);
+  border: 1px solid var(--gold-soft);
+  box-shadow: var(--shadow-flat);
+  transition: transform .25s var(--ease), box-shadow .25s var(--ease), border-color .25s var(--ease);
+}
+.sui-gallery-item:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold);
+  box-shadow: 0 10px 22px rgba(33, 28, 21, .12);
+}
+.sui-gallery-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 720 / 1024;
+  object-fit: cover;
+  object-position: top center;
+}
+/* 白底原画：multiply 融入纸面（卡底 = 纸色，白底消失） */
+.sui-gallery-item--blend img { mix-blend-mode: multiply; }
+.sui-gallery-item figcaption {
+  font-family: var(--mono);
+  font-size: var(--fs-xs);
+  letter-spacing: .06em;
+  color: var(--ink-3);
+  text-align: center;
+  padding: .65rem 0 .7rem;
+}
+@media (prefers-reduced-motion: reduce) {
+  .sui-gallery-item { transition: none; }
+  .sui-gallery-item:hover { transform: none; }
+}
+
 .about-cols { display: grid; grid-template-columns: 1.5fr 1fr; gap: var(--space-7); }
 .about-block h3 { font-size: var(--fs-lg); margin: var(--space-5) 0 .7rem; }
 .about-block h3:first-child { margin-top: 0; }
