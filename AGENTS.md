@@ -94,6 +94,9 @@ build_site.py ──► sitegen.builder.build()
 - 前端源码按序拼接：`domain.js → core.js → components.js → view-*.js → app.js`
   （domain = 纯函数域层；core = hash 路由/工具；components = 播放器/弹层/导出/页脚；
   view-* = 八个视图；app = 启动）
+- **可配置常量集中在 `builder.py` 顶部**：`BILI_SPACE_URL`（左上角品牌位外链 → B站空间，
+  骨架里是 `__BILI_SPACE_URL__` 占位）、`HERO_ART`（首页立绘轮换候选）。改这两处即可，
+  不要散落硬编码到前端源码
 
 ### 业务规则（改代码前必读，规则原文见 REBUILD_NOTES.md §4）
 
@@ -161,3 +164,5 @@ build_site.py ──► sitegen.builder.build()
 6. 移动端（≤640px）无横向溢出；控制台无错误
 7. 首页立绘轮换：连刷数次应出现 ≥2 张候选且无连续重复；`.hero-figure img` 盒子尺寸
    每次相同（桌面 274×593、移动 230×498）；断网/图 404 时退回清单第一张、全失效则隐藏
+8. 左上角品牌位：`a.brand` 的 href = `BILI_SPACE_URL`、`target=_blank`、
+   `rel=noopener noreferrer`，点击弹出新标签页；桌面与移动端均可见可点且不溢出

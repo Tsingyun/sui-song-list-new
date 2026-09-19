@@ -16,7 +16,23 @@
   align-items: center;
   gap: var(--space-5);
 }
-.brand { display: flex; align-items: center; gap: .6rem; flex-shrink: 0; }
+/* 品牌位 = 整块可点（外链 B站空间），悬停给轻微反馈：徽标微抬 + 文字转强调色 */
+.brand {
+  display: flex; align-items: center; gap: .6rem; flex-shrink: 0;
+  cursor: pointer;
+  padding: 2px 6px;
+  margin: -2px -6px;
+  border-radius: 6px;
+  transition: background-color .22s var(--ease), transform .22s var(--ease);
+}
+.brand:hover { background: rgba(33, 28, 21, .05); transform: translateY(-1px); }
+.brand:active { transform: translateY(0); }
+.brand:hover .brand-text { color: var(--accent-deep); }
+.brand-text { transition: color .22s var(--ease); }
+@media (prefers-reduced-motion: reduce) {
+  .brand, .brand-text { transition: none; }
+  .brand:hover { transform: none; }
+}
 .brand-mark {
   width: 34px; height: 34px;
   object-fit: contain;

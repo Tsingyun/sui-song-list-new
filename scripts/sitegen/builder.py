@@ -16,7 +16,10 @@ ASSETS_DIR = os.path.join(SITEGEN_DIR, 'assets')
 PROJECT_ROOT = os.path.dirname(os.path.dirname(SITEGEN_DIR))
 DOCS_DIR = os.path.join(PROJECT_ROOT, 'docs')
 
-# 首页主视觉立绘候选清单（唯一的维护点）：
+# 外链常量（左上角品牌位指向岁己SUI 的 B站个人空间；改动只需改这一处）
+BILI_SPACE_URL = 'https://space.bilibili.com/1954091502'
+
+# 首页立绘候选清单（唯一的维护点）：
 # 把新立绘放进 scripts/sitegen/assets/ 后，在此加一行文件名即可参与随机轮换，
 # builder 会一并拷贝进 docs/assets/ 并注入前端 window.SUI.heroArt。
 # 第一项同时作为加载失败时的兜底图，建议保持为 1080×2338 的全身立绘。
@@ -71,6 +74,7 @@ def build():
         logo_uri = 'data:image/png;base64,' + base64.b64encode(f.read()).decode()
 
     html = read_asset('skeleton.html')
+    html = html.replace('__BILI_SPACE_URL__', BILI_SPACE_URL)
     html = html.replace('__LOGO_DATA_URI__', logo_uri)
     html = html.replace('<!--INLINE_CSS-->', '<style>\n' + css_bundle() + '\n</style>')
     html = html.replace('<!--INLINE_DATA-->',

@@ -1,7 +1,8 @@
-# 岁己SUI 歌单档案 · v3.0
+# 岁己SUI 歌单档案 · v3.5
 
 > 为虚拟主播 [岁己SUI](https://space.bilibili.com/1954091502) 打造的演唱档案网站。
 > **v3.0 全新重制**：数据与功能继承历代版本，页面结构、视觉系统、组件架构与交互完全从零重建。
+> 当前界面版本 **v3.5**（历次迭代见站内「关于」页更新日志）。
 
 收录 **1,170** 首歌曲、**3,399** 次演唱记录、**865** 条点歌互动，支持在线播放 B站录播片段。
 
@@ -23,6 +24,14 @@ v3.0 采用「演出场刊 / 唱片目录」式的编辑排版系统，与旧版
 - 桌面 / 平板 / 手机三态从零设计，无横向溢出，移动端歌单行两行堆叠
 
 ## 功能总览
+
+### 站点入口与首页视觉
+- **左上角品牌位**（小鸟 Logo + 「岁己SUI 歌单档案」）整块可点击，**新标签页**前往
+  [岁己SUI 的 B站个人空间](https://space.bilibili.com/1954091502)；带 `rel="noopener noreferrer"`，
+  悬停有指针手势与轻微反馈，桌面端与移动端一致（地址常量：`scripts/sitegen/builder.py` 的 `BILI_SPACE_URL`）
+- **首页主视觉立绘随机轮换**：每次打开/刷新从候选清单随机抽一张，同一会话内不与上一张重复；
+  占位盒固定比例（切换不跳动）、加载淡入、图片失效自动退回兜底图
+  （候选清单：`scripts/sitegen/builder.py` 的 `HERO_ART`）
 
 ### 歌单浏览
 - **hash 路由多视图**：首页 / 全部歌曲 / 常唱金曲 / 语言分类 / 原唱分类 / 数据洞察 / 点歌统计 / 关于
@@ -110,11 +119,13 @@ sui-song-list-new/
 │       ├── reqstats.py                         点歌规则层：榜单/占比/🔥/等级/冠军/趋势
 │       ├── builder.py                          组装器：骨架 + CSS/JS 内联 + 数据注入
 │       └── assets/
-│           ├── skeleton.html                   页面骨架
+│           ├── skeleton.html                   页面骨架（含顶栏品牌位外链占位）
+│           ├── sui-*.webp / sui-bird.png       立绘与吉祥物素材（HERO_ART 候选图在此）
 │           ├── css/                            设计系统（tokens/base/layout/components/views/responsive）
 │           └── js/                             前端（domain/core/components/各视图/app）
 └── docs/                                     ← GitHub Pages 部署目录
-    ├── index.html                            ← 构建产物（单文件，~773KB）
+    ├── index.html                            ← 构建产物（单文件，~925KB）
+    ├── assets/                               ← 立绘 / 光标 / 吉祥物等静态资源
     ├── CNAME                                  ← suijisui.uk
     └── screenshot.png
 ```
@@ -153,6 +164,15 @@ python -X utf8 scripts/import_request_stats.py <song_data_processed.json 路径>
 
 编辑 `scripts/sitegen/assets/` 下的 skeleton / css / js 源文件后重新构建。**不要手改
 `docs/index.html`**——它会被下次构建整体覆盖。
+
+两处常用常量都集中在 `scripts/sitegen/builder.py`，改一个地方即可，不用碰前端源码：
+
+| 常量 | 作用 | 改法 |
+|------|------|------|
+| `BILI_SPACE_URL` | 左上角品牌位跳转的 B站空间地址 | 直接改字符串（`__BILI_SPACE_URL__` 占位在构建时替换） |
+| `HERO_ART` | 首页主视觉立绘轮换候选 | 图片放进 `scripts/sitegen/assets/`，清单里加文件名；第一项为加载失败兜底图 |
+
+> 新增立绘无需改 CSS：占位盒固定 `aspect-ratio`，不同比例的图自动等比适应、底部对齐。
 
 ---
 
