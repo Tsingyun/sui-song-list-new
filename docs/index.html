@@ -539,6 +539,10 @@ img, svg, iframe { display: block; max-width: 100%; }
   width: 34px; height: 34px;
   object-fit: contain;
   border-radius: 8px;
+  /* logo.png 画布 96×96，小鸟内容只占 y=30~96（顶部留白 30px、底部贴边），
+     contain 后视觉中心比盒子中心低约 5.3px —— 用纯视觉位移补偿，
+     不改盒子尺寸、不动 flex 布局，各视口行为一致 */
+  transform: translateY(-5px);
   /* 小鸟是白底黑描边透明图，落在暖纸底上收一点投影避免"飘" */
   filter: drop-shadow(0 1px 1.5px rgba(var(--shade-rgb), .22));
 }
