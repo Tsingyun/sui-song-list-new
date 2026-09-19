@@ -873,8 +873,10 @@
   line-height: 1.75;
   color: var(--ink);
   margin-bottom: var(--space-4);
-  max-width: 34em;
-  text-wrap: balance;   /* 两行均衡排布，短段落不会在末行剩一个字（v3.7.9） */
+  max-width: 40em;
+  /* v3.7.10：默认单行展示（原 balance 会在放得下时强行拆两行，断点落在「结果」中间）；
+     keep-all 禁止 CJK 字符间断行——窄屏需折行时只在标点后断，词语永不拆开 */
+  word-break: keep-all;
 }
 .sui-profile-table { border-top: 1px solid var(--ink); }
 .sui-profile-table > div {

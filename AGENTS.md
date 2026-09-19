@@ -303,7 +303,7 @@ build_site.py ──► sitegen.builder.build()
 
 19. **文本断行与输入体验（v3.7.9）**：① 孤字防治 —— h1-h4 用 `text-wrap: balance`，
     p/li 用 `text-wrap: pretty`（末两行均衡，不支持的环境自动忽略）；短介绍段落
-    （.sui-profile-intro）额外加 balance。回归 `.zcode/workspace/default/_verify_v379.py`
+    （.sui-profile-intro）**v3.7.10 教训：短介绍段落禁用 balance**——它在一行放得下时也强行拆两行均衡，断点会落进词语中间（「结果」被拆）。现改为默认单行（max-width 40em）+ `word-break: keep-all`（CJK 字符间断行禁止，窄屏只在标点后折行）。回归 `.zcode/workspace/default/_verify_v379.py`
     内置 5 页 × 9 宽度的孤字审计（Range API 检测末行单字）。② 搜索框 IME 安全 —— 两处搜索
     （#songSearch / #reqSearch）的 input 处理必须带 `e.isComposing || e.keyCode === 229` 守卫 +
     `compositionend` 提交；组合期间整页重渲会销毁输入框、掐断输入法（用户感知为「输入被截断」）。
