@@ -127,9 +127,17 @@
     for (var h = 0; h < routeHooks.length; h++) {
       try { routeHooks[h](); } catch (e) { /* 钩子失败不该拦住换页 */ }
     }
+    if (currentRoute && currentRoute.name !== 'song') {
+      /* v3.7.11：记住最近一次非详情路由，歌曲详情「返回」按钮用它回上级 */
+      C.lastBrowseRoute = currentRoute;
+    }
     fn(parsed.params, container, parsed);
     decoratePage(container, view.page || name);
     currentRoute = { name: name, params: parsed.params };
+    /* v3.7.11：页面切换淡入（CSS 侧在 reduced-motion 下自动关闭） */
+    container.classList.remove('view-in');
+    void container.offsetWidth;   /* 强制 reflow，保证连续切换也能重放动画 */
+    container.classList.add('view-in');
 
     // 页面标题
     var t = '岁己SUI · 歌单档案';

@@ -281,6 +281,7 @@
    故 max-height 里减去两个顶栏高度：居中后上缘必然落在顶栏下沿之下。 */
 .modal-root .overlay {
   position: fixed; inset: 0; z-index: 900;
+
   background: rgba(var(--scrim-rgb), .45);
   display: grid;
   place-items: center;

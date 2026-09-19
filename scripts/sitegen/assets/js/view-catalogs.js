@@ -116,9 +116,52 @@
     }, 300));
 
     container.querySelectorAll('.artist-cell').forEach(function (cell) {
-      function go() { C.go('songs', { q: cell.dataset.artist }); }
-      cell.addEventListener('click', go);
-      cell.addEventListener('keydown', function (e) { if (e.key === 'Enter') go(); });
+      /* v3.7.11：点击原唱不再直接跳歌曲页，改为弹出详情卡片 */
+      function open() { openArtistCard(cell.dataset.artist); }
+      cell.addEventListener('click', open);
+      cell.addEventListener('keydown', function (e) { if (e.key === 'Enter') open(); });
+    });
+  }
+
+  /* ─── 原唱详情卡片（v3.7.11）：统计 + 代表曲列表 + 查看全部，弹层自带关闭 ─── */
+  function openArtistCard(name) {
+    var a = window.SUI.songs.artists.filter(function (x) { return x.name === name; })[0];
+    if (!a) return;
+    var songs = D.songs().filter(function (s) { return (s.artist || '未知') === name; })
+      .sort(function (x, y) { return y.count - x.count; });
+    var first = null, last = null;
+    songs.forEach(function (s) {
+      if (s.first && (!first || s.first < first)) first = s.first;
+      if (s.last && (!last || s.last > last)) last = s.last;
+    });
+    var list = songs.slice(0, 8).map(function (s, i) {
+      return '<a class="ac-song" href="' + C.buildHash('song', {}, encodeURIComponent(s.name)) + '">' +
+        '<span class="ac-rk num">' + (i + 1) + '</span>' +
+        '<span class="ac-nm">' + esc(s.name) + '</span>' +
+        '<span class="ac-ct"><b class="num">' + s.count + '</b> 次</span></a>';
+    }).join('');
+    var more = songs.length > 8
+      ? '<p class="ac-more">…还有 ' + (songs.length - 8) + ' 首，点下方按钮查看全部</p>' : '';
+    var body =
+      '<div class="artist-card">' +
+      '<div class="ac-band" aria-hidden="true"></div>' +
+      '<div class="ac-stats">' +
+      '<div class="ac-stat"><b class="num">' + a.songs + '</b><span>收录歌曲</span></div>' +
+      '<div class="ac-stat"><b class="num">' + a.perf + '</b><span>演唱次数</span></div>' +
+      '<div class="ac-stat"><b class="num">' + (first ? first.slice(0, 4) : '—') + '</b><span>首次年份</span></div>' +
+      '</div>' +
+      (first && last ? '<p class="ac-span mono">' + esc(first) + ' ～ ' + esc(last) + '</p>' : '') +
+      '<div class="ac-list">' + list + '</div>' + more +
+      '<button type="button" class="btn btn-primary ac-all">查看全部 ' + a.songs + ' 首 →</button>' +
+      '</div>';
+    var api = C.openModal({ kicker: 'ARTIST · 原唱', title: name, body: body });
+    api.body.querySelector('.ac-all').addEventListener('click', function () {
+      api.close();
+      C.go('songs', { q: name });
+    });
+    /* 点具体歌：先关卡片再进详情，避免返回时卡片还在 */
+    api.body.querySelectorAll('.ac-song').forEach(function (el) {
+      el.addEventListener('click', function () { api.close(); });
     });
   }
 

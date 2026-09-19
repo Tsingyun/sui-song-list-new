@@ -84,7 +84,8 @@
     container.innerHTML =
       '<div class="song-hero">' +
       '<img class="song-sui" src="assets/sui-short.webp" alt="" aria-hidden="true" loading="lazy">' +
-      '<div class="crumbs"><a href="' + C.buildHash('songs') + '">SONGS</a> / #' + (rank || '—') + '</div>' +
+      '<div class="crumbs"><button type="button" class="back-btn" id="songBack" aria-label="返回上一页">← 返回</button>' +
+      '<a href="' + C.buildHash('songs') + '">SONGS</a> / #' + (rank || '—') + '</div>' +
       '<h1>' + esc(song.name) + '</h1>' +
       (song.t ? '<div class="tr-name">' + esc(song.t) + '</div>' : '') +
       '<div class="meta-line">' +
@@ -169,6 +170,13 @@
     if (heroSearch) heroSearch.addEventListener('click', function () {
       C.openExternal('https://search.bilibili.com/all?keyword=' +
         encodeURIComponent('岁己SUI ' + song.name + ' 歌切'));
+    });
+    /* v3.7.11：返回上一页 —— 优先回到进入详情前的浏览页（保留其参数），
+       直链打开时退回歌曲列表 */
+    container.querySelector('#songBack').addEventListener('click', function () {
+      var prev = C.lastBrowseRoute;
+      if (prev && prev.name && prev.name !== 'song') C.go(prev.name, prev.params);
+      else C.go('songs');
     });
     container.querySelector('#heroCopy').addEventListener('click', function () {
       C.copy(C.songCopyText(song), '已复制歌曲信息');

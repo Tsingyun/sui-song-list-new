@@ -1040,6 +1040,7 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
    故 max-height 里减去两个顶栏高度：居中后上缘必然落在顶栏下沿之下。 */
 .modal-root .overlay {
   position: fixed; inset: 0; z-index: 900;
+
   background: rgba(var(--scrim-rgb), .45);
   display: grid;
   place-items: center;
@@ -2373,6 +2374,64 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
 .chlog .cl-date { font-family: var(--mono); font-size: var(--fs-sm); color: var(--accent-deep); white-space: nowrap; padding-top: .1rem; }
 .chlog .cl-text { color: var(--ink-2); }
 
+
+/* ═══════ v3.7.11 交互动画与原唱卡片 ═══════ */
+
+/* 页面切换淡入：core.js 每次渲染后给 #view 加 view-in */
+.view.view-in { animation: viewIn .28s var(--ease); }
+@keyframes viewIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+/* 歌曲详情返回按钮：明显的可点击面积（≥44px 触达），移动端同样清晰 */
+.back-btn {
+  appearance: none; cursor: pointer;
+  font: 600 var(--fs-sm) var(--sans);
+  color: var(--ink-2); background: var(--surface);
+  border: 1px solid var(--line-strong); border-radius: 999px;
+  padding: .45em 1.2em; min-height: 36px;
+  transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease), background var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.back-btn:hover { color: var(--ink); border-color: var(--ink); background: rgba(var(--ink-rgb), .04); transform: translateX(-2px); }
+.back-btn:active { transform: translateX(-2px) scale(.97); }
+.song-hero .crumbs { display: flex; align-items: center; gap: .8rem; flex-wrap: wrap; }
+
+/* 原唱详情卡片：与站内 modal 同骨架，渐变饰带 + 圆角 + 投影 */
+.artist-card { display: flex; flex-direction: column; }
+.ac-band {
+  height: 6px; border-radius: 999px; margin: .1rem .2rem .9rem;
+  background: linear-gradient(90deg, var(--accent), var(--gold) 55%, var(--ice));
+  opacity: .85;
+}
+.ac-stats { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr) minmax(0,1fr); gap: .6rem; margin-bottom: .8rem; }
+.ac-stat {
+  text-align: center; padding: .7rem .4rem; border: 1px solid var(--line); border-radius: 8px;
+  background: rgba(var(--paper-rgb), .55);
+}
+.ac-stat b { display: block; font-size: 1.5rem; line-height: 1.15; color: var(--accent); }
+.ac-stat span { font-size: var(--fs-xs); color: var(--ink-3); letter-spacing: .05em; }
+.ac-span { text-align: center; font-size: var(--fs-sm); color: var(--ink-3); margin-bottom: .8rem; }
+.ac-list { display: flex; flex-direction: column; margin-bottom: .9rem; }
+.ac-song {
+  display: grid; grid-template-columns: 2rem minmax(0,1fr) auto; align-items: center; gap: .6rem;
+  padding: .5rem .4rem; border-radius: 6px; text-decoration: none; color: var(--ink);
+  border-bottom: 1px dashed var(--line);
+  transition: background var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.ac-song:last-child { border-bottom: 0; }
+.ac-song:hover { background: rgba(var(--ink-rgb), .045); transform: translateX(3px); }
+.ac-rk { font-family: var(--mono); font-size: var(--fs-sm); color: var(--ink-3); text-align: center; }
+.ac-song:nth-child(1) .ac-rk { color: var(--accent); font-weight: 600; }
+.ac-nm { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: var(--fs-base); }
+.ac-ct { font-size: var(--fs-sm); color: var(--ink-3); white-space: nowrap; }
+.ac-more { font-size: var(--fs-sm); color: var(--ink-3); text-align: center; margin-bottom: .8rem; }
+.ac-all { justify-content: center; width: 100%; }
+
+
+/* reduced-motion：全部新动画让位 */
+@media (prefers-reduced-motion: reduce) {
+  .view.view-in { animation: none !important; }
+  .back-btn, .ac-song { transition: none !important; }
+}
+
 /* ═══════ 响应式 ═══════ */
 
 /* 平板及以下 */
@@ -2886,9 +2945,17 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
     for (var h = 0; h < routeHooks.length; h++) {
       try { routeHooks[h](); } catch (e) { /* 钩子失败不该拦住换页 */ }
     }
+    if (currentRoute && currentRoute.name !== 'song') {
+      /* v3.7.11：记住最近一次非详情路由，歌曲详情「返回」按钮用它回上级 */
+      C.lastBrowseRoute = currentRoute;
+    }
     fn(parsed.params, container, parsed);
     decoratePage(container, view.page || name);
     currentRoute = { name: name, params: parsed.params };
+    /* v3.7.11：页面切换淡入（CSS 侧在 reduced-motion 下自动关闭） */
+    container.classList.remove('view-in');
+    void container.offsetWidth;   /* 强制 reflow，保证连续切换也能重放动画 */
+    container.classList.add('view-in');
 
     // 页面标题
     var t = '岁己SUI · 歌单档案';
@@ -3490,7 +3557,7 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
       '<div class="foot-col"><h4>SUI SONG ARCHIVE</h4>' +
       '<p class="foot-span">' + esc(S.first.slice(0, 7).replace('-', '.')) + ' — ' + esc(S.last.slice(0, 7).replace('-', '.')) + '</p>' +
       '<p>收录歌曲 ' + D.fmtInt(S.total) + ' 首 · 演唱 ' + D.fmtInt(S.performances) + ' 次 · 点歌 ' + D.fmtInt(R.total) + ' 次</p>' +
-      '<span class="foot-ver">界面版本 v3.7.10</span></div>' +
+      '<span class="foot-ver">界面版本 v3.7.11</span></div>' +
       '<div class="foot-col"><h4>数据来源</h4><ul>' +
       '<li><a href="https://www.suijisui.space" target="_blank" rel="noopener">suijisui.space</a>（PQL87/sui-song-list）</li>' +
       '<li><a href="#/requests">点歌统计（已并入本站）</a> · 源自直播间点歌记录</li>' +
@@ -4126,7 +4193,8 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
     container.innerHTML =
       '<div class="song-hero">' +
       '<img class="song-sui" src="assets/sui-short.webp" alt="" aria-hidden="true" loading="lazy">' +
-      '<div class="crumbs"><a href="' + C.buildHash('songs') + '">SONGS</a> / #' + (rank || '—') + '</div>' +
+      '<div class="crumbs"><button type="button" class="back-btn" id="songBack" aria-label="返回上一页">← 返回</button>' +
+      '<a href="' + C.buildHash('songs') + '">SONGS</a> / #' + (rank || '—') + '</div>' +
       '<h1>' + esc(song.name) + '</h1>' +
       (song.t ? '<div class="tr-name">' + esc(song.t) + '</div>' : '') +
       '<div class="meta-line">' +
@@ -4211,6 +4279,13 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
     if (heroSearch) heroSearch.addEventListener('click', function () {
       C.openExternal('https://search.bilibili.com/all?keyword=' +
         encodeURIComponent('岁己SUI ' + song.name + ' 歌切'));
+    });
+    /* v3.7.11：返回上一页 —— 优先回到进入详情前的浏览页（保留其参数），
+       直链打开时退回歌曲列表 */
+    container.querySelector('#songBack').addEventListener('click', function () {
+      var prev = C.lastBrowseRoute;
+      if (prev && prev.name && prev.name !== 'song') C.go(prev.name, prev.params);
+      else C.go('songs');
     });
     container.querySelector('#heroCopy').addEventListener('click', function () {
       C.copy(C.songCopyText(song), '已复制歌曲信息');
@@ -4353,9 +4428,52 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
     }, 300));
 
     container.querySelectorAll('.artist-cell').forEach(function (cell) {
-      function go() { C.go('songs', { q: cell.dataset.artist }); }
-      cell.addEventListener('click', go);
-      cell.addEventListener('keydown', function (e) { if (e.key === 'Enter') go(); });
+      /* v3.7.11：点击原唱不再直接跳歌曲页，改为弹出详情卡片 */
+      function open() { openArtistCard(cell.dataset.artist); }
+      cell.addEventListener('click', open);
+      cell.addEventListener('keydown', function (e) { if (e.key === 'Enter') open(); });
+    });
+  }
+
+  /* ─── 原唱详情卡片（v3.7.11）：统计 + 代表曲列表 + 查看全部，弹层自带关闭 ─── */
+  function openArtistCard(name) {
+    var a = window.SUI.songs.artists.filter(function (x) { return x.name === name; })[0];
+    if (!a) return;
+    var songs = D.songs().filter(function (s) { return (s.artist || '未知') === name; })
+      .sort(function (x, y) { return y.count - x.count; });
+    var first = null, last = null;
+    songs.forEach(function (s) {
+      if (s.first && (!first || s.first < first)) first = s.first;
+      if (s.last && (!last || s.last > last)) last = s.last;
+    });
+    var list = songs.slice(0, 8).map(function (s, i) {
+      return '<a class="ac-song" href="' + C.buildHash('song', {}, encodeURIComponent(s.name)) + '">' +
+        '<span class="ac-rk num">' + (i + 1) + '</span>' +
+        '<span class="ac-nm">' + esc(s.name) + '</span>' +
+        '<span class="ac-ct"><b class="num">' + s.count + '</b> 次</span></a>';
+    }).join('');
+    var more = songs.length > 8
+      ? '<p class="ac-more">…还有 ' + (songs.length - 8) + ' 首，点下方按钮查看全部</p>' : '';
+    var body =
+      '<div class="artist-card">' +
+      '<div class="ac-band" aria-hidden="true"></div>' +
+      '<div class="ac-stats">' +
+      '<div class="ac-stat"><b class="num">' + a.songs + '</b><span>收录歌曲</span></div>' +
+      '<div class="ac-stat"><b class="num">' + a.perf + '</b><span>演唱次数</span></div>' +
+      '<div class="ac-stat"><b class="num">' + (first ? first.slice(0, 4) : '—') + '</b><span>首次年份</span></div>' +
+      '</div>' +
+      (first && last ? '<p class="ac-span mono">' + esc(first) + ' ～ ' + esc(last) + '</p>' : '') +
+      '<div class="ac-list">' + list + '</div>' + more +
+      '<button type="button" class="btn btn-primary ac-all">查看全部 ' + a.songs + ' 首 →</button>' +
+      '</div>';
+    var api = C.openModal({ kicker: 'ARTIST · 原唱', title: name, body: body });
+    api.body.querySelector('.ac-all').addEventListener('click', function () {
+      api.close();
+      C.go('songs', { q: name });
+    });
+    /* 点具体歌：先关卡片再进详情，避免返回时卡片还在 */
+    api.body.querySelectorAll('.ac-song').forEach(function (el) {
+      el.addEventListener('click', function () { api.close(); });
     });
   }
 
@@ -5715,6 +5833,7 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
   var esc = C.esc;
 
   var CHANGELOG = [
+    ['v3.7.11', '三项交互升级：歌曲详情页新增「← 返回」按钮，优先回到进入详情前的浏览页、直链打开时回歌曲列表；全站页面切换与弹层增加淡入过渡（reduced-motion 自动关闭）；原唱分类点击改为弹出详情卡片——渐变饰带、三项统计、代表曲 Top8 与「查看全部」，点歌名直达详情、ESC / 遮罩 / 关闭键均可关闭'],
     ['v3.7.10', '修复介绍词「结果」被拆到两行的问题：上一版的 balance 会在一行放得下时也强行拆成两行均衡，断点落在词语中间——现改为默认单行完整展示，窄屏需折行时启用 keep-all 只在标点后断行，任何词语都不会被拆开'],
     ['v3.7.9', '六处体验修复与打磨：点歌速览卡的皇冠改挂行尾，第二三名行首不再多出空位；修复搜索框在中文输入法下被截断的问题（组合输入期间不再整页重渲，选字上屏后才刷新结果）；修复观众/歌曲详情弹窗打开即滚到底部的问题，现在总是从内容顶部展示；歌曲详情页的头像印鉴从右上角（与装饰立绘重叠）移入信息行，成为「岁己SUI 演唱」署名徽标，与原唱并排、层级分明；页脚新增友情链接「岁己SUI应援站」（suiji.site）；标题与段落启用平衡断行，介绍词等短文本不再出现末行孤字'],
     ['v3.7.8', '主题策略调整：首次打开固定使用浅色主题，不再跟随系统 / 浏览器的深色偏好；手动切换与记忆不受影响，选择过深色的老访客依然保持深色'],
@@ -5753,7 +5872,7 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
   function render(params, container) {
     container.innerHTML =
       '<div class="sec-head"><div class="sec-kicker">ABOUT</div>' +
-      '<h2 class="sec-title">关于本站 <span class="sec-sub">SUI SONG ARCHIVE v3.7.10</span></h2></div>' +
+      '<h2 class="sec-title">关于本站 <span class="sec-sub">SUI SONG ARCHIVE v3.7.11</span></h2></div>' +
 
       /* ── 角色档案：本站唯一的「岁己本人出场」板块，设定均取自官方资料 ── */
       '<section class="sui-profile">' +
