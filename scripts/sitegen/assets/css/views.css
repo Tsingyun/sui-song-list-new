@@ -132,9 +132,11 @@
 }
 .hero-figure figcaption b { color: var(--gold); font-weight: 600; }
 
+/* 列一律写成 minmax(0, Xfr)：裸 fr 的最小值是 min-content，
+   内容变长（歌名/昵称变长、字体回退）时会把轨道顶开、撑出横向滚动条 */
 .home-grid {
   display: grid;
-  grid-template-columns: 1.6fr 1fr;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
   gap: var(--space-7);
   margin-top: var(--space-7);
 }

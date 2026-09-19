@@ -920,7 +920,8 @@ img, svg, iframe { display: block; max-width: 100%; }
 /* 数字图块（统计 figure）—— 无卡片，细线分栏 */
 .figures {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  /* minmax(0,1fr)：裸 1fr 的最小值是 min-content，列会被长标签/大数字顶开 */
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   border-block: 1px solid var(--ink);
 }
 .figures .fig {
@@ -1428,9 +1429,11 @@ img, svg, iframe { display: block; max-width: 100%; }
 }
 .hero-figure figcaption b { color: var(--gold); font-weight: 600; }
 
+/* 列一律写成 minmax(0, Xfr)：裸 fr 的最小值是 min-content，
+   内容变长（歌名/昵称变长、字体回退）时会把轨道顶开、撑出横向滚动条 */
 .home-grid {
   display: grid;
-  grid-template-columns: 1.6fr 1fr;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
   gap: var(--space-7);
   margin-top: var(--space-7);
 }
@@ -2195,7 +2198,10 @@ img, svg, iframe { display: block; max-width: 100%; }
 
 /* 平板及以下 */
 @media (max-width: 1024px) {
-  .home-grid { grid-template-columns: 1fr; gap: var(--space-6); }
+  /* minmax(0,1fr) 而非裸 1fr：裸 1fr 的最小值是 min-content，
+     列会被内容顶开（实测列宽可从 331px 被顶到 1120px），
+     窄屏下会偶发撑出横向滚动条。与本文件其它 grid 写法保持一致 */
+  .home-grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-6); }
   .song-detail-grid { grid-template-columns: minmax(0, 1fr); }
   .detail-side { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-5); align-items: start; }
   .req-cols, .req-grid-2, .about-cols { grid-template-columns: minmax(0, 1fr); }
@@ -2209,7 +2215,7 @@ img, svg, iframe { display: block; max-width: 100%; }
   .row-artist { display: none; }
   .site-head-inner { padding: .55rem .9rem; gap: .8rem; }
   .head-actions .btn-ghost { display: none; }
-  .figures { grid-template-columns: repeat(5, 1fr); }
+  .figures { grid-template-columns: repeat(5, minmax(0, 1fr)); }
   .req-head-figs { grid-template-columns: repeat(2, 1fr); }
   .req-head-figs .fig:nth-child(2n) { border-right: 0; }
   .req-head-figs .fig:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
@@ -2280,7 +2286,7 @@ img, svg, iframe { display: block; max-width: 100%; }
   .row-play { grid-area: play; align-self: center; }
   .rowrow::after { display: none; }
 
-  .figures { grid-template-columns: repeat(2, 1fr); }
+  .figures { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .figures .fig { border-right: 0; border-bottom: 1px solid var(--line); }
   .figures .fig:nth-child(odd) { border-right: 1px solid var(--line); }
   .figures .fig:nth-child(n+4) { border-bottom: 0; }
@@ -2313,7 +2319,7 @@ img, svg, iframe { display: block; max-width: 100%; }
   .req-row { grid-template-columns: 2rem minmax(0, 1fr) auto; }
   .req-row .pctcol { display: none; }
 
-  .site-foot-inner { grid-template-columns: 1fr; gap: var(--space-5); }
+  .site-foot-inner { grid-template-columns: minmax(0, 1fr); gap: var(--space-5); }
   .foot-base-inner { flex-direction: column; gap: .3rem; }
   .foot-sign-inner { flex-direction: column; align-items: flex-start; gap: .45rem; }
   /* 角色档案：单列，照片限宽居中 */
@@ -3279,7 +3285,7 @@ img, svg, iframe { display: block; max-width: 100%; }
       '<div class="foot-col"><h4>SUI SONG ARCHIVE</h4>' +
       '<p class="foot-span">' + esc(S.first.slice(0, 7).replace('-', '.')) + ' — ' + esc(S.last.slice(0, 7).replace('-', '.')) + '</p>' +
       '<p>收录歌曲 ' + D.fmtInt(S.total) + ' 首 · 演唱 ' + D.fmtInt(S.performances) + ' 次 · 点歌 ' + D.fmtInt(R.total) + ' 次</p>' +
-      '<span class="foot-ver">界面版本 v3.7.2</span></div>' +
+      '<span class="foot-ver">界面版本 v3.7.3</span></div>' +
       '<div class="foot-col"><h4>数据来源</h4><ul>' +
       '<li><a href="https://www.suijisui.space" target="_blank" rel="noopener">suijisui.space</a>（PQL87/sui-song-list）</li>' +
       '<li><a href="#/requests">点歌统计（已并入本站）</a> · 源自直播间点歌记录</li>' +
@@ -5449,6 +5455,7 @@ img, svg, iframe { display: block; max-width: 100%; }
   var esc = C.esc;
 
   var CHANGELOG = [
+    ['v3.7.3', '修复窄屏下极偶发的横向滚动条：首页「最近演出」「常唱金曲」等区块所在的网格，列宽原先写成裸 1fr —— 它的最小宽度等于内容宽度，内容一长就会把列轨道顶开（放大实验实测列宽可从 331px 被顶到 1120px），因此在 360px 视口下偶发撑出横向滚动条。现改用 minmax(0, 1fr) 把列宽锁死，同类写法（统计数字图块、页脚栏）一并加固；页面外观与排版无变化'],
     ['v3.7.2', '点歌统计页「点歌速览」的「点歌之王」卡片由只显示第一名改为按名次展示前三名：每行含名次徽标、昵称、累计点歌次数（第一名保留金冠）。数据直接取自站点「总榜」（次数降序 → 昵称）的头部三人，与页内总榜切换共用同一份数据与排序，不存在第二套口径'],
     ['v3.7.1', '修复「顶栏标签点了没反应」：弹层遮罩原先铺在顶栏之上，点导航的事件被遮罩接走（弹层只是被关掉、页面并不跳转）。现在把顶栏层级提到所有页面级浮层之上，弹层打开 / 点歌页彩蛋显示 / 播放器拖到最顶时，点标签都能正常跳转；同时弹层主动给顶栏让位，保证 ✕ 依旧可点'],
     ['v3.7.1', '修复窄屏导航够不到的问题：导航在窄屏靠横向滚动，但滚动条被隐藏，鼠标用户看不出可滚也滚不动（360px 时 8 个标签有 4 个完全点不到）。现在窄屏显示细滚动条；并把语言页锚点条的吸顶位置改为按顶栏实测高度对齐（不再写死，字体加载后也不会错位）'],
@@ -5479,7 +5486,7 @@ img, svg, iframe { display: block; max-width: 100%; }
   function render(params, container) {
     container.innerHTML =
       '<div class="sec-head"><div class="sec-kicker">ABOUT</div>' +
-      '<h2 class="sec-title">关于本站 <span class="sec-sub">SUI SONG ARCHIVE v3.7.2</span></h2></div>' +
+      '<h2 class="sec-title">关于本站 <span class="sec-sub">SUI SONG ARCHIVE v3.7.3</span></h2></div>' +
 
       /* ── 角色档案：本站唯一的「岁己本人出场」板块，设定均取自官方资料 ── */
       '<section class="sui-profile">' +

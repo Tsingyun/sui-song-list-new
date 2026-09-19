@@ -253,7 +253,8 @@
 /* 数字图块（统计 figure）—— 无卡片，细线分栏 */
 .figures {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  /* minmax(0,1fr)：裸 1fr 的最小值是 min-content，列会被长标签/大数字顶开 */
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   border-block: 1px solid var(--ink);
 }
 .figures .fig {

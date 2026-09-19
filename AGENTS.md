@@ -198,7 +198,10 @@ build_site.py ──► sitegen.builder.build()
 6. **hash 路由**：`#/songs?q=&lang=&tag=&quick=&sort=&page=`、`#/song/<encodeURIComponent(歌名)>`、
    `#/insights?tab=`、`#/requests?kind=&m=`；旧锚点 `#lang-日语` 自动兼容到语言视图
 7. **grid 溢出**：单列自适应布局一律写 `minmax(0, 1fr)` 而不是 `1fr`
-   （`1fr` 的 min=auto 会被 nowrap 内容撑破，已在移动端踩过）
+   （`1fr` 的 min=auto 会被 nowrap 内容撑破，已在移动端踩过）。
+   **检测方法（别靠眼力，靠断言）**：往 grid item 里注入一段 `white-space:nowrap` 的长文本，
+   断言 `grid-template-columns` 注入前后**逐字相同** —— 相同＝轨道不会被撑开。
+   2026-09-19 用此法才发现 `.home-grid`/`.figures`/`.site-foot-inner` 三处漏网（见 §4 规则 11）
 
 ---
 
@@ -248,3 +251,11 @@ build_site.py ──► sitegen.builder.build()
    （定宽槽位生效的证据）、名次 < 昵称 < 次数的横向次序、卡片不高于同带最高卡、
    390px 仍是 3 行、强制宽字回退字体下仍不溢出且左对齐；速览带仍在自然滚动
    （脚本 `.zcode/workspace/default/_verify_king3.py`，22 项）
+
+14. **grid 轨道抗撑开（放大实验，v3.7.3）**：这类缺陷复现率极低（数十轮才偶发一次），
+   **不能用「多跑几次没复现」当结论**。改用**等价放大实验**：往 grid item 注入
+   `white-space:nowrap` 的长文本，断言 `grid-template-columns` 注入前后**逐字相同**
+   ——相同＝轨道不会被内容顶开。覆盖 3 视口（360/480/640）× 3 路由
+   （`#/`、`#/requests`、`#/songs`）× 8 个 grid 容器（脚本
+   `.zcode/workspace/default/_amp_grid.py`）。加固前 `.home-grid` 列宽 331→1120px、
+   `.figures` 165→1145px、`.site-foot-inner` 320→1120px；加固后三者全部逐字相同

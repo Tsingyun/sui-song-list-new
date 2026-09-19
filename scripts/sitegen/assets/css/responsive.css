@@ -2,7 +2,10 @@
 
 /* 平板及以下 */
 @media (max-width: 1024px) {
-  .home-grid { grid-template-columns: 1fr; gap: var(--space-6); }
+  /* minmax(0,1fr) 而非裸 1fr：裸 1fr 的最小值是 min-content，
+     列会被内容顶开（实测列宽可从 331px 被顶到 1120px），
+     窄屏下会偶发撑出横向滚动条。与本文件其它 grid 写法保持一致 */
+  .home-grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-6); }
   .song-detail-grid { grid-template-columns: minmax(0, 1fr); }
   .detail-side { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-5); align-items: start; }
   .req-cols, .req-grid-2, .about-cols { grid-template-columns: minmax(0, 1fr); }
@@ -16,7 +19,7 @@
   .row-artist { display: none; }
   .site-head-inner { padding: .55rem .9rem; gap: .8rem; }
   .head-actions .btn-ghost { display: none; }
-  .figures { grid-template-columns: repeat(5, 1fr); }
+  .figures { grid-template-columns: repeat(5, minmax(0, 1fr)); }
   .req-head-figs { grid-template-columns: repeat(2, 1fr); }
   .req-head-figs .fig:nth-child(2n) { border-right: 0; }
   .req-head-figs .fig:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
@@ -87,7 +90,7 @@
   .row-play { grid-area: play; align-self: center; }
   .rowrow::after { display: none; }
 
-  .figures { grid-template-columns: repeat(2, 1fr); }
+  .figures { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .figures .fig { border-right: 0; border-bottom: 1px solid var(--line); }
   .figures .fig:nth-child(odd) { border-right: 1px solid var(--line); }
   .figures .fig:nth-child(n+4) { border-bottom: 0; }
@@ -120,7 +123,7 @@
   .req-row { grid-template-columns: 2rem minmax(0, 1fr) auto; }
   .req-row .pctcol { display: none; }
 
-  .site-foot-inner { grid-template-columns: 1fr; gap: var(--space-5); }
+  .site-foot-inner { grid-template-columns: minmax(0, 1fr); gap: var(--space-5); }
   .foot-base-inner { flex-direction: column; gap: .3rem; }
   .foot-sign-inner { flex-direction: column; align-items: flex-start; gap: .45rem; }
   /* 角色档案：单列，照片限宽居中 */
