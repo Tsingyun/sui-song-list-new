@@ -192,15 +192,32 @@
 }
 .req-rotate-dots button:hover { background: var(--ink-3); }
 .req-rotate-dots button.on { background: var(--accent); }
-.req-rotate-body { margin-top: .4rem; transition: opacity .17s ease; }
+.req-rotate-body {
+  margin-top: .4rem;
+  transition: opacity .17s ease;
+  /* 实际高度由 JS 按「所有页的最大页高」锁定（view-home.js 的 lockHeight）：
+     人名多、换行的页不会把卡片撑高，轮播切换时页面不再跳动。
+     这里只作无脚本时的下限（单行高度）。 */
+  min-height: 1.9rem;
+}
 .req-rotate-body.swap { opacity: 0; }
 .req-rotate .rbody {
   display: flex;
   flex-wrap: wrap;
-  gap: .3rem 1.1rem;
-  align-items: baseline;
+  gap: .3rem .75rem;
+  align-items: center;          /* 换行后每行内部对齐；与锁定的盒高配合不产生位移 */
+  align-content: center;        /* 单行页在锁定盒内居中，不留突兀空白 */
   font-size: var(--fs-md);
   min-height: 1.9rem;           /* 单行高度下限，轮换时不塌陷 */
+}
+/* 一条「名字 + 附注」整体不可拆分：人名不会被拦腰断到两行，读起来完整；
+   只有名字本身超过整行宽度时，才在自身范围内省略号收尾 */
+.req-rotate .rbody .rp {
+  white-space: nowrap;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .req-rotate .rbody b { font-weight: 600; }
 .req-rotate .rbody .num { font-family: var(--mono); color: var(--accent); font-weight: 600; }

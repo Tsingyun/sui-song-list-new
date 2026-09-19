@@ -7,6 +7,8 @@
   /* 点歌速览轮播的定时器（视图重渲时先清掉，避免悬挂引用） */
   var _teaserTimer = null;
   var _teaserFade = null;
+  var _teaserRelock = null;
+  var _teaserResize = null;
 
   /* ── 首屏立绘随机轮换 ──────────────────────────────────────────────
      候选清单由构建器注入（window.SUI.heroArt，见 scripts/sitegen/builder.py 的
@@ -58,6 +60,8 @@
   function render(params, container) {
     if (_teaserTimer) { clearInterval(_teaserTimer); _teaserTimer = null; }
     if (_teaserFade) { clearTimeout(_teaserFade); _teaserFade = null; }
+    if (_teaserRelock) { clearTimeout(_teaserRelock); _teaserRelock = null; }
+    if (_teaserResize) { window.removeEventListener('resize', _teaserResize); _teaserResize = null; }
 
     var S = D.stats();
     var R = D.requests();
@@ -207,6 +211,27 @@
         b.setAttribute('aria-current', j === idx ? 'true' : 'false');
       });
     }
+    /* 所有页共享「最大页高」：多个人名换行时行高不再变化，
+       轮播切换与页面总高都恒定，不会跳动（并在字体就绪/视口变化后重测） */
+    function lockHeight() {
+      if (!document.getElementById('reqRotateBody')) return;
+      box.style.height = '';                 // 先解绑才能量到自然高度
+      var max = 0;
+      for (var i = 0; i < slides.length; i++) {
+        box.innerHTML = slides[i].html;
+        max = Math.max(max, box.offsetHeight);
+      }
+      if (max) box.style.height = max + 'px';
+      draw(idx);                             // 量完还原当前页
+    }
+    function onResize() {
+      if (!document.getElementById('reqRotateBody')) {
+        window.removeEventListener('resize', onResize);
+        return;
+      }
+      if (_teaserRelock) clearTimeout(_teaserRelock);
+      _teaserRelock = setTimeout(lockHeight, 150);
+    }
     function advance() {
       /* 容器已随路由重渲被移除时自杀，避免悬挂定时器 */
       if (!document.getElementById('reqRotateBody')) {
@@ -225,7 +250,16 @@
     dotsBox.querySelectorAll('button').forEach(function (b, i) {
       b.addEventListener('click', function () { draw(i); });
     });
-    draw(0);
+    lockHeight();
+
+    /* 字体异步替换（Google Fonts）后字宽会变，重新量一次高度 */
+    if (document.fonts && document.fonts.ready && document.fonts.ready.then) {
+      document.fonts.ready.then(function () {
+        if (document.getElementById('reqRotateBody')) lockHeight();
+      });
+    }
+    window.addEventListener('resize', onResize);
+    _teaserResize = onResize;
 
     var card = container.querySelector('#reqRotate');
     card.addEventListener('mouseenter', function () { paused = true; });

@@ -97,6 +97,11 @@ build_site.py ──► sitegen.builder.build()
 - **可配置常量集中在 `builder.py` 顶部**：`BILI_SPACE_URL`（左上角品牌位外链 → B站空间，
   骨架里是 `__BILI_SPACE_URL__` 占位）、`HERO_ART`（首页立绘轮换候选）。改这两处即可，
   不要散落硬编码到前端源码
+- **首页「点歌速览」高度锁**：`view-home.js` 的 `lockHeight()` 把 `#reqRotateBody`
+  高度锁成「所有轮播页的最大高度」，因此人名多导致换行时卡片也不会变高（那是页面跳动的
+  根因）；字体异步替换（Google Fonts）与窗口尺寸变化后会重测。**新增轮播页无需改这段**，
+  只要往 `slides` 里加即可；同理，不要在 `.rbody` 上恢复 `flex-wrap: nowrap` 之类的
+  「压进一行」写法——人名长度每天变，压不住且截断会损害可读性
 
 ### 业务规则（改代码前必读，规则原文见 REBUILD_NOTES.md §4）
 
@@ -166,3 +171,7 @@ build_site.py ──► sitegen.builder.build()
    每次相同（桌面 274×593、移动 230×498）；断网/图 404 时退回清单第一张、全失效则隐藏
 8. 左上角品牌位：`a.brand` 的 href = `BILI_SPACE_URL`、`target=_blank`、
    `rel=noopener noreferrer`，点击弹出新标签页；桌面与移动端均可见可点且不溢出
+9. 首页「点歌速览」行高稳定：三个视口（桌面/平板/移动）逐页点圆点切换，
+   `#reqRotate` 卡片高与 `document.documentElement.scrollHeight` 极差必须为 0；
+   自动轮播跑满 7 秒页面总高不变；人名不被省略号截断、chip 不越出卡片边界
+   （脚本 `.zcode/workspace/default/_verify_teaser.py`）

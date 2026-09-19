@@ -1130,15 +1130,32 @@ img, svg, iframe { display: block; max-width: 100%; }
 }
 .req-rotate-dots button:hover { background: var(--ink-3); }
 .req-rotate-dots button.on { background: var(--accent); }
-.req-rotate-body { margin-top: .4rem; transition: opacity .17s ease; }
+.req-rotate-body {
+  margin-top: .4rem;
+  transition: opacity .17s ease;
+  /* 实际高度由 JS 按「所有页的最大页高」锁定（view-home.js 的 lockHeight）：
+     人名多、换行的页不会把卡片撑高，轮播切换时页面不再跳动。
+     这里只作无脚本时的下限（单行高度）。 */
+  min-height: 1.9rem;
+}
 .req-rotate-body.swap { opacity: 0; }
 .req-rotate .rbody {
   display: flex;
   flex-wrap: wrap;
-  gap: .3rem 1.1rem;
-  align-items: baseline;
+  gap: .3rem .75rem;
+  align-items: center;          /* 换行后每行内部对齐；与锁定的盒高配合不产生位移 */
+  align-content: center;        /* 单行页在锁定盒内居中，不留突兀空白 */
   font-size: var(--fs-md);
   min-height: 1.9rem;           /* 单行高度下限，轮换时不塌陷 */
+}
+/* 一条「名字 + 附注」整体不可拆分：人名不会被拦腰断到两行，读起来完整；
+   只有名字本身超过整行宽度时，才在自身范围内省略号收尾 */
+.req-rotate .rbody .rp {
+  white-space: nowrap;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .req-rotate .rbody b { font-weight: 600; }
 .req-rotate .rbody .num { font-family: var(--mono); color: var(--accent); font-weight: 600; }
@@ -1736,7 +1753,7 @@ img, svg, iframe { display: block; max-width: 100%; }
   .hero-figure figcaption { display: none; }
   .song-hero .song-sui { display: none; }
   .sui-seal { top: 1.1rem; }
-  /* 轮播三项在窄屏换行为两行：抬高下限避免轮换时高度跳动 */
+  /* 轮播三项在窄屏换行为两行：抬高下限，脚本锁定盒高前的兜底值 */
   .req-rotate .rbody { min-height: 3.6rem; }
 
   /* 顶栏折叠：品牌 + 横滚导航 + 收纳更多入口 */
@@ -2733,7 +2750,7 @@ img, svg, iframe { display: block; max-width: 100%; }
       '<div class="foot-col"><h4>SUI SONG ARCHIVE</h4>' +
       '<p class="foot-span">' + esc(S.first.slice(0, 7).replace('-', '.')) + ' — ' + esc(S.last.slice(0, 7).replace('-', '.')) + '</p>' +
       '<p>收录歌曲 ' + D.fmtInt(S.total) + ' 首 · 演唱 ' + D.fmtInt(S.performances) + ' 次 · 点歌 ' + D.fmtInt(R.total) + ' 次</p>' +
-      '<span class="foot-ver">界面版本 v3.5</span></div>' +
+      '<span class="foot-ver">界面版本 v3.5.1</span></div>' +
       '<div class="foot-col"><h4>数据来源</h4><ul>' +
       '<li><a href="https://www.suijisui.space" target="_blank" rel="noopener">suijisui.space</a>（PQL87/sui-song-list）</li>' +
       '<li><a href="#/requests">点歌统计（已并入本站）</a> · 源自直播间点歌记录</li>' +
@@ -2783,6 +2800,8 @@ img, svg, iframe { display: block; max-width: 100%; }
   /* 点歌速览轮播的定时器（视图重渲时先清掉，避免悬挂引用） */
   var _teaserTimer = null;
   var _teaserFade = null;
+  var _teaserRelock = null;
+  var _teaserResize = null;
 
   /* ── 首屏立绘随机轮换 ──────────────────────────────────────────────
      候选清单由构建器注入（window.SUI.heroArt，见 scripts/sitegen/builder.py 的
@@ -2834,6 +2853,8 @@ img, svg, iframe { display: block; max-width: 100%; }
   function render(params, container) {
     if (_teaserTimer) { clearInterval(_teaserTimer); _teaserTimer = null; }
     if (_teaserFade) { clearTimeout(_teaserFade); _teaserFade = null; }
+    if (_teaserRelock) { clearTimeout(_teaserRelock); _teaserRelock = null; }
+    if (_teaserResize) { window.removeEventListener('resize', _teaserResize); _teaserResize = null; }
 
     var S = D.stats();
     var R = D.requests();
@@ -2983,6 +3004,27 @@ img, svg, iframe { display: block; max-width: 100%; }
         b.setAttribute('aria-current', j === idx ? 'true' : 'false');
       });
     }
+    /* 所有页共享「最大页高」：多个人名换行时行高不再变化，
+       轮播切换与页面总高都恒定，不会跳动（并在字体就绪/视口变化后重测） */
+    function lockHeight() {
+      if (!document.getElementById('reqRotateBody')) return;
+      box.style.height = '';                 // 先解绑才能量到自然高度
+      var max = 0;
+      for (var i = 0; i < slides.length; i++) {
+        box.innerHTML = slides[i].html;
+        max = Math.max(max, box.offsetHeight);
+      }
+      if (max) box.style.height = max + 'px';
+      draw(idx);                             // 量完还原当前页
+    }
+    function onResize() {
+      if (!document.getElementById('reqRotateBody')) {
+        window.removeEventListener('resize', onResize);
+        return;
+      }
+      if (_teaserRelock) clearTimeout(_teaserRelock);
+      _teaserRelock = setTimeout(lockHeight, 150);
+    }
     function advance() {
       /* 容器已随路由重渲被移除时自杀，避免悬挂定时器 */
       if (!document.getElementById('reqRotateBody')) {
@@ -3001,7 +3043,16 @@ img, svg, iframe { display: block; max-width: 100%; }
     dotsBox.querySelectorAll('button').forEach(function (b, i) {
       b.addEventListener('click', function () { draw(i); });
     });
-    draw(0);
+    lockHeight();
+
+    /* 字体异步替换（Google Fonts）后字宽会变，重新量一次高度 */
+    if (document.fonts && document.fonts.ready && document.fonts.ready.then) {
+      document.fonts.ready.then(function () {
+        if (document.getElementById('reqRotateBody')) lockHeight();
+      });
+    }
+    window.addEventListener('resize', onResize);
+    _teaserResize = onResize;
 
     var card = container.querySelector('#reqRotate');
     card.addEventListener('mouseenter', function () { paused = true; });
@@ -4793,6 +4844,7 @@ img, svg, iframe { display: block; max-width: 100%; }
   var esc = C.esc;
 
   var CHANGELOG = [
+    ['v3.5.1', '首页「点歌速览」行高稳定化：多个人名换行时不再把卡片撑高——轮播所有页共享同一锁定高度（取各页最大高度，字体就绪与窗口尺寸变化后自动重测），切换页面时页面总高全程恒定；同时单个「名字 + 附注」不再被拦腰拆行，人名保持完整可读'],
     ['v3.5', '左上角品牌位（小鸟 Logo + 「岁己SUI 歌单档案」）整块可点击，新标签页直达岁己的 B站个人空间（带 noopener noreferrer，悬停有轻微反馈）'],
     ['v3.5', '首页立绘随机轮换：每次打开或刷新从候选立绘清单（全身 / 短发 / Q 版）随机抽一张，同一会话内不与上一张重复；占位盒固定比例，切换不跳动，加载淡入，图片失效时自动退回默认立绘并保留光环与铭文'],
     ['v3.4', '点歌统计完整并入：原独立统计站的全部内容（最近 15 天 / 月·季·年·总榜 / 热门歌曲与常被一起点 / 观众喜好与新朋旧友 / 跨月冠军 / 成就殿堂 / 时间区间筛选 / 观众与歌曲详情 / CSV·JSON·Excel·PNG 导出 / 搜索彩蛋）迁入本站「点歌统计」页，并使用本站视觉体系重写；全站已不再指向外部统计站'],
@@ -4815,7 +4867,7 @@ img, svg, iframe { display: block; max-width: 100%; }
   function render(params, container) {
     container.innerHTML =
       '<div class="sec-head"><div class="sec-kicker">ABOUT</div>' +
-      '<h2 class="sec-title">关于本站 <span class="sec-sub">SUI SONG ARCHIVE v3.5</span></h2></div>' +
+      '<h2 class="sec-title">关于本站 <span class="sec-sub">SUI SONG ARCHIVE v3.5.1</span></h2></div>' +
 
       '<div class="about-cols"><div class="about-block">' +
       '<h3>这是什么</h3>' +

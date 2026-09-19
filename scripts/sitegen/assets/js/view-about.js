@@ -5,6 +5,7 @@
   var esc = C.esc;
 
   var CHANGELOG = [
+    ['v3.5.1', '首页「点歌速览」行高稳定化：多个人名换行时不再把卡片撑高——轮播所有页共享同一锁定高度（取各页最大高度，字体就绪与窗口尺寸变化后自动重测），切换页面时页面总高全程恒定；同时单个「名字 + 附注」不再被拦腰拆行，人名保持完整可读'],
     ['v3.5', '左上角品牌位（小鸟 Logo + 「岁己SUI 歌单档案」）整块可点击，新标签页直达岁己的 B站个人空间（带 noopener noreferrer，悬停有轻微反馈）'],
     ['v3.5', '首页立绘随机轮换：每次打开或刷新从候选立绘清单（全身 / 短发 / Q 版）随机抽一张，同一会话内不与上一张重复；占位盒固定比例，切换不跳动，加载淡入，图片失效时自动退回默认立绘并保留光环与铭文'],
     ['v3.4', '点歌统计完整并入：原独立统计站的全部内容（最近 15 天 / 月·季·年·总榜 / 热门歌曲与常被一起点 / 观众喜好与新朋旧友 / 跨月冠军 / 成就殿堂 / 时间区间筛选 / 观众与歌曲详情 / CSV·JSON·Excel·PNG 导出 / 搜索彩蛋）迁入本站「点歌统计」页，并使用本站视觉体系重写；全站已不再指向外部统计站'],
@@ -27,7 +28,7 @@
   function render(params, container) {
     container.innerHTML =
       '<div class="sec-head"><div class="sec-kicker">ABOUT</div>' +
-      '<h2 class="sec-title">关于本站 <span class="sec-sub">SUI SONG ARCHIVE v3.5</span></h2></div>' +
+      '<h2 class="sec-title">关于本站 <span class="sec-sub">SUI SONG ARCHIVE v3.5.1</span></h2></div>' +
 
       '<div class="about-cols"><div class="about-block">' +
       '<h3>这是什么</h3>' +
