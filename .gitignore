@@ -25,3 +25,7 @@ uploads/
 # Duplicate text exports
 sui_full_song_list.txt
 sui_song_list_full.txt
+
+# 回归截图产物
+_dark_shots/
+_probe_*.png
