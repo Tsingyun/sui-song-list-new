@@ -5,6 +5,7 @@
   var esc = C.esc;
 
   var CHANGELOG = [
+    ['v3.5', '首页立绘随机轮换：每次打开或刷新从候选立绘清单（全身 / 短发 / Q 版）随机抽一张，同一会话内不与上一张重复；占位盒固定比例，切换不跳动，加载淡入，图片失效时自动退回默认立绘并保留光环与铭文'],
     ['v3.4', '点歌统计完整并入：原独立统计站的全部内容（最近 15 天 / 月·季·年·总榜 / 热门歌曲与常被一起点 / 观众喜好与新朋旧友 / 跨月冠军 / 成就殿堂 / 时间区间筛选 / 观众与歌曲详情 / CSV·JSON·Excel·PNG 导出 / 搜索彩蛋）迁入本站「点歌统计」页，并使用本站视觉体系重写；全站已不再指向外部统计站'],
     ['v3.4', '恢复自定义小鸟鼠标光标（仅在鼠标设备上启用，热区对齐翅膀，不影响触屏与性能）'],
     ['v3.3', '岁己视觉识别升级：首页主视觉换为 2023 形象双马尾全身立绘（透明背景人物立于舞台线，光环浮动，身后大光环水印，竖排金印铭文），歌曲详情页短发立绘从右上探出（印章叠盖），页脚小鸟吉祥物入驻，洞察图表配色统一至岁己身份色（瞳色绯红 / 贝雷藏青）'],
@@ -25,7 +26,7 @@
   function render(params, container) {
     container.innerHTML =
       '<div class="sec-head"><div class="sec-kicker">ABOUT</div>' +
-      '<h2 class="sec-title">关于本站 <span class="sec-sub">SUI SONG ARCHIVE v3.4</span></h2></div>' +
+      '<h2 class="sec-title">关于本站 <span class="sec-sub">SUI SONG ARCHIVE v3.5</span></h2></div>' +
 
       '<div class="about-cols"><div class="about-block">' +
       '<h3>这是什么</h3>' +

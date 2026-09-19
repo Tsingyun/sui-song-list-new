@@ -8,6 +8,53 @@
   var _teaserTimer = null;
   var _teaserFade = null;
 
+  /* ── 首屏立绘随机轮换 ──────────────────────────────────────────────
+     候选清单由构建器注入（window.SUI.heroArt，见 scripts/sitegen/builder.py 的
+     HERO_ART），增删立绘只改那一份清单即可。纯前端随机，静态托管可用。
+     用 sessionStorage 记住上一张，尽量不与上一张重复。 */
+  var HERO_ART_FALLBACK = 'assets/sui-fullbody.webp'; // 清单缺失时（如旧产物）的最后兜底
+  var HERO_ART_KEY = 'suiHeroArtIdx';
+
+  function heroArtList() {
+    var list = (window.SUI && window.SUI.heroArt) || [];
+    return list.length ? list : [HERO_ART_FALLBACK];
+  }
+
+  function pickHeroArt() {
+    var list = heroArtList();
+    if (list.length === 1) return { src: list[0], idx: 0 };
+    var last = -1;
+    try { last = parseInt(sessionStorage.getItem(HERO_ART_KEY), 10); } catch (e) { last = -1; }
+    if (isNaN(last)) last = -1;
+    // 从「除上一张以外」的候选里随机抽，候选只有 1 个时才会重复
+    var pool = [];
+    for (var i = 0; i < list.length; i++) { if (i !== last) pool.push(i); }
+    var idx = pool[Math.floor(Math.random() * pool.length)];
+    try { sessionStorage.setItem(HERO_ART_KEY, String(idx)); } catch (e) { /* 隐私模式忽略 */ }
+    return { src: list[idx], idx: idx };
+  }
+
+  /* 加载失败兜底：先退回清单第一张，再失败则隐藏图片（保留光环与铭文） */
+  function bindHeroArt(img) {
+    if (!img) return;
+    img.classList.add('hero-art');
+    var fallback = heroArtList()[0];
+    var tried = false;
+    var show = function () { img.classList.add('is-ready'); };
+    img.addEventListener('load', show);
+    img.addEventListener('error', function () {
+      if (!tried && img.getAttribute('src') !== fallback) {
+        tried = true;
+        img.setAttribute('src', fallback);
+        return;
+      }
+      img.style.display = 'none';
+      img.classList.add('is-ready');
+    });
+    // 命中缓存时 load 可能早于绑定，直接补一次
+    if (img.complete && img.naturalWidth) show();
+  }
+
   function render(params, container) {
     if (_teaserTimer) { clearInterval(_teaserTimer); _teaserTimer = null; }
     if (_teaserFade) { clearTimeout(_teaserFade); _teaserFade = null; }
@@ -39,6 +86,7 @@
     var thisMonth = D.thisMonth();
     var streaks = (R.streaks[thisMonth] || []);
     var slides = buildTeaserSlides(R, streaks);
+    var heroArt = pickHeroArt();
 
     container.innerHTML =
       '<section class="masthead"><span class="hero-watermark" aria-hidden="true"></span><div class="masthead-inner">' +
@@ -50,7 +98,7 @@
       '</div>' +
       '<figure class="hero-figure">' +
       '<span class="hero-halo" aria-hidden="true"></span>' +
-      '<img src="assets/sui-fullbody.webp" alt="岁己SUI" loading="eager">' +
+      '<img src="' + esc(heroArt.src) + '" alt="岁己SUI" loading="eager" decoding="async">' +
       '<figcaption><b>SUI</b><span>SINCE 2022.09</span></figcaption>' +
       '</figure>' +
       '</div></section>' +
@@ -94,6 +142,7 @@
         C.go('songs', { quick: el.dataset.go });
       });
     });
+    bindHeroArt(container.querySelector('.hero-figure img'));
     initTeaser(container, slides);
   }
 

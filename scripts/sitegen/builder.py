@@ -16,6 +16,12 @@ ASSETS_DIR = os.path.join(SITEGEN_DIR, 'assets')
 PROJECT_ROOT = os.path.dirname(os.path.dirname(SITEGEN_DIR))
 DOCS_DIR = os.path.join(PROJECT_ROOT, 'docs')
 
+# 首页主视觉立绘候选清单（唯一的维护点）：
+# 把新立绘放进 scripts/sitegen/assets/ 后，在此加一行文件名即可参与随机轮换，
+# builder 会一并拷贝进 docs/assets/ 并注入前端 window.SUI.heroArt。
+# 第一项同时作为加载失败时的兜底图，建议保持为 1080×2338 的全身立绘。
+HERO_ART = ['sui-fullbody.webp', 'sui-short.webp', 'sui-chibi.webp']
+
 
 def read_asset(*parts):
     with open(os.path.join(ASSETS_DIR, *parts), encoding='utf-8') as f:
@@ -50,7 +56,7 @@ def copy_static_assets():
     out_dir = os.path.join(DOCS_DIR, 'assets')
     os.makedirs(out_dir, exist_ok=True)
     for fn in ['logo.png', 'sui-avatar.webp', 'sui-chibi.webp',
-               'sui-fullbody.webp', 'sui-short.webp', 'sui-bird.png', 'sui-cursor.png']:
+               'sui-fullbody.webp', 'sui-short.webp', 'sui-bird.png', 'sui-cursor.png'] + HERO_ART:
         src = os.path.join(ASSETS_DIR, fn)
         if os.path.exists(src):
             shutil.copy(src, os.path.join(out_dir, fn))
@@ -58,7 +64,8 @@ def copy_static_assets():
 
 def build():
     payload = {'songs': datalayer.build_song_payload(),
-               'requests': reqstats.build_request_payload()}
+               'requests': reqstats.build_request_payload(),
+               'heroArt': ['assets/' + fn for fn in HERO_ART]}
 
     with open(os.path.join(ASSETS_DIR, 'logo.png'), 'rb') as f:
         logo_uri = 'data:image/png;base64,' + base64.b64encode(f.read()).decode()

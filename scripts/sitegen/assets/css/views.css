@@ -31,8 +31,8 @@
 }
 .masthead-sub .mono { color: var(--ink-3); font-size: var(--fs-sm); letter-spacing: .06em; }
 
-/* 主视觉：2023 形象双马尾全身立绘 —— 透明背景人物立于舞台线，
-   光环浮于头顶，背后一道大光环水印横跨版心，竖排金印铭文 */
+/* 主视觉：全身立绘（每次打开从候选清单随机轮换一张，见 builder.py 的 HERO_ART）
+   —— 透明背景人物立于舞台线，光环浮于头顶，背后一道大光环水印横跨版心，竖排金印铭文 */
 .masthead { position: relative; }
 .masthead-inner { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: var(--space-6); align-items: end; position: relative; }
 .hero-watermark {
@@ -61,16 +61,24 @@
   height: 1px;
   background: var(--line-strong);
 }
+/* 轮换不同比例的立绘也固定占位盒，避免加载/切换时页面跳动 */
 .hero-figure img {
   display: block;
   width: 100%;
   max-width: 274px;
   height: auto;
+  aspect-ratio: 1080 / 2338;
+  object-fit: contain;
+  object-position: bottom center;
   margin: 0 auto;
   border: 0;
   background: transparent;
   filter: drop-shadow(0 12px 20px rgba(33, 28, 21, .10));
 }
+/* JS 接管时先透明、加载完成再淡入；JS 不执行时保持默认可见 */
+.hero-figure img.hero-art { opacity: 0; transition: opacity .38s var(--ease); }
+.hero-figure img.hero-art.is-ready { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .hero-figure img.hero-art { transition: none; } }
 .hero-halo {
   position: absolute;
   top: -34px; left: 55%;
