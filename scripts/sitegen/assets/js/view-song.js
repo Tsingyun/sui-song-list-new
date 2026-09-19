@@ -66,6 +66,12 @@
       return s.artist && s.artist === song.artist && s.name !== song.name;
     }).sort(function (a, b) { return b.count - a.count; }).slice(0, 6);
 
+    /* 岁己注脚用：首末场与跨度（dates 升序，缺逐日记录时退回统计值） */
+    var firstDate = dates[0] || song.first || '';
+    var lastDate = dates[dates.length - 1] || song.last || '';
+    var spanDays = (firstDate && lastDate && firstDate !== lastDate)
+      ? Math.round((new Date(lastDate) - new Date(firstDate)) / 86400000) : 0;
+
     /* 按热度相邻导航 */
     var byRank = D.songs().slice().sort(function (a, b) {
       return (ranks[a.name] || 9999) - (ranks[b.name] || 9999);
@@ -104,6 +110,13 @@
       '<div class="sec-head" style="margin-bottom:var(--space-3);"><div class="sec-kicker">TIMELINE</div>' +
       '<h2 class="sec-title" style="font-size:1.2rem;">演出时间轴</h2></div>' +
       '<div class="timeline">' + (timeline || '<p style="color:var(--ink-3);font-size:var(--fs-md);">暂无数据</p>') + '</div>' +
+      /* 岁己注脚：把时间轴读成"一个跨度"，而不是一堆日期 */
+      '<div class="sui-note"><i class="sui-bird" aria-hidden="true"></i><span>' +
+      (dates.length
+        ? '最早唱于 <b class="num">' + esc(firstDate) + '</b>，最近一次 <b class="num">' + esc(lastDate) + '</b>' +
+          (spanDays > 0 ? ' —— 前后隔了 <b class="num">' + spanDays + '</b> 天。' : '。')
+        : '这首还没有逐日演唱记录，只有次数统计。') +
+      '</span></div>' +
 
       '<div class="sec-head" style="margin-bottom:var(--space-3);"><div class="sec-kicker">HISTORY</div>' +
       '<h2 class="sec-title" style="font-size:1.2rem;">历史演出 <span class="sec-sub">' + dates.length + ' 场</span></h2></div>' +

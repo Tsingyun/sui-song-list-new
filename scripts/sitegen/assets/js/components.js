@@ -489,7 +489,7 @@
       '<div class="foot-col"><h4>SUI SONG ARCHIVE</h4>' +
       '<p class="foot-span">' + esc(S.first.slice(0, 7).replace('-', '.')) + ' — ' + esc(S.last.slice(0, 7).replace('-', '.')) + '</p>' +
       '<p>收录歌曲 ' + D.fmtInt(S.total) + ' 首 · 演唱 ' + D.fmtInt(S.performances) + ' 次 · 点歌 ' + D.fmtInt(R.total) + ' 次</p>' +
-      '<span class="foot-ver">界面版本 v3.5.1</span></div>' +
+      '<span class="foot-ver">界面版本 v3.6</span></div>' +
       '<div class="foot-col"><h4>数据来源</h4><ul>' +
       '<li><a href="https://www.suijisui.space" target="_blank" rel="noopener">suijisui.space</a>（PQL87/sui-song-list）</li>' +
       '<li><a href="#/requests">点歌统计（已并入本站）</a> · 源自直播间点歌记录</li>' +
@@ -499,6 +499,17 @@
       '<li><a href="https://github.com/Tsingyun/sui-song-list-new" target="_blank" rel="noopener">项目源码 GitHub</a></li>' +
       '<li><a href="#" id="footContribute">我要补充歌曲</a></li></ul></div>' +
       '</div>' +
+      /* 角色署名条：全站每页在页脚都遇到「岁己本人」。
+         与首页铭牌分工 —— 首页回答"她是谁"（种族/出道/生日），
+         这里回答"我们是谁"（粉丝名/口味/应援口号），文案均取自官方资料 */
+      '<div class="foot-sign"><div class="foot-sign-inner">' +
+      '<span class="sui-facts">' +
+      '<span><i class="sui-cookie" aria-hidden="true"></i>粉丝名 饼干岁</span>' +
+      '<span><i class="sui-chili" aria-hidden="true"></i>三餐无辣不欢</span>' +
+      '<span>银喉长尾山雀 · 出道 2022.09.04</span>' +
+      '</span>' +
+      '<span class="foot-sign-quote">「可以邀请你跟我一起飞行吗？」</span>' +
+      '</div></div>' +
       '<div class="foot-base"><div class="foot-base-inner">' +
       '<span><img class="foot-bird" src="assets/sui-bird.png" alt="" aria-hidden="true">suijisui.uk</span>' +
       '<span><span class="foot-sakura" aria-hidden="true"></span>为虚拟主播 岁己SUI 而建 · 小岁小岁我们喜欢你</span>' +

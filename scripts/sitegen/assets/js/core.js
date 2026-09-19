@@ -92,6 +92,15 @@
     renderCurrent();
   };
 
+  /* ─────────── 页面级岁己装饰 ───────────
+     统一在路由层挂载，视图自己不用管：只要注册了视图，就自动获得
+     标题区那枚大光环水印（data-page 决定每页的位置/朝向变体）。
+     符号本身定义在 css/sui.css 的「岁己符号系统」里。 */
+  function decoratePage(container, page) {
+    container.insertAdjacentHTML('afterbegin',
+      '<span class="sui-watermark" data-page="' + C.esc(page) + '" aria-hidden="true"></span>');
+  }
+
   function renderCurrent() {
     var parsed = parseHash();
     var name = routeName(parsed);
@@ -109,6 +118,7 @@
     C.tip.hide();
     if (C.closeAllModals) C.closeAllModals();
     fn(parsed.params, container, parsed);
+    decoratePage(container, view.page || name);
     currentRoute = { name: name, params: parsed.params };
 
     // 页面标题

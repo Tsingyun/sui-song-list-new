@@ -85,6 +85,12 @@
       fig(R.meta.liveDays, '直播天数') +
       '</div>' +
 
+      /* 岁己注脚：用「饼干岁」（官方粉丝名）符号给这页一个身份落点 */
+      '<div class="sui-note" style="margin-top:0;">' +
+      '<i class="sui-cookie" aria-hidden="true"></i>' +
+      '<span>这 <b class="num">' + D.fmtInt(R.meta.total) + '</b> 次点歌来自 <b class="num">' +
+      R.meta.audiences + '</b> 位 <b>饼干岁</b> —— 每一次被点到，小岁都记着。</span></div>' +
+
       /* 工具行：搜索 / 榜单切换 / 周期 / 时间区间 / 导出 */
       '<div class="toolbar">' +
       '<div class="search req-search-wrap">' +

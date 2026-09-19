@@ -30,6 +30,28 @@
   font-size: var(--fs-md);
 }
 .masthead-sub .mono { color: var(--ink-3); font-size: var(--fs-sm); letter-spacing: .06em; }
+/* 角色铭牌：金色细规 + 官方设定（种族/出道日/生日），像场刊封面上的人物小传 */
+.masthead-facts {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .3rem .9rem;
+  margin-top: 1rem;
+  padding-left: .8rem;
+  border-left: 2px solid var(--gold);
+  font-family: var(--mono);
+  font-size: var(--fs-xs);
+  letter-spacing: .06em;
+  color: var(--ink-3);
+}
+.masthead-facts .sui-bird { color: var(--ink-3); margin-right: .3em; vertical-align: -.05em; }
+.masthead-facts-link { color: var(--accent); border-bottom: 1px solid var(--accent-soft); }
+.masthead-facts-link:hover { color: var(--accent-deep); border-bottom-color: var(--accent); }
+/* 星屑位置：只落在版心空白处，不压文字、立绘与左侧光环水印
+   （水印占 x≈238–668，故 a 落在其左、c 落在其下、b 位于中上部空白） */
+.sui-spark-a { top: 24%; left: 1.5%; font-size: 15px; }
+.sui-spark-b { top: 10%; left: 47%;  font-size: 11px; }
+.sui-spark-c { top: 63%; left: 39%;  font-size: 13px; }
 
 /* 主视觉：全身立绘（每次打开从候选清单随机轮换一张，见 builder.py 的 HERO_ART）
    —— 透明背景人物立于舞台线，光环浮于头顶，背后一道大光环水印横跨版心，竖排金印铭文 */
@@ -764,6 +786,79 @@
 @media (prefers-reduced-motion: reduce) { .req-confetti { display: none; } }
 
 /* ─── 关于 ─── */
+/* 角色档案：藏青「档案照」+ 设定表 —— 用唱片内页/场刊的人物小传语言，
+   与全站纸底版面形成一次有意的深浅对比，而不是贴一张图上去 */
+.sui-profile { margin-bottom: var(--space-7); }
+.sui-profile-grid {
+  display: grid;
+  grid-template-columns: 258px minmax(0, 1fr);
+  gap: var(--space-6);
+  align-items: start;
+}
+.sui-profile-photo {
+  margin: 0;
+  padding: 12px;
+  /* 底衬渐变取自立绘本身的藏青色域，与页脚同一色族 */
+  background: linear-gradient(165deg, #3b4257, #272c3b);
+  border: 1px solid var(--gold-soft);
+  box-shadow: var(--shadow-flat);
+}
+.sui-profile-photo img { width: 100%; height: auto; display: block; }
+.sui-profile-photo figcaption {
+  font-family: var(--mono);
+  font-size: var(--fs-xs);
+  letter-spacing: .06em;
+  color: rgba(246, 242, 234, .55);
+  text-align: center;
+  padding-top: .7rem;
+}
+.sui-profile-body .sec-kicker { margin-bottom: .6rem; }
+.sui-profile-intro {
+  font-family: var(--serif);
+  font-size: var(--fs-lg);
+  line-height: 1.75;
+  color: var(--ink);
+  margin-bottom: var(--space-4);
+  max-width: 34em;
+}
+.sui-profile-table { border-top: 1px solid var(--ink); }
+.sui-profile-table > div {
+  display: grid;
+  grid-template-columns: 4.6rem minmax(0, 1fr);
+  gap: var(--space-3);
+  align-items: baseline;
+  padding: .5rem 0;
+  border-bottom: 1px solid var(--line);
+  font-size: var(--fs-md);
+}
+.sui-profile-table dt {
+  font-family: var(--mono);
+  font-size: var(--fs-sm);
+  letter-spacing: .06em;
+  color: var(--ink-3);
+}
+.sui-profile-table dd { color: var(--ink); display: flex; align-items: center; gap: .4rem; flex-wrap: wrap; }
+.sui-profile-table dd .sui-bird { color: var(--ink-2); }
+.sui-swatch {
+  display: inline-block;
+  width: 13px; height: 13px;
+  border-radius: 3px;
+  border: 1px solid rgba(33, 28, 21, .22);
+  vertical-align: -.15em;
+}
+.sui-profile-colors { gap: .35rem .5rem; }
+.sui-profile-colors .mono { font-size: var(--fs-sm); color: var(--ink-2); margin-right: .5rem; }
+.sui-profile-quote {
+  margin-top: var(--space-4);
+  padding: .75rem 1rem;
+  border-left: 2px solid var(--gold);
+  background: rgba(201, 167, 108, .09);
+  font-family: var(--serif);
+  font-size: var(--fs-md);
+  color: var(--ink-2);
+}
+.sui-profile-from { margin-top: .7rem; font-size: var(--fs-xs); color: var(--ink-3); }
+
 .about-cols { display: grid; grid-template-columns: 1.5fr 1fr; gap: var(--space-7); }
 .about-block h3 { font-size: var(--fs-lg); margin: var(--space-5) 0 .7rem; }
 .about-block h3:first-child { margin-top: 0; }

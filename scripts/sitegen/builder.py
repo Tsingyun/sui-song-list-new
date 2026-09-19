@@ -41,7 +41,7 @@ def payload_json(payload):
 
 
 def css_bundle():
-    files = ['tokens.css', 'base.css', 'layout.css', 'components.css',
+    files = ['tokens.css', 'base.css', 'sui.css', 'layout.css', 'components.css',
              'views.css', 'responsive.css']
     return '\n'.join(read_asset('css', f) for f in files)
 
@@ -58,7 +58,7 @@ def copy_static_assets():
     """Binary art assets referenced by relative path from docs/index.html."""
     out_dir = os.path.join(DOCS_DIR, 'assets')
     os.makedirs(out_dir, exist_ok=True)
-    for fn in ['logo.png', 'sui-avatar.webp', 'sui-chibi.webp',
+    for fn in ['logo.png', 'sui-avatar.webp', 'sui-chibi.webp', 'sui-portrait.webp',
                'sui-fullbody.webp', 'sui-short.webp', 'sui-bird.png', 'sui-cursor.png'] + HERO_ART:
         src = os.path.join(ASSETS_DIR, fn)
         if os.path.exists(src):

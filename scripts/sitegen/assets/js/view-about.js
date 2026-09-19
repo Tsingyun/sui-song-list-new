@@ -5,6 +5,8 @@
   var esc = C.esc;
 
   var CHANGELOG = [
+    ['v3.6', '岁己符号系统上线：把「岁己」拆成一套可复用的图形符号（光环+四芒星 / 银喉长尾山雀 / 饼干 / 樱花 / 辣椒），统一收在 css/sui.css 一处维护，再按语义铺满全站 —— 每个页面标题区的大光环水印（逐页尺寸与倾角微差，由路由层统一注入，新增页面自动获得）、每个数据区块尾部的岁己注脚、所有空状态与清单空行的小鸟、返回顶部按钮上的栖枝小鸟（悬停振翅）、页脚新增角色署名条'],
+    ['v3.6', '关于页新增「角色档案」：藏青档案照（半身立绘衬藏青渐变，金线细框）+ 官方设定表（种族 银喉长尾山雀 / 出道 2022.09.04 / 生日 2.05 / 粉丝名 饼干岁 / 口味 / 代表色 #87EAFF·#DA5D77 / 形象设计）与应援口号'],
     ['v3.5.1', '首页「点歌速览」行高稳定化：多个人名换行时不再把卡片撑高——轮播所有页共享同一锁定高度（取各页最大高度，字体就绪与窗口尺寸变化后自动重测），切换页面时页面总高全程恒定；同时单个「名字 + 附注」不再被拦腰拆行，人名保持完整可读'],
     ['v3.5', '左上角品牌位（小鸟 Logo + 「岁己SUI 歌单档案」）整块可点击，新标签页直达岁己的 B站个人空间（带 noopener noreferrer，悬停有轻微反馈）'],
     ['v3.5', '首页立绘随机轮换：每次打开或刷新从候选立绘清单（全身 / 短发 / Q 版）随机抽一张，同一会话内不与上一张重复；占位盒固定比例，切换不跳动，加载淡入，图片失效时自动退回默认立绘并保留光环与铭文'],
@@ -28,7 +30,33 @@
   function render(params, container) {
     container.innerHTML =
       '<div class="sec-head"><div class="sec-kicker">ABOUT</div>' +
-      '<h2 class="sec-title">关于本站 <span class="sec-sub">SUI SONG ARCHIVE v3.5.1</span></h2></div>' +
+      '<h2 class="sec-title">关于本站 <span class="sec-sub">SUI SONG ARCHIVE v3.6</span></h2></div>' +
+
+      /* ── 角色档案：本站唯一的「岁己本人出场」板块，设定均取自官方资料 ── */
+      '<section class="sui-profile">' +
+      '<div class="sui-profile-grid">' +
+      '<figure class="sui-profile-photo">' +
+      '<img src="assets/sui-portrait.webp" alt="岁己SUI 半身立绘" width="480" height="720" loading="lazy" decoding="async">' +
+      '<figcaption>SUI · VirtuaReal 第十七期生</figcaption>' +
+      '</figure>' +
+      '<div class="sui-profile-body">' +
+      '<div class="sec-kicker">CHARACTER FILE</div>' +
+      '<p class="sui-profile-intro">原本是一只想要早起叫醒人类的小鸟，' +
+      '结果因为自己也起不来，索性变成了人类。</p>' +
+      '<dl class="sui-profile-table">' +
+      '<div><dt>种族</dt><dd><i class="sui-bird" aria-hidden="true"></i>银喉长尾山雀</dd></div>' +
+      '<div><dt>出道</dt><dd>2022 年 9 月 4 日</dd></div>' +
+      '<div><dt>生日</dt><dd>2 月 5 日 · 水瓶座</dd></div>' +
+      '<div><dt>粉丝名</dt><dd><i class="sui-cookie" aria-hidden="true"></i>饼干岁</dd></div>' +
+      '<div><dt>偏好</dt><dd><i class="sui-chili" aria-hidden="true"></i>超辣火锅与辣椒，三餐无辣不欢</dd></div>' +
+      '<div><dt>代表色</dt><dd class="sui-profile-colors">' +
+      '<span class="sui-swatch" style="background:#87EAFF"></span><span class="mono">#87EAFF</span>' +
+      '<span class="sui-swatch" style="background:#DA5D77"></span><span class="mono">#DA5D77</span></dd></div>' +
+      '<div><dt>形象设计</dt><dd>Yukizawa 雪泽</dd></div>' +
+      '</dl>' +
+      '<p class="sui-profile-quote">「可以邀请你跟我一起飞行吗？人类不会飞的话，我悄悄载你！」</p>' +
+      '<p class="sui-profile-from">以上设定摘自岁己公开资料；本页其余内容均为本站对演唱数据的整理。</p>' +
+      '</div></div></section>' +
 
       '<div class="about-cols"><div class="about-block">' +
       '<h3>这是什么</h3>' +
@@ -42,6 +70,7 @@
       '<li>演唱日期：suijisui.space + 本地统计表（2024-06 起以本地表为准）</li>' +
       '<li>录播片段：岁己SUI 的 B站投稿合集（标题归一化多策略匹配）</li>' +
       '<li>点歌数据：直播间点歌记录（原 sui-song-stats 项目，2026-09 已完整并入本站「点歌统计」）</li>' +
+      '<li>角色设定（仅「角色档案」板块）：岁己SUI 应援站与公开资料</li>' +
       '</ul>' +
 
       '<h3>数据怎么更新</h3>' +

@@ -93,12 +93,24 @@
     var heroArt = pickHeroArt();
 
     container.innerHTML =
-      '<section class="masthead"><span class="hero-watermark" aria-hidden="true"></span><div class="masthead-inner">' +
+      '<section class="masthead"><span class="hero-watermark" aria-hidden="true"></span>' +
+      /* 星屑：散在版心空白处的四芒星，与天使环同源（岁己头顶的铜环与星） */
+      '<i class="sui-spark sui-star sui-spark-a" aria-hidden="true"></i>' +
+      '<i class="sui-spark sui-star sui-spark-b sui-spark--d1" aria-hidden="true"></i>' +
+      '<i class="sui-spark sui-star sui-spark-c sui-spark--d2" aria-hidden="true"></i>' +
+      '<div class="masthead-inner">' +
       '<div class="masthead-main">' +
       '<div class="masthead-kicker">SUI SONG ARCHIVE · 岁己演唱档案</div>' +
       '<h1>岁己SUI <span class="thin">歌单档案</span></h1>' +
       '<div class="masthead-sub"><span>完整收录每一次演唱、每一首歌。</span>' +
       '<span class="mono">' + esc(span) + '</span></div>' +
+      /* 角色铭牌：官方设定（种族 / 出道日 / 生日），回答"主视觉里的她是谁" */
+      '<div class="masthead-facts">' +
+      '<span><i class="sui-bird" aria-hidden="true"></i>银喉长尾山雀</span>' +
+      '<span>出道 2022.09.04</span>' +
+      '<span>生日 2.05</span>' +
+      '<a class="masthead-facts-link" href="' + C.buildHash('about') + '">角色档案 →</a>' +
+      '</div>' +
       '</div>' +
       '<figure class="hero-figure">' +
       '<span class="hero-halo" aria-hidden="true"></span>' +

@@ -118,6 +118,28 @@ build_site.py ──► sitegen.builder.build()
    前端 `view-home.js` 用 sessionStorage 保证同会话不与上一张重复；`.hero-figure img`
    固定 `aspect-ratio: 1080/2338` + `object-fit: contain`，换不同比例的图也不会跳动；
    图片全部失效时隐藏图片并保留光环/铭文。清单第一项即加载失败兜底图，建议放全身立绘
+7. **岁己符号系统（v3.6）**：全站的岁己元素**不要在视图里零散写样式**，统一走
+   `scripts/sitegen/assets/css/sui.css`（唯一维护点，改一处全站生效）：
+   - 行内符号：`.sui-halo`（光环，角色签名）/ `.sui-star`（四芒星）/ `.sui-bird`
+     （银喉长尾山雀＝种族本体，遮罩剪影、颜色随 `color` 走）/ `.sui-cookie`（饼干＝粉丝名）/
+     `.sui-sakura`（樱花）/ `.sui-chili`（辣椒＝三餐无辣不欢）；尺寸按 `em`，跟随字号缩放
+   - 承载件：`.sui-watermark`（页面水印）/ `.sui-note`（区块注脚）/ `.sui-perch`（栖枝）/
+     `.sui-facts`（角色署名条，纸底用 `--paper` 变体）/ `.sui-spark`（星屑）/
+     `.empty::before` 与 `.list-empty::before`（空状态小鸟，**一处规则覆盖全站空态**）
+   - **水印由路由层注入**：`core.js` 的 `decoratePage()` 在 `renderCurrent()` 里往 `.view`
+     插首个节点，因此**新增视图自动获得水印**，视图自己不用管；每页差异只由
+     `.sui-watermark[data-page="路由名"]` 变体（尺寸/位移/倾角）决定
+   - **两处硬约束（都踩过，别再破）**：① 基础规则 `right` 必须 ≥ 0，负值会让绝对定位元素
+     撑出 `.view`（`.view` 已建层叠上下文 + `z-index:0`，水印 `z-index:-1` 稳沉内容下）
+     在窄屏产生横向滚动条 —— 这也是「忘记登记新页面」时的兜底；② `<=640` 断点必须给
+     `.sui-watermark[data-page]` 加 `transform:none`，因为 `106×49` 转 3° 后包围盒宽
+     108.4px，会比 `right:0` 的锚点多出 1~2px 撑宽文档（实测 frequent/artists/insights/about
+     各 +1~2px，v3.6 已修）。**改水印尺寸或角度后必须复跑横向溢出检查**
+   - 素材：`assets/sui-bird.png`（遮罩剪影源，同时供空状态与栖枝）、
+     `assets/sui-portrait.webp`（关于页角色档案照，480×720 含 alpha，由立绘裁切）。
+     新增素材要同时加进 `builder.py` 的拷贝清单
+   - 关于页「角色档案」的设定全部可溯源（种族/出道 2022.09.04/生日 2.05/粉丝名 饼干岁/
+     代表色 #87EAFF·#DA5D77），**改文案前先核对公开资料，不要凭印象写**
 
 ---
 
@@ -135,8 +157,13 @@ build_site.py ──► sitegen.builder.build()
 ## 6. 环境注意事项
 
 1. **Windows 编码**：所有 Python 命令加 `-X utf8`（cmd.exe 默认 GBK）
-2. **Git push**：非交互终端用 `git -c credential.helper=manager push origin main`；
-   push 由项目主理人本地完成，Agent 不要自行 push
+2. **Git push**：本机 credential manager 没存凭据（`credential.helper=manager` 会挂起），
+   但 GitHub CLI 已登录（account `Tsingyun`，token scopes 含 `repo`/`workflow`，存于 keyring），
+   直接拿它当 helper 即可，**不需要明文 token**：
+   `git -c credential.helper= -c credential.helper='!"C:/Program Files/GitHub CLI/gh.exe" auth git-credential' push origin main`
+   （前一个 `-c credential.helper=` 是清空继承来的 helper，否则 manager 先被调用会挂起；
+   首次可把 `push` 换成 `push --dry-run` 验证连通）
+   按用户约定：**代码改动默认直接 commit + push，不必再问**（遗留的「不要自行 push」已作废）
 3. **bat 文件必须纯 ASCII**；bash 工具在本机不可用（cmd shell）
 4. **本地预览**：`python -m http.server 8899` 后访问 `http://127.0.0.1:8899/docs/`；
    代理环境下 localhost 可能被拦截，注意端口冲突
@@ -175,3 +202,9 @@ build_site.py ──► sitegen.builder.build()
    `#reqRotate` 卡片高与 `document.documentElement.scrollHeight` 极差必须为 0；
    自动轮播跑满 7 秒页面总高不变；人名不被省略号截断、chip 不越出卡片边界
    （脚本 `.zcode/workspace/default/_verify_teaser.py`）
+10. 岁己符号系统：8 路由水印 `data-page` 正确、9 视口 × 8 路由水印不压文字、
+   页脚署名条齐全、关于页角色档案（照片 480×720 + 设定字段 + 代表色色块）、
+   空状态小鸟遮罩、各页注脚数、栖枝加载、窄屏单列无报错
+   （脚本 `.zcode/workspace/default/_verify_motifs.py`，42 项）
+11. 横向溢出回归：`<=640` 全路由零溢出；水印兜底（未知 page 名）零溢出
+   （脚本 `.zcode/workspace/default/_verify_overflow.py`，6 项）

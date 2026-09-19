@@ -14,7 +14,12 @@
       '<div class="insight-tabs">' + tabs.map(function (t) {
         return '<button type="button" data-tab="' + t[0] + '"' + (t[0] === tab ? ' class="active"' : '') + '>' + t[1] + '</button>';
       }).join('') + '</div>' +
-      '<div id="insightBody"></div>';
+      '<div id="insightBody"></div>' +
+      /* 岁己注脚：跨 tab 常驻，给这一页的图表一个"人"的落点 */
+      '<div class="sui-note"><i class="sui-bird" aria-hidden="true"></i>' +
+      '<span><b class="num">' + (window.SUI.requests.meta.liveDays || 0) + '</b> 个演出日 · ' +
+      '<b class="num">' + window.SUI.songs.stats.total + '</b> 首歌 —— ' +
+      '图表里的每一格、每一段，都是一次开口。</span></div>';
 
     var body = container.querySelector('#insightBody');
     if (tab === 'trend') renderTrend(body);

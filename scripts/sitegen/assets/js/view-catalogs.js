@@ -9,11 +9,14 @@
 
   /* ─── 常唱金曲 ─── */
   function renderFrequent(params, container) {
+    var n10 = D.songs().filter(function (s) { return s.count >= 10; }).length;
     container.innerHTML =
       '<div class="sec-head"><div class="sec-kicker">HITS</div>' +
       '<h2 class="sec-title">常唱金曲 <span class="sec-sub">演唱 5 次以上 · ' + window.SUI.songs.stats.frequent + ' 首</span></h2></div>' +
       '<div class="toolbar"><div class="search"><input id="freqSearch" type="search" placeholder="搜索常唱金曲…" value="' + esc(params.q || '') + '"></div></div>' +
-      '<div class="rowlist" id="freqRows"></div>';
+      '<div class="rowlist" id="freqRows"></div>' +
+      '<div class="sui-note"><i class="sui-bird" aria-hidden="true"></i>' +
+      '<span>这 ' + window.SUI.songs.stats.frequent + ' 首里，有 <b class="num">' + n10 + '</b> 首被唱了 10 次以上 —— 弹幕点到手熟，小岁也唱到嘴熟。</span></div>';
 
     var input = container.querySelector('#freqSearch');
     var rows = container.querySelector('#freqRows');
@@ -37,6 +40,7 @@
   /* ─── 语言分类 ─── */
   function renderLanguages(params, container) {
     var langs = window.SUI.songs.langs;
+    var top = langs[0] || { lang: '—', count: 0 };
     container.innerHTML =
       '<div class="sec-head"><div class="sec-kicker">LANGUAGES</div>' +
       '<h2 class="sec-title">语言分类 <span class="sec-sub">BY LANGUAGE</span></h2></div>' +
@@ -45,6 +49,9 @@
         return '<button type="button" class="chip" data-target="' + esc(l.lang) + '">' + esc(l.lang) +
           ' <span class="num">' + l.count + '</span></button>';
       }).join('') + '</div>' +
+      '<div class="sui-note" style="margin-top:1.1rem;"><i class="sui-bird" aria-hidden="true"></i>' +
+      '<span>一只小鸟学会了 <b class="num">' + langs.length + '</b> 种语言的歌；' +
+      '其中 <b>' + esc(top.lang) + '</b> 最多，共 <b class="num">' + top.count + '</b> 首。</span></div>' +
       langs.map(function (l) {
         var list = D.songs().filter(function (s) { return s.lang === l.lang; })
           .sort(function (a, b) { return b.count - a.count || a.name.localeCompare(b.name, 'zh'); });
@@ -91,9 +98,13 @@
           '<h4>' + esc(a.name) + '<span class="num">' + a.songs + '</span></h4>' +
           '<p>' + a.songs + ' 首 · ' + a.perf + ' 次演唱</p>' +
           '<div class="songs">' + chips + more + '</div></div>';
-      }).join('') + '</div>' +
+      }).join('') +       '</div>' +
       (artists.length > shown.length
-        ? '<p class="list-meta" style="margin-top:1rem;">显示前 ' + shown.length + ' 位 · 共 ' + artists.length + ' 位，请用搜索缩小范围</p>' : '');
+        ? '<p class="list-meta" style="margin-top:1rem;">显示前 ' + shown.length + ' 位 · 共 ' + artists.length + ' 位，请用搜索缩小范围</p>' : '') +
+      '<div class="sui-note"><i class="sui-bird" aria-hidden="true"></i>' +
+      '<span>共 <b class="num">' + artists.length + '</b> 位原唱、<b class="num">' +
+      artists.reduce(function (n, a) { return n + a.perf; }, 0) +
+      '</b> 次演唱 —— 从虚拟歌手到华语日系流行，小岁都认真唱过。</span></div>';
 
     var input = container.querySelector('#artistSearch');
     input.addEventListener('input', C.debounce(function () {

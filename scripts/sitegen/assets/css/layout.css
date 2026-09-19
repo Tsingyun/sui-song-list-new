@@ -85,13 +85,17 @@
 
 .head-actions { display: flex; gap: .5rem; flex-shrink: 0; }
 
-/* 主内容 */
+/* 主内容
+   z-index:0 让它自成层叠上下文：路由注入的 .sui-watermark 用 z-index:-1
+   就能稳稳沉在本页内容之下、又盖在纸纹之上，不会逐页去调 z-index */
 .view {
   max-width: var(--w-page);
   margin: 0 auto;
   padding: var(--space-6) 1.25rem var(--space-8);
   min-height: 60vh;
   outline: none;
+  position: relative;
+  z-index: 0;
 }
 
 /* 页脚 —— 岁己藏青版面：贝雷藏青底 + 女仆装条纹肌理 + 光环金勾边 */
@@ -173,7 +177,9 @@
   opacity: .92;
 }
 
-/* 返回顶部 */
+/* 返回顶部
+   保留 ↑ 的明确指示，另外请一只银喉长尾山雀停在按钮右上角；
+   悬停时小鸟振翅上飞 —— 与 ↑ 同义，不增加理解成本 */
 .back-top {
   position: fixed;
   right: 1.5rem; bottom: 1.5rem;
@@ -193,3 +199,38 @@
 }
 .back-top.visible { opacity: 1; transform: none; pointer-events: auto; }
 .back-top:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.back-top-perch {
+  position: absolute;
+  top: -13px; right: -11px;
+  width: 27px; height: auto;
+  transition: transform var(--dur-slow) var(--ease);
+  filter: drop-shadow(0 1px 2px rgba(33, 28, 21, .2));
+}
+.back-top:hover .back-top-perch { transform: translateY(-5px) rotate(-8deg); }
+@media (prefers-reduced-motion: reduce) {
+  .back-top-perch, .back-top:hover .back-top-perch { transition: none; transform: none; }
+}
+
+/* 角色署名条 —— 页脚底部的岁己设定行（全站每页都出现） */
+.foot-sign {
+  border-top: 1px solid rgba(201, 167, 108, .28);
+  background: rgba(0, 0, 0, .12);
+  position: relative;
+}
+.foot-sign-inner {
+  max-width: var(--w-page);
+  margin: 0 auto;
+  padding: .85rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .6rem 1.5rem;
+  flex-wrap: wrap;
+}
+.foot-sign-quote {
+  font-family: var(--serif);
+  font-size: var(--fs-sm);
+  color: var(--gold);
+  letter-spacing: .02em;
+  opacity: .9;
+}
