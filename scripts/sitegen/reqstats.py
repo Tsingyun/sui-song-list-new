@@ -25,14 +25,23 @@ Business rules (fixed, see REBUILD_NOTES.md §4):
     Fire count = streak length - 1 (min 1).
 
 观众等级 Lv.1-5   thresholds: 1-10 / 11-30 / 31-60 / 61-100 / 100+
-月度冠军 👑       every audience tied at the month's top count
+月度冠军 👑       a crown appears ONLY when someone leads SIGNIFICANTLY.
+                  Conditions (all of them, see month_champions()):
+                    - the top spot is UNIQUE (a tie crowns nobody)
+                    - the top count is >= 2 (being picked once is not a title)
+                    - the lead is significant: either >= 2x the runner-up,
+                      or a gap of >= 2 over it
+                  So a flat month (everyone on 1 request) shows NO crown at all,
+                  and a narrow lead (5 vs 4) shows none either.
 
 The 2026-09 merge of the sister site (stats.suijisui.uk / Tsingyun/sui-song-stats)
 added these derived boards, all computed from raw_data with the same rules the
 stats repo used — never hand-patched:
 
 跨月冠军 championStreaks
-    Champion of month M = whoever topped that month's board (ties all crowned).
+    Champion of month M = month_champions(), i.e. the SAME significant-lead rule
+    the monthly board uses (a month with no significant leader contributes no
+    crown, which naturally breaks a streak).
     A streak = a run of CALENDAR-CONTIGUOUS months (2024-12 -> 2025-01 counts)
     where the same audience kept the crown; only runs >= 2 are reported, and each
     audience keeps its single LONGEST run.
@@ -70,16 +79,56 @@ def _days_between(a, b):
     return (db - da).days
 
 
+CHAMPION_MIN_TOP = 2   # the top audience must have > 1 request to hold a title
+CHAMPION_RATIO = 2     # ...and must lead by at least this factor (2x = "twice")
+CHAMPION_GAP = 2       # ...or by at least this many requests
+
+
+def month_champions(counter):
+    """Monthly 👑 champions: only a SIGNIFICANT unique leader, else nobody.
+
+    Returns a list holding 0 or 1 name. All three conditions must hold:
+
+      1. UNIQUE leader  — if several audiences share the month's top count the
+                          month has no champion at all (a flat month where
+                          everyone sits on 1 request is the common case: nothing
+                          distinguishes anyone, so crowning all of them is noise).
+      2. top >= 2       — being requested once is not an achievement worth a crown.
+      3. a SIGNIFICANT lead, satisfied by EITHER
+           - ratio: top >= 2 x runner-up   (2 vs 1 -> champion, the tight case)
+           - gap:   top - runner-up >= 2   (7 vs 4 -> champion; large counts where
+                                            a 2x factor is out of reach)
+
+    Deliberately NOT champions: 5 vs 4 (leads by 1, not twice), 7 vs 6, 11 vs 11
+    (tied), everyone on 1. Being the only name on an otherwise empty board still
+    requires >= 2 requests.
+
+    This single definition is shared by the monthly board (payload['champs']) and
+    by compute_champion_streaks(), so the two can never drift apart.
+    """
+    if not counter:
+        return []
+    top = max(counter.values())
+    leaders = [a for a, c in counter.items() if c == top]
+    if len(leaders) != 1:
+        return []
+    if top < CHAMPION_MIN_TOP:
+        return []
+    others = [c for c in counter.values() if c < top]
+    second = max(others) if others else 0
+    if not second:
+        return leaders
+    if top >= CHAMPION_RATIO * second or top - second >= CHAMPION_GAP:
+        return leaders
+    return []
+
+
 def compute_champion_streaks(monthly_counter):
     """Runs of calendar-contiguous months where the same audience topped the month."""
     month_champs = defaultdict(set)
     for month, counter in monthly_counter.items():
-        if not counter:
-            continue
-        top = max(counter.values())
-        for aud, c in counter.items():
-            if c == top:
-                month_champs[aud].add(month)
+        for aud in month_champions(counter):
+            month_champs[aud].add(month)
 
     out = []
     for aud, months in month_champs.items():
@@ -344,13 +393,10 @@ def build_request_payload():
 
     similar = similar[:30]
 
-    # champions per month (ties all crowned)
-    champs = {}
-    for month, counter in monthly.items():
-        if not counter:
-            continue
-        top = max(counter.values())
-        champs[month] = sorted(a for a, c in counter.items() if c == top)
+    # champions per month — only a significant unique leader earns a 👑, so a
+    # month holds either exactly one champion or none (see month_champions)
+    champs = {month: month_champions(counter)
+              for month, counter in monthly.items() if counter}
 
     dates = sorted(e['date'] for e in raw)
     streaks = compute_streaks(raw)

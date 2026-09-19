@@ -7,7 +7,12 @@
    业务规则（构建期已定，勿改）：
    - 占比：完整榜单向下取整、末项补齐余数，总和严格 100%。
    - 🔥 = 连续点球场次 - 1（纯主播日透明，不跨月）。
-   - 等级 Lv.1-5：1-10 / 11-30 / 31-60 / 61-100 / 100+。 */
+   - 等级 Lv.1-5：1-10 / 11-30 / 31-60 / 61-100 / 100+。
+   - 月度冠军 👑：只有「显著领先」才产生冠军，否则该月一个皇冠都不显示。
+     三条须同时成立——① 唯一第一（并列则无人戴冠）；② 榜首 ≥ 2 次；
+     ③ 显著领先：榜首 ≥ 2×次高，或领先次高 ≥ 2 次。
+     故「2 次 vs 其余各 1 次」是冠军，「全员 1 次」「5 vs 4」「11 vs 11」都不是。
+     判定统一在后端 month_champions()，前端（含最近 15 天）只读 R.champs，不再自行重算。 */
 (function () {
   'use strict';
   var C = window.SUICore, D = window.SUIDomain;
@@ -304,15 +309,11 @@
       return '<div class="empty" style="padding:1.5rem;"><p class="mono">最近 15 天内没有点歌记录</p></div>';
     }
     list.sort(function (a, b) { return a.last < b.last ? 1 : (a.last > b.last ? -1 : 0); });
-    var maxc = Math.max.apply(null, list.map(function (x) { return x.count; }));
-    // 当月冠军 + 本月连续点歌 🔥（与月度榜同语义）
+    // 当月冠军 + 本月连续点歌 🔥（与月度榜同一判定：只有显著领先者才戴 👑）
+    // 冠军直接沿用构建期算好的 R.champs，不在此处重算——重复实现会与月榜漂移
     var thisMonth = D.thisMonth();
-    var monthData = R.boards.monthly[thisMonth] || [];
     var champSet = {};
-    if (monthData.length) {
-      var topCount = monthData[0].c;
-      monthData.forEach(function (it) { if (it.c === topCount) champSet[it.n] = true; });
-    }
+    (R.champs[thisMonth] || []).forEach(function (n) { champSet[n] = true; });
     var streakByAud = {};
     (R.streaks[thisMonth] || []).forEach(function (s) { streakByAud[s.n] = s; });
 
