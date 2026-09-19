@@ -9,6 +9,16 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@600;700;900&display=swap" rel="stylesheet">
+<script>
+/* 主题引导：必须在 <style> 生效前写好 data-theme，否则深色用户会先闪一下白底（FOUC）。
+   优先级：localStorage 记忆 > 系统偏好 > 浅色。切换与记忆逻辑在 components.js。 */
+(function () {
+  var t = null;
+  try { t = localStorage.getItem('sui-theme'); } catch (e) {}
+  if (!t && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches) t = 'dark';
+  if (t === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+})();
+</script>
 <style>
 /* ══════════════════════════════════════════════════════════════
    岁己SUI 歌单档案 · 设计 tokens
@@ -26,11 +36,26 @@
   --line: #ded4c0;
   --line-strong: #b6a88d;
 
+  /* 通道变量：把散落各文件的 rgba(33,28,21,α) / rgba(246,242,234,α)
+     收拢成语义通道，深色主题只需在这里换通道值。
+     --ink-rgb   随「墨」翻转：悬停底色、细纹理等浅色淡染（深色下变亮白淡染）
+     --paper-rgb 随「纸」翻转：纸底上的半透明文字/蒙层（深色下变暗）
+     --shade-rgb 恒深：投影（深色下换纯黑，阴影永远是暗的）
+     --scrim-rgb 恒深：全屏遮罩（弹层/侧栏/彩蛋的压暗层）
+     --mat       恒浅：画廊卡纸底（白底原画 multiply 的衬纸，深色墙上挂浅卡纸装裱画） */
+  --ink-rgb: 33, 28, 21;
+  --paper-rgb: 246, 242, 234;
+  --shade-rgb: 33, 28, 21;
+  --scrim-rgb: 33, 28, 21;
+  --mat: #f6f2ea;
+
   /* 强调 —— 提取自岁己立绘：瞳色绯红 / 贝雷藏青 / 光环金 / 发丝冰蓝 / 樱花粉 */
   --accent: #ae3132;          /* 瞳色绯红 —— 仅用于激活态/关键数字/标记 */
   --accent-deep: #8c2721;
   --accent-soft: rgba(174, 49, 50, .07);
+  --accent-rgb: 174, 49, 50;  /* 绯红通道：徽标描边等半透明红 */
   --green: #33604e;           /* 次级状态（偶尔/成功） */
+  --green-rgb: 51, 96, 78;
 
   /* 岁己身份色 */
   --navy: #333949;            /* 贝雷藏青 */
@@ -80,6 +105,52 @@
   --ease: cubic-bezier(.3, .7, .3, 1);
 }
 
+/* ══════════════════════════════════════════════════════════════
+   深色主题 —— 「深夜刊」：同一套场刊版式，灯调暗了再读
+   原则：
+   · 暖黑纸底（不是纯黑），暖白墨字，保持「纸与墨」的编辑风语言；
+   · 藏青页脚 / 档案照框 / 光环金 / 樱花粉等「深色版面元素」原样保留 ——
+     它们在浅色主题下本来就是深底，深浅两版通用；
+   · 绯红整体提亮一档保证对比度；阴影/遮罩换纯黑通道；
+   · color-scheme 交给浏览器：滚动条、表单控件、输入法面板随之变深。
+   主题属性由 head 内联脚本在 CSS 生效前写好（防闪烁），components.js 负责切换。
+   ══════════════════════════════════════════════════════════════ */
+html[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* 纸与墨（暖黑 × 暖白） */
+  --paper: #211d17;
+  --paper-deep: #1a1611;
+  --surface: #2a251d;
+  --ink: #eae3d5;
+  --ink-2: #b5ab97;
+  --ink-3: #857c6a;
+  --line: #3d372c;
+  --line-strong: #645a42;
+
+  /* 通道翻转 */
+  --ink-rgb: 234, 227, 213;
+  --paper-rgb: 33, 29, 23;
+  --shade-rgb: 0, 0, 0;
+  --scrim-rgb: 0, 0, 0;
+
+  /* 强调：绯红提亮一档（对比度 ≥ 4.5:1），hover 态比激活态更亮 */
+  --accent: #d4593f;
+  --accent-deep: #e58a70;
+  --accent-soft: rgba(212, 89, 63, .14);
+  --accent-rgb: 212, 89, 63;
+  --green: #7fae94;
+  --green-rgb: 127, 174, 148;
+
+  /* 光环金在暖黑上略提亮，保住「金线细框」的存在感 */
+  --gold: #d4b47e;
+  --gold-soft: rgba(212, 180, 126, .5);
+
+  /* 阴影：深夜里阴影更深更沉 */
+  --shadow-pop: 0 2px 6px rgba(0, 0, 0, .45), 0 18px 48px rgba(0, 0, 0, .5);
+  --shadow-flat: 0 1px 3px rgba(0, 0, 0, .4);
+}
+
 /* ═══════ 基础 ═══════ */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -93,7 +164,7 @@ body {
   line-height: 1.7;
   min-height: 100vh;
   /* 纸张肌理：极淡的横纹，代替旧站的扫描线 */
-  background-image: repeating-linear-gradient(0deg, transparent 0 3px, rgba(33, 28, 21, .012) 3px 4px);
+  background-image: repeating-linear-gradient(0deg, transparent 0 3px, rgba(var(--ink-rgb), .012) 3px 4px);
 }
 
 /* ─── 小鸟鼠标光标（自旧版移植）─────────────────────────────
@@ -117,7 +188,7 @@ body {
   }
 }
 
-::selection { background: rgba(181, 55, 29, .18); }
+::selection { background: rgba(var(--accent-rgb), .2); }
 
 h1, h2, h3, h4 { font-family: var(--serif); font-weight: 700; line-height: 1.3; }
 
@@ -130,7 +201,7 @@ input, select, textarea { font: inherit; color: inherit; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 mark {
-  background: rgba(181, 55, 29, .16);
+  background: rgba(var(--accent-rgb), .16);
   color: var(--accent-deep);
   padding: 0 .05em;
 }
@@ -252,7 +323,7 @@ img, svg, iframe { display: block; max-width: 100%; }
   width: auto; height: auto;
   max-width: 100%;
   object-fit: contain;
-  filter: drop-shadow(0 2px 3px rgba(33, 28, 21, .14));
+  filter: drop-shadow(0 2px 3px rgba(var(--shade-rgb), .14));
 }
 
 /* ─── 饼干（粉丝名「饼干岁」）─── */
@@ -433,7 +504,7 @@ img, svg, iframe { display: block; max-width: 100%; }
    即：凡是「页面级」浮层都排在顶栏之下，顶栏永远可点是这套层级的第一原则。 */
 .site-head {
   position: sticky; top: 0; z-index: 910;
-  background: rgba(246, 242, 234, .92);
+  background: rgba(var(--paper-rgb), .92);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
@@ -455,7 +526,7 @@ img, svg, iframe { display: block; max-width: 100%; }
   border-radius: 6px;
   transition: background-color .22s var(--ease), transform .22s var(--ease);
 }
-.brand:hover { background: rgba(33, 28, 21, .05); transform: translateY(-1px); }
+.brand:hover { background: rgba(var(--ink-rgb), .05); transform: translateY(-1px); }
 .brand:active { transform: translateY(0); }
 .brand:hover .brand-text { color: var(--accent-deep); }
 .brand-text { transition: color .22s var(--ease); }
@@ -468,7 +539,7 @@ img, svg, iframe { display: block; max-width: 100%; }
   object-fit: contain;
   border-radius: 8px;
   /* 小鸟是白底黑描边透明图，落在暖纸底上收一点投影避免"飘" */
-  filter: drop-shadow(0 1px 1.5px rgba(33, 28, 21, .22));
+  filter: drop-shadow(0 1px 1.5px rgba(var(--shade-rgb), .22));
 }
 .brand-text {
   font-family: var(--serif);
@@ -502,7 +573,7 @@ img, svg, iframe { display: block; max-width: 100%; }
   border-radius: 4px;
   position: relative;
 }
-.site-nav a:hover { color: var(--ink); background: rgba(33, 28, 21, .05); }
+.site-nav a:hover { color: var(--ink); background: rgba(var(--ink-rgb), .05); }
 .site-nav a.active {
   color: var(--accent-deep);
   font-weight: 500;
@@ -514,6 +585,26 @@ img, svg, iframe { display: block; max-width: 100%; }
 }
 
 .head-actions { display: flex; gap: .5rem; flex-shrink: 0; }
+
+/* 主题切换（浅色/深色）—— 独立于 .head-actions：窄屏 .head-actions 整体隐藏，
+   主题开关必须常驻可点。圆钮 + 日/月双图标，按 data-theme 显隐。 */
+.theme-toggle {
+  width: 34px; height: 34px;
+  flex-shrink: 0;
+  display: grid; place-items: center;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  color: var(--ink-2);
+  background: var(--surface);
+  transition: color var(--dur), border-color var(--dur), background var(--dur), transform var(--dur);
+}
+.theme-toggle:hover { color: var(--ink); border-color: var(--ink); transform: translateY(-1px); }
+.theme-toggle:active { transform: none; }
+.theme-toggle svg { width: 16px; height: 16px; display: block; }
+/* 浅色显示月亮（点击入夜），深色显示太阳（点击回白天） */
+.theme-toggle .icon-sun { display: none; }
+html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
 
 /* 主内容
    z-index:0 让它自成层叠上下文：路由注入的 .sui-watermark 用 z-index:-1
@@ -634,7 +725,7 @@ img, svg, iframe { display: block; max-width: 100%; }
   top: -13px; right: -11px;
   width: 27px; height: auto;
   transition: transform var(--dur-slow) var(--ease);
-  filter: drop-shadow(0 1px 2px rgba(33, 28, 21, .2));
+  filter: drop-shadow(0 1px 2px rgba(var(--shade-rgb), .2));
 }
 .back-top:hover .back-top-perch { transform: translateY(-5px) rotate(-8deg); }
 @media (prefers-reduced-motion: reduce) {
@@ -686,7 +777,7 @@ img, svg, iframe { display: block; max-width: 100%; }
 .btn-primary { background: var(--accent); border-color: var(--accent); color: #fdf9f0; }
 .btn-primary:hover { background: var(--accent-deep); border-color: var(--accent-deep); color: #fdf9f0; }
 .btn-ghost { background: transparent; border-color: var(--line-strong); color: var(--ink-2); }
-.btn-ghost:hover { background: rgba(33, 28, 21, .05); color: var(--ink); }
+.btn-ghost:hover { background: rgba(var(--ink-rgb), .05); color: var(--ink); }
 .btn-sm { padding: .3rem .75rem; font-size: var(--fs-sm); }
 
 /* 筛选 chips */
@@ -713,7 +804,7 @@ img, svg, iframe { display: block; max-width: 100%; }
   border-color: var(--ink);
   color: var(--paper);
 }
-.chip.active .num { color: rgba(246, 242, 234, .6); }
+.chip.active .num { color: rgba(var(--paper-rgb), .6); }
 
 /* 标签栏折叠开关（仅移动端由 responsive.css 启用） */
 .tagbar-toggle { display: none; }
@@ -739,7 +830,7 @@ img, svg, iframe { display: block; max-width: 100%; }
 .search input:focus {
   outline: none;
   border-color: var(--ink);
-  box-shadow: 0 0 0 3px rgba(33, 28, 21, .08);
+  box-shadow: 0 0 0 3px rgba(var(--ink-rgb), .08);
 }
 .search::before {
   content: '';
@@ -780,15 +871,15 @@ img, svg, iframe { display: block; max-width: 100%; }
   border-radius: 3px;
   white-space: nowrap;
 }
-.lang-tag[data-lang="中文"] { color: var(--accent-deep); border-color: rgba(181, 55, 29, .35); }
-.lang-tag[data-lang="日语"] { color: var(--green); border-color: rgba(51, 96, 78, .4); }
+.lang-tag[data-lang="中文"] { color: var(--accent-deep); border-color: rgba(var(--accent-rgb), .4); }
+.lang-tag[data-lang="日语"] { color: var(--green); border-color: rgba(var(--green-rgb), .45); }
 
 /* 标签徽标 */
 .tag-tag {
   display: inline-block;
   font-size: var(--fs-xs);
   color: var(--ink-3);
-  background: rgba(33, 28, 21, .045);
+  background: rgba(var(--ink-rgb), .045);
   padding: 0 .45em;
   border-radius: 3px;
   white-space: nowrap;
@@ -807,9 +898,9 @@ img, svg, iframe { display: block; max-width: 100%; }
   transition: background var(--dur);
   position: relative;
 }
-.rowrow:hover { background: rgba(33, 28, 21, .035); }
+.rowrow:hover { background: rgba(var(--ink-rgb), .035); }
 .rowrow.is-top10 { background: linear-gradient(90deg, var(--accent-soft), transparent 55%); }
-.rowrow.is-top10:hover { background: rgba(181, 55, 29, .09); }
+.rowrow.is-top10:hover { background: rgba(var(--accent-rgb), .09); }
 .row-idx {
   font-family: var(--mono);
   font-size: var(--fs-sm);
@@ -948,7 +1039,7 @@ img, svg, iframe { display: block; max-width: 100%; }
    故 max-height 里减去两个顶栏高度：居中后上缘必然落在顶栏下沿之下。 */
 .modal-root .overlay {
   position: fixed; inset: 0; z-index: 900;
-  background: rgba(33, 28, 21, .45);
+  background: rgba(var(--scrim-rgb), .45);
   display: grid;
   place-items: center;
   padding: 1rem;
@@ -988,7 +1079,7 @@ img, svg, iframe { display: block; max-width: 100%; }
   color: var(--ink-3);
   font-size: 1rem;
 }
-.modal-x:hover { background: rgba(33, 28, 21, .06); color: var(--ink); }
+.modal-x:hover { background: rgba(var(--ink-rgb), .06); color: var(--ink); }
 .modal-body { padding: 1.25rem; overflow-y: auto; }
 
 /* Toast */
@@ -1046,7 +1137,7 @@ img, svg, iframe { display: block; max-width: 100%; }
   padding: 0 .4em;
   margin: .1rem;
 }
-.tip .tip-date.first { color: var(--accent-deep); border-color: rgba(181, 55, 29, .4); }
+.tip .tip-date.first { color: var(--accent-deep); border-color: rgba(var(--accent-rgb), .4); }
 .tip .tip-date.last { color: var(--ink); border-color: var(--ink); font-weight: 600; }
 .tip .tip-song { cursor: pointer; padding: .05rem 0; }
 .tip .tip-song:hover { color: var(--accent-deep); }
@@ -1119,7 +1210,7 @@ img, svg, iframe { display: block; max-width: 100%; }
   border-radius: 4px;
   font-size: .85rem;
 }
-.player-btn:hover { background: rgba(33, 28, 21, .07); color: var(--ink); }
+.player-btn:hover { background: rgba(var(--ink-rgb), .07); color: var(--ink); }
 .player-body { aspect-ratio: 16 / 9; background: #000; }
 .player-body iframe { width: 100%; height: 100%; border: 0; }
 
@@ -1146,7 +1237,7 @@ img, svg, iframe { display: block; max-width: 100%; }
   justify-content: space-between;
   gap: 1rem;
 }
-.export-pop button:hover { background: rgba(33, 28, 21, .06); }
+.export-pop button:hover { background: rgba(var(--ink-rgb), .06); }
 .export-pop button .mono { color: var(--ink-3); font-size: var(--fs-xs); }
 
 /* 等级徽章 */
@@ -1177,7 +1268,7 @@ img, svg, iframe { display: block; max-width: 100%; }
 /* 通用横向条（占比） */
 .bar-track {
   height: 5px;
-  background: rgba(33, 28, 21, .08);
+  background: rgba(var(--ink-rgb), .08);
   border-radius: 999px;
   overflow: hidden;
 }
@@ -1210,7 +1301,7 @@ img, svg, iframe { display: block; max-width: 100%; }
 .sidepanel-body { padding: 1.25rem; overflow-y: auto; flex: 1; }
 .sidepanel-mask {
   position: fixed; inset: 0;
-  background: rgba(33, 28, 21, .3);
+  background: rgba(var(--scrim-rgb), .3);
   z-index: 870;
 }
 
@@ -1370,7 +1461,7 @@ img, svg, iframe { display: block; max-width: 100%; }
   content: '';
   position: absolute;
   left: 10%; right: 6%; bottom: -10px; height: 20px;
-  background: radial-gradient(ellipse at center, rgba(33, 28, 21, .15), transparent 68%);
+  background: radial-gradient(ellipse at center, rgba(var(--shade-rgb), .15), transparent 68%);
   z-index: -1;
 }
 .hero-figure::after {
@@ -1392,7 +1483,7 @@ img, svg, iframe { display: block; max-width: 100%; }
   margin: 0 auto;
   border: 0;
   background: transparent;
-  filter: drop-shadow(0 12px 20px rgba(33, 28, 21, .10));
+  filter: drop-shadow(0 12px 20px rgba(var(--shade-rgb), .10));
 }
 /* JS 接管时先透明、加载完成再淡入；JS 不执行时保持默认可见 */
 .hero-figure img.hero-art { opacity: 0; transition: opacity .38s var(--ease); }
@@ -1618,7 +1709,7 @@ img, svg, iframe { display: block; max-width: 100%; }
   width: 64px; height: 64px;
   border-radius: 50%;
   border: 2px solid var(--gold-soft);
-  box-shadow: 0 1px 4px rgba(33, 28, 21, .18);
+  box-shadow: 0 1px 4px rgba(var(--shade-rgb), .18);
   z-index: 2;   /* 印章盖在立绘上 */
 }
 
@@ -1683,7 +1774,7 @@ img, svg, iframe { display: block; max-width: 100%; }
   min-width: 0;
 }
 .clip-item > * { min-width: 0; }
-.clip-item:hover { background: rgba(33, 28, 21, .04); }
+.clip-item:hover { background: rgba(var(--ink-rgb), .04); }
 .clip-item .num { color: var(--ink-3); font-size: var(--fs-sm); }
 .clip-item .dur { margin-left: auto; font-family: var(--mono); font-size: var(--fs-sm); color: var(--ink-3); }
 .clip-item .go { color: var(--ink-3); font-size: var(--fs-sm); }
@@ -1712,7 +1803,7 @@ img, svg, iframe { display: block; max-width: 100%; }
      顶栏高度不是常数；--head-h 由 components.js 的 syncHeadHeight() 实测写回。 */
   top: var(--head-h);
   z-index: 300;
-  background: rgba(246, 242, 234, .95);
+  background: rgba(var(--paper-rgb), .95);
   backdrop-filter: blur(8px);
   padding: .6rem 0;
   border-bottom: 1px solid var(--line);
@@ -1757,7 +1848,7 @@ img, svg, iframe { display: block; max-width: 100%; }
   font-size: var(--fs-xs);
   color: var(--ink-2);
 }
-.artist-cell .songs span { background: rgba(33, 28, 21, .05); padding: 0 .4em; border-radius: 3px; }
+.artist-cell .songs span { background: rgba(var(--ink-rgb), .05); padding: 0 .4em; border-radius: 3px; }
 
 /* ─── 洞察 ─── */
 .insight-tabs { display: flex; gap: 1.4rem; border-bottom: 1px solid var(--ink); margin-bottom: var(--space-5); overflow-x: auto; }
@@ -1779,7 +1870,7 @@ img, svg, iframe { display: block; max-width: 100%; }
 .heat-cell {
   width: 14px; height: 14px;
   border-radius: 2px;
-  background: rgba(33, 28, 21, .06);
+  background: rgba(var(--ink-rgb), .06);
   cursor: pointer;
 }
 .heat-cell:hover { outline: 1px solid var(--ink); }
@@ -1806,12 +1897,19 @@ img, svg, iframe { display: block; max-width: 100%; }
 .heat-scroll-hint { font-family: var(--mono); font-size: var(--fs-xs); color: var(--ink-3); margin-top: .3rem; display: none; }
 
 /* 图表通用 */
+/* 内联 SVG 的 presentation attribute 不支持 var()，图表配色走类：
+   颜色随主题翻转（深色下坐标轴文字/网格线变亮、次级曲线改用冰蓝） */
+.chart-ink { fill: var(--ink-3); }
+.chart-grid { stroke: var(--line); }
+.chart-perf { fill: var(--accent); stroke: var(--accent); }
+.chart-new { fill: var(--ice); stroke: var(--ice); }
+.chart-area { fill: rgba(var(--accent-rgb), .07); }
 .chart-note { font-family: var(--mono); font-size: var(--fs-xs); color: var(--ink-3); margin-bottom: var(--space-4); }
 .hbar-list { display: flex; flex-direction: column; gap: .55rem; }
 /* 标签名/数值与条形同排：名称列自适应（短名收窄、长名省略号），数值列不换行 */
 .hbar { display: grid; grid-template-columns: minmax(5.5rem, 9.5rem) minmax(0, 1fr) auto; gap: .8rem; align-items: center; font-size: var(--fs-md); }
 .hbar .hlabel { min-width: 0; text-align: right; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--ink-2); }
-.hbar .htrack { height: 14px; background: rgba(33, 28, 21, .06); border-radius: 3px; overflow: hidden; }
+.hbar .htrack { height: 14px; background: rgba(var(--ink-rgb), .06); border-radius: 3px; overflow: hidden; }
 .hbar .hfill { height: 100%; background: var(--accent); opacity: .85; }
 .hbar .hfill.alt { background: var(--green); }
 .hbar .hnum { font-family: var(--mono); font-size: var(--fs-sm); color: var(--ink-2); white-space: nowrap; }
@@ -1854,7 +1952,7 @@ img, svg, iframe { display: block; max-width: 100%; }
   border-bottom: 1px solid var(--line);
   cursor: pointer;
 }
-.req-row:hover { background: rgba(33, 28, 21, .035); }
+.req-row:hover { background: rgba(var(--ink-rgb), .035); }
 .req-row .rk { font-family: var(--mono); font-size: var(--fs-sm); color: var(--ink-3); text-align: right; }
 .req-row:first-of-type .rk { color: var(--accent); font-weight: 600; }
 .req-row .who {
@@ -2017,7 +2115,7 @@ img, svg, iframe { display: block; max-width: 100%; }
   border-bottom: 1px solid var(--line);
   cursor: pointer;
 }
-.req-champ-row:hover { background: rgba(33, 28, 21, .035); }
+.req-champ-row:hover { background: rgba(var(--ink-rgb), .035); }
 .req-champ-idx { font-size: var(--fs-sm); color: var(--ink-3); }
 .req-champ-row:first-child .req-champ-idx { color: var(--accent); font-weight: 600; }
 .req-champ-name { font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -2086,7 +2184,7 @@ img, svg, iframe { display: block; max-width: 100%; }
   z-index: 905;
   display: grid;
   place-items: center;
-  background: rgba(33, 28, 21, .55);
+  background: rgba(var(--scrim-rgb), .55);
   animation: fadeIn var(--dur-slow) var(--ease);
   cursor: pointer;
 }
@@ -2166,7 +2264,7 @@ img, svg, iframe { display: block; max-width: 100%; }
   display: inline-block;
   width: 13px; height: 13px;
   border-radius: 3px;
-  border: 1px solid rgba(33, 28, 21, .22);
+  border: 1px solid rgba(var(--ink-rgb), .22);
   vertical-align: -.15em;
 }
 .sui-profile-colors { gap: .35rem .5rem; }
@@ -2202,7 +2300,7 @@ img, svg, iframe { display: block; max-width: 100%; }
 .sui-gallery-item {
   margin: 0;
   padding: 10px 10px 0;
-  background: var(--paper);
+  background: var(--mat);
   border: 1px solid var(--gold-soft);
   box-shadow: var(--shadow-flat);
   transition: transform .25s var(--ease), box-shadow .25s var(--ease), border-color .25s var(--ease);
@@ -2210,7 +2308,7 @@ img, svg, iframe { display: block; max-width: 100%; }
 .sui-gallery-item:hover {
   transform: translateY(-4px);
   border-color: var(--gold);
-  box-shadow: 0 10px 22px rgba(33, 28, 21, .12);
+  box-shadow: 0 10px 22px rgba(var(--shade-rgb), .12);
 }
 .sui-gallery-item img {
   display: block;
@@ -2222,11 +2320,12 @@ img, svg, iframe { display: block; max-width: 100%; }
 }
 /* 白底原画：multiply 融入纸面（卡底 = 纸色，白底消失） */
 .sui-gallery-item--blend img { mix-blend-mode: multiply; }
+/* 图注在深色卡纸上仍需可读：卡纸恒浅，图注固定用深墨，不随主题翻转 */
 .sui-gallery-item figcaption {
   font-family: var(--mono);
   font-size: var(--fs-xs);
   letter-spacing: .06em;
-  color: var(--ink-3);
+  color: #8f8571;
   text-align: center;
   padding: .65rem 0 .7rem;
 }
@@ -2411,10 +2510,24 @@ img, svg, iframe { display: block; max-width: 100%; }
   .brand-text { font-size: .95rem; }
 }
 
-/* 打印 */
+/* 打印：无论当前主题，打印一律回到浅色纸面（否则深色下会打出白底浅字） */
 @media print {
   .site-head, .site-foot, .back-top, .player, .toolbar { display: none !important; }
   body { background: #fff; }
+  html[data-theme="dark"] {
+    color-scheme: light;
+    --paper: #fff;
+    --paper-deep: #fff;
+    --surface: #fff;
+    --ink: #211c15;
+    --ink-2: #5c5344;
+    --ink-3: #8f8571;
+    --line: #ded4c0;
+    --line-strong: #b6a88d;
+    --accent: #ae3132;
+    --accent-deep: #8c2721;
+    --green: #33604e;
+  }
 }
 
 </style>
@@ -2441,6 +2554,10 @@ img, svg, iframe { display: block; max-width: 100%; }
       <a href="#/requests" data-nav="requests">点歌</a>
       <a href="#/about" data-nav="about">关于</a>
     </nav>
+    <button type="button" class="theme-toggle" id="themeToggle" aria-pressed="false" aria-label="切换深色模式" title="切换浅色 / 深色模式">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.4 14.2A8.4 8.4 0 0 1 9.8 3.6a8.4 8.4 0 1 0 10.6 10.6z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M4.9 4.9l1.6 1.6M17.5 17.5l1.6 1.6M19.1 4.9l-1.6 1.6M6.5 17.5l-1.6 1.6"/></svg>
+    </button>
     <div class="head-actions">
       <button type="button" class="btn btn-ghost btn-sm" id="globalRandom">盲盒抽歌</button>
       <button type="button" class="btn btn-primary btn-sm" id="globalContribute">我要补充</button>
@@ -3163,7 +3280,7 @@ img, svg, iframe { display: block; max-width: 100%; }
       '<label style="display:block;font-size:var(--fs-sm);color:var(--ink-2);margin-bottom:.3rem;">歌曲名 *</label>' +
       '<div style="display:flex;gap:.5rem;"><input id="cbSong" type="text" placeholder="歌名" style="flex:1;padding:.5rem .8rem;border:1px solid var(--line-strong);border-radius:4px;background:var(--surface);font-size:16px;">' +
       '<button type="button" class="btn btn-sm" id="cbLookup">联网匹配</button></div>' +
-      '<div id="cbExisting" style="display:none;margin-top:.5rem;font-size:var(--fs-sm);color:var(--green);background:rgba(51,96,78,.07);border:1px solid rgba(51,96,78,.3);border-radius:4px;padding:.4rem .7rem;"></div>' +
+      '<div id="cbExisting" style="display:none;margin-top:.5rem;font-size:var(--fs-sm);color:var(--green);background:rgba(var(--green-rgb),.07);border:1px solid rgba(var(--green-rgb),.3);border-radius:4px;padding:.4rem .7rem;"></div>' +
       '<div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:1rem;">' +
       '<div><label style="display:block;font-size:var(--fs-sm);color:var(--ink-2);margin-bottom:.3rem;">演唱日期 *</label>' +
       '<input id="cbDate" type="date" style="width:100%;padding:.45rem .6rem;border:1px solid var(--line-strong);border-radius:4px;background:var(--surface);font-size:16px;"></div>' +
@@ -3345,7 +3462,7 @@ img, svg, iframe { display: block; max-width: 100%; }
       '<div class="foot-col"><h4>SUI SONG ARCHIVE</h4>' +
       '<p class="foot-span">' + esc(S.first.slice(0, 7).replace('-', '.')) + ' — ' + esc(S.last.slice(0, 7).replace('-', '.')) + '</p>' +
       '<p>收录歌曲 ' + D.fmtInt(S.total) + ' 首 · 演唱 ' + D.fmtInt(S.performances) + ' 次 · 点歌 ' + D.fmtInt(R.total) + ' 次</p>' +
-      '<span class="foot-ver">界面版本 v3.7.6</span></div>' +
+      '<span class="foot-ver">界面版本 v3.7.7</span></div>' +
       '<div class="foot-col"><h4>数据来源</h4><ul>' +
       '<li><a href="https://www.suijisui.space" target="_blank" rel="noopener">suijisui.space</a>（PQL87/sui-song-list）</li>' +
       '<li><a href="#/requests">点歌统计（已并入本站）</a> · 源自直播间点歌记录</li>' +
@@ -3388,11 +3505,37 @@ img, svg, iframe { display: block; max-width: 100%; }
     document.documentElement.style.setProperty('--head-h', headHeight() + 'px');
   }
 
+  /* ═══════ 主题切换（浅色 / 深色）═══════
+     初始 data-theme 由 skeleton.html 的 head 内联脚本写好（防闪烁），
+     这里只负责按钮交互与记忆。存储键 sui-theme：'light' | 'dark'。
+     用户主动切换过就永久记住；没切换过则跟随系统（引导脚本已处理）。 */
+  function initTheme() {
+    var btn = document.getElementById('themeToggle');
+    if (!btn) return;
+    function isDark() {
+      return document.documentElement.getAttribute('data-theme') === 'dark';
+    }
+    function syncBtn() {
+      var dark = isDark();
+      btn.setAttribute('aria-pressed', dark ? 'true' : 'false');
+      btn.setAttribute('aria-label', dark ? '切换浅色模式' : '切换深色模式');
+    }
+    syncBtn();
+    btn.addEventListener('click', function () {
+      var next = isDark() ? 'light' : 'dark';
+      if (next === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+      else document.documentElement.removeAttribute('data-theme');
+      try { localStorage.setItem('sui-theme', next); } catch (e) {}
+      syncBtn();
+    });
+  }
+
   /* ═══════ 全局绑定 ═══════ */
   function bindGlobal() {
     bindPlayer();
     renderFooter();
     syncHeadHeight();
+    initTheme();
     window.addEventListener('resize', C.debounce(syncHeadHeight, 150));
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(syncHeadHeight);
     document.getElementById('globalRandom').addEventListener('click', openBlindbox);
@@ -4217,7 +4360,8 @@ img, svg, iframe { display: block; max-width: 100%; }
 
   /* ---------- 演唱日历热力图 ---------- */
   function heatColor(c) {
-    if (!c) return 'rgba(33,28,21,.07)';
+    /* 零值格随主题（墨色通道）；有值格用绯红系，深浅两版都成立 */
+    if (!c) return 'rgba(var(--ink-rgb),.07)';
     if (c <= 1) return 'rgba(174,49,50,.22)';
     if (c <= 2) return 'rgba(174,49,50,.38)';
     if (c <= 3) return 'rgba(174,49,50,.55)';
@@ -4377,7 +4521,7 @@ img, svg, iframe { display: block; max-width: 100%; }
     var tickStep = Math.ceil(data.length / 12);
     data.forEach(function (d, i) {
       if (i % tickStep === 0) ticks.push(
-        '<text x="' + x(i) + '" y="' + (Hh - 10) + '" text-anchor="middle" font-size="10" fill="#8f8571">' +
+        '<text x="' + x(i) + '" y="' + (Hh - 10) + '" text-anchor="middle" font-size="10" class="chart-ink">' +
         d.m.slice(2, 4) + '.' + d.m.slice(5, 7) + '</text>');
     });
     var gridLines = [];
@@ -4385,15 +4529,15 @@ img, svg, iframe { display: block; max-width: 100%; }
       var gy = padT + g * (Hh - padT - padB) / 4;
       var val = Math.round(maxY * (1 - g / 4));
       gridLines.push(
-        '<line x1="' + padL + '" y1="' + gy + '" x2="' + (W - 10) + '" y2="' + gy + '" stroke="#ded4c0" stroke-width="1"/>' +
-        '<text x="' + (padL - 6) + '" y="' + (gy + 3) + '" text-anchor="end" font-size="10" fill="#8f8571">' + val + '</text>');
+        '<line x1="' + padL + '" y1="' + gy + '" x2="' + (W - 10) + '" y2="' + gy + '" class="chart-grid" stroke-width="1"/>' +
+        '<text x="' + (padL - 6) + '" y="' + (gy + 3) + '" text-anchor="end" font-size="10" class="chart-ink">' + val + '</text>');
     }
     var dots1 = data.map(function (d, i) {
-      return '<circle cx="' + x(i) + '" cy="' + y(d.perf) + '" r="2.4" fill="#ae3132"><title>' +
+      return '<circle cx="' + x(i) + '" cy="' + y(d.perf) + '" r="2.4" class="chart-perf"><title>' +
         D.fmtMonth(d.m) + ' 演唱 ' + d.perf + ' 次</title></circle>';
     }).join('');
     var dots2 = data.map(function (d, i) {
-      return '<circle cx="' + x(i) + '" cy="' + y(d.newest) + '" r="2" fill="#333949"><title>' +
+      return '<circle cx="' + x(i) + '" cy="' + y(d.newest) + '" r="2" class="chart-new"><title>' +
         D.fmtMonth(d.m) + ' 新歌 ' + d.newest + ' 首</title></circle>';
     }).join('');
 
@@ -4401,13 +4545,13 @@ img, svg, iframe { display: block; max-width: 100%; }
       '<p class="chart-note">每月演唱次数（朱红）与新歌数（绿）· 悬停数据点查看数值</p>' +
       '<div style="overflow-x:auto;"><svg viewBox="0 0 ' + W + ' ' + Hh + '" width="' + W + '" height="' + Hh + '" style="min-width:760px;font-family:var(--mono);">' +
       gridLines.join('') +
-      '<path d="' + area + '" fill="rgba(174,49,50,.07)"/>' +
-      '<polyline points="' + line1 + '" fill="none" stroke="#ae3132" stroke-width="1.8" stroke-linejoin="round"/>' +
-      '<polyline points="' + line2 + '" fill="none" stroke="#333949" stroke-width="1.5" stroke-dasharray="4 3" stroke-linejoin="round"/>' +
+      '<path d="' + area + '" class="chart-area"/>' +
+      '<polyline points="' + line1 + '" fill="none" class="chart-perf" stroke-width="1.8" stroke-linejoin="round"/>' +
+      '<polyline points="' + line2 + '" fill="none" class="chart-new" stroke-width="1.5" stroke-dasharray="4 3" stroke-linejoin="round"/>' +
       dots1 + dots2 + ticks.join('') +
       '</svg></div>' +
-      '<div class="heat-legend"><span class="sw" style="background:#ae3132"></span>演唱次数' +
-      '<span class="sw" style="background:#333949;margin-left:1em;"></span>新歌数</div>';
+      '<div class="heat-legend"><span class="sw" style="background:var(--accent)"></span>演唱次数' +
+      '<span class="sw" style="background:var(--ice);margin-left:1em;"></span>新歌数</div>';
   }
 
   /* ---------- 标签分布 ---------- */
@@ -5516,6 +5660,7 @@ img, svg, iframe { display: block; max-width: 100%; }
   var esc = C.esc;
 
   var CHANGELOG = [
+    ['v3.7.7', '全站新增浅色 / 深色主题切换：顶栏新增日月圆钮（独立于窄屏会整体隐藏的动作区，手机端常驻可点），点击即切换并写入 localStorage 永久记忆；未手动选择过的访客跟随系统偏好，且页面首帧前就写好主题属性，深色用户不会先闪一下白底。深色版面是同一套场刊版式的「深夜刊」——暖黑纸底、暖白墨字、绯红整体提亮保证对比度，藏青页脚 / 档案照 / 光环金等深色版面元素原样保留；散落各文件的硬编码颜色收拢为语义通道（随墨翻转的淡染、恒深阴影、恒深遮罩、随纸翻转的蒙层），打印时无论当前主题一律回到浅色纸面；画廊白底原画改挂恒浅卡纸衬底，multiply 印刷语言在深色墙上依然成立；洞察页 SVG 图表配色改为随主题翻转（次级曲线深色下改用发丝冰蓝）'],
     ['v3.7.6', '关于页新增「画廊」：四张岁己插画以装帧方式融入版面。三张白底原画不做键控抠图（主体银发与白底同色域，抠图必伤发丝与金环细线），预处理把近白噪声软钳为纯白后，用 multiply 混合模式把白底「印」进纸色页面——白底自然消失、翅尖以出血形式收在卡缘；夏日场景插画自带完整底色，沿用角色档案照的藏青装框语言。四张统一金线细框与图注，悬停轻抬升，响应式 4 → 2 → 1 列'],
     ['v3.7.5', '成就殿堂移除「一周年纪念」成就：原由点歌数据跨度 ≥ 365 天自动派生，与任何观众 / 解锁条件 / 奖励 / 独立成就计数均无关，现已删除其派生逻辑与随之产生的 start/end 死代码；成就殿堂改为仅含点歌之王 / 百首俱乐部 / 忠实观众三项。前端通用渲染与彩蛋（进入成就区视口撒彩纸）不受影响，成就本就是构建期从 raw 数据直接算出的列表，无需要清理的关联解锁 / 发放 / 进度逻辑'],
     ['v3.7.4', '点歌统计「月度点歌榜」的 👑 冠军标识改为只在「显著领先」时显示：原先凡与榜首同次数的观众全部戴冠，一个月里人人都是 1 次时 TOP 10 会整排顶着皇冠（2026-09 单月就有 12 个）。现在须三条同时成立 —— 唯一第一（并列则无人戴冠）、榜首 ≥ 2 次（只被点 1 次不算）、且显著领先（榜首 ≥ 2×次高 或 领先次高 ≥ 2 次）。于是「2 次 vs 其余各 1 次」是冠军，而「全员 1 次」「5 vs 4」「11 vs 11」都不是，该月一个皇冠都不显示；跨月冠军与「最近 15 天」沿用同一判定（前端不再自行重算），跨月冠军由 4 条收敛为 2 条，全站冠冕总数 48 → 11'],

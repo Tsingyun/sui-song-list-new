@@ -9,6 +9,16 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@600;700;900&display=swap" rel="stylesheet">
+<script>
+/* 主题引导：必须在 <style> 生效前写好 data-theme，否则深色用户会先闪一下白底（FOUC）。
+   优先级：localStorage 记忆 > 系统偏好 > 浅色。切换与记忆逻辑在 components.js。 */
+(function () {
+  var t = null;
+  try { t = localStorage.getItem('sui-theme'); } catch (e) {}
+  if (!t && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches) t = 'dark';
+  if (t === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+})();
+</script>
 <!--INLINE_CSS-->
 </head>
 <body>
@@ -33,6 +43,10 @@
       <a href="#/requests" data-nav="requests">点歌</a>
       <a href="#/about" data-nav="about">关于</a>
     </nav>
+    <button type="button" class="theme-toggle" id="themeToggle" aria-pressed="false" aria-label="切换深色模式" title="切换浅色 / 深色模式">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.4 14.2A8.4 8.4 0 0 1 9.8 3.6a8.4 8.4 0 1 0 10.6 10.6z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M4.9 4.9l1.6 1.6M17.5 17.5l1.6 1.6M19.1 4.9l-1.6 1.6M6.5 17.5l-1.6 1.6"/></svg>
+    </button>
     <div class="head-actions">
       <button type="button" class="btn btn-ghost btn-sm" id="globalRandom">盲盒抽歌</button>
       <button type="button" class="btn btn-primary btn-sm" id="globalContribute">我要补充</button>

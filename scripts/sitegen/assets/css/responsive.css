@@ -160,8 +160,22 @@
   .brand-text { font-size: .95rem; }
 }
 
-/* 打印 */
+/* 打印：无论当前主题，打印一律回到浅色纸面（否则深色下会打出白底浅字） */
 @media print {
   .site-head, .site-foot, .back-top, .player, .toolbar { display: none !important; }
   body { background: #fff; }
+  html[data-theme="dark"] {
+    color-scheme: light;
+    --paper: #fff;
+    --paper-deep: #fff;
+    --surface: #fff;
+    --ink: #211c15;
+    --ink-2: #5c5344;
+    --ink-3: #8f8571;
+    --line: #ded4c0;
+    --line-strong: #b6a88d;
+    --accent: #ae3132;
+    --accent-deep: #8c2721;
+    --green: #33604e;
+  }
 }

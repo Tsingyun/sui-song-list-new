@@ -309,7 +309,7 @@
       '<label style="display:block;font-size:var(--fs-sm);color:var(--ink-2);margin-bottom:.3rem;">歌曲名 *</label>' +
       '<div style="display:flex;gap:.5rem;"><input id="cbSong" type="text" placeholder="歌名" style="flex:1;padding:.5rem .8rem;border:1px solid var(--line-strong);border-radius:4px;background:var(--surface);font-size:16px;">' +
       '<button type="button" class="btn btn-sm" id="cbLookup">联网匹配</button></div>' +
-      '<div id="cbExisting" style="display:none;margin-top:.5rem;font-size:var(--fs-sm);color:var(--green);background:rgba(51,96,78,.07);border:1px solid rgba(51,96,78,.3);border-radius:4px;padding:.4rem .7rem;"></div>' +
+      '<div id="cbExisting" style="display:none;margin-top:.5rem;font-size:var(--fs-sm);color:var(--green);background:rgba(var(--green-rgb),.07);border:1px solid rgba(var(--green-rgb),.3);border-radius:4px;padding:.4rem .7rem;"></div>' +
       '<div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:1rem;">' +
       '<div><label style="display:block;font-size:var(--fs-sm);color:var(--ink-2);margin-bottom:.3rem;">演唱日期 *</label>' +
       '<input id="cbDate" type="date" style="width:100%;padding:.45rem .6rem;border:1px solid var(--line-strong);border-radius:4px;background:var(--surface);font-size:16px;"></div>' +
@@ -491,7 +491,7 @@
       '<div class="foot-col"><h4>SUI SONG ARCHIVE</h4>' +
       '<p class="foot-span">' + esc(S.first.slice(0, 7).replace('-', '.')) + ' — ' + esc(S.last.slice(0, 7).replace('-', '.')) + '</p>' +
       '<p>收录歌曲 ' + D.fmtInt(S.total) + ' 首 · 演唱 ' + D.fmtInt(S.performances) + ' 次 · 点歌 ' + D.fmtInt(R.total) + ' 次</p>' +
-      '<span class="foot-ver">界面版本 v3.7.6</span></div>' +
+      '<span class="foot-ver">界面版本 v3.7.7</span></div>' +
       '<div class="foot-col"><h4>数据来源</h4><ul>' +
       '<li><a href="https://www.suijisui.space" target="_blank" rel="noopener">suijisui.space</a>（PQL87/sui-song-list）</li>' +
       '<li><a href="#/requests">点歌统计（已并入本站）</a> · 源自直播间点歌记录</li>' +
@@ -534,11 +534,37 @@
     document.documentElement.style.setProperty('--head-h', headHeight() + 'px');
   }
 
+  /* ═══════ 主题切换（浅色 / 深色）═══════
+     初始 data-theme 由 skeleton.html 的 head 内联脚本写好（防闪烁），
+     这里只负责按钮交互与记忆。存储键 sui-theme：'light' | 'dark'。
+     用户主动切换过就永久记住；没切换过则跟随系统（引导脚本已处理）。 */
+  function initTheme() {
+    var btn = document.getElementById('themeToggle');
+    if (!btn) return;
+    function isDark() {
+      return document.documentElement.getAttribute('data-theme') === 'dark';
+    }
+    function syncBtn() {
+      var dark = isDark();
+      btn.setAttribute('aria-pressed', dark ? 'true' : 'false');
+      btn.setAttribute('aria-label', dark ? '切换浅色模式' : '切换深色模式');
+    }
+    syncBtn();
+    btn.addEventListener('click', function () {
+      var next = isDark() ? 'light' : 'dark';
+      if (next === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+      else document.documentElement.removeAttribute('data-theme');
+      try { localStorage.setItem('sui-theme', next); } catch (e) {}
+      syncBtn();
+    });
+  }
+
   /* ═══════ 全局绑定 ═══════ */
   function bindGlobal() {
     bindPlayer();
     renderFooter();
     syncHeadHeight();
+    initTheme();
     window.addEventListener('resize', C.debounce(syncHeadHeight, 150));
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(syncHeadHeight);
     document.getElementById('globalRandom').addEventListener('click', openBlindbox);

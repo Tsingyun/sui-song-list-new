@@ -36,7 +36,8 @@
 
   /* ---------- 演唱日历热力图 ---------- */
   function heatColor(c) {
-    if (!c) return 'rgba(33,28,21,.07)';
+    /* 零值格随主题（墨色通道）；有值格用绯红系，深浅两版都成立 */
+    if (!c) return 'rgba(var(--ink-rgb),.07)';
     if (c <= 1) return 'rgba(174,49,50,.22)';
     if (c <= 2) return 'rgba(174,49,50,.38)';
     if (c <= 3) return 'rgba(174,49,50,.55)';
@@ -196,7 +197,7 @@
     var tickStep = Math.ceil(data.length / 12);
     data.forEach(function (d, i) {
       if (i % tickStep === 0) ticks.push(
-        '<text x="' + x(i) + '" y="' + (Hh - 10) + '" text-anchor="middle" font-size="10" fill="#8f8571">' +
+        '<text x="' + x(i) + '" y="' + (Hh - 10) + '" text-anchor="middle" font-size="10" class="chart-ink">' +
         d.m.slice(2, 4) + '.' + d.m.slice(5, 7) + '</text>');
     });
     var gridLines = [];
@@ -204,15 +205,15 @@
       var gy = padT + g * (Hh - padT - padB) / 4;
       var val = Math.round(maxY * (1 - g / 4));
       gridLines.push(
-        '<line x1="' + padL + '" y1="' + gy + '" x2="' + (W - 10) + '" y2="' + gy + '" stroke="#ded4c0" stroke-width="1"/>' +
-        '<text x="' + (padL - 6) + '" y="' + (gy + 3) + '" text-anchor="end" font-size="10" fill="#8f8571">' + val + '</text>');
+        '<line x1="' + padL + '" y1="' + gy + '" x2="' + (W - 10) + '" y2="' + gy + '" class="chart-grid" stroke-width="1"/>' +
+        '<text x="' + (padL - 6) + '" y="' + (gy + 3) + '" text-anchor="end" font-size="10" class="chart-ink">' + val + '</text>');
     }
     var dots1 = data.map(function (d, i) {
-      return '<circle cx="' + x(i) + '" cy="' + y(d.perf) + '" r="2.4" fill="#ae3132"><title>' +
+      return '<circle cx="' + x(i) + '" cy="' + y(d.perf) + '" r="2.4" class="chart-perf"><title>' +
         D.fmtMonth(d.m) + ' 演唱 ' + d.perf + ' 次</title></circle>';
     }).join('');
     var dots2 = data.map(function (d, i) {
-      return '<circle cx="' + x(i) + '" cy="' + y(d.newest) + '" r="2" fill="#333949"><title>' +
+      return '<circle cx="' + x(i) + '" cy="' + y(d.newest) + '" r="2" class="chart-new"><title>' +
         D.fmtMonth(d.m) + ' 新歌 ' + d.newest + ' 首</title></circle>';
     }).join('');
 
@@ -220,13 +221,13 @@
       '<p class="chart-note">每月演唱次数（朱红）与新歌数（绿）· 悬停数据点查看数值</p>' +
       '<div style="overflow-x:auto;"><svg viewBox="0 0 ' + W + ' ' + Hh + '" width="' + W + '" height="' + Hh + '" style="min-width:760px;font-family:var(--mono);">' +
       gridLines.join('') +
-      '<path d="' + area + '" fill="rgba(174,49,50,.07)"/>' +
-      '<polyline points="' + line1 + '" fill="none" stroke="#ae3132" stroke-width="1.8" stroke-linejoin="round"/>' +
-      '<polyline points="' + line2 + '" fill="none" stroke="#333949" stroke-width="1.5" stroke-dasharray="4 3" stroke-linejoin="round"/>' +
+      '<path d="' + area + '" class="chart-area"/>' +
+      '<polyline points="' + line1 + '" fill="none" class="chart-perf" stroke-width="1.8" stroke-linejoin="round"/>' +
+      '<polyline points="' + line2 + '" fill="none" class="chart-new" stroke-width="1.5" stroke-dasharray="4 3" stroke-linejoin="round"/>' +
       dots1 + dots2 + ticks.join('') +
       '</svg></div>' +
-      '<div class="heat-legend"><span class="sw" style="background:#ae3132"></span>演唱次数' +
-      '<span class="sw" style="background:#333949;margin-left:1em;"></span>新歌数</div>';
+      '<div class="heat-legend"><span class="sw" style="background:var(--accent)"></span>演唱次数' +
+      '<span class="sw" style="background:var(--ice);margin-left:1em;"></span>新歌数</div>';
   }
 
   /* ---------- 标签分布 ---------- */

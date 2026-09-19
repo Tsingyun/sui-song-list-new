@@ -11,7 +11,7 @@
    即：凡是「页面级」浮层都排在顶栏之下，顶栏永远可点是这套层级的第一原则。 */
 .site-head {
   position: sticky; top: 0; z-index: 910;
-  background: rgba(246, 242, 234, .92);
+  background: rgba(var(--paper-rgb), .92);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
@@ -33,7 +33,7 @@
   border-radius: 6px;
   transition: background-color .22s var(--ease), transform .22s var(--ease);
 }
-.brand:hover { background: rgba(33, 28, 21, .05); transform: translateY(-1px); }
+.brand:hover { background: rgba(var(--ink-rgb), .05); transform: translateY(-1px); }
 .brand:active { transform: translateY(0); }
 .brand:hover .brand-text { color: var(--accent-deep); }
 .brand-text { transition: color .22s var(--ease); }
@@ -46,7 +46,7 @@
   object-fit: contain;
   border-radius: 8px;
   /* 小鸟是白底黑描边透明图，落在暖纸底上收一点投影避免"飘" */
-  filter: drop-shadow(0 1px 1.5px rgba(33, 28, 21, .22));
+  filter: drop-shadow(0 1px 1.5px rgba(var(--shade-rgb), .22));
 }
 .brand-text {
   font-family: var(--serif);
@@ -80,7 +80,7 @@
   border-radius: 4px;
   position: relative;
 }
-.site-nav a:hover { color: var(--ink); background: rgba(33, 28, 21, .05); }
+.site-nav a:hover { color: var(--ink); background: rgba(var(--ink-rgb), .05); }
 .site-nav a.active {
   color: var(--accent-deep);
   font-weight: 500;
@@ -92,6 +92,26 @@
 }
 
 .head-actions { display: flex; gap: .5rem; flex-shrink: 0; }
+
+/* 主题切换（浅色/深色）—— 独立于 .head-actions：窄屏 .head-actions 整体隐藏，
+   主题开关必须常驻可点。圆钮 + 日/月双图标，按 data-theme 显隐。 */
+.theme-toggle {
+  width: 34px; height: 34px;
+  flex-shrink: 0;
+  display: grid; place-items: center;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  color: var(--ink-2);
+  background: var(--surface);
+  transition: color var(--dur), border-color var(--dur), background var(--dur), transform var(--dur);
+}
+.theme-toggle:hover { color: var(--ink); border-color: var(--ink); transform: translateY(-1px); }
+.theme-toggle:active { transform: none; }
+.theme-toggle svg { width: 16px; height: 16px; display: block; }
+/* 浅色显示月亮（点击入夜），深色显示太阳（点击回白天） */
+.theme-toggle .icon-sun { display: none; }
+html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
 
 /* 主内容
    z-index:0 让它自成层叠上下文：路由注入的 .sui-watermark 用 z-index:-1
@@ -212,7 +232,7 @@
   top: -13px; right: -11px;
   width: 27px; height: auto;
   transition: transform var(--dur-slow) var(--ease);
-  filter: drop-shadow(0 1px 2px rgba(33, 28, 21, .2));
+  filter: drop-shadow(0 1px 2px rgba(var(--shade-rgb), .2));
 }
 .back-top:hover .back-top-perch { transform: translateY(-5px) rotate(-8deg); }
 @media (prefers-reduced-motion: reduce) {

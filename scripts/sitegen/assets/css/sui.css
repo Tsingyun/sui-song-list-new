@@ -58,7 +58,7 @@
   width: auto; height: auto;
   max-width: 100%;
   object-fit: contain;
-  filter: drop-shadow(0 2px 3px rgba(33, 28, 21, .14));
+  filter: drop-shadow(0 2px 3px rgba(var(--shade-rgb), .14));
 }
 
 /* ─── 饼干（粉丝名「饼干岁」）─── */

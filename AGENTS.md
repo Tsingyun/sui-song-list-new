@@ -283,3 +283,19 @@ build_site.py ──► sitegen.builder.build()
 16. **成就殿堂移除「一周年纪念」（v3.7.5）**：成就全部由 `reqstats.compute_achievements()` 构建期从 raw 数据直接算出，无独立「解锁条件 / 奖励发放 / 进度触发 / 成就计数」配置。删除只需移除该函数内的 `anniversary_1` 派生块（及随之产生的 `start, end` 死代码），前端 `achBlock()` 通用渲染 `R.achievements` 数组、彩蛋按整个成就区进入视口触发，均不依赖具体成就，无需改动。回归脚本 `.zcode/workspace/default/_verify_achievement.py`：真实渲染点歌统计页，断言成就区恰为 3 张卡（点歌之王 / 百首俱乐部 / 忠实观众）、不含一周年纪念卡、无空状态、无页面报错。
 
 17. **关于页「画廊」的装帧式融入（v3.7.6）**：四张插画 assets/sui-gallery-{ribbon,smile,summer,heart}.webp（720×1024，由工作区 _prep_gallery.py 从 1357×1920 原图统一缩放；白底图做软拐点钳白，KNEE=235 / WHITEPT=246 消除 JPEG 白噪）。**不做键控抠图** —— 主体银发与白底同色域，抠图必伤发丝与金环细线。白底三张在卡内 mix-blend-mode: multiply 印进纸色页面（ribbon/heart 的翅尖原本就顶到画布边，出血到卡缘属预期）；夏日场景图自带底色直接装框。画廊 grid 遵守 minmax(0,·)：repeat(4, minmax(0,1fr))，≤1024 收 2 列、≤640 收 1 列（图版限宽 340px 居中）。回归：.zcode/workspace/default/_verify_gallery.py 断言画廊区恰 4 张卡、其中 3 张 blend、图片全部自然加载、桌面与 390px 视口零横向溢出。
+
+18. **浅色 / 深色主题（v3.7.7）**：主题属性 `html[data-theme="dark"]`，切换按钮 `#themeToggle`
+    （顶栏独立圆钮，**不在 .head-actions 里** —— 窄屏该区整体隐藏，开关必须常驻）。三层机制：
+    ① skeleton.html head 内联引导脚本在 CSS 生效前写好 data-theme（防 FOUC），优先级
+    `localStorage['sui-theme']` > `prefers-color-scheme` > 浅色；② components.js `initTheme()`
+    负责点击切换 + 记忆；③ tokens.css 定义深色变量块与 `color-scheme: dark`。
+    **新增颜色必须走语义变量，禁止写死 hex/rgba**：随墨翻转的淡染用 `rgba(var(--ink-rgb), α)`、
+    随纸翻转的蒙层用 `--paper-rgb`、恒深阴影用 `--shade-rgb`、恒深遮罩（弹层/侧栏/彩蛋）用
+    `--scrim-rgb`、绯红半透明用 `--accent-rgb`、绿用 `--green-rgb`；藏青页脚 / 档案照框 /
+    光环金等「本来就是深底」的元素两版通用、原样保留。画廊白底原画的卡纸底是 `--mat`
+    （恒浅，multiply 在深色下依然成立）。内联 SVG 的 presentation attribute 不支持 var()，
+    图表配色走 views.css 的 `.chart-ink/.chart-grid/.chart-perf/.chart-new/.chart-area` 类；
+    点歌 PNG 导出（view-requests exportPng）是离屏固定浅色版式，**不要**给它套主题变量。
+    打印一律回浅色（responsive.css print 块对 data-theme=dark 重置关键 token）。
+    回归：`.zcode/workspace/default/_verify_dark.py`，25 项（切换/记忆/防闪烁/对比度探针/
+    图表渲染/移动端开关可见可点/零溢出/无报错）。
