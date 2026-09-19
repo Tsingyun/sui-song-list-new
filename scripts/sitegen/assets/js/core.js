@@ -101,6 +101,13 @@
       '<span class="sui-watermark" data-page="' + C.esc(page) + '" aria-hidden="true"></span>');
   }
 
+  /* 路由切换钩子：给视图一个「清理自己挂在 body 上的临时浮层」的机会。
+     弹层类（#modalRoot 里的）由 closeAllModals 统一收；但视图自己的浮层
+     （如点歌页的彩蛋遮罩）不属于弹层体系，不清理就会盖在新页面上 ——
+     它只能靠点击自身关闭，于是「换页后点标签」看起来就像没反应。 */
+  var routeHooks = [];
+  C.onRoute = function (fn) { routeHooks.push(fn); };
+
   function renderCurrent() {
     var parsed = parseHash();
     var name = routeName(parsed);
@@ -117,6 +124,9 @@
     container.innerHTML = '';
     C.tip.hide();
     if (C.closeAllModals) C.closeAllModals();
+    for (var h = 0; h < routeHooks.length; h++) {
+      try { routeHooks[h](); } catch (e) { /* 钩子失败不该拦住换页 */ }
+    }
     fn(parsed.params, container, parsed);
     decoratePage(container, view.page || name);
     currentRoute = { name: name, params: parsed.params };

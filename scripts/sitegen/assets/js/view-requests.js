@@ -1036,5 +1036,12 @@
     }
   }
 
+  /* 彩蛋遮罩是直接挂在 body 上的（不属于弹层体系，closeAllModals 收不到它），
+     只能靠点击自身关闭 —— 换页时若不清掉，它就盖在新页面上，
+     此时点顶栏标签只会"关掉彩蛋"，看起来就是点了没反应。 */
+  C.onRoute(function () {
+    document.querySelectorAll('.req-celebrate-overlay').forEach(function (el) { el.remove(); });
+  });
+
   C.registerView('requests', { title: '点歌统计', render: render });
 })();

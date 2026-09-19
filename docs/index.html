@@ -67,6 +67,11 @@
   --space-8: 4.5rem;
 
   --w-page: 1120px;
+
+  /* 顶栏实际高度：弹层要给顶栏让位、语言页锚点条要贴在顶栏下沿，都靠它。
+     这里是兜底值，真实高度由 components.js 的 syncHeadHeight() 量出来写回
+     （字体会异步加载、窄屏导航可能换行，高度不是常数）。 */
+  --head-h: 3.6rem;
   --shadow-pop: 0 2px 6px rgba(33, 28, 21, .08), 0 18px 48px rgba(33, 28, 21, .16);
   --shadow-flat: 0 1px 3px rgba(33, 28, 21, .07);
 
@@ -417,9 +422,17 @@ img, svg, iframe { display: block; max-width: 100%; }
 
 /* ═══════ 页面框架 ═══════ */
 
-/* 顶栏 */
+/* 顶栏
+   z-index 必须高于所有「页面级浮层」，否则会出这一类死点击：
+   遮罩铺满全屏（含顶栏区域）时，点在导航上的鼠标事件被遮罩接走 ——
+   弹层只是被关掉、页面并不会跳转，用户看到的就是「点了没反应」。
+   现行层级梯子（改动任一条都要回来对一遍）：
+     内容 0/60/300 · 返回顶部 400 · 播放器 800 ·
+    侧栏遮罩 870 · 侧栏 880 · 弹层遮罩 900 · 彩蛋 905 ·
+     >>> 顶栏 910 <<< · 悬浮提示 950 · toast 1000 · 彩纸 1001
+   即：凡是「页面级」浮层都排在顶栏之下，顶栏永远可点是这套层级的第一原则。 */
 .site-head {
-  position: sticky; top: 0; z-index: 500;
+  position: sticky; top: 0; z-index: 910;
   background: rgba(246, 242, 234, .92);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -928,7 +941,10 @@ img, svg, iframe { display: block; max-width: 100%; }
 }
 .fig-label { font-size: var(--fs-sm); color: var(--ink-3); margin-top: .2rem; }
 
-/* 弹层 */
+/* 弹层
+   顶栏（z=910）高于本遮罩，所以「遮罩铺满全屏」不再会吞掉导航点击。
+   代价是弹层本体上缘不能躲到顶栏下面（否则 ✕ 会被顶栏盖住点不到），
+   故 max-height 里减去两个顶栏高度：居中后上缘必然落在顶栏下沿之下。 */
 .modal-root .overlay {
   position: fixed; inset: 0; z-index: 900;
   background: rgba(33, 28, 21, .45);
@@ -944,7 +960,7 @@ img, svg, iframe { display: block; max-width: 100%; }
   border-radius: 8px;
   box-shadow: var(--shadow-pop);
   width: min(520px, 100%);
-  max-height: min(86vh, 720px);
+  max-height: min(86vh, 720px, calc(100vh - 2 * var(--head-h) - 1rem));
   display: flex;
   flex-direction: column;
   animation: modalIn var(--dur-slow) var(--ease);
@@ -1675,7 +1691,9 @@ img, svg, iframe { display: block; max-width: 100%; }
 /* ─── 语言 / 原唱 / 常唱 ─── */
 .lang-anchor {
   position: sticky;
-  top: 3.6rem;
+  /* 贴在顶栏下沿 —— 用变量而不是写死的 3.6rem：字体会异步替换、窄屏导航可能换行，
+     顶栏高度不是常数；--head-h 由 components.js 的 syncHeadHeight() 实测写回。 */
+  top: var(--head-h);
   z-index: 300;
   background: rgba(246, 242, 234, .95);
   backdrop-filter: blur(8px);
@@ -2041,10 +2059,12 @@ img, svg, iframe { display: block; max-width: 100%; }
 .req-range-result { margin-top: 1rem; max-height: 22rem; overflow: auto; }
 
 /* ─── 点歌：彩蛋与彩纸（克制，尊重 reduced-motion） ─── */
+/* z-index 排在顶栏（910）之下：彩蛋也算「页面级遮罩」，同样不能吞掉顶栏点击
+   （它的关闭方式是点任意处，若盖住顶栏，点导航就只会关掉彩蛋而不跳转） */
 .req-celebrate-overlay {
   position: fixed;
   inset: 0;
-  z-index: 1000;
+  z-index: 905;
   display: grid;
   place-items: center;
   background: rgba(33, 28, 21, .55);
@@ -2205,6 +2225,15 @@ img, svg, iframe { display: block; max-width: 100%; }
   .head-actions { display: none; }
   .brand-text em { display: none; }
   .site-nav a { padding: .4rem .55rem; font-size: var(--fs-md); }
+  /* 导航在窄屏靠横向滚动，但滚动条被 layout.css 的 scrollbar-width:none 与
+     ::-webkit-scrollbar{display:none} 藏掉了 —— 触屏可以滑，鼠标用户既看不出
+     可滚也滚不动，溢出到视野外的标签就等于「点了没反应」（实测 ≤560px 开始溢出、
+     360px 时 8 个标签有 4 个完全够不到）。这里只是把滚动条按细样式放出来：
+     触屏仍是不占位的覆盖式滚动条，鼠标则多一条可拖的细条，布局与高度不变。 */
+  .site-nav { scrollbar-width: thin; scrollbar-color: var(--line-strong) transparent; }
+  .site-nav::-webkit-scrollbar { display: block; height: 4px; }
+  .site-nav::-webkit-scrollbar-thumb { background: var(--line-strong); border-radius: 2px; }
+  .site-nav::-webkit-scrollbar-track { background: transparent; }
 
   /* 标签栏：默认折叠为 1 行左右，点"更多标签"展开全部 */
   .tagbar .chip-extra { display: none; }
@@ -2609,6 +2638,13 @@ img, svg, iframe { display: block; max-width: 100%; }
       '<span class="sui-watermark" data-page="' + C.esc(page) + '" aria-hidden="true"></span>');
   }
 
+  /* 路由切换钩子：给视图一个「清理自己挂在 body 上的临时浮层」的机会。
+     弹层类（#modalRoot 里的）由 closeAllModals 统一收；但视图自己的浮层
+     （如点歌页的彩蛋遮罩）不属于弹层体系，不清理就会盖在新页面上 ——
+     它只能靠点击自身关闭，于是「换页后点标签」看起来就像没反应。 */
+  var routeHooks = [];
+  C.onRoute = function (fn) { routeHooks.push(fn); };
+
   function renderCurrent() {
     var parsed = parseHash();
     var name = routeName(parsed);
@@ -2625,6 +2661,9 @@ img, svg, iframe { display: block; max-width: 100%; }
     container.innerHTML = '';
     C.tip.hide();
     if (C.closeAllModals) C.closeAllModals();
+    for (var h = 0; h < routeHooks.length; h++) {
+      try { routeHooks[h](); } catch (e) { /* 钩子失败不该拦住换页 */ }
+    }
     fn(parsed.params, container, parsed);
     decoratePage(container, view.page || name);
     currentRoute = { name: name, params: parsed.params };
@@ -2880,7 +2919,9 @@ img, svg, iframe { display: block; max-width: 100%; }
       var vw = window.visualViewport ? window.visualViewport.width : window.innerWidth;
       var vh = window.visualViewport ? window.visualViewport.height : window.innerHeight;
       var nx = Math.max(8, Math.min(cx - dx, vw - els.panel.offsetWidth - 8));
-      var ny = Math.max(8, Math.min(cy - dy, vh - 60));
+      /* 下界不能是 8：顶栏永远可点（z=910），播放器若能被拖到顶栏带上就会盖住
+         导航 —— 又是「点标签没反应」。这里按当前顶栏高度把上界让出来。 */
+      var ny = Math.max(headHeight() + 8, Math.min(cy - dy, vh - 60));
       els.panel.style.left = nx + 'px';
       els.panel.style.top = ny + 'px';
       e.preventDefault();
@@ -3224,7 +3265,7 @@ img, svg, iframe { display: block; max-width: 100%; }
       '<div class="foot-col"><h4>SUI SONG ARCHIVE</h4>' +
       '<p class="foot-span">' + esc(S.first.slice(0, 7).replace('-', '.')) + ' — ' + esc(S.last.slice(0, 7).replace('-', '.')) + '</p>' +
       '<p>收录歌曲 ' + D.fmtInt(S.total) + ' 首 · 演唱 ' + D.fmtInt(S.performances) + ' 次 · 点歌 ' + D.fmtInt(R.total) + ' 次</p>' +
-      '<span class="foot-ver">界面版本 v3.7</span></div>' +
+      '<span class="foot-ver">界面版本 v3.7.1</span></div>' +
       '<div class="foot-col"><h4>数据来源</h4><ul>' +
       '<li><a href="https://www.suijisui.space" target="_blank" rel="noopener">suijisui.space</a>（PQL87/sui-song-list）</li>' +
       '<li><a href="#/requests">点歌统计（已并入本站）</a> · 源自直播间点歌记录</li>' +
@@ -3255,10 +3296,25 @@ img, svg, iframe { display: block; max-width: 100%; }
     });
   }
 
+  /* ═══════ 顶栏高度同步 ═══════
+     顶栏高度不是常数（Google Fonts 异步替换会改行高、窄屏导航可能换行），
+     而它下面挂着两个消费者：语言页锚点条的 sticky top（views.css 的 --head-h）
+     与弹层的 max-height。这里实测写回 CSS 变量，别处一律引用变量。 */
+  function headHeight() {
+    var head = document.querySelector('.site-head');
+    return head ? head.offsetHeight : 58;
+  }
+  function syncHeadHeight() {
+    document.documentElement.style.setProperty('--head-h', headHeight() + 'px');
+  }
+
   /* ═══════ 全局绑定 ═══════ */
   function bindGlobal() {
     bindPlayer();
     renderFooter();
+    syncHeadHeight();
+    window.addEventListener('resize', C.debounce(syncHeadHeight, 150));
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(syncHeadHeight);
     document.getElementById('globalRandom').addEventListener('click', openBlindbox);
     document.getElementById('globalContribute').addEventListener('click', openContribute);
     C.openBlindbox = openBlindbox;
@@ -5347,6 +5403,13 @@ img, svg, iframe { display: block; max-width: 100%; }
     }
   }
 
+  /* 彩蛋遮罩是直接挂在 body 上的（不属于弹层体系，closeAllModals 收不到它），
+     只能靠点击自身关闭 —— 换页时若不清掉，它就盖在新页面上，
+     此时点顶栏标签只会"关掉彩蛋"，看起来就是点了没反应。 */
+  C.onRoute(function () {
+    document.querySelectorAll('.req-celebrate-overlay').forEach(function (el) { el.remove(); });
+  });
+
   C.registerView('requests', { title: '点歌统计', render: render });
 })();
 
@@ -5357,6 +5420,8 @@ img, svg, iframe { display: block; max-width: 100%; }
   var esc = C.esc;
 
   var CHANGELOG = [
+    ['v3.7.1', '修复「顶栏标签点了没反应」：弹层遮罩原先铺在顶栏之上，点导航的事件被遮罩接走（弹层只是被关掉、页面并不跳转）。现在把顶栏层级提到所有页面级浮层之上，弹层打开 / 点歌页彩蛋显示 / 播放器拖到最顶时，点标签都能正常跳转；同时弹层主动给顶栏让位，保证 ✕ 依旧可点'],
+    ['v3.7.1', '修复窄屏导航够不到的问题：导航在窄屏靠横向滚动，但滚动条被隐藏，鼠标用户看不出可滚也滚不动（360px 时 8 个标签有 4 个完全点不到）。现在窄屏显示细滚动条；并把语言页锚点条的吸顶位置改为按顶栏实测高度对齐（不再写死，字体加载后也不会错位）'],
     ['v3.7', '首页右下角的「点歌速览」模块移除，改为「盲盒抽歌」：上方池子纵向自然滚动展示随机抽样的 24 首（每次打开都是新的一批），下方一键抽取，复用顶栏盲盒的滚轮动画与结果面板（歌名 / 原唱 / 语言 / 演唱次数 + 播放或去 B站搜）'],
     ['v3.7', '「点歌速览」迁至「点歌统计」页，并改为横向自然滚动带：点歌之王 / 最近点歌 / 常点歌曲 / 本月连续四组卡片循环经过，替代原来的圆点手动切换 —— 滚动是纯 CSS 的（无定时器），悬停暂停、尊重「减弱动效」偏好'],
     ['v3.6', '岁己符号系统上线：把「岁己」拆成一套可复用的图形符号（光环+四芒星 / 银喉长尾山雀 / 饼干 / 樱花 / 辣椒），统一收在 css/sui.css 一处维护，再按语义铺满全站 —— 每个页面标题区的大光环水印（逐页尺寸与倾角微差，由路由层统一注入，新增页面自动获得）、每个数据区块尾部的岁己注脚、所有空状态与清单空行的小鸟、返回顶部按钮上的栖枝小鸟（悬停振翅）、页脚新增角色署名条'],
@@ -5384,7 +5449,7 @@ img, svg, iframe { display: block; max-width: 100%; }
   function render(params, container) {
     container.innerHTML =
       '<div class="sec-head"><div class="sec-kicker">ABOUT</div>' +
-      '<h2 class="sec-title">关于本站 <span class="sec-sub">SUI SONG ARCHIVE v3.7</span></h2></div>' +
+      '<h2 class="sec-title">关于本站 <span class="sec-sub">SUI SONG ARCHIVE v3.7.1</span></h2></div>' +
 
       /* ── 角色档案：本站唯一的「岁己本人出场」板块，设定均取自官方资料 ── */
       '<section class="sui-profile">' +

@@ -46,6 +46,15 @@
   .head-actions { display: none; }
   .brand-text em { display: none; }
   .site-nav a { padding: .4rem .55rem; font-size: var(--fs-md); }
+  /* 导航在窄屏靠横向滚动，但滚动条被 layout.css 的 scrollbar-width:none 与
+     ::-webkit-scrollbar{display:none} 藏掉了 —— 触屏可以滑，鼠标用户既看不出
+     可滚也滚不动，溢出到视野外的标签就等于「点了没反应」（实测 ≤560px 开始溢出、
+     360px 时 8 个标签有 4 个完全够不到）。这里只是把滚动条按细样式放出来：
+     触屏仍是不占位的覆盖式滚动条，鼠标则多一条可拖的细条，布局与高度不变。 */
+  .site-nav { scrollbar-width: thin; scrollbar-color: var(--line-strong) transparent; }
+  .site-nav::-webkit-scrollbar { display: block; height: 4px; }
+  .site-nav::-webkit-scrollbar-thumb { background: var(--line-strong); border-radius: 2px; }
+  .site-nav::-webkit-scrollbar-track { background: transparent; }
 
   /* 标签栏：默认折叠为 1 行左右，点"更多标签"展开全部 */
   .tagbar .chip-extra { display: none; }

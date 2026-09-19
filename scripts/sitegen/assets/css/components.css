@@ -274,7 +274,10 @@
 }
 .fig-label { font-size: var(--fs-sm); color: var(--ink-3); margin-top: .2rem; }
 
-/* 弹层 */
+/* 弹层
+   顶栏（z=910）高于本遮罩，所以「遮罩铺满全屏」不再会吞掉导航点击。
+   代价是弹层本体上缘不能躲到顶栏下面（否则 ✕ 会被顶栏盖住点不到），
+   故 max-height 里减去两个顶栏高度：居中后上缘必然落在顶栏下沿之下。 */
 .modal-root .overlay {
   position: fixed; inset: 0; z-index: 900;
   background: rgba(33, 28, 21, .45);
@@ -290,7 +293,7 @@
   border-radius: 8px;
   box-shadow: var(--shadow-pop);
   width: min(520px, 100%);
-  max-height: min(86vh, 720px);
+  max-height: min(86vh, 720px, calc(100vh - 2 * var(--head-h) - 1rem));
   display: flex;
   flex-direction: column;
   animation: modalIn var(--dur-slow) var(--ease);

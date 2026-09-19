@@ -55,6 +55,11 @@
   --space-8: 4.5rem;
 
   --w-page: 1120px;
+
+  /* 顶栏实际高度：弹层要给顶栏让位、语言页锚点条要贴在顶栏下沿，都靠它。
+     这里是兜底值，真实高度由 components.js 的 syncHeadHeight() 量出来写回
+     （字体会异步加载、窄屏导航可能换行，高度不是常数）。 */
+  --head-h: 3.6rem;
   --shadow-pop: 0 2px 6px rgba(33, 28, 21, .08), 0 18px 48px rgba(33, 28, 21, .16);
   --shadow-flat: 0 1px 3px rgba(33, 28, 21, .07);
 

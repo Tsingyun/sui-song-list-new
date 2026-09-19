@@ -145,7 +145,9 @@
       var vw = window.visualViewport ? window.visualViewport.width : window.innerWidth;
       var vh = window.visualViewport ? window.visualViewport.height : window.innerHeight;
       var nx = Math.max(8, Math.min(cx - dx, vw - els.panel.offsetWidth - 8));
-      var ny = Math.max(8, Math.min(cy - dy, vh - 60));
+      /* 下界不能是 8：顶栏永远可点（z=910），播放器若能被拖到顶栏带上就会盖住
+         导航 —— 又是「点标签没反应」。这里按当前顶栏高度把上界让出来。 */
+      var ny = Math.max(headHeight() + 8, Math.min(cy - dy, vh - 60));
       els.panel.style.left = nx + 'px';
       els.panel.style.top = ny + 'px';
       e.preventDefault();
@@ -489,7 +491,7 @@
       '<div class="foot-col"><h4>SUI SONG ARCHIVE</h4>' +
       '<p class="foot-span">' + esc(S.first.slice(0, 7).replace('-', '.')) + ' — ' + esc(S.last.slice(0, 7).replace('-', '.')) + '</p>' +
       '<p>收录歌曲 ' + D.fmtInt(S.total) + ' 首 · 演唱 ' + D.fmtInt(S.performances) + ' 次 · 点歌 ' + D.fmtInt(R.total) + ' 次</p>' +
-      '<span class="foot-ver">界面版本 v3.7</span></div>' +
+      '<span class="foot-ver">界面版本 v3.7.1</span></div>' +
       '<div class="foot-col"><h4>数据来源</h4><ul>' +
       '<li><a href="https://www.suijisui.space" target="_blank" rel="noopener">suijisui.space</a>（PQL87/sui-song-list）</li>' +
       '<li><a href="#/requests">点歌统计（已并入本站）</a> · 源自直播间点歌记录</li>' +
@@ -520,10 +522,25 @@
     });
   }
 
+  /* ═══════ 顶栏高度同步 ═══════
+     顶栏高度不是常数（Google Fonts 异步替换会改行高、窄屏导航可能换行），
+     而它下面挂着两个消费者：语言页锚点条的 sticky top（views.css 的 --head-h）
+     与弹层的 max-height。这里实测写回 CSS 变量，别处一律引用变量。 */
+  function headHeight() {
+    var head = document.querySelector('.site-head');
+    return head ? head.offsetHeight : 58;
+  }
+  function syncHeadHeight() {
+    document.documentElement.style.setProperty('--head-h', headHeight() + 'px');
+  }
+
   /* ═══════ 全局绑定 ═══════ */
   function bindGlobal() {
     bindPlayer();
     renderFooter();
+    syncHeadHeight();
+    window.addEventListener('resize', C.debounce(syncHeadHeight, 150));
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(syncHeadHeight);
     document.getElementById('globalRandom').addEventListener('click', openBlindbox);
     document.getElementById('globalContribute').addEventListener('click', openContribute);
     C.openBlindbox = openBlindbox;

@@ -395,7 +395,9 @@
 /* ─── 语言 / 原唱 / 常唱 ─── */
 .lang-anchor {
   position: sticky;
-  top: 3.6rem;
+  /* 贴在顶栏下沿 —— 用变量而不是写死的 3.6rem：字体会异步替换、窄屏导航可能换行，
+     顶栏高度不是常数；--head-h 由 components.js 的 syncHeadHeight() 实测写回。 */
+  top: var(--head-h);
   z-index: 300;
   background: rgba(246, 242, 234, .95);
   backdrop-filter: blur(8px);
@@ -761,10 +763,12 @@
 .req-range-result { margin-top: 1rem; max-height: 22rem; overflow: auto; }
 
 /* ─── 点歌：彩蛋与彩纸（克制，尊重 reduced-motion） ─── */
+/* z-index 排在顶栏（910）之下：彩蛋也算「页面级遮罩」，同样不能吞掉顶栏点击
+   （它的关闭方式是点任意处，若盖住顶栏，点导航就只会关掉彩蛋而不跳转） */
 .req-celebrate-overlay {
   position: fixed;
   inset: 0;
-  z-index: 1000;
+  z-index: 905;
   display: grid;
   place-items: center;
   background: rgba(33, 28, 21, .55);
