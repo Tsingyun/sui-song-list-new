@@ -4,12 +4,6 @@
   var C = window.SUICore, D = window.SUIDomain;
   var esc = C.esc;
 
-  /* 点歌速览轮播的定时器（视图重渲时先清掉，避免悬挂引用） */
-  var _teaserTimer = null;
-  var _teaserFade = null;
-  var _teaserRelock = null;
-  var _teaserResize = null;
-
   /* ── 首屏立绘随机轮换 ──────────────────────────────────────────────
      候选清单由构建器注入（window.SUI.heroArt，见 scripts/sitegen/builder.py 的
      HERO_ART），增删立绘只改那一份清单即可。纯前端随机，静态托管可用。
@@ -57,14 +51,36 @@
     if (img.complete && img.naturalWidth) show();
   }
 
-  function render(params, container) {
-    if (_teaserTimer) { clearInterval(_teaserTimer); _teaserTimer = null; }
-    if (_teaserFade) { clearTimeout(_teaserFade); _teaserFade = null; }
-    if (_teaserRelock) { clearTimeout(_teaserRelock); _teaserRelock = null; }
-    if (_teaserResize) { window.removeEventListener('resize', _teaserResize); _teaserResize = null; }
+  /* ── 盲盒歌曲池 ──────────────────────────────────────────────────
+     滚动带里循环经过的「池子」：从全部歌曲里随机抽一批。
+     与盲盒「从所有歌里随机取一首」同构 —— 池子每次渲染重抽，
+     所以刷新首页会看到不同的歌在流。滚动是纯 CSS 的（见 components.css
+     的 marquee），这里只负责给出内容，不持有任何定时器。 */
+  var POOL_SIZE = 24;
 
+  function pickPool() {
+    var all = D.songs();
+    if (all.length <= POOL_SIZE) return all.slice();
+    var pool = [], seen = {}, i;
+    while (pool.length < POOL_SIZE) {
+      i = Math.floor(Math.random() * all.length);
+      if (!seen[i]) { seen[i] = 1; pool.push(all[i]); }
+    }
+    return pool;
+  }
+
+  /* 池子行：整块是装饰性滚动内容（外层已 aria-hidden），
+     不放链接 —— 否则 48 个 Tab 停靠点会把键盘操作拖垮 */
+  function poolRows(list) {
+    return list.map(function (s) {
+      return '<span class="marquee-row">' +
+        '<span class="mq-name">' + esc(s.name) + '</span>' +
+        '<span class="mq-meta">' + s.count + ' 次</span></span>';
+    }).join('');
+  }
+
+  function render(params, container) {
     var S = D.stats();
-    var R = D.requests();
     var span = S.first.slice(0, 7).replace('-', '.') + ' — ' + S.last.slice(0, 7).replace('-', '.');
 
     var figures = [
@@ -87,9 +103,7 @@
       return b.count - a.count || a.name.localeCompare(b.name, 'zh');
     }).slice(0, 10);
 
-    var thisMonth = D.thisMonth();
-    var streaks = (R.streaks[thisMonth] || []);
-    var slides = buildTeaserSlides(R, streaks);
+    var pool = pickPool();
     var heroArt = pickHeroArt();
 
     container.innerHTML =
@@ -140,17 +154,21 @@
           '<span class="row-last num">' + esc(s.last || '—') + '</span></div>';
       }).join('') + '</div>' +
 
-      '<div class="req-teaser" style="margin-top:2rem;">' +
-      '<div class="sec-head" style="margin-bottom:.8rem;"><div class="sec-kicker">REQUESTS</div>' +
-      '<h2 class="sec-title" style="font-size:1.2rem;">点歌速览 <a class="sec-link" href="' + C.buildHash('requests') + '">详情 →</a></h2></div>' +
-      '<div class="req-rotate" id="reqRotate">' +
-      '<div class="req-rotate-head"><span class="rlab" id="reqRotateLabel"></span>' +
-      '<span class="req-rotate-dots" id="reqRotateDots"></span></div>' +
-      '<div class="req-rotate-body" id="reqRotateBody"></div>' +
-      '</div>' +
-      '<div class="streak-line">累计 <b class="num">' + D.fmtInt(R.meta.total) + '</b> 次点歌 · ' +
-      '<b class="num">' + R.meta.audiences + '</b> 位观众 · <b class="num">' + R.meta.songs + '</b> 首歌被点到</div>' +
-      '</div></section>' +
+      /* 盲盒抽歌：池子在上方纵向自然滚动，下方一个抽取按钮。
+         滚动内容为装饰（aria-hidden），信息由下方 hint 承载，避免读屏念一长串随机歌名 */
+      '<div class="blindbox">' +
+      '<div class="sec-head" style="margin-bottom:.8rem;"><div class="sec-kicker">BLIND BOX</div>' +
+      '<h2 class="sec-title" style="font-size:1.2rem;">盲盒抽歌 <a class="sec-link" href="' + C.buildHash('songs') + '">全部歌曲 →</a></h2></div>' +
+      '<div class="marquee marquee--y blindbox-pool" aria-hidden="true">' +
+      '<div class="marquee-track">' +
+      '<div class="marquee-group">' + poolRows(pool) + '</div>' +
+      '<div class="marquee-group">' + poolRows(pool) + '</div>' +
+      '</div></div>' +
+      '<div class="blindbox-foot">' +
+      '<button type="button" class="btn btn-primary btn-sm" id="homeBlindbox">🎁 抽一首</button>' +
+      '<span class="blindbox-hint">共 ' + D.fmtInt(S.total) + ' 首收录曲目 · 随机抽一首</span>' +
+      '</div></div>' +
+      '</section>' +
       '</div>';
 
     container.querySelectorAll('.fig.clickable').forEach(function (el) {
@@ -159,126 +177,13 @@
       });
     });
     bindHeroArt(container.querySelector('.hero-figure img'));
-    initTeaser(container, slides);
-  }
 
-  /* ─── 点歌速览轮播 ─── */
-  function agoLabel(d) {
-    var days = Math.floor((D.today - new Date(d + 'T00:00:00')) / 86400000);
-    return days <= 0 ? '今天' : days === 1 ? '昨天' : days + ' 天前';
-  }
-
-  function buildTeaserSlides(R, streaks) {
-    var slides = [];
-    slides.push({
-      label: '👑 点歌之王',
-      html: '<div class="rbody"><span class="rp"><b>' + esc(R.king.n) + '</b> ' +
-        '<span class="num">' + R.king.c + '</span><span class="rsub">次点歌 · 累计第一</span></span></div>'
+    /* 抽歌：复用顶栏那个盲盒（同一套滚轮动画与结果面板），
+       首页只提供入口，不重复实现一份抽奖逻辑 */
+    var draw = container.querySelector('#homeBlindbox');
+    if (draw) draw.addEventListener('click', function () {
+      if (C.openBlindbox) C.openBlindbox();
     });
-    var recent = Object.keys(R.lastDates || {})
-      .map(function (n) { return { n: n, d: R.lastDates[n] }; })
-      .sort(function (a, b) { return a.d < b.d ? 1 : a.d > b.d ? -1 : 0; })
-      .slice(0, 3);
-    if (recent.length) {
-      slides.push({
-        label: '🕘 最近点歌',
-        html: '<div class="rbody">' + recent.map(function (r) {
-          return '<span class="rp"><b>' + esc(r.n) + '</b> <span class="rsub">' + esc(agoLabel(r.d)) + '</span></span>';
-        }).join('') + '</div>'
-      });
-    }
-    var songs = R.boards.song.slice(0, 3);
-    slides.push({
-      label: '♪ 常点歌曲',
-      html: '<div class="rbody">' + songs.map(function (s) {
-        return '<span class="rp"><b>' + esc(s.n) + '</b> <span class="num">' + s.c + '</span><span class="rsub">次</span></span>';
-      }).join('') + '</div>'
-    });
-    if (streaks.length) {
-      slides.push({
-        label: '🔥 本月连续',
-        html: '<div class="rbody">' + streaks.slice(0, 3).map(function (s) {
-          return '<span class="rp"><b>' + esc(s.n) + '</b> <span class="fire" title="连续 ' + s.len + ' 场点歌">' +
-            '🔥'.repeat(s.fires) + '</span></span>';
-        }).join('') + '</div>'
-      });
-    }
-    return slides;
-  }
-
-  function initTeaser(container, slides) {
-    var box = container.querySelector('#reqRotateBody');
-    var labelEl = container.querySelector('#reqRotateLabel');
-    var dotsBox = container.querySelector('#reqRotateDots');
-    if (!box || !slides.length) return;
-    var idx = 0, paused = false;
-    var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    function draw(i) {
-      idx = ((i % slides.length) + slides.length) % slides.length;
-      labelEl.textContent = slides[idx].label;
-      box.innerHTML = slides[idx].html;
-      dotsBox.querySelectorAll('button').forEach(function (b, j) {
-        b.classList.toggle('on', j === idx);
-        b.setAttribute('aria-current', j === idx ? 'true' : 'false');
-      });
-    }
-    /* 所有页共享「最大页高」：多个人名换行时行高不再变化，
-       轮播切换与页面总高都恒定，不会跳动（并在字体就绪/视口变化后重测） */
-    function lockHeight() {
-      if (!document.getElementById('reqRotateBody')) return;
-      box.style.height = '';                 // 先解绑才能量到自然高度
-      var max = 0;
-      for (var i = 0; i < slides.length; i++) {
-        box.innerHTML = slides[i].html;
-        max = Math.max(max, box.offsetHeight);
-      }
-      if (max) box.style.height = max + 'px';
-      draw(idx);                             // 量完还原当前页
-    }
-    function onResize() {
-      if (!document.getElementById('reqRotateBody')) {
-        window.removeEventListener('resize', onResize);
-        return;
-      }
-      if (_teaserRelock) clearTimeout(_teaserRelock);
-      _teaserRelock = setTimeout(lockHeight, 150);
-    }
-    function advance() {
-      /* 容器已随路由重渲被移除时自杀，避免悬挂定时器 */
-      if (!document.getElementById('reqRotateBody')) {
-        clearInterval(_teaserTimer); _teaserTimer = null; return;
-      }
-      if (paused || document.hidden || slides.length < 2) return;
-      box.classList.add('swap');
-      _teaserFade = setTimeout(function () {
-        draw(idx + 1);
-        box.classList.remove('swap');
-      }, 170);
-    }
-    dotsBox.innerHTML = slides.map(function (s) {
-      return '<button type="button" aria-label="切换到' + esc(s.label) + '"></button>';
-    }).join('');
-    dotsBox.querySelectorAll('button').forEach(function (b, i) {
-      b.addEventListener('click', function () { draw(i); });
-    });
-    lockHeight();
-
-    /* 字体异步替换（Google Fonts）后字宽会变，重新量一次高度 */
-    if (document.fonts && document.fonts.ready && document.fonts.ready.then) {
-      document.fonts.ready.then(function () {
-        if (document.getElementById('reqRotateBody')) lockHeight();
-      });
-    }
-    window.addEventListener('resize', onResize);
-    _teaserResize = onResize;
-
-    var card = container.querySelector('#reqRotate');
-    card.addEventListener('mouseenter', function () { paused = true; });
-    card.addEventListener('mouseleave', function () { paused = false; });
-    if (!reduced && slides.length > 1) {
-      _teaserTimer = setInterval(advance, 3000);
-    }
   }
 
   function songHref(s) { return C.buildHash('song', {}, encodeURIComponent(s.name)); }

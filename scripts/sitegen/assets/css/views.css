@@ -188,67 +188,71 @@
   .king-card .king-chibi { width: 72px; bottom: -10px; }
 }
 
-/* 点歌速览轮播卡（首页右栏）—— 金色左勾线与岁己身份色一致 */
-.req-rotate {
+/* ── 首页盲盒抽歌（占用原「点歌速览」的位置）──
+   金色左勾线沿用上方「点歌之王卡」的语言，让右栏两张卡同源；
+   池子里滚动的歌曲与盲盒「从全部歌里随机取一首」同构 */
+.blindbox {
+  margin-top: 2rem;
   border: 1px solid var(--line-strong);
   border-left: 3px solid var(--gold);
   border-radius: 6px;
   background: var(--surface);
-  padding: .7rem 1rem .8rem;
+  padding: .7rem 1rem .9rem;
 }
-.req-rotate-head { display: flex; align-items: center; justify-content: space-between; gap: .75rem; }
-.rlab {
+/* 池子 24 行 × 2.5rem ≈ 960px，40s 滚完一圈 ≈ 24px/s：慢到能看清歌名，
+   又不至于让人以为画面卡住 */
+.blindbox-pool { --mq-h: 7.5rem; --mq-row: 2.5rem; --mq-dur: 40s; color: var(--ink-2); }
+.blindbox-foot {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  margin-top: .9rem;
+}
+.blindbox-hint {
+  min-width: 0;
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+}
+
+/* ── 点歌页「点歌速览」横向滚动带 ──
+   原本是首页右栏的分页轮播（圆点手动切换）；迁到本页后改为自然滚动，
+   四张卡片循环经过 —— 不再需要切换，也就不存在「切换时高度变化」这类问题。
+   卡片宽度写死（flex: 0 0 …）：横向滚动的位移精度依赖它，别改成自动宽度 */
+/* 四张卡 ≈ 1100px，36s 一圈 ≈ 30px/s */
+.req-brief { margin-top: 1.4rem; --mq-dur: 36s; }
+.req-brief-card {
+  flex: 0 0 264px;
+  border: 1px solid var(--line-strong);
+  border-left: 3px solid var(--gold);
+  border-radius: 6px;
+  background: var(--surface);
+  padding: .6rem .9rem .7rem;
+}
+.req-brief-head {
   font-family: var(--mono);
   font-size: var(--fs-xs);
-  letter-spacing: .18em;
+  letter-spacing: .16em;
   color: var(--gold);
   white-space: nowrap;
 }
-.req-rotate-dots { display: inline-flex; gap: .3rem; flex-shrink: 0; }
-.req-rotate-dots button {
-  width: 7px; height: 7px;
-  border-radius: 50%;
-  border: 0; padding: 0;
-  background: var(--line-strong);
-  transition: background var(--dur);
-}
-.req-rotate-dots button:hover { background: var(--ink-3); }
-.req-rotate-dots button.on { background: var(--accent); }
-.req-rotate-body {
-  margin-top: .4rem;
-  transition: opacity .17s ease;
-  /* 实际高度由 JS 按「所有页的最大页高」锁定（view-home.js 的 lockHeight）：
-     人名多、换行的页不会把卡片撑高，轮播切换时页面不再跳动。
-     这里只作无脚本时的下限（单行高度）。 */
-  min-height: 1.9rem;
-}
-.req-rotate-body.swap { opacity: 0; }
-.req-rotate .rbody {
+.req-brief-body {
   display: flex;
-  flex-wrap: wrap;
-  gap: .3rem .75rem;
-  align-items: center;          /* 换行后每行内部对齐；与锁定的盒高配合不产生位移 */
-  align-content: center;        /* 单行页在锁定盒内居中，不留突兀空白 */
+  flex-direction: column;
+  gap: .3rem;
+  margin-top: .45rem;
   font-size: var(--fs-md);
-  min-height: 1.9rem;           /* 单行高度下限，轮换时不塌陷 */
 }
-/* 一条「名字 + 附注」整体不可拆分：人名不会被拦腰断到两行，读起来完整；
-   只有名字本身超过整行宽度时，才在自身范围内省略号收尾 */
-.req-rotate .rbody .rp {
-  white-space: nowrap;
+.rb-item { display: flex; align-items: baseline; gap: .4rem; min-width: 0; }
+.rb-item b {
   min-width: 0;
-  max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 600;
 }
-.req-rotate .rbody b { font-weight: 600; }
-.req-rotate .rbody .num { font-family: var(--mono); color: var(--accent); font-weight: 600; }
-.req-rotate .rbody .rsub { color: var(--ink-3); font-size: var(--fs-sm); }
-.req-rotate .rbody .fire { letter-spacing: -.12em; }
-
-.req-teaser { display: flex; flex-direction: column; gap: .8rem; }
-.streak-line { display: flex; align-items: baseline; gap: .5rem; font-size: var(--fs-md); color: var(--ink-2); flex-wrap: wrap; }
-.streak-line b { font-weight: 600; color: var(--ink); }
+.rb-num { flex-shrink: 0; font-family: var(--mono); color: var(--accent); font-weight: 600; }
+.rb-sub { flex-shrink: 0; color: var(--ink-3); font-size: var(--fs-sm); }
+.rb-fire { flex-shrink: 0; color: var(--accent-deep); letter-spacing: -.12em; }
 
 
 /* 紧凑行（首页右栏等窄容器） */

@@ -91,6 +91,9 @@
       '<span>这 <b class="num">' + D.fmtInt(R.meta.total) + '</b> 次点歌来自 <b class="num">' +
       R.meta.audiences + '</b> 位 <b>饼干岁</b> —— 每一次被点到，小岁都记着。</span></div>' +
 
+      /* 点歌速览：自首页迁入，改为横向自然滚动展示 */
+      briefBand(R) +
+
       /* 工具行：搜索 / 榜单切换 / 周期 / 时间区间 / 导出 */
       '<div class="toolbar">' +
       '<div class="search req-search-wrap">' +
@@ -185,6 +188,79 @@
 
   function fig(n, label) {
     return '<div class="fig"><div class="fig-num">' + D.fmtInt(n) + '</div><div class="fig-label">' + label + '</div></div>';
+  }
+
+  /* ────────────────────────── 点歌速览（自首页迁入） ──────────────────────────
+     原本挂在首页右栏，是「圆点手动切换」的轮播（配套一段锁高 JS，为的是
+     切换时不改变页面总高）。迁到本页后改为横向自然滚动：四张卡片循环经过，
+     不再需要手动切换，也就没有「切换时高度变化」这个问题 —— 锁高逻辑随之下线。
+     滚动本身是纯 CSS 的（见 components.css 的 marquee 一节），
+     卡片宽度写死（.req-brief-card），横向位移精度依赖它。 */
+  function agoLabel(d) {
+    var days = Math.floor((D.today - new Date(d + 'T00:00:00')) / 86400000);
+    return days <= 0 ? '今天' : days === 1 ? '昨天' : days + ' 天前';
+  }
+
+  function briefCards(R) {
+    var cards = [];
+    cards.push({
+      label: '👑 点歌之王',
+      body: '<span class="rb-item"><b>' + esc(R.king.n) + '</b>' +
+        '<span class="rb-num">' + R.king.c + '</span>' +
+        '<span class="rb-sub">次点歌 · 累计第一</span></span>'
+    });
+
+    var recent = Object.keys(R.lastDates || {})
+      .map(function (n) { return { n: n, d: R.lastDates[n] }; })
+      .sort(function (a, b) { return a.d < b.d ? 1 : a.d > b.d ? -1 : 0; })
+      .slice(0, 3);
+    if (recent.length) {
+      cards.push({
+        label: '🕘 最近点歌',
+        body: recent.map(function (r) {
+          return '<span class="rb-item"><b>' + esc(r.n) + '</b>' +
+            '<span class="rb-sub">' + esc(agoLabel(r.d)) + '</span></span>';
+        }).join('')
+      });
+    }
+
+    cards.push({
+      label: '♪ 常点歌曲',
+      body: R.boards.song.slice(0, 3).map(function (s) {
+        return '<span class="rb-item"><b>' + esc(s.n) + '</b>' +
+          '<span class="rb-num">' + s.c + '</span><span class="rb-sub">次</span></span>';
+      }).join('')
+    });
+
+    var streaks = (R.streaks && R.streaks[D.thisMonth()]) || [];
+    if (streaks.length) {
+      cards.push({
+        label: '🔥 本月连续',
+        body: streaks.slice(0, 3).map(function (s) {
+          return '<span class="rb-item"><b>' + esc(s.n) + '</b>' +
+            '<span class="rb-fire" title="连续 ' + s.len + ' 场点歌">' +
+            '🔥'.repeat(s.fires) + '</span></span>';
+        }).join('')
+      });
+    }
+    return cards;
+  }
+
+  function briefBand(R) {
+    var cards = briefCards(R);
+    if (!cards.length) return '';
+    /* 内容复制一份（第二份对读屏隐藏）：这是无缝滚动的关键 —— 轨道尺寸正好是
+       一份内容的两倍，CSS 里位移 -50% 即等于「一份」，因此不会跳变 */
+    var one = cards.map(function (c) {
+      return '<div class="req-brief-card">' +
+        '<div class="req-brief-head">' + c.label + '</div>' +
+        '<div class="req-brief-body">' + c.body + '</div></div>';
+    }).join('');
+    return '<div class="marquee req-brief">' +
+      '<div class="marquee-track">' +
+      '<div class="marquee-group">' + one + '</div>' +
+      '<div class="marquee-group" aria-hidden="true">' + one + '</div>' +
+      '</div></div>';
   }
 
   /* ────────────────────────── 各区块 ────────────────────────── */

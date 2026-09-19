@@ -1205,6 +1205,79 @@ img, svg, iframe { display: block; max-width: 100%; }
 }
 .empty .mono { font-size: var(--fs-sm); }
 
+/* ═══════ 自然滚动带（marquee）═══════
+   用于「滚动展示」而不是「分页切换」：内容原样复制一份（第二份 aria-hidden），
+   轨道匀速位移 -50%。因为轨道尺寸正好是一份内容的两倍，-50% 就等于「一份」，
+   于是滚动是无缝、无跳变的，且完全不需要 JS 定时器 —— 也就不会与页面其它
+   动画抢帧、不会在重渲后留下悬挂定时器。
+
+   两个硬约束（改尺寸前必读）：
+     ① 一份内容的尺寸必须精确可算：垂直版靠「固定行高」，水平版靠 group 的
+        padding-right 把组间间距也计入一份内容，否则每循环一次错位一点；
+     ② 容器尺寸必须固定（垂直版给 --mq-h），高度不能随内容变化 —— 这是它
+        不产生布局抖动（CLS）的前提。 */
+.marquee {
+  position: relative;
+  overflow: hidden;
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-x var(--mq-dur, 52s) linear infinite;
+}
+.marquee-group {
+  display: flex;
+  gap: var(--mq-gap, .75rem);
+  padding-right: var(--mq-gap, .75rem);   /* 补齐「组与组之间」的间距 */
+}
+@keyframes marquee-x { to { transform: translateX(-50%); } }
+
+/* ── 垂直版：一列固定行高的行 ── */
+.marquee--y { height: var(--mq-h, 7.5rem); }
+.marquee--y .marquee-track { flex-direction: column; width: auto; animation-name: marquee-y; }
+.marquee--y .marquee-group {
+  flex-direction: column;
+  gap: 0;
+  padding-right: 0;                       /* 行高已固定，首尾自然等距，不要额外留白 */
+}
+@keyframes marquee-y { to { transform: translateY(-50%); } }
+
+/* 行高写死（不要用 padding 撑高）：-50% 才与「一份内容」严格等高 */
+.marquee-row {
+  height: var(--mq-row, 2.5rem);
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  min-width: 0;
+  border-bottom: 1px dashed var(--line);
+  font-size: var(--fs-md);
+}
+.marquee-row:last-child { border-bottom: 0; }
+.marquee-row .mq-name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.marquee-row .mq-meta {
+  margin-left: auto;
+  flex-shrink: 0;
+  font-family: var(--mono);
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+}
+
+/* 悬停或键盘聚焦时暂停：内容在动就没法细看，更没法点 */
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track { animation-play-state: paused; }
+.marquee:focus-within { outline: 1px dashed var(--line-strong); outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  /* 不做动效时退化成「可手动滚动的窗口」，内容仍全部可达 */
+  .marquee { overflow: auto; }
+  .marquee-track { animation: none; }
+}
+
 /* ═══════ 视图 ═══════ */
 
 /* ─── 首页 ─── */
@@ -1395,67 +1468,71 @@ img, svg, iframe { display: block; max-width: 100%; }
   .king-card .king-chibi { width: 72px; bottom: -10px; }
 }
 
-/* 点歌速览轮播卡（首页右栏）—— 金色左勾线与岁己身份色一致 */
-.req-rotate {
+/* ── 首页盲盒抽歌（占用原「点歌速览」的位置）──
+   金色左勾线沿用上方「点歌之王卡」的语言，让右栏两张卡同源；
+   池子里滚动的歌曲与盲盒「从全部歌里随机取一首」同构 */
+.blindbox {
+  margin-top: 2rem;
   border: 1px solid var(--line-strong);
   border-left: 3px solid var(--gold);
   border-radius: 6px;
   background: var(--surface);
-  padding: .7rem 1rem .8rem;
+  padding: .7rem 1rem .9rem;
 }
-.req-rotate-head { display: flex; align-items: center; justify-content: space-between; gap: .75rem; }
-.rlab {
+/* 池子 24 行 × 2.5rem ≈ 960px，40s 滚完一圈 ≈ 24px/s：慢到能看清歌名，
+   又不至于让人以为画面卡住 */
+.blindbox-pool { --mq-h: 7.5rem; --mq-row: 2.5rem; --mq-dur: 40s; color: var(--ink-2); }
+.blindbox-foot {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  margin-top: .9rem;
+}
+.blindbox-hint {
+  min-width: 0;
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+}
+
+/* ── 点歌页「点歌速览」横向滚动带 ──
+   原本是首页右栏的分页轮播（圆点手动切换）；迁到本页后改为自然滚动，
+   四张卡片循环经过 —— 不再需要切换，也就不存在「切换时高度变化」这类问题。
+   卡片宽度写死（flex: 0 0 …）：横向滚动的位移精度依赖它，别改成自动宽度 */
+/* 四张卡 ≈ 1100px，36s 一圈 ≈ 30px/s */
+.req-brief { margin-top: 1.4rem; --mq-dur: 36s; }
+.req-brief-card {
+  flex: 0 0 264px;
+  border: 1px solid var(--line-strong);
+  border-left: 3px solid var(--gold);
+  border-radius: 6px;
+  background: var(--surface);
+  padding: .6rem .9rem .7rem;
+}
+.req-brief-head {
   font-family: var(--mono);
   font-size: var(--fs-xs);
-  letter-spacing: .18em;
+  letter-spacing: .16em;
   color: var(--gold);
   white-space: nowrap;
 }
-.req-rotate-dots { display: inline-flex; gap: .3rem; flex-shrink: 0; }
-.req-rotate-dots button {
-  width: 7px; height: 7px;
-  border-radius: 50%;
-  border: 0; padding: 0;
-  background: var(--line-strong);
-  transition: background var(--dur);
-}
-.req-rotate-dots button:hover { background: var(--ink-3); }
-.req-rotate-dots button.on { background: var(--accent); }
-.req-rotate-body {
-  margin-top: .4rem;
-  transition: opacity .17s ease;
-  /* 实际高度由 JS 按「所有页的最大页高」锁定（view-home.js 的 lockHeight）：
-     人名多、换行的页不会把卡片撑高，轮播切换时页面不再跳动。
-     这里只作无脚本时的下限（单行高度）。 */
-  min-height: 1.9rem;
-}
-.req-rotate-body.swap { opacity: 0; }
-.req-rotate .rbody {
+.req-brief-body {
   display: flex;
-  flex-wrap: wrap;
-  gap: .3rem .75rem;
-  align-items: center;          /* 换行后每行内部对齐；与锁定的盒高配合不产生位移 */
-  align-content: center;        /* 单行页在锁定盒内居中，不留突兀空白 */
+  flex-direction: column;
+  gap: .3rem;
+  margin-top: .45rem;
   font-size: var(--fs-md);
-  min-height: 1.9rem;           /* 单行高度下限，轮换时不塌陷 */
 }
-/* 一条「名字 + 附注」整体不可拆分：人名不会被拦腰断到两行，读起来完整；
-   只有名字本身超过整行宽度时，才在自身范围内省略号收尾 */
-.req-rotate .rbody .rp {
-  white-space: nowrap;
+.rb-item { display: flex; align-items: baseline; gap: .4rem; min-width: 0; }
+.rb-item b {
   min-width: 0;
-  max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 600;
 }
-.req-rotate .rbody b { font-weight: 600; }
-.req-rotate .rbody .num { font-family: var(--mono); color: var(--accent); font-weight: 600; }
-.req-rotate .rbody .rsub { color: var(--ink-3); font-size: var(--fs-sm); }
-.req-rotate .rbody .fire { letter-spacing: -.12em; }
-
-.req-teaser { display: flex; flex-direction: column; gap: .8rem; }
-.streak-line { display: flex; align-items: baseline; gap: .5rem; font-size: var(--fs-md); color: var(--ink-2); flex-wrap: wrap; }
-.streak-line b { font-weight: 600; color: var(--ink); }
+.rb-num { flex-shrink: 0; font-family: var(--mono); color: var(--accent); font-weight: 600; }
+.rb-sub { flex-shrink: 0; color: var(--ink-3); font-size: var(--fs-sm); }
+.rb-fire { flex-shrink: 0; color: var(--accent-deep); letter-spacing: -.12em; }
 
 
 /* 紧凑行（首页右栏等窄容器） */
@@ -2119,8 +2196,10 @@ img, svg, iframe { display: block; max-width: 100%; }
   .hero-figure figcaption { display: none; }
   .song-hero .song-sui { display: none; }
   .sui-seal { top: 1.1rem; }
-  /* 轮播三项在窄屏换行为两行：抬高下限，脚本锁定盒高前的兜底值 */
-  .req-rotate .rbody { min-height: 3.6rem; }
+  /* 盲盒池：窄屏只露两行（行高保持不变 —— 行高一变，位移 -50% 就对不齐了） */
+  .blindbox-pool { --mq-h: 5rem; }
+  /* 速览卡：窄屏收窄卡片宽度，滚动机制本身不受影响 */
+  .req-brief-card { flex-basis: 216px; }
 
   /* 顶栏折叠：品牌 + 横滚导航 + 收纳更多入口 */
   .head-actions { display: none; }
@@ -3145,7 +3224,7 @@ img, svg, iframe { display: block; max-width: 100%; }
       '<div class="foot-col"><h4>SUI SONG ARCHIVE</h4>' +
       '<p class="foot-span">' + esc(S.first.slice(0, 7).replace('-', '.')) + ' — ' + esc(S.last.slice(0, 7).replace('-', '.')) + '</p>' +
       '<p>收录歌曲 ' + D.fmtInt(S.total) + ' 首 · 演唱 ' + D.fmtInt(S.performances) + ' 次 · 点歌 ' + D.fmtInt(R.total) + ' 次</p>' +
-      '<span class="foot-ver">界面版本 v3.6</span></div>' +
+      '<span class="foot-ver">界面版本 v3.7</span></div>' +
       '<div class="foot-col"><h4>数据来源</h4><ul>' +
       '<li><a href="https://www.suijisui.space" target="_blank" rel="noopener">suijisui.space</a>（PQL87/sui-song-list）</li>' +
       '<li><a href="#/requests">点歌统计（已并入本站）</a> · 源自直播间点歌记录</li>' +
@@ -3203,12 +3282,6 @@ img, svg, iframe { display: block; max-width: 100%; }
   var C = window.SUICore, D = window.SUIDomain;
   var esc = C.esc;
 
-  /* 点歌速览轮播的定时器（视图重渲时先清掉，避免悬挂引用） */
-  var _teaserTimer = null;
-  var _teaserFade = null;
-  var _teaserRelock = null;
-  var _teaserResize = null;
-
   /* ── 首屏立绘随机轮换 ──────────────────────────────────────────────
      候选清单由构建器注入（window.SUI.heroArt，见 scripts/sitegen/builder.py 的
      HERO_ART），增删立绘只改那一份清单即可。纯前端随机，静态托管可用。
@@ -3256,14 +3329,36 @@ img, svg, iframe { display: block; max-width: 100%; }
     if (img.complete && img.naturalWidth) show();
   }
 
-  function render(params, container) {
-    if (_teaserTimer) { clearInterval(_teaserTimer); _teaserTimer = null; }
-    if (_teaserFade) { clearTimeout(_teaserFade); _teaserFade = null; }
-    if (_teaserRelock) { clearTimeout(_teaserRelock); _teaserRelock = null; }
-    if (_teaserResize) { window.removeEventListener('resize', _teaserResize); _teaserResize = null; }
+  /* ── 盲盒歌曲池 ──────────────────────────────────────────────────
+     滚动带里循环经过的「池子」：从全部歌曲里随机抽一批。
+     与盲盒「从所有歌里随机取一首」同构 —— 池子每次渲染重抽，
+     所以刷新首页会看到不同的歌在流。滚动是纯 CSS 的（见 components.css
+     的 marquee），这里只负责给出内容，不持有任何定时器。 */
+  var POOL_SIZE = 24;
 
+  function pickPool() {
+    var all = D.songs();
+    if (all.length <= POOL_SIZE) return all.slice();
+    var pool = [], seen = {}, i;
+    while (pool.length < POOL_SIZE) {
+      i = Math.floor(Math.random() * all.length);
+      if (!seen[i]) { seen[i] = 1; pool.push(all[i]); }
+    }
+    return pool;
+  }
+
+  /* 池子行：整块是装饰性滚动内容（外层已 aria-hidden），
+     不放链接 —— 否则 48 个 Tab 停靠点会把键盘操作拖垮 */
+  function poolRows(list) {
+    return list.map(function (s) {
+      return '<span class="marquee-row">' +
+        '<span class="mq-name">' + esc(s.name) + '</span>' +
+        '<span class="mq-meta">' + s.count + ' 次</span></span>';
+    }).join('');
+  }
+
+  function render(params, container) {
     var S = D.stats();
-    var R = D.requests();
     var span = S.first.slice(0, 7).replace('-', '.') + ' — ' + S.last.slice(0, 7).replace('-', '.');
 
     var figures = [
@@ -3286,9 +3381,7 @@ img, svg, iframe { display: block; max-width: 100%; }
       return b.count - a.count || a.name.localeCompare(b.name, 'zh');
     }).slice(0, 10);
 
-    var thisMonth = D.thisMonth();
-    var streaks = (R.streaks[thisMonth] || []);
-    var slides = buildTeaserSlides(R, streaks);
+    var pool = pickPool();
     var heroArt = pickHeroArt();
 
     container.innerHTML =
@@ -3339,17 +3432,21 @@ img, svg, iframe { display: block; max-width: 100%; }
           '<span class="row-last num">' + esc(s.last || '—') + '</span></div>';
       }).join('') + '</div>' +
 
-      '<div class="req-teaser" style="margin-top:2rem;">' +
-      '<div class="sec-head" style="margin-bottom:.8rem;"><div class="sec-kicker">REQUESTS</div>' +
-      '<h2 class="sec-title" style="font-size:1.2rem;">点歌速览 <a class="sec-link" href="' + C.buildHash('requests') + '">详情 →</a></h2></div>' +
-      '<div class="req-rotate" id="reqRotate">' +
-      '<div class="req-rotate-head"><span class="rlab" id="reqRotateLabel"></span>' +
-      '<span class="req-rotate-dots" id="reqRotateDots"></span></div>' +
-      '<div class="req-rotate-body" id="reqRotateBody"></div>' +
-      '</div>' +
-      '<div class="streak-line">累计 <b class="num">' + D.fmtInt(R.meta.total) + '</b> 次点歌 · ' +
-      '<b class="num">' + R.meta.audiences + '</b> 位观众 · <b class="num">' + R.meta.songs + '</b> 首歌被点到</div>' +
-      '</div></section>' +
+      /* 盲盒抽歌：池子在上方纵向自然滚动，下方一个抽取按钮。
+         滚动内容为装饰（aria-hidden），信息由下方 hint 承载，避免读屏念一长串随机歌名 */
+      '<div class="blindbox">' +
+      '<div class="sec-head" style="margin-bottom:.8rem;"><div class="sec-kicker">BLIND BOX</div>' +
+      '<h2 class="sec-title" style="font-size:1.2rem;">盲盒抽歌 <a class="sec-link" href="' + C.buildHash('songs') + '">全部歌曲 →</a></h2></div>' +
+      '<div class="marquee marquee--y blindbox-pool" aria-hidden="true">' +
+      '<div class="marquee-track">' +
+      '<div class="marquee-group">' + poolRows(pool) + '</div>' +
+      '<div class="marquee-group">' + poolRows(pool) + '</div>' +
+      '</div></div>' +
+      '<div class="blindbox-foot">' +
+      '<button type="button" class="btn btn-primary btn-sm" id="homeBlindbox">🎁 抽一首</button>' +
+      '<span class="blindbox-hint">共 ' + D.fmtInt(S.total) + ' 首收录曲目 · 随机抽一首</span>' +
+      '</div></div>' +
+      '</section>' +
       '</div>';
 
     container.querySelectorAll('.fig.clickable').forEach(function (el) {
@@ -3358,126 +3455,13 @@ img, svg, iframe { display: block; max-width: 100%; }
       });
     });
     bindHeroArt(container.querySelector('.hero-figure img'));
-    initTeaser(container, slides);
-  }
 
-  /* ─── 点歌速览轮播 ─── */
-  function agoLabel(d) {
-    var days = Math.floor((D.today - new Date(d + 'T00:00:00')) / 86400000);
-    return days <= 0 ? '今天' : days === 1 ? '昨天' : days + ' 天前';
-  }
-
-  function buildTeaserSlides(R, streaks) {
-    var slides = [];
-    slides.push({
-      label: '👑 点歌之王',
-      html: '<div class="rbody"><span class="rp"><b>' + esc(R.king.n) + '</b> ' +
-        '<span class="num">' + R.king.c + '</span><span class="rsub">次点歌 · 累计第一</span></span></div>'
+    /* 抽歌：复用顶栏那个盲盒（同一套滚轮动画与结果面板），
+       首页只提供入口，不重复实现一份抽奖逻辑 */
+    var draw = container.querySelector('#homeBlindbox');
+    if (draw) draw.addEventListener('click', function () {
+      if (C.openBlindbox) C.openBlindbox();
     });
-    var recent = Object.keys(R.lastDates || {})
-      .map(function (n) { return { n: n, d: R.lastDates[n] }; })
-      .sort(function (a, b) { return a.d < b.d ? 1 : a.d > b.d ? -1 : 0; })
-      .slice(0, 3);
-    if (recent.length) {
-      slides.push({
-        label: '🕘 最近点歌',
-        html: '<div class="rbody">' + recent.map(function (r) {
-          return '<span class="rp"><b>' + esc(r.n) + '</b> <span class="rsub">' + esc(agoLabel(r.d)) + '</span></span>';
-        }).join('') + '</div>'
-      });
-    }
-    var songs = R.boards.song.slice(0, 3);
-    slides.push({
-      label: '♪ 常点歌曲',
-      html: '<div class="rbody">' + songs.map(function (s) {
-        return '<span class="rp"><b>' + esc(s.n) + '</b> <span class="num">' + s.c + '</span><span class="rsub">次</span></span>';
-      }).join('') + '</div>'
-    });
-    if (streaks.length) {
-      slides.push({
-        label: '🔥 本月连续',
-        html: '<div class="rbody">' + streaks.slice(0, 3).map(function (s) {
-          return '<span class="rp"><b>' + esc(s.n) + '</b> <span class="fire" title="连续 ' + s.len + ' 场点歌">' +
-            '🔥'.repeat(s.fires) + '</span></span>';
-        }).join('') + '</div>'
-      });
-    }
-    return slides;
-  }
-
-  function initTeaser(container, slides) {
-    var box = container.querySelector('#reqRotateBody');
-    var labelEl = container.querySelector('#reqRotateLabel');
-    var dotsBox = container.querySelector('#reqRotateDots');
-    if (!box || !slides.length) return;
-    var idx = 0, paused = false;
-    var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    function draw(i) {
-      idx = ((i % slides.length) + slides.length) % slides.length;
-      labelEl.textContent = slides[idx].label;
-      box.innerHTML = slides[idx].html;
-      dotsBox.querySelectorAll('button').forEach(function (b, j) {
-        b.classList.toggle('on', j === idx);
-        b.setAttribute('aria-current', j === idx ? 'true' : 'false');
-      });
-    }
-    /* 所有页共享「最大页高」：多个人名换行时行高不再变化，
-       轮播切换与页面总高都恒定，不会跳动（并在字体就绪/视口变化后重测） */
-    function lockHeight() {
-      if (!document.getElementById('reqRotateBody')) return;
-      box.style.height = '';                 // 先解绑才能量到自然高度
-      var max = 0;
-      for (var i = 0; i < slides.length; i++) {
-        box.innerHTML = slides[i].html;
-        max = Math.max(max, box.offsetHeight);
-      }
-      if (max) box.style.height = max + 'px';
-      draw(idx);                             // 量完还原当前页
-    }
-    function onResize() {
-      if (!document.getElementById('reqRotateBody')) {
-        window.removeEventListener('resize', onResize);
-        return;
-      }
-      if (_teaserRelock) clearTimeout(_teaserRelock);
-      _teaserRelock = setTimeout(lockHeight, 150);
-    }
-    function advance() {
-      /* 容器已随路由重渲被移除时自杀，避免悬挂定时器 */
-      if (!document.getElementById('reqRotateBody')) {
-        clearInterval(_teaserTimer); _teaserTimer = null; return;
-      }
-      if (paused || document.hidden || slides.length < 2) return;
-      box.classList.add('swap');
-      _teaserFade = setTimeout(function () {
-        draw(idx + 1);
-        box.classList.remove('swap');
-      }, 170);
-    }
-    dotsBox.innerHTML = slides.map(function (s) {
-      return '<button type="button" aria-label="切换到' + esc(s.label) + '"></button>';
-    }).join('');
-    dotsBox.querySelectorAll('button').forEach(function (b, i) {
-      b.addEventListener('click', function () { draw(i); });
-    });
-    lockHeight();
-
-    /* 字体异步替换（Google Fonts）后字宽会变，重新量一次高度 */
-    if (document.fonts && document.fonts.ready && document.fonts.ready.then) {
-      document.fonts.ready.then(function () {
-        if (document.getElementById('reqRotateBody')) lockHeight();
-      });
-    }
-    window.addEventListener('resize', onResize);
-    _teaserResize = onResize;
-
-    var card = container.querySelector('#reqRotate');
-    card.addEventListener('mouseenter', function () { paused = true; });
-    card.addEventListener('mouseleave', function () { paused = false; });
-    if (!reduced && slides.length > 1) {
-      _teaserTimer = setInterval(advance, 3000);
-    }
   }
 
   function songHref(s) { return C.buildHash('song', {}, encodeURIComponent(s.name)); }
@@ -4418,6 +4402,9 @@ img, svg, iframe { display: block; max-width: 100%; }
       '<span>这 <b class="num">' + D.fmtInt(R.meta.total) + '</b> 次点歌来自 <b class="num">' +
       R.meta.audiences + '</b> 位 <b>饼干岁</b> —— 每一次被点到，小岁都记着。</span></div>' +
 
+      /* 点歌速览：自首页迁入，改为横向自然滚动展示 */
+      briefBand(R) +
+
       /* 工具行：搜索 / 榜单切换 / 周期 / 时间区间 / 导出 */
       '<div class="toolbar">' +
       '<div class="search req-search-wrap">' +
@@ -4512,6 +4499,79 @@ img, svg, iframe { display: block; max-width: 100%; }
 
   function fig(n, label) {
     return '<div class="fig"><div class="fig-num">' + D.fmtInt(n) + '</div><div class="fig-label">' + label + '</div></div>';
+  }
+
+  /* ────────────────────────── 点歌速览（自首页迁入） ──────────────────────────
+     原本挂在首页右栏，是「圆点手动切换」的轮播（配套一段锁高 JS，为的是
+     切换时不改变页面总高）。迁到本页后改为横向自然滚动：四张卡片循环经过，
+     不再需要手动切换，也就没有「切换时高度变化」这个问题 —— 锁高逻辑随之下线。
+     滚动本身是纯 CSS 的（见 components.css 的 marquee 一节），
+     卡片宽度写死（.req-brief-card），横向位移精度依赖它。 */
+  function agoLabel(d) {
+    var days = Math.floor((D.today - new Date(d + 'T00:00:00')) / 86400000);
+    return days <= 0 ? '今天' : days === 1 ? '昨天' : days + ' 天前';
+  }
+
+  function briefCards(R) {
+    var cards = [];
+    cards.push({
+      label: '👑 点歌之王',
+      body: '<span class="rb-item"><b>' + esc(R.king.n) + '</b>' +
+        '<span class="rb-num">' + R.king.c + '</span>' +
+        '<span class="rb-sub">次点歌 · 累计第一</span></span>'
+    });
+
+    var recent = Object.keys(R.lastDates || {})
+      .map(function (n) { return { n: n, d: R.lastDates[n] }; })
+      .sort(function (a, b) { return a.d < b.d ? 1 : a.d > b.d ? -1 : 0; })
+      .slice(0, 3);
+    if (recent.length) {
+      cards.push({
+        label: '🕘 最近点歌',
+        body: recent.map(function (r) {
+          return '<span class="rb-item"><b>' + esc(r.n) + '</b>' +
+            '<span class="rb-sub">' + esc(agoLabel(r.d)) + '</span></span>';
+        }).join('')
+      });
+    }
+
+    cards.push({
+      label: '♪ 常点歌曲',
+      body: R.boards.song.slice(0, 3).map(function (s) {
+        return '<span class="rb-item"><b>' + esc(s.n) + '</b>' +
+          '<span class="rb-num">' + s.c + '</span><span class="rb-sub">次</span></span>';
+      }).join('')
+    });
+
+    var streaks = (R.streaks && R.streaks[D.thisMonth()]) || [];
+    if (streaks.length) {
+      cards.push({
+        label: '🔥 本月连续',
+        body: streaks.slice(0, 3).map(function (s) {
+          return '<span class="rb-item"><b>' + esc(s.n) + '</b>' +
+            '<span class="rb-fire" title="连续 ' + s.len + ' 场点歌">' +
+            '🔥'.repeat(s.fires) + '</span></span>';
+        }).join('')
+      });
+    }
+    return cards;
+  }
+
+  function briefBand(R) {
+    var cards = briefCards(R);
+    if (!cards.length) return '';
+    /* 内容复制一份（第二份对读屏隐藏）：这是无缝滚动的关键 —— 轨道尺寸正好是
+       一份内容的两倍，CSS 里位移 -50% 即等于「一份」，因此不会跳变 */
+    var one = cards.map(function (c) {
+      return '<div class="req-brief-card">' +
+        '<div class="req-brief-head">' + c.label + '</div>' +
+        '<div class="req-brief-body">' + c.body + '</div></div>';
+    }).join('');
+    return '<div class="marquee req-brief">' +
+      '<div class="marquee-track">' +
+      '<div class="marquee-group">' + one + '</div>' +
+      '<div class="marquee-group" aria-hidden="true">' + one + '</div>' +
+      '</div></div>';
   }
 
   /* ────────────────────────── 各区块 ────────────────────────── */
@@ -5297,6 +5357,8 @@ img, svg, iframe { display: block; max-width: 100%; }
   var esc = C.esc;
 
   var CHANGELOG = [
+    ['v3.7', '首页右下角的「点歌速览」模块移除，改为「盲盒抽歌」：上方池子纵向自然滚动展示随机抽样的 24 首（每次打开都是新的一批），下方一键抽取，复用顶栏盲盒的滚轮动画与结果面板（歌名 / 原唱 / 语言 / 演唱次数 + 播放或去 B站搜）'],
+    ['v3.7', '「点歌速览」迁至「点歌统计」页，并改为横向自然滚动带：点歌之王 / 最近点歌 / 常点歌曲 / 本月连续四组卡片循环经过，替代原来的圆点手动切换 —— 滚动是纯 CSS 的（无定时器），悬停暂停、尊重「减弱动效」偏好'],
     ['v3.6', '岁己符号系统上线：把「岁己」拆成一套可复用的图形符号（光环+四芒星 / 银喉长尾山雀 / 饼干 / 樱花 / 辣椒），统一收在 css/sui.css 一处维护，再按语义铺满全站 —— 每个页面标题区的大光环水印（逐页尺寸与倾角微差，由路由层统一注入，新增页面自动获得）、每个数据区块尾部的岁己注脚、所有空状态与清单空行的小鸟、返回顶部按钮上的栖枝小鸟（悬停振翅）、页脚新增角色署名条'],
     ['v3.6', '关于页新增「角色档案」：藏青档案照（半身立绘衬藏青渐变，金线细框）+ 官方设定表（种族 银喉长尾山雀 / 出道 2022.09.04 / 生日 2.05 / 粉丝名 饼干岁 / 口味 / 代表色 #87EAFF·#DA5D77 / 形象设计）与应援口号'],
     ['v3.5.1', '首页「点歌速览」行高稳定化：多个人名换行时不再把卡片撑高——轮播所有页共享同一锁定高度（取各页最大高度，字体就绪与窗口尺寸变化后自动重测），切换页面时页面总高全程恒定；同时单个「名字 + 附注」不再被拦腰拆行，人名保持完整可读'],
@@ -5322,7 +5384,7 @@ img, svg, iframe { display: block; max-width: 100%; }
   function render(params, container) {
     container.innerHTML =
       '<div class="sec-head"><div class="sec-kicker">ABOUT</div>' +
-      '<h2 class="sec-title">关于本站 <span class="sec-sub">SUI SONG ARCHIVE v3.6</span></h2></div>' +
+      '<h2 class="sec-title">关于本站 <span class="sec-sub">SUI SONG ARCHIVE v3.7</span></h2></div>' +
 
       /* ── 角色档案：本站唯一的「岁己本人出场」板块，设定均取自官方资料 ── */
       '<section class="sui-profile">' +

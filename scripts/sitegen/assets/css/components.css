@@ -550,3 +550,76 @@
   color: var(--ink-3);
 }
 .empty .mono { font-size: var(--fs-sm); }
+
+/* ═══════ 自然滚动带（marquee）═══════
+   用于「滚动展示」而不是「分页切换」：内容原样复制一份（第二份 aria-hidden），
+   轨道匀速位移 -50%。因为轨道尺寸正好是一份内容的两倍，-50% 就等于「一份」，
+   于是滚动是无缝、无跳变的，且完全不需要 JS 定时器 —— 也就不会与页面其它
+   动画抢帧、不会在重渲后留下悬挂定时器。
+
+   两个硬约束（改尺寸前必读）：
+     ① 一份内容的尺寸必须精确可算：垂直版靠「固定行高」，水平版靠 group 的
+        padding-right 把组间间距也计入一份内容，否则每循环一次错位一点；
+     ② 容器尺寸必须固定（垂直版给 --mq-h），高度不能随内容变化 —— 这是它
+        不产生布局抖动（CLS）的前提。 */
+.marquee {
+  position: relative;
+  overflow: hidden;
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-x var(--mq-dur, 52s) linear infinite;
+}
+.marquee-group {
+  display: flex;
+  gap: var(--mq-gap, .75rem);
+  padding-right: var(--mq-gap, .75rem);   /* 补齐「组与组之间」的间距 */
+}
+@keyframes marquee-x { to { transform: translateX(-50%); } }
+
+/* ── 垂直版：一列固定行高的行 ── */
+.marquee--y { height: var(--mq-h, 7.5rem); }
+.marquee--y .marquee-track { flex-direction: column; width: auto; animation-name: marquee-y; }
+.marquee--y .marquee-group {
+  flex-direction: column;
+  gap: 0;
+  padding-right: 0;                       /* 行高已固定，首尾自然等距，不要额外留白 */
+}
+@keyframes marquee-y { to { transform: translateY(-50%); } }
+
+/* 行高写死（不要用 padding 撑高）：-50% 才与「一份内容」严格等高 */
+.marquee-row {
+  height: var(--mq-row, 2.5rem);
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  min-width: 0;
+  border-bottom: 1px dashed var(--line);
+  font-size: var(--fs-md);
+}
+.marquee-row:last-child { border-bottom: 0; }
+.marquee-row .mq-name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.marquee-row .mq-meta {
+  margin-left: auto;
+  flex-shrink: 0;
+  font-family: var(--mono);
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+}
+
+/* 悬停或键盘聚焦时暂停：内容在动就没法细看，更没法点 */
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track { animation-play-state: paused; }
+.marquee:focus-within { outline: 1px dashed var(--line-strong); outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  /* 不做动效时退化成「可手动滚动的窗口」，内容仍全部可达 */
+  .marquee { overflow: auto; }
+  .marquee-track { animation: none; }
+}
