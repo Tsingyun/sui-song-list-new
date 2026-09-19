@@ -522,7 +522,9 @@
 /* ─── 点歌 ─── */
 .req-head-figs {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  /* minmax(0,1fr)：裸 1fr 的 min = min-content，列轨会被内容顶开
+     （放大实验实测：305.6px 可被顶到 1145px） */
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   border-block: 1px solid var(--ink);
   margin: var(--space-4) 0 var(--space-6);
 }

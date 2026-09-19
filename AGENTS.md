@@ -168,6 +168,20 @@ build_site.py ──► sitegen.builder.build()
    「谁是点歌大王」彩蛋用）。每行 = 名次徽标 + 昵称 + 累计次数，第一名金色名次 + 👑；
    名次徽标定宽（`.rb-rk`）才能三行左对齐。成就殿堂里的「点歌之王」是另一回事（只授第一名）
 
+11. **grid 列一律写 `minmax(0, ·)`（v3.7.3，规范早有但漏网）**：§6 规则 7 早已写明
+   「单列自适应一律写 `minmax(0, 1fr)`」，但 `.home-grid`（`1fr` / `1.6fr 1fr`）、
+   `.figures`（`repeat(5, 1fr)` / `repeat(2, 1fr)`）、`.site-foot-inner`（`1fr`）、
+   `.req-head-figs`（`repeat(4, 1fr)` / `repeat(2, 1fr)`）仍是裸 fr。
+   裸 `fr` 的 min = `min-content`，**轨道会被内容顶开**：放大实验实测 `.home-grid` 列宽被从
+   331px 顶到 **1120px**、`.figures` 从 165px 顶到 **1145px**、`.req-head-figs` 从 305.6px 顶到
+   **1145px**；改 `minmax(0,·)` 后列宽纹丝不动。这正是 `_verify_overflow.py` 在 360px 偶发报
+   `#/` 溢出 31px 的机制（越界元素是 `.home-grid > section`，宽 376.3 > 容器 331.2）。
+   **新增任何 grid 都按这条写**。
+   ⚠ **查漏必须自动发现，不能手写清单**：本轮漏网点是一批批冒出来的 —— 手写 8 个目标时
+   只查到 3 个，扩到 12 个立刻又挖出 `.req-head-figs`；最终改成「自动发现页面上全部
+   `display:grid` 容器」才收敛（5 视口 × 8 路由 = 7855 组 / 21 个容器 / 0 缺口）。
+   含固定列的（`.rowrow` / `.timeline-year`）实测总宽受固定列约束，暂未撑开，但同样建议加固
+
 ---
 
 ## 5. B站 API 与录播抓取（沿用旧工具链）
@@ -199,6 +213,10 @@ build_site.py ──► sitegen.builder.build()
    `#/insights?tab=`、`#/requests?kind=&m=`；旧锚点 `#lang-日语` 自动兼容到语言视图
 7. **grid 溢出**：单列自适应布局一律写 `minmax(0, 1fr)` 而不是 `1fr`
    （`1fr` 的 min=auto 会被 nowrap 内容撑破，已在移动端踩过）。
+   **检测别靠眼力，靠断言**：往 grid item 注入一段 `white-space:nowrap` 的长文本，
+   断言 `grid-template-columns` 注入前后**逐字相同** —— 相同＝轨道不会被撑开。
+   2026-09-19 用此法才发现 `.home-grid`/`.figures`/`.site-foot-inner`/`.req-head-figs`
+   四处漏网（见 §4 规则 11，脚本 `_amp_grid.py`）。
    **检测方法（别靠眼力，靠断言）**：往 grid item 里注入一段 `white-space:nowrap` 的长文本，
    断言 `grid-template-columns` 注入前后**逐字相同** —— 相同＝轨道不会被撑开。
    2026-09-19 用此法才发现 `.home-grid`/`.figures`/`.site-foot-inner` 三处漏网（见 §4 规则 11）
