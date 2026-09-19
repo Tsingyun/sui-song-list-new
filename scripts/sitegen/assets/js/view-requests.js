@@ -217,15 +217,17 @@
       cards.push({
         label: '👑 点歌之王',
         body: top3.map(function (r, i) {
-          /* 名次写法与榜单一致（mono 两位补零），第一名沿用全站「冠军戴冠」的语言。
-             金冠槽三行都占位（只有第一名填 👑），否则三行昵称左边缘会差一个冠的宽度 */
+          /* 名次写法与榜单一致（mono 两位补零）。皇冠挂行尾（v3.7.9）：旧版把金冠槽
+             放在名字前且三行都占位，二、三名行首因此多出一截空位；行尾挂法只有
+             冠军行有皇冠、其余行零占位，三行左边缘天然对齐 */
           return '<span class="rb-item' + (i === 0 ? ' is-1' : '') + '">' +
             '<span class="rb-rk" title="累计点歌第 ' + (i + 1) + ' 名">' +
             String(i + 1).padStart(2, '0') + '</span>' +
-            '<span class="rb-crown" aria-hidden="true">' + (i === 0 ? '👑' : '') + '</span>' +
             '<b>' + esc(r.n) + '</b>' +
             '<span class="rb-num">' + r.c + '</span>' +
-            '<span class="rb-sub">次</span></span>';
+            '<span class="rb-sub">次</span>' +
+            (i === 0 ? '<span class="rb-crown rb-crown-end" aria-hidden="true" title="点歌之王">👑</span>' : '') +
+            '</span>';
         }).join('')
       });
     }
@@ -474,20 +476,31 @@
     /* 搜索：过滤当前榜单 + 跨类型结果下拉（歌曲 / 观众 / 日期） */
     var input = container.querySelector('#reqSearch');
     var pop = container.querySelector('#reqSearchPop');
-    input.addEventListener('input', C.debounce(function () {
-      var v = input.value.trim();
+    var commitSearch = C.debounce(function () {
+      var live = container.querySelector('#reqSearch') || input;
+      var v = live.value.trim();
       history.replaceState(null, '', C.buildHash('requests', { kind: ctx.kind, m: ctx.period, q: v }));
       var scroll = window.scrollY;
       render({ kind: ctx.kind, m: ctx.period, q: v }, container);   // 渲染会重绑本输入框
       window.scrollTo(0, scroll);
       var again = container.querySelector('#reqSearch');
       if (again) {
-        again.focus();
+        again.focus({ preventScroll: true });
+        var vl = again.value;
+        again.setSelectionRange(vl.length, vl.length);   // 光标回到末尾，避免从行首继续输入吃字
         /* 只在这里跑一次搜索下拉：渲染后的 pop 是新节点，
            且不再回派 input 事件，避免「渲染 → 触发 → 再渲染」的循环。 */
         runSearch(R, v, container.querySelector('#reqSearchPop'), again);
       }
-    }, 220));
+    }, 220);
+    /* IME 安全（v3.7.9）：组合输入（拼音候选）期间整页重渲会销毁输入框节点、
+       掐断输入法组合 —— 表现为「打两个字就被清空/截断」。组合期间跳过，
+       组合结束（选字上屏）再提交搜索 */
+    input.addEventListener('input', function (e) {
+      if (e.isComposing || e.keyCode === 229) return;
+      commitSearch();
+    });
+    input.addEventListener('compositionend', function () { commitSearch(); });
     input.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') { pop.hidden = true; input.blur(); }
     });

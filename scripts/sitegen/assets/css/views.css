@@ -268,7 +268,8 @@
 }
 .rb-item.is-1 .rb-rk { color: var(--gold); font-weight: 600; }
 /* 金冠槽：三行都占位（只有第一名有 👑），保证昵称左边缘对齐 */
-.rb-crown { flex: 0 0 1.45em; min-width: 0; font-size: var(--fs-sm); line-height: 1; text-align: center; }
+/* 皇冠挂行尾（v3.7.9）：仅冠军行渲染，其余行零占位，三行左边缘天然对齐 */
+.rb-crown { flex: 0 0 auto; min-width: 0; font-size: var(--fs-sm); line-height: 1; margin-left: .15rem; }
 
 
 /* 紧凑行（首页右栏等窄容器） */
@@ -315,14 +316,34 @@
   mask-image: linear-gradient(180deg, #000 70%, transparent 100%);
   z-index: 0;
 }
+/* 印鉴（v3.7.9）：不再是右上角浮动章（旧位置与装饰立绘重叠、语义不明），
+   改为信息行里的「演唱者署名徽标」—— 立绘负责氛围，印鉴负责身份 */
 .sui-seal {
-  position: absolute;
-  top: 4.2rem; right: .4rem;
-  width: 64px; height: 64px;
+  width: 30px; height: 30px;
   border-radius: 50%;
   border: 2px solid var(--gold-soft);
   box-shadow: 0 1px 4px rgba(var(--shade-rgb), .18);
-  z-index: 2;   /* 印章盖在立绘上 */
+  flex-shrink: 0;
+}
+.meta-line .who-sing {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  padding-right: .8rem;
+  border-right: 1px solid var(--line);
+}
+.meta-line .who-sing b { font-family: var(--serif); font-size: var(--fs-md); color: var(--ink); }
+.meta-line .who-sing i {
+  font-style: normal;
+  font-family: var(--mono);
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+}
+.meta-line .artist small {
+  font-weight: 400;
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+  margin-right: .25rem;
 }
 
 .song-detail-grid {
@@ -853,6 +874,7 @@
   color: var(--ink);
   margin-bottom: var(--space-4);
   max-width: 34em;
+  text-wrap: balance;   /* 两行均衡排布，短段落不会在末行剩一个字（v3.7.9） */
 }
 .sui-profile-table { border-top: 1px solid var(--ink); }
 .sui-profile-table > div {

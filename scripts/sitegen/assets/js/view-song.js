@@ -84,12 +84,16 @@
     container.innerHTML =
       '<div class="song-hero">' +
       '<img class="song-sui" src="assets/sui-short.webp" alt="" aria-hidden="true" loading="lazy">' +
-      '<img class="sui-seal" src="assets/sui-avatar.webp" alt="岁己SUI" title="岁己SUI" loading="lazy">' +
       '<div class="crumbs"><a href="' + C.buildHash('songs') + '">SONGS</a> / #' + (rank || '—') + '</div>' +
       '<h1>' + esc(song.name) + '</h1>' +
       (song.t ? '<div class="tr-name">' + esc(song.t) + '</div>' : '') +
       '<div class="meta-line">' +
-      '<span class="artist">' + esc(song.artist || '未知原唱') + '</span>' +
+      /* 演唱者署名徽标（v3.7.9）：头像印鉴从右上角（与装饰立绘重叠、语义不明）
+         移入信息行，与原唱并列 —— 立绘负责氛围装饰，印鉴负责「谁在唱」的身份署名 */
+      '<span class="who-sing" title="演唱：岁己SUI">' +
+      '<img class="sui-seal" src="assets/sui-avatar.webp" alt="岁己SUI" loading="lazy">' +
+      '<b>岁己SUI</b><i>演唱</i></span>' +
+      '<span class="artist"><small>原唱</small>' + esc(song.artist || '未知原唱') + '</span>' +
       '<span class="lang-tag" data-lang="' + esc(song.lang) + '">' + esc(song.lang) + '</span>' +
       '<span class="mono" style="font-size:var(--fs-sm);color:var(--ink-3);">' + D.tierName(song.count) + ' · 演唱热度 #' + (rank || '—') + '</span>' +
       '</div>' +

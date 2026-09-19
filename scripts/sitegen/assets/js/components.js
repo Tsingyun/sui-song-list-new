@@ -37,7 +37,10 @@
     root.appendChild(overlay);
     document.body.style.overflow = 'hidden';
     var focusable = body.querySelector('input, select, textarea, button');
-    if (focusable) focusable.focus();
+    if (focusable) focusable.focus({ preventScroll: true });
+    /* 长详情的修复关键：聚焦可能把弹窗内容滚到底部（v3.7.9 前用户打开详情
+       直接看到结尾、要往上滚才能找到开头），聚焦后一律回到内容顶部 */
+    body.scrollTop = 0;
     return api;
   };
   document.addEventListener('keydown', function (e) {
@@ -491,11 +494,14 @@
       '<div class="foot-col"><h4>SUI SONG ARCHIVE</h4>' +
       '<p class="foot-span">' + esc(S.first.slice(0, 7).replace('-', '.')) + ' — ' + esc(S.last.slice(0, 7).replace('-', '.')) + '</p>' +
       '<p>收录歌曲 ' + D.fmtInt(S.total) + ' 首 · 演唱 ' + D.fmtInt(S.performances) + ' 次 · 点歌 ' + D.fmtInt(R.total) + ' 次</p>' +
-      '<span class="foot-ver">界面版本 v3.7.8</span></div>' +
+      '<span class="foot-ver">界面版本 v3.7.9</span></div>' +
       '<div class="foot-col"><h4>数据来源</h4><ul>' +
       '<li><a href="https://www.suijisui.space" target="_blank" rel="noopener">suijisui.space</a>（PQL87/sui-song-list）</li>' +
       '<li><a href="#/requests">点歌统计（已并入本站）</a> · 源自直播间点歌记录</li>' +
       '<li>岁己SUI 的 B站 投稿合集</li></ul></div>' +
+      '<div class="foot-col"><h4>友情链接</h4><ul>' +
+      '<li><a href="https://www.suiji.site" target="_blank" rel="noopener">岁己SUI应援站</a><span class="foot-note">suiji.site</span></li>' +
+      '</ul></div>' +
       '<div class="foot-col"><h4>参与</h4><ul>' +
       '<li><a href="#/about">更新日志与说明</a></li>' +
       '<li><a href="https://github.com/Tsingyun/sui-song-list-new" target="_blank" rel="noopener">项目源码 GitHub</a></li>' +

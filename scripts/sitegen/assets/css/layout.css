@@ -145,7 +145,7 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
   margin: 0 auto;
   padding: var(--space-6) 1.25rem var(--space-7);
   display: grid;
-  grid-template-columns: 1.4fr 1fr 1fr;
+  grid-template-columns: 1.3fr .9fr .9fr .9fr;
   gap: var(--space-6);
   position: relative;
 }

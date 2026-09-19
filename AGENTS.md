@@ -299,3 +299,16 @@ build_site.py ──► sitegen.builder.build()
     打印一律回浅色（responsive.css print 块对 data-theme=dark 重置关键 token）。
     回归：`.zcode/workspace/default/_verify_dark.py`，25 项（切换/记忆/防闪烁/对比度探针/
     图表渲染/移动端开关可见可点/零溢出/无报错）。
+
+
+19. **文本断行与输入体验（v3.7.9）**：① 孤字防治 —— h1-h4 用 `text-wrap: balance`，
+    p/li 用 `text-wrap: pretty`（末两行均衡，不支持的环境自动忽略）；短介绍段落
+    （.sui-profile-intro）额外加 balance。回归 `.zcode/workspace/default/_verify_v379.py`
+    内置 5 页 × 9 宽度的孤字审计（Range API 检测末行单字）。② 搜索框 IME 安全 —— 两处搜索
+    （#songSearch / #reqSearch）的 input 处理必须带 `e.isComposing || e.keyCode === 229` 守卫 +
+    `compositionend` 提交；组合期间整页重渲会销毁输入框、掐断输入法（用户感知为「输入被截断」）。
+    重渲后 focus 需 `preventScroll: true` + setSelectionRange 回末尾。③ 弹窗（C.openModal）
+    自动聚焦带 preventScroll，聚焦后 `body.scrollTop = 0` —— 长详情聚焦底部按钮会把内容滚到底。
+④ 皇冠行尾 —— 点歌速览卡 rb-crown 只在冠军行渲染且挂行尾，不留前置占位槽。
+⑤ 歌曲详情页分工 —— 立绘(.song-sui)=右上氛围装饰；头像印鉴(.sui-seal)=信息行「岁己SUI 演唱」
+    署名徽标（static 定位），与原唱 small 标签并列。

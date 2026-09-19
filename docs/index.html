@@ -189,7 +189,9 @@ body {
 
 ::selection { background: rgba(var(--accent-rgb), .2); }
 
-h1, h2, h3, h4 { font-family: var(--serif); font-weight: 700; line-height: 1.3; }
+h1, h2, h3, h4 { font-family: var(--serif); font-weight: 700; line-height: 1.3; text-wrap: balance; }
+/* 段落末行避孤字（v3.7.9）：pretty 只影响末两行断行；不支持该值的环境自动忽略 */
+p, li { text-wrap: pretty; }
 
 a { color: inherit; text-decoration: none; }
 a:hover { color: var(--accent-deep); }
@@ -637,7 +639,7 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
   margin: 0 auto;
   padding: var(--space-6) 1.25rem var(--space-7);
   display: grid;
-  grid-template-columns: 1.4fr 1fr 1fr;
+  grid-template-columns: 1.3fr .9fr .9fr .9fr;
   gap: var(--space-6);
   position: relative;
 }
@@ -1655,7 +1657,8 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
 }
 .rb-item.is-1 .rb-rk { color: var(--gold); font-weight: 600; }
 /* 金冠槽：三行都占位（只有第一名有 👑），保证昵称左边缘对齐 */
-.rb-crown { flex: 0 0 1.45em; min-width: 0; font-size: var(--fs-sm); line-height: 1; text-align: center; }
+/* 皇冠挂行尾（v3.7.9）：仅冠军行渲染，其余行零占位，三行左边缘天然对齐 */
+.rb-crown { flex: 0 0 auto; min-width: 0; font-size: var(--fs-sm); line-height: 1; margin-left: .15rem; }
 
 
 /* 紧凑行（首页右栏等窄容器） */
@@ -1702,14 +1705,34 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
   mask-image: linear-gradient(180deg, #000 70%, transparent 100%);
   z-index: 0;
 }
+/* 印鉴（v3.7.9）：不再是右上角浮动章（旧位置与装饰立绘重叠、语义不明），
+   改为信息行里的「演唱者署名徽标」—— 立绘负责氛围，印鉴负责身份 */
 .sui-seal {
-  position: absolute;
-  top: 4.2rem; right: .4rem;
-  width: 64px; height: 64px;
+  width: 30px; height: 30px;
   border-radius: 50%;
   border: 2px solid var(--gold-soft);
   box-shadow: 0 1px 4px rgba(var(--shade-rgb), .18);
-  z-index: 2;   /* 印章盖在立绘上 */
+  flex-shrink: 0;
+}
+.meta-line .who-sing {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  padding-right: .8rem;
+  border-right: 1px solid var(--line);
+}
+.meta-line .who-sing b { font-family: var(--serif); font-size: var(--fs-md); color: var(--ink); }
+.meta-line .who-sing i {
+  font-style: normal;
+  font-family: var(--mono);
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+}
+.meta-line .artist small {
+  font-weight: 400;
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+  margin-right: .25rem;
 }
 
 .song-detail-grid {
@@ -2240,6 +2263,7 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
   color: var(--ink);
   margin-bottom: var(--space-4);
   max-width: 34em;
+  text-wrap: balance;   /* 两行均衡排布，短段落不会在末行剩一个字（v3.7.9） */
 }
 .sui-profile-table { border-top: 1px solid var(--ink); }
 .sui-profile-table > div {
@@ -2390,7 +2414,7 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
   .hero-halo { width: 64px; height: 30px; top: -24px; }
   .hero-figure figcaption { display: none; }
   .song-hero .song-sui { display: none; }
-  .sui-seal { top: 1.1rem; }
+  .meta-line .who-sing { border-right: 0; padding-right: 0; }
   /* 盲盒池：窄屏只露两行（行高保持不变 —— 行高一变，位移 -50% 就对不齐了） */
   .blindbox-pool { --mq-h: 5rem; }
   /* 速览卡：窄屏收窄卡片宽度，滚动机制本身不受影响 */
@@ -3007,7 +3031,10 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
     root.appendChild(overlay);
     document.body.style.overflow = 'hidden';
     var focusable = body.querySelector('input, select, textarea, button');
-    if (focusable) focusable.focus();
+    if (focusable) focusable.focus({ preventScroll: true });
+    /* 长详情的修复关键：聚焦可能把弹窗内容滚到底部（v3.7.9 前用户打开详情
+       直接看到结尾、要往上滚才能找到开头），聚焦后一律回到内容顶部 */
+    body.scrollTop = 0;
     return api;
   };
   document.addEventListener('keydown', function (e) {
@@ -3461,11 +3488,14 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
       '<div class="foot-col"><h4>SUI SONG ARCHIVE</h4>' +
       '<p class="foot-span">' + esc(S.first.slice(0, 7).replace('-', '.')) + ' — ' + esc(S.last.slice(0, 7).replace('-', '.')) + '</p>' +
       '<p>收录歌曲 ' + D.fmtInt(S.total) + ' 首 · 演唱 ' + D.fmtInt(S.performances) + ' 次 · 点歌 ' + D.fmtInt(R.total) + ' 次</p>' +
-      '<span class="foot-ver">界面版本 v3.7.8</span></div>' +
+      '<span class="foot-ver">界面版本 v3.7.9</span></div>' +
       '<div class="foot-col"><h4>数据来源</h4><ul>' +
       '<li><a href="https://www.suijisui.space" target="_blank" rel="noopener">suijisui.space</a>（PQL87/sui-song-list）</li>' +
       '<li><a href="#/requests">点歌统计（已并入本站）</a> · 源自直播间点歌记录</li>' +
       '<li>岁己SUI 的 B站 投稿合集</li></ul></div>' +
+      '<div class="foot-col"><h4>友情链接</h4><ul>' +
+      '<li><a href="https://www.suiji.site" target="_blank" rel="noopener">岁己SUI应援站</a><span class="foot-note">suiji.site</span></li>' +
+      '</ul></div>' +
       '<div class="foot-col"><h4>参与</h4><ul>' +
       '<li><a href="#/about">更新日志与说明</a></li>' +
       '<li><a href="https://github.com/Tsingyun/sui-song-list-new" target="_blank" rel="noopener">项目源码 GitHub</a></li>' +
@@ -3823,12 +3853,19 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
 
     /* 控件事件 */
     var searchInput = container.querySelector('#songSearch');
-    searchInput.addEventListener('input', C.debounce(function () {
+    var commitSearch = C.debounce(function () {
       state.q = searchInput.value.trim();
       state.page = 1;
       _refocus = true;
       syncState(state, container);
-    }, 220));
+    }, 220);
+    /* IME 安全（v3.7.9）：组合输入（拼音候选）期间整页重渲会销毁输入框、掐断输入法组合
+       —— 表现为「打两个字就被清空/截断」。组合期间跳过，选字上屏后再提交 */
+    searchInput.addEventListener('input', function (e) {
+      if (e.isComposing || e.keyCode === 229) return;
+      commitSearch();
+    });
+    searchInput.addEventListener('compositionend', function () { commitSearch(); });
     container.querySelector('#songSort').addEventListener('change', function () {
       state.sort = this.value; state.page = 1; syncState(state, container);
     });
@@ -4087,12 +4124,16 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
     container.innerHTML =
       '<div class="song-hero">' +
       '<img class="song-sui" src="assets/sui-short.webp" alt="" aria-hidden="true" loading="lazy">' +
-      '<img class="sui-seal" src="assets/sui-avatar.webp" alt="岁己SUI" title="岁己SUI" loading="lazy">' +
       '<div class="crumbs"><a href="' + C.buildHash('songs') + '">SONGS</a> / #' + (rank || '—') + '</div>' +
       '<h1>' + esc(song.name) + '</h1>' +
       (song.t ? '<div class="tr-name">' + esc(song.t) + '</div>' : '') +
       '<div class="meta-line">' +
-      '<span class="artist">' + esc(song.artist || '未知原唱') + '</span>' +
+      /* 演唱者署名徽标（v3.7.9）：头像印鉴从右上角（与装饰立绘重叠、语义不明）
+         移入信息行，与原唱并列 —— 立绘负责氛围装饰，印鉴负责「谁在唱」的身份署名 */
+      '<span class="who-sing" title="演唱：岁己SUI">' +
+      '<img class="sui-seal" src="assets/sui-avatar.webp" alt="岁己SUI" loading="lazy">' +
+      '<b>岁己SUI</b><i>演唱</i></span>' +
+      '<span class="artist"><small>原唱</small>' + esc(song.artist || '未知原唱') + '</span>' +
       '<span class="lang-tag" data-lang="' + esc(song.lang) + '">' + esc(song.lang) + '</span>' +
       '<span class="mono" style="font-size:var(--fs-sm);color:var(--ink-3);">' + D.tierName(song.count) + ' · 演唱热度 #' + (rank || '—') + '</span>' +
       '</div>' +
@@ -4807,15 +4848,17 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
       cards.push({
         label: '👑 点歌之王',
         body: top3.map(function (r, i) {
-          /* 名次写法与榜单一致（mono 两位补零），第一名沿用全站「冠军戴冠」的语言。
-             金冠槽三行都占位（只有第一名填 👑），否则三行昵称左边缘会差一个冠的宽度 */
+          /* 名次写法与榜单一致（mono 两位补零）。皇冠挂行尾（v3.7.9）：旧版把金冠槽
+             放在名字前且三行都占位，二、三名行首因此多出一截空位；行尾挂法只有
+             冠军行有皇冠、其余行零占位，三行左边缘天然对齐 */
           return '<span class="rb-item' + (i === 0 ? ' is-1' : '') + '">' +
             '<span class="rb-rk" title="累计点歌第 ' + (i + 1) + ' 名">' +
             String(i + 1).padStart(2, '0') + '</span>' +
-            '<span class="rb-crown" aria-hidden="true">' + (i === 0 ? '👑' : '') + '</span>' +
             '<b>' + esc(r.n) + '</b>' +
             '<span class="rb-num">' + r.c + '</span>' +
-            '<span class="rb-sub">次</span></span>';
+            '<span class="rb-sub">次</span>' +
+            (i === 0 ? '<span class="rb-crown rb-crown-end" aria-hidden="true" title="点歌之王">👑</span>' : '') +
+            '</span>';
         }).join('')
       });
     }
@@ -5064,20 +5107,31 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
     /* 搜索：过滤当前榜单 + 跨类型结果下拉（歌曲 / 观众 / 日期） */
     var input = container.querySelector('#reqSearch');
     var pop = container.querySelector('#reqSearchPop');
-    input.addEventListener('input', C.debounce(function () {
-      var v = input.value.trim();
+    var commitSearch = C.debounce(function () {
+      var live = container.querySelector('#reqSearch') || input;
+      var v = live.value.trim();
       history.replaceState(null, '', C.buildHash('requests', { kind: ctx.kind, m: ctx.period, q: v }));
       var scroll = window.scrollY;
       render({ kind: ctx.kind, m: ctx.period, q: v }, container);   // 渲染会重绑本输入框
       window.scrollTo(0, scroll);
       var again = container.querySelector('#reqSearch');
       if (again) {
-        again.focus();
+        again.focus({ preventScroll: true });
+        var vl = again.value;
+        again.setSelectionRange(vl.length, vl.length);   // 光标回到末尾，避免从行首继续输入吃字
         /* 只在这里跑一次搜索下拉：渲染后的 pop 是新节点，
            且不再回派 input 事件，避免「渲染 → 触发 → 再渲染」的循环。 */
         runSearch(R, v, container.querySelector('#reqSearchPop'), again);
       }
-    }, 220));
+    }, 220);
+    /* IME 安全（v3.7.9）：组合输入（拼音候选）期间整页重渲会销毁输入框节点、
+       掐断输入法组合 —— 表现为「打两个字就被清空/截断」。组合期间跳过，
+       组合结束（选字上屏）再提交搜索 */
+    input.addEventListener('input', function (e) {
+      if (e.isComposing || e.keyCode === 229) return;
+      commitSearch();
+    });
+    input.addEventListener('compositionend', function () { commitSearch(); });
     input.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') { pop.hidden = true; input.blur(); }
     });
@@ -5659,6 +5713,7 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
   var esc = C.esc;
 
   var CHANGELOG = [
+    ['v3.7.9', '六处体验修复与打磨：点歌速览卡的皇冠改挂行尾，第二三名行首不再多出空位；修复搜索框在中文输入法下被截断的问题（组合输入期间不再整页重渲，选字上屏后才刷新结果）；修复观众/歌曲详情弹窗打开即滚到底部的问题，现在总是从内容顶部展示；歌曲详情页的头像印鉴从右上角（与装饰立绘重叠）移入信息行，成为「岁己SUI 演唱」署名徽标，与原唱并排、层级分明；页脚新增友情链接「岁己SUI应援站」（suiji.site）；标题与段落启用平衡断行，介绍词等短文本不再出现末行孤字'],
     ['v3.7.8', '主题策略调整：首次打开固定使用浅色主题，不再跟随系统 / 浏览器的深色偏好；手动切换与记忆不受影响，选择过深色的老访客依然保持深色'],
     ['v3.7.7', '全站新增浅色 / 深色主题切换：顶栏新增日月圆钮（独立于窄屏会整体隐藏的动作区，手机端常驻可点），点击即切换并写入 localStorage 永久记忆；未手动选择过的访客跟随系统偏好，且页面首帧前就写好主题属性，深色用户不会先闪一下白底。深色版面是同一套场刊版式的「深夜刊」——暖黑纸底、暖白墨字、绯红整体提亮保证对比度，藏青页脚 / 档案照 / 光环金等深色版面元素原样保留；散落各文件的硬编码颜色收拢为语义通道（随墨翻转的淡染、恒深阴影、恒深遮罩、随纸翻转的蒙层），打印时无论当前主题一律回到浅色纸面；画廊白底原画改挂恒浅卡纸衬底，multiply 印刷语言在深色墙上依然成立；洞察页 SVG 图表配色改为随主题翻转（次级曲线深色下改用发丝冰蓝）'],
     ['v3.7.6', '关于页新增「画廊」：四张岁己插画以装帧方式融入版面。三张白底原画不做键控抠图（主体银发与白底同色域，抠图必伤发丝与金环细线），预处理把近白噪声软钳为纯白后，用 multiply 混合模式把白底「印」进纸色页面——白底自然消失、翅尖以出血形式收在卡缘；夏日场景插画自带完整底色，沿用角色档案照的藏青装框语言。四张统一金线细框与图注，悬停轻抬升，响应式 4 → 2 → 1 列'],
@@ -5695,7 +5750,7 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
   function render(params, container) {
     container.innerHTML =
       '<div class="sec-head"><div class="sec-kicker">ABOUT</div>' +
-      '<h2 class="sec-title">关于本站 <span class="sec-sub">SUI SONG ARCHIVE v3.7.6</span></h2></div>' +
+      '<h2 class="sec-title">关于本站 <span class="sec-sub">SUI SONG ARCHIVE v3.7.9</span></h2></div>' +
 
       /* ── 角色档案：本站唯一的「岁己本人出场」板块，设定均取自官方资料 ── */
       '<section class="sui-profile">' +

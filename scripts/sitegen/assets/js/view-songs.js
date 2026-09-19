@@ -74,12 +74,19 @@
 
     /* 控件事件 */
     var searchInput = container.querySelector('#songSearch');
-    searchInput.addEventListener('input', C.debounce(function () {
+    var commitSearch = C.debounce(function () {
       state.q = searchInput.value.trim();
       state.page = 1;
       _refocus = true;
       syncState(state, container);
-    }, 220));
+    }, 220);
+    /* IME 安全（v3.7.9）：组合输入（拼音候选）期间整页重渲会销毁输入框、掐断输入法组合
+       —— 表现为「打两个字就被清空/截断」。组合期间跳过，选字上屏后再提交 */
+    searchInput.addEventListener('input', function (e) {
+      if (e.isComposing || e.keyCode === 229) return;
+      commitSearch();
+    });
+    searchInput.addEventListener('compositionend', function () { commitSearch(); });
     container.querySelector('#songSort').addEventListener('change', function () {
       state.sort = this.value; state.page = 1; syncState(state, container);
     });

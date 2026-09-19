@@ -37,7 +37,9 @@ body {
 
 ::selection { background: rgba(var(--accent-rgb), .2); }
 
-h1, h2, h3, h4 { font-family: var(--serif); font-weight: 700; line-height: 1.3; }
+h1, h2, h3, h4 { font-family: var(--serif); font-weight: 700; line-height: 1.3; text-wrap: balance; }
+/* 段落末行避孤字（v3.7.9）：pretty 只影响末两行断行；不支持该值的环境自动忽略 */
+p, li { text-wrap: pretty; }
 
 a { color: inherit; text-decoration: none; }
 a:hover { color: var(--accent-deep); }
