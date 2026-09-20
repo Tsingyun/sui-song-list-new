@@ -14,12 +14,35 @@ Business rules preserved from the old system (see REBUILD_NOTES.md §4):
 import json
 import os
 from collections import Counter
+from datetime import date, timedelta
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.dirname(os.path.dirname(SCRIPT_DIR))
 DATA_DIR = os.path.join(PROJECT_ROOT, 'data')
 
 MIN_DATE = '2022-09'   # heatmap / trend cutoff (drops 1901 garbage dates)
+
+# 首页「久别重逢」（见 build_song_payload 的说明）
+RETURN_GAP_YEARS = 2      # 「久别」：相邻两次演唱之间至少隔几个自然年
+RETURN_WINDOW_DAYS = 180  # 「最近」：复唱日距档案末日不超过几天
+RETURN_LIMIT = 5          # 首页只示意几首
+RECENT_DAYS = 6           # 首页「最近演出」展示的天数（与「久别重逢」共用一栏，见 layout）
+
+
+def _add_years(d, n):
+    """d 的 n 年后；2/29 在非闰年退化到 2/28。用于「间隔 ≥ n 整年」判定。"""
+    try:
+        return d.replace(year=d.year + n)
+    except ValueError:
+        return d.replace(year=d.year + n, day=28)
+
+
+def _span_months(a, b):
+    """a → b 的整月数（b 的日小于 a 的日则借位），用于「X 年 Y 个月」文案。"""
+    months = (b.year - a.year) * 12 + (b.month - a.month)
+    if b.day < a.day:
+        months -= 1
+    return max(months, 0)
 
 
 def norm_tilde(s):
@@ -142,7 +165,7 @@ def build_song_payload():
         a['n'] += 1
         a['perf'] += s['count']
 
-    # --- recent performance days (latest 12, for the home view) ---
+    # --- recent performance days (for the home view) ---
     by_day = {}
     for name, ds in dates_map.items():
         for d in ds:
@@ -150,7 +173,41 @@ def build_song_payload():
             if name not in by_day[d]:
                 by_day[d].append(name)
     recent = [{'date': d, 'songs': by_day[d]}
-              for d in sorted(by_day, reverse=True)[:12]]
+              for d in sorted(by_day, reverse=True)[:RECENT_DAYS]]
+
+    # --- 久别重逢：隔了 ≥2 年没唱、最近又重新登台的曲目 ---
+    # 口径（用户 2026-09-21 定义）：interval ≥ 2 年 且 复唱发生在「最近」。
+    #  · 「2 年」按自然年算（_add_years），不按 730 天 —— 闰年会差一天，且口径说的是「年」；
+    #  · 「最近」的锚点是**档案自身的最后一次演唱日**（all_dates 的 max），不是 now() ——
+    #    builder.py 要求产物确定，同一份 data 必须构建出同一份 payload；
+    #  · 从每首歌的日期序列**从后往前**找「最近一次复唱」，不能只看最后两首：
+    #    复唱之后又唱过的歌（如「After 17」2026-06 复唱、其后还有场次）只看末尾会漏掉；
+    #  · 找不到 2 年断档的歌（占了绝大多数）直接跳过，不进 payload。
+    by_name = {s['name']: s for s in out_songs}
+    return_list = []
+    if all_dates:
+        cutoff = (date.fromisoformat(max(all_dates))
+                  - timedelta(days=RETURN_WINDOW_DAYS)).isoformat()
+        for name, ds in dates_map.items():
+            for i in range(len(ds) - 1, 0, -1):
+                prev, back = date.fromisoformat(ds[i - 1]), date.fromisoformat(ds[i])
+                if back >= _add_years(prev, RETURN_GAP_YEARS):
+                    if ds[i] >= cutoff:
+                        s = by_name.get(name, {})
+                        months = _span_months(prev, back)
+                        return_list.append({
+                            'name': name,
+                            'artist': s.get('artist', ''),
+                            'count': s.get('count', 0),
+                            'prev': ds[i - 1],
+                            'back': ds[i],
+                            'years': months // 12,
+                            'months': months % 12,
+                        })
+                    break
+        # 复唱日倒序；同日并列时把断档更久的排前面（「更久别」更值得看）
+        return_list.sort(key=lambda r: (r['back'], r['years'] * 12 + r['months']),
+                         reverse=True)
 
     return {
         'stats': stats,
@@ -164,4 +221,7 @@ def build_song_payload():
         'songs': out_songs,
         'dates': dates_map,
         'recent': recent,
+        'returns': {'gapYears': RETURN_GAP_YEARS,
+                    'windowDays': RETURN_WINDOW_DAYS,
+                    'list': return_list[:RETURN_LIMIT]},
     }

@@ -79,6 +79,45 @@
     }).join('');
   }
 
+  /* ── 久别重逢 ────────────────────────────────────────────────────
+     隔了 2 年以上没唱、最近又重新登台的曲目。判定全在构建期
+     （datalayer.py 的 return_list），前端只渲染 —— 口径不要在这里重算。
+     每行两段：上一行是「歌名 · 原唱 + 累计次数」，下一行是一条时间轴
+     （上次演唱 —— 断档时长 ——▸ 复唱日），断档时长就是这一栏想说的事。 */
+  function retDate(d) { return esc(String(d || '').replace(/-/g, '.')); }
+
+  function gapText(r) {
+    return r.years + ' 年' + (r.months ? ' ' + r.months + ' 个月' : '');
+  }
+
+  function returnsBlock() {
+    var R = (window.SUI.songs && window.SUI.songs.returns) || {};
+    var list = R.list || [];
+    if (!list.length) return '';   // 数据里没有「复唱」就不留空板块
+
+    return '<section class="sec-returns">' +
+      '<div class="sec-head"><div class="sec-kicker">REUNION</div>' +
+      '<h2 class="sec-title">久别重逢 <span class="sec-sub">LONG-LOST RETURNS</span></h2></div>' +
+      '<div class="ret-list">' + list.map(function (r, i) {
+        return '<article class="ret-row">' +
+          '<span class="ret-idx">' + (i + 1 < 10 ? '0' : '') + (i + 1) + '</span>' +
+          '<a class="ret-name" href="' + songHref({ name: r.name }) + '">' +
+          '<span class="nm">' + esc(r.name) + '</span>' +
+          (r.artist ? '<span class="tr">' + esc(r.artist) + '</span>' : '') +
+          '</a>' +
+          '<span class="ret-count">' + r.count + ' 次</span>' +
+          '<div class="ret-track">' +
+          '<span class="ret-date">' + retDate(r.prev) + '</span>' +
+          '<span class="ret-bar"><i class="ret-gap">' + esc(gapText(r)) + '</i></span>' +
+          '<span class="ret-arrow" aria-hidden="true">▸</span>' +
+          '<span class="ret-date ret-back">' + retDate(r.back) + '</span>' +
+          '</div></article>';
+      }).join('') + '</div>' +
+      '<p class="ret-note">距上次演唱 ' + (R.gapYears || 2) + ' 年以上，最近又重新登台 · 按复唱日期取最近 ' +
+      list.length + ' 首</p>' +
+      '</section>';
+  }
+
   function render(params, container) {
     var S = D.stats();
     var span = S.first.slice(0, 7).replace('-', '.') + ' — ' + S.last.slice(0, 7).replace('-', '.');
@@ -140,12 +179,18 @@
       }).join('') + '</div>' +
 
       '<div class="home-grid">' +
+      /* 左栏是「最近演出 + 久别重逢」两段（.home-col 让末段吸到栏底，
+         与右栏的盲盒底边对齐 —— 见 views.css 的 .home-col 注释）；
+         右栏保持单一 section，不套 .home-col，否则它也会被吸到底部 */
+      '<div class="home-col">' +
       '<section><div class="sec-head"><div class="sec-kicker">LATEST</div>' +
       '<h2 class="sec-title">最近演出 <span class="sec-sub">RECENT STAGES</span></h2></div>' +
       recent +
       '</section>' +
+      returnsBlock() +
+      '</div>' +
 
-      '<section><div class="sec-head"><div class="sec-kicker">MOST SUNG</div>' +
+      '<section class="home-side"><div class="sec-head"><div class="sec-kicker">MOST SUNG</div>' +
       '<h2 class="sec-title">常唱金曲 <a class="sec-link" href="' + C.buildHash('frequent') + '">全部 →</a></h2></div>' +
       '<div class="rowlist">' + top10.map(function (s, i) {
         return '<div class="rowrow compact is-top10"><span class="row-idx">' + (i + 1) + '</span>' +

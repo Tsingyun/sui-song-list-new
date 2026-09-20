@@ -366,3 +366,22 @@ build_site.py ──► sitegen.builder.build()
     颜色走 `--accent` / `rgba(var(--accent-rgb), .45)` 语义通道，深色主题自动跟随。
     `openAudience` 是观众详情的**唯一入口**（11 处调用都汇到这里），图表只需挂在这一处。
     回归：`.zcode/workspace/default/_verify_aud_trend.py`（129 项，含独立重算期望值交叉比对）。
+24. **首页「久别重逢」板块（v3.7.15 立）**：把「隔 ≥2 年没唱、最近又重新登台」的曲目
+    单列在首页「最近演出」下方，每首给「上次演唱 ── 断档 X 年 Y 个月 ─▸ 复唱日」时间轴 + 累计次数。
+    数据在**构建期**派生（`datalayer.py` 的 `return_list`，随 payload 下发
+    `songs.returns = {gapYears, windowDays, list}`），前端 `view-home.js` 的 `returnsBlock()` 只渲染。
+    四条约束：
+    ① **「2 年」按自然年判**（`_add_years`），不按 730 天 —— 闰年会差一天，而口径就是「年」。
+    ② **「最近」的锚点是档案自身的最后一次演唱日**（`all_dates` 的 max），**不是 `now()`** ——
+    `builder.py` 要求产物确定，同一份 data 必须构建出同一份 payload；用 now() 会让产物每天变。
+    ③ **必须从日期序列末尾往前找「最近一次复唱」**，不能只看最后两首 ——
+    复唱之后又唱过的歌（如「After 17」2026-06 复唱、其后还有场次）只看末尾会漏掉。
+    ④ **`RECENT_DAYS` 与 `RETURN_LIMIT` 是一对参数，改一个必须重量另一个**：
+    两栏的底边对齐靠 `.home-col > section:last-child{margin-top:auto}` +
+    `.home-side .rowlist{margin-bottom:auto}`（富余空间吃掉在中段，不留在栏底）。
+    两者自然高度差会在某一栏里变成一段空洞 —— 实测「12 天 / 6 首」时右栏「常唱金曲」与
+    「盲盒抽歌」之间凭空多出 294px。当前取值 **6 天 / 5 首**（自然高度差 +12px）。
+    回归：`.zcode/workspace/default/_verify_returns.py`（51 项：Python 独立重算逐行比对 DOM、
+    底边/栏顶对齐 Δ=0、自然高度差 ≤32、五视口溢出与上一版基线对照、窄屏断档标签不压日期、
+    深浅主题取色翻转）。另：数据里没有复唱时整段不渲染，`.home-col` 的吸底规则用
+    `:not(:first-child)` 兜住「只剩一段」的情况。

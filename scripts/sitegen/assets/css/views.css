@@ -161,6 +161,108 @@
 }
 .recent-songs a:hover { color: var(--accent-deep); border-bottom-color: var(--accent); }
 
+/* ── 首页两栏的「末块吸底」──
+   左栏 = 最近演出 + 久别重逢，右栏 = 常唱金曲 + 盲盒抽歌（v3.7.15）。
+   需求是「久别重逢的底边与盲盒的底边对齐」。grid 项默认 stretch，两栏本来就等高；
+   给各自**末块**一个 auto 外边距，富余空间就会被吃掉在中段（最近演出↔久别重逢、
+   常唱金曲↔盲盒），而不是留在栏底：
+     · 左栏末块 margin-top:auto  → 自己沉到栏底
+     · 右栏末块在 section 内部，改让清单 margin-bottom:auto 顶下去（栏顶仍然对齐）
+   两栏谁高都一样成立，不需要知道实际高度差，也不用把某栏写死高度。
+   注意 :not(:first-child)：数据里没有「复唱」时左栏只剩一段，那段不能也沉底。 */
+.home-col { display: flex; flex-direction: column; gap: var(--space-6); min-width: 0; }
+.home-col > section { min-width: 0; }
+.home-col > section:last-child:not(:first-child) { margin-top: auto; }
+.home-side { display: flex; flex-direction: column; min-width: 0; }
+.home-side .rowlist { margin-bottom: auto; }
+
+/* ── 久别重逢 ──
+   一行两段：歌名/原唱 + 累计次数，下面一条时间轴（上次 —— 断档 ——▸ 复唱）。
+   .ret-bar 是 1px 细线，断档时长绝对居中压在线上，靠 --paper 底色把线截断成两段；
+   页面底色就是 --paper（base.css 的 body），深色主题自动跟随，不要写死颜色。 */
+.ret-list { border-top: 1px solid var(--ink); }
+.ret-row {
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1fr) auto;
+  grid-template-areas:
+    "idx name count"
+    "idx track track";
+  column-gap: .7rem;
+  row-gap: .3rem;
+  padding: .5rem .5rem .55rem;
+  border-bottom: 1px solid var(--line);
+}
+.ret-idx {
+  grid-area: idx;
+  font-family: var(--mono);
+  font-size: var(--fs-sm);
+  color: var(--accent);
+  text-align: right;
+  padding-top: .1rem;
+  line-height: 1.3;
+}
+.ret-name {
+  grid-area: name;
+  display: flex;
+  align-items: baseline;
+  gap: .5rem;
+  flex-wrap: wrap;
+  min-width: 0;
+  line-height: 1.3;
+}
+.ret-name .nm {
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 500;
+  border-bottom: 1px solid transparent;
+}
+.ret-name:hover .nm { color: var(--accent-deep); border-bottom-color: var(--accent); }
+.ret-name .tr {
+  min-width: 0;
+  max-width: 14em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+}
+.ret-count {
+  grid-area: count;
+  font-family: var(--mono);
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+.ret-track { grid-area: track; display: flex; align-items: center; gap: .6rem; min-width: 0; }
+.ret-date {
+  font-family: var(--mono);
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+/* 复唱日 = 这一栏的主角，用墨色压住两端 */
+.ret-back { color: var(--ink); font-weight: 600; }
+.ret-bar { position: relative; flex: 1 1 auto; min-width: 2.5rem; height: 1px; background: var(--line-strong); }
+.ret-gap {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 0 .5rem;
+  background: var(--paper);
+  font-family: var(--mono);
+  font-size: var(--fs-xs);
+  font-style: normal;
+  color: var(--accent);
+  white-space: nowrap;
+}
+.ret-arrow { flex: 0 0 auto; font-size: .625rem; line-height: 1; color: var(--line-strong); }
+/* 注脚：一行口径说明（同为「档案簿」的脚注语言，与 .sui-note 同类但更轻） */
+.ret-note { margin-top: .5rem; font-size: var(--fs-xs); color: var(--ink-3); line-height: 1.5; }
+
 /* 点歌速览 */
 /* 点歌之王卡 —— 金色徽记位 + Q版岁己探出 */
 .king-card {
