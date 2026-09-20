@@ -101,6 +101,42 @@
       '<span class="sui-watermark" data-page="' + C.esc(page) + '" aria-hidden="true"></span>');
   }
 
+  /* ─────────── 输入框「反自动填充」加固（v3.7.13） ───────────
+     背景：Edge / Chrome 会按 id·name·placeholder 猜字段语义，在搜索框聚焦时弹出
+     「之前输入过什么」——用户的搜索历史就这样摊在屏幕上，观感很差，且浏览器
+     故意不提供真正意义的关闭开关。所以只能叠几层弱手段（见 AGENTS.md §21）：
+       ① autocomplete="off"    —— Chromium 对「表单历史」类字段会遵守它
+       ② 随机 name              —— 历史按 name 归档；本站输入框原本没有 name、也没有
+                                  <form>，全部靠 id 取值，改名零副作用
+       ③ autocorrect/autocapitalize/spellcheck 关掉 —— 顺带免掉拼写红波浪与首字母大写
+       ④ data-lpignore / data-1p-ignore / data-bwignore / data-form-type=other
+                               —— 让 LastPass / 1Password / Bitwarden / Dashlane 跳过
+     同 id 在本次会话内保持同一个随机 name（避免每次重渲都换 key 让插件反复识别）。
+     这里只加属性、不动输入逻辑：readonly 门控那类强手段会干扰移动端键盘与光标，
+     本站在移动端体验优先，故不采用。 */
+  var _nafNames = {};
+  function _nafName(key) {
+    if (!_nafNames[key]) {
+      _nafNames[key] = 'naf-' + Math.random().toString(36).slice(2, 10);
+    }
+    return _nafNames[key];
+  }
+  C.hardenAutofill = function (root) {
+    var scope = root || document;
+    var sel = 'input[type="search"], input[type="text"], input[type="date"]';
+    Array.prototype.forEach.call(scope.querySelectorAll(sel), function (el) {
+      el.setAttribute('autocomplete', 'off');
+      el.setAttribute('autocorrect', 'off');
+      el.setAttribute('autocapitalize', 'off');
+      el.setAttribute('spellcheck', 'false');
+      el.setAttribute('data-lpignore', 'true');
+      el.setAttribute('data-1p-ignore', 'true');
+      el.setAttribute('data-bwignore', 'true');
+      el.setAttribute('data-form-type', 'other');
+      el.setAttribute('name', _nafName(el.id || el.type));
+    });
+  };
+
   /* 路由切换钩子：给视图一个「清理自己挂在 body 上的临时浮层」的机会。
      弹层类（#modalRoot 里的）由 closeAllModals 统一收；但视图自己的浮层
      （如点歌页的彩蛋遮罩）不属于弹层体系，不清理就会盖在新页面上 ——
@@ -133,6 +169,7 @@
     }
     fn(parsed.params, container, parsed);
     decoratePage(container, view.page || name);
+    C.hardenAutofill(container);   /* v3.7.13：浏览器自动填充/输入历史治理 */
     currentRoute = { name: name, params: parsed.params };
     /* v3.7.11：页面切换淡入（CSS 侧在 reduced-motion 下自动关闭） */
     container.classList.remove('view-in');

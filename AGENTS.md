@@ -312,3 +312,30 @@ build_site.py ──► sitegen.builder.build()
 ④ 皇冠行尾 —— 点歌速览卡 rb-crown 只在冠军行渲染且挂行尾，不留前置占位槽。
 ⑤ 歌曲详情页分工 —— 立绘(.song-sui)=右上氛围装饰；头像印鉴(.sui-seal)=信息行「岁己SUI 演唱」
     署名徽标（static 定位），与原唱 small 标签并列。
+
+20. **交互一致性（v3.7.11 / v3.7.12）**：① 详情页「← 返回」——`core.js` 的 `renderCurrent()`
+    维护 `C.lastBrowseRoute`（最近一次非 `#/song/` 路由），按钮优先 `history.back()` 回该路由
+    （保留其参数），直链打开时回 `#/songs`；按钮 `min-height:36px`，移动端必须可见可点。
+    ② 页面切换淡入 —— `#view` 加/删 `view-in` 类并**强制 reflow**（`void container.offsetWidth`）
+    以支持连续切换重放；弹层遮罩已有 `fadeIn`（components.css），**别再加第二个 overlayIn**；
+    所有新增动画必须在 `prefers-reduced-motion` 媒体块里让位（`animation:none !important`）。
+    ③ 原唱分类卡片 —— 点击原唱走 `view-catalogs.js` 的 `openArtistCard()`（`C.openModal` 弹层），
+    不直接跳转；卡片内点歌名要先关卡片再进详情。
+    ④ LOGO 垂直补偿 —— `logo.png` 画布 96×96 而小鸟只占 y=30~96，`contain` 渲染后视觉中心
+    偏低 5.3px，`.brand-mark` 用 `transform: translateY(-5px)` 纯视觉回正（不参与布局）。
+    **改 LOGO 素材后要重新量 alpha bbox 复核这个偏移值**。
+    回归：`.zcode/workspace/default/_verify_v3711.py`（19 项）。
+
+21. **输入框「反自动填充」加固（v3.7.13）**：浏览器会自动记住并回填用户此前的输入
+    （Edge/Chrome 的表单历史最明显），搜索框聚焦时把历史记录直接摊出来 —— 观感差，
+    且浏览器不提供真正的关闭开关，只能叠弱手段。统一实现在 `core.js` 的 `C.hardenAutofill()`：
+    `autocomplete/autocorrect/autocapitalize="off"` + `spellcheck="false"` + 随机 `name`
+    （`naf-xxxx`，同 id 在会话内保持稳定）+ 插件忽略属性（`data-lpignore` / `data-1p-ignore` /
+    `data-bwignore` / `data-form-type="other"`）。
+    **两条硬约束**：① 调用点只有两个 —— `renderCurrent()` 渲染后（传 container）与
+    `C.openModal()` 注入 body 后（**必须在 `focus()` 之前**，Edge 在聚焦那一刻弹下拉）；
+    新增输入框不用单独处理，跟着这两个入口自动覆盖。② **不要改 `readonly` 门控**那类强手段 ——
+    本站输入框每次输入都会整页重渲（见规则 19 的 IME 处理），重渲会生成新节点，
+    readonly 会让移动端键盘与光标行为变得不可预期。真实效果由浏览器本地历史决定，
+    Playwright 只能验证「属性到位 + 输入功能无回归」。
+    回归：`.zcode/workspace/default/_verify_v3713.py`（22 项）。

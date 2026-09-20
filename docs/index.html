@@ -2923,6 +2923,42 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
       '<span class="sui-watermark" data-page="' + C.esc(page) + '" aria-hidden="true"></span>');
   }
 
+  /* ─────────── 输入框「反自动填充」加固（v3.7.13） ───────────
+     背景：Edge / Chrome 会按 id·name·placeholder 猜字段语义，在搜索框聚焦时弹出
+     「之前输入过什么」——用户的搜索历史就这样摊在屏幕上，观感很差，且浏览器
+     故意不提供真正意义的关闭开关。所以只能叠几层弱手段（见 AGENTS.md §21）：
+       ① autocomplete="off"    —— Chromium 对「表单历史」类字段会遵守它
+       ② 随机 name              —— 历史按 name 归档；本站输入框原本没有 name、也没有
+                                  <form>，全部靠 id 取值，改名零副作用
+       ③ autocorrect/autocapitalize/spellcheck 关掉 —— 顺带免掉拼写红波浪与首字母大写
+       ④ data-lpignore / data-1p-ignore / data-bwignore / data-form-type=other
+                               —— 让 LastPass / 1Password / Bitwarden / Dashlane 跳过
+     同 id 在本次会话内保持同一个随机 name（避免每次重渲都换 key 让插件反复识别）。
+     这里只加属性、不动输入逻辑：readonly 门控那类强手段会干扰移动端键盘与光标，
+     本站在移动端体验优先，故不采用。 */
+  var _nafNames = {};
+  function _nafName(key) {
+    if (!_nafNames[key]) {
+      _nafNames[key] = 'naf-' + Math.random().toString(36).slice(2, 10);
+    }
+    return _nafNames[key];
+  }
+  C.hardenAutofill = function (root) {
+    var scope = root || document;
+    var sel = 'input[type="search"], input[type="text"], input[type="date"]';
+    Array.prototype.forEach.call(scope.querySelectorAll(sel), function (el) {
+      el.setAttribute('autocomplete', 'off');
+      el.setAttribute('autocorrect', 'off');
+      el.setAttribute('autocapitalize', 'off');
+      el.setAttribute('spellcheck', 'false');
+      el.setAttribute('data-lpignore', 'true');
+      el.setAttribute('data-1p-ignore', 'true');
+      el.setAttribute('data-bwignore', 'true');
+      el.setAttribute('data-form-type', 'other');
+      el.setAttribute('name', _nafName(el.id || el.type));
+    });
+  };
+
   /* 路由切换钩子：给视图一个「清理自己挂在 body 上的临时浮层」的机会。
      弹层类（#modalRoot 里的）由 closeAllModals 统一收；但视图自己的浮层
      （如点歌页的彩蛋遮罩）不属于弹层体系，不清理就会盖在新页面上 ——
@@ -2955,6 +2991,7 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
     }
     fn(parsed.params, container, parsed);
     decoratePage(container, view.page || name);
+    C.hardenAutofill(container);   /* v3.7.13：浏览器自动填充/输入历史治理 */
     currentRoute = { name: name, params: parsed.params };
     /* v3.7.11：页面切换淡入（CSS 侧在 reduced-motion 下自动关闭） */
     container.classList.remove('view-in');
@@ -3090,6 +3127,9 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
     var body = overlay.querySelector('.modal-body');
     if (typeof opts.body === 'string') body.innerHTML = opts.body;
     else if (opts.body) body.appendChild(opts.body);
+    /* v3.7.13：弹层里的输入框（我要补充等）同样做反自动填充加固，
+       且必须在下面 focus() 之前完成 —— Edge 是在聚焦那一刻弹历史下拉的 */
+    if (C.hardenAutofill) C.hardenAutofill(body);
 
     function close() {
       overlay.remove();
@@ -3561,7 +3601,7 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
       '<div class="foot-col"><h4>SUI SONG ARCHIVE</h4>' +
       '<p class="foot-span">' + esc(S.first.slice(0, 7).replace('-', '.')) + ' — ' + esc(S.last.slice(0, 7).replace('-', '.')) + '</p>' +
       '<p>收录歌曲 ' + D.fmtInt(S.total) + ' 首 · 演唱 ' + D.fmtInt(S.performances) + ' 次 · 点歌 ' + D.fmtInt(R.total) + ' 次</p>' +
-      '<span class="foot-ver">界面版本 v3.7.11</span></div>' +
+      '<span class="foot-ver">界面版本 v3.7.13</span></div>' +
       '<div class="foot-col"><h4>数据来源</h4><ul>' +
       '<li><a href="https://www.suijisui.space" target="_blank" rel="noopener">suijisui.space</a>（PQL87/sui-song-list）</li>' +
       '<li><a href="#/requests">点歌统计（已并入本站）</a> · 源自直播间点歌记录</li>' +
@@ -5837,6 +5877,8 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
   var esc = C.esc;
 
   var CHANGELOG = [
+    ['v3.7.13', '搜索与表单输入框不再被浏览器自动填充打扰：全站搜索框（歌曲 / 点歌 / 常唱 / 原唱）与「我要补充」表单统一关闭浏览器输入历史与自动填充（autocomplete=off + 打散字段名 + 关闭拼写纠正），密码管理器（LastPass / 1Password / Bitwarden / Dashlane）也不再往这些框里塞东西；输入、中文输入法、聚焦与重渲行为一切照旧'],
+    ['v3.7.12', '顶栏小鸟 LOGO 垂直回正：原图上方自带约 30px 透明留白，居中后图标视觉偏下，现按实测值上移 5px 补偿，与品牌文字真正对齐（只做视觉位移，不影响顶栏布局）'],
     ['v3.7.11', '三项交互升级：歌曲详情页新增「← 返回」按钮，优先回到进入详情前的浏览页、直链打开时回歌曲列表；全站页面切换与弹层增加淡入过渡（reduced-motion 自动关闭）；原唱分类点击改为弹出详情卡片——渐变饰带、三项统计、代表曲 Top8 与「查看全部」，点歌名直达详情、ESC / 遮罩 / 关闭键均可关闭'],
     ['v3.7.10', '修复介绍词「结果」被拆到两行的问题：上一版的 balance 会在一行放得下时也强行拆成两行均衡，断点落在词语中间——现改为默认单行完整展示，窄屏需折行时启用 keep-all 只在标点后断行，任何词语都不会被拆开'],
     ['v3.7.9', '六处体验修复与打磨：点歌速览卡的皇冠改挂行尾，第二三名行首不再多出空位；修复搜索框在中文输入法下被截断的问题（组合输入期间不再整页重渲，选字上屏后才刷新结果）；修复观众/歌曲详情弹窗打开即滚到底部的问题，现在总是从内容顶部展示；歌曲详情页的头像印鉴从右上角（与装饰立绘重叠）移入信息行，成为「岁己SUI 演唱」署名徽标，与原唱并排、层级分明；页脚新增友情链接「岁己SUI应援站」（suiji.site）；标题与段落启用平衡断行，介绍词等短文本不再出现末行孤字'],
@@ -5876,7 +5918,7 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
   function render(params, container) {
     container.innerHTML =
       '<div class="sec-head"><div class="sec-kicker">ABOUT</div>' +
-      '<h2 class="sec-title">关于本站 <span class="sec-sub">SUI SONG ARCHIVE v3.7.11</span></h2></div>' +
+      '<h2 class="sec-title">关于本站 <span class="sec-sub">SUI SONG ARCHIVE v3.7.13</span></h2></div>' +
 
       /* ── 角色档案：本站唯一的「岁己本人出场」板块，设定均取自官方资料 ── */
       '<section class="sui-profile">' +

@@ -23,6 +23,9 @@
     var body = overlay.querySelector('.modal-body');
     if (typeof opts.body === 'string') body.innerHTML = opts.body;
     else if (opts.body) body.appendChild(opts.body);
+    /* v3.7.13：弹层里的输入框（我要补充等）同样做反自动填充加固，
+       且必须在下面 focus() 之前完成 —— Edge 是在聚焦那一刻弹历史下拉的 */
+    if (C.hardenAutofill) C.hardenAutofill(body);
 
     function close() {
       overlay.remove();
@@ -494,7 +497,7 @@
       '<div class="foot-col"><h4>SUI SONG ARCHIVE</h4>' +
       '<p class="foot-span">' + esc(S.first.slice(0, 7).replace('-', '.')) + ' — ' + esc(S.last.slice(0, 7).replace('-', '.')) + '</p>' +
       '<p>收录歌曲 ' + D.fmtInt(S.total) + ' 首 · 演唱 ' + D.fmtInt(S.performances) + ' 次 · 点歌 ' + D.fmtInt(R.total) + ' 次</p>' +
-      '<span class="foot-ver">界面版本 v3.7.11</span></div>' +
+      '<span class="foot-ver">界面版本 v3.7.13</span></div>' +
       '<div class="foot-col"><h4>数据来源</h4><ul>' +
       '<li><a href="https://www.suijisui.space" target="_blank" rel="noopener">suijisui.space</a>（PQL87/sui-song-list）</li>' +
       '<li><a href="#/requests">点歌统计（已并入本站）</a> · 源自直播间点歌记录</li>' +
