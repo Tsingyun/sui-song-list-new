@@ -647,7 +647,16 @@
       if (!songLast[r.s] || r.d > songLast[r.s]) songLast[r.s] = r.d;
     });
     var songList = Object.keys(songs).map(function (s) { return { n: s, c: songs[s], d: songLast[s] }; });
-    songList.sort(function (a, b) { return b.c - a.c || (a.n < b.n ? -1 : 1); });
+    /* 默认按「这首歌最近一次被点」的时间倒序 —— 最近点的那首排最前。
+       日期是 YYYY-MM-DD，字典序即时间序，直接比字符串即可；
+       同一天点多首时按次数多的在前，仍并列则按歌名，保证顺序稳定可复现。
+       空日期（理论上不会出现）排最后。 */
+    var byRecent = function (a, b) {
+      var ad = a.d || '', bd = b.d || '';
+      if (ad !== bd) return ad < bd ? 1 : -1;
+      return b.c - a.c || (a.n < b.n ? -1 : 1);
+    };
+    songList.sort(byRecent);
 
     /* 本期歌曲：当前榜单周期（月/季/年）内点过的歌 */
     var periodSongs = [], otherSongs = songList, periodLabel = '';
@@ -667,7 +676,8 @@
       periodSongs = songList.filter(function (s) {
         return records.some(function (r) { return r.s === s.n && inPeriod(r.d); });
       });
-      periodSongs.sort(function (a, b) { return a.d < b.d ? -1 : (a.d > b.d ? 1 : 0); });
+      /* 与下方主列表同一口径：按行内显示的「最近点歌日」倒序（原先这里是升序，与主列表不一致） */
+      periodSongs.sort(byRecent);
       otherSongs = songList.filter(function (s) { return periodSongs.indexOf(s) === -1; });
     }
 
