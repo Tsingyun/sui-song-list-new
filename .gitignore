@@ -29,3 +29,6 @@ sui_song_list_full.txt
 # 回归截图产物
 _dark_shots/
 _probe_*.png
+
+# 回归截图目录（_*_shots/ 通用规则）
+_*_shots/

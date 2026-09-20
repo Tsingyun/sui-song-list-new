@@ -28,6 +28,8 @@ def norm_tilde(s):
 
 def norm_date(d):
     """'2024-1-6' / '2024/1/6' -> '2024-01-06'; None if not a plausible date."""
+    if not d:                      # 容许 None / ''（无日期的歌切，如第三方搬运）
+        return None
     parts = d.replace('/', '-').split('-')
     if len(parts) != 3 or len(parts[0]) != 4 or not parts[0].isdigit():
         return None
@@ -107,7 +109,7 @@ def build_song_payload():
                 {'bv': c['bvid'],
                  't': c.get('title', ''),
                  'd': c.get('duration', 0),
-                 'dt': norm_date(c.get('date', '')) or c.get('date', '')}
+                 'dt': norm_date(c.get('date') or '') or (c.get('date') or '')}
                 for c in clips
             ]
         out_songs.append(song)

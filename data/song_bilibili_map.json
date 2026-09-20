@@ -1,9 +1,9 @@
 {
   "stats": {
-    "total_songs": 1164,
-    "matched_songs": 932,
-    "unmatched_songs": 232,
-    "total_clips": 2671
+    "total_songs": 1170,
+    "matched_songs": 914,
+    "unmatched_songs": 256,
+    "total_clips": 2653
   },
   "matches": {
     "君の知らない物語": [
@@ -111,6 +111,12 @@
       }
     ],
     "入秋的第一场雨真让人矫情": [
+      {
+        "bvid": "BV1SWeQ67EbY",
+        "title": "【岁己SUI】入秋的第一场雨真让人矫情【20260918歌切】",
+        "duration": 253,
+        "date": "2026-09-18"
+      },
       {
         "bvid": "BV1zFPnzmEe3",
         "title": "【岁己SUI】入秋的第一场雨真让人矫情【20260302歌切】",
@@ -458,6 +464,12 @@
     ],
     "想和你迎着台风去看海": [
       {
+        "bvid": "BV1qw3z6eEwt",
+        "title": "【岁己SUI】想和你迎着台风去看海【20260728歌切】",
+        "duration": 103,
+        "date": "2026-07-28"
+      },
+      {
         "bvid": "BV1kH4y1K7Jo",
         "title": "【岁己SUI】想和你迎着台风去看海   4.13直播歌切",
         "duration": 100,
@@ -552,12 +564,6 @@
         "title": "想和你迎着台风去看海 (外部歌切)",
         "duration": 0,
         "date": ""
-      },
-      {
-        "bvid": "BV1qw3z6eEwt",
-        "title": "【岁己SUI】想和你迎着台风去看海【20260728歌切】",
-        "duration": 103,
-        "date": "2026-07-28"
       }
     ],
     "暗号": [
@@ -593,6 +599,18 @@
       }
     ],
     "还是会寂寞": [
+      {
+        "bvid": "BV1z43d6HEy5",
+        "title": "【岁己SUI】还是会寂寞【20260731歌切·VirtuaReal夏日接力歌回2026】",
+        "duration": 269,
+        "date": "2026-07-31"
+      },
+      {
+        "bvid": "BV1sQ7s6xEVw",
+        "title": "【岁己SUI】还是会寂寞【20260624歌切】",
+        "duration": 269,
+        "date": "2026-06-24"
+      },
       {
         "bvid": "BV1EUknBbEFD",
         "title": "【岁己SUI】还是会寂寞【20260116歌切】",
@@ -658,21 +676,15 @@
         "title": "【岁己SUI】还是会寂寞   6.20直播歌切",
         "duration": 267,
         "date": "2023-06-20"
-      },
-      {
-        "bvid": "BV1sQ7s6xEVw",
-        "title": "还是会寂寞 20260624",
-        "duration": 0,
-        "date": ""
-      },
-      {
-        "bvid": "BV1z43d6HEy5",
-        "title": "【岁己SUI】还是会寂寞【20260731歌切·VirtuaReal夏日接力歌回2026】",
-        "duration": 269,
-        "date": "2026-07-31"
       }
     ],
     "たばこ": [
+      {
+        "bvid": "BV16mNb6hEgb",
+        "title": "【岁己SUI】たばこ【20260714歌切】",
+        "duration": 368,
+        "date": "2026-07-14"
+      },
       {
         "bvid": "BV1w18YzdEwU",
         "title": "【岁己SUI】たばこ   7.6直播歌切",
@@ -738,12 +750,6 @@
         "title": "たばこ (外部歌切)",
         "duration": 0,
         "date": ""
-      },
-      {
-        "bvid": "BV16mNb6hEgb",
-        "title": "【岁己SUI】たばこ【20260714歌切】",
-        "duration": 368,
-        "date": "2026-07-14"
       }
     ],
     "反方向的钟": [
@@ -990,6 +996,18 @@
     ],
     "ドライフラワー": [
       {
+        "bvid": "BV12rY66GELs",
+        "title": "【岁己SUI】ドライフラワー【20260912歌切】",
+        "duration": 283,
+        "date": "2026-09-12"
+      },
+      {
+        "bvid": "BV1ZjKN6tEBF",
+        "title": "【岁己SUI】ドライフラワー【20260717歌切】",
+        "duration": 286,
+        "date": "2026-07-17"
+      },
+      {
         "bvid": "BV1JmknBFEu9",
         "title": "【岁己SUI】ドライフラワー【20260119歌切】",
         "duration": 284,
@@ -1030,15 +1048,15 @@
         "title": "ドライフラワー (外部歌切)",
         "duration": 0,
         "date": ""
-      },
-      {
-        "bvid": "BV1ZjKN6tEBF",
-        "title": "【岁己SUI】ドライフラワー【20260717歌切】",
-        "duration": 286,
-        "date": "2026-07-17"
       }
     ],
     "乌梅子酱": [
+      {
+        "bvid": "BV1m3Th6DE7U",
+        "title": "【岁己SUI】乌梅子酱【20260630歌切】",
+        "duration": 256,
+        "date": "2026-06-30"
+      },
       {
         "bvid": "BV1BMAkeEEW4",
         "title": "【岁己SUI】乌梅子酱   2.18直播歌切",
@@ -1096,12 +1114,6 @@
       {
         "bvid": "BV1qM411z763",
         "title": "乌梅子酱 (外部歌切)",
-        "duration": 0,
-        "date": ""
-      },
-      {
-        "bvid": "BV1m3Th6DE7U",
-        "title": "乌梅子酱 20260630",
         "duration": 0,
         "date": ""
       }
@@ -1468,6 +1480,12 @@
     ],
     "宝贝": [
       {
+        "bvid": "BV1mBT36hEv4",
+        "title": "【岁己SUI】宝贝【20260628歌切】",
+        "duration": 146,
+        "date": "2026-06-28"
+      },
+      {
         "bvid": "BV1GkYJeQE59",
         "title": "【岁己SUI】宝贝   8.10直播歌切",
         "duration": 130,
@@ -1508,15 +1526,21 @@
         "title": "宝贝 (外部歌切)",
         "duration": 0,
         "date": ""
-      },
-      {
-        "bvid": "BV1mBT36hEv4",
-        "title": "宝贝 20260628",
-        "duration": 0,
-        "date": ""
       }
     ],
     "虚拟": [
+      {
+        "bvid": "BV1q5MB6dEgr",
+        "title": "【岁己SUI】虚拟「20260803歌切」",
+        "duration": 232,
+        "date": "2026-08-03"
+      },
+      {
+        "bvid": "BV13BLd6UE32",
+        "title": "【岁己SUI】人头麦清唱~虚拟【20260617歌切】",
+        "duration": 232,
+        "date": "2026-06-18"
+      },
       {
         "bvid": "BV1vmqKBNEWk",
         "title": "【岁己SUI】虚拟【20260105直播歌切】",
@@ -1564,18 +1588,6 @@
         "title": "【岁己SUI】虚拟   1.6直播歌切",
         "duration": 248,
         "date": "2024-01-07"
-      },
-      {
-        "bvid": "BV13BLd6UE32",
-        "title": "【岁己SUI】人头麦清唱~虚拟【20260617歌切】",
-        "duration": 0,
-        "date": "2026-06-18"
-      },
-      {
-        "bvid": "BV1q5MB6dEgr",
-        "title": "【岁己SUI】虚拟「20260803歌切」",
-        "duration": 232,
-        "date": "2026-08-03"
       }
     ],
     "还是你的笑容最可爱": [
@@ -1624,6 +1636,12 @@
     ],
     "Pretender": [
       {
+        "bvid": "BV1TVTh6nEWu",
+        "title": "【岁己SUI】Pretender【20260630歌切】",
+        "duration": 353,
+        "date": "2026-06-30"
+      },
+      {
         "bvid": "BV1wVLY6qEYk",
         "title": "【岁己SUI】Pretender【20260521歌切】",
         "duration": 319,
@@ -1664,12 +1682,6 @@
         "title": "【岁己SUI】Pretender   8.25直播歌切",
         "duration": 323,
         "date": "2023-08-25"
-      },
-      {
-        "bvid": "BV1TVTh6nEWu",
-        "title": "Pretender 20260630",
-        "duration": 0,
-        "date": ""
       }
     ],
     "Simon": [
@@ -1830,6 +1842,12 @@
     ],
     "嘘月": [
       {
+        "bvid": "BV1Xp7T6HEYQ",
+        "title": "【岁己SUI】嘘月【20260622歌切】",
+        "duration": 290,
+        "date": "2026-06-22"
+      },
+      {
         "bvid": "BV1kAPmzhErG",
         "title": "【岁己SUI】嘘月【20260305歌切】",
         "duration": 289,
@@ -1876,12 +1894,6 @@
         "title": "【岁己SUI】嘘月   10.22直播歌切",
         "duration": 289,
         "date": "2023-10-24"
-      },
-      {
-        "bvid": "BV1Xp7T6HEYQ",
-        "title": "嘘月 20260622",
-        "duration": 0,
-        "date": ""
       }
     ],
     "大笨钟": [
@@ -1979,6 +1991,12 @@
       }
     ],
     "恋爱困难少女": [
+      {
+        "bvid": "BV1dubT6nEG9",
+        "title": "【岁己SUI】恋爱困难少女【20260907歌切】",
+        "duration": 247,
+        "date": "2026-09-07"
+      },
       {
         "bvid": "BV1gFB4BQEDX",
         "title": "【岁己SUI】恋爱困难少女【20251222直播歌切】",
@@ -2160,131 +2178,13 @@
         "date": ""
       }
     ],
-    "Letting go": [
-      {
-        "bvid": "BV1DjQMBNEGM",
-        "title": "【岁己SUI】Letting Go【20260410歌切】",
-        "duration": 274,
-        "date": "2026-04-11"
-      },
-      {
-        "bvid": "BV17k2CBiE9T",
-        "title": "【岁己SUI】Letting Go【20251208直播歌切】",
-        "duration": 260,
-        "date": "2025-12-09"
-      },
-      {
-        "bvid": "BV19DxFzBEdN",
-        "title": "【岁己SUI】Letting Go【20251025直播歌切】",
-        "duration": 260,
-        "date": "2025-10-26"
-      },
-      {
-        "bvid": "BV1WsHjzoEZ9",
-        "title": "【岁己SUI】Letting Go【20250925直播歌切】",
-        "duration": 299,
-        "date": "2025-10-01"
-      },
-      {
-        "bvid": "BV1Ng7KzQEc3",
-        "title": "【岁己SUI】Letting go   5.28直播歌切",
-        "duration": 255,
-        "date": "2025-05-31"
-      },
-      {
-        "bvid": "BV1UDcbesEcY",
-        "title": "【岁己SUI】Letting go   1.13直播歌切",
-        "duration": 256,
-        "date": "2025-01-14"
-      },
-      {
-        "bvid": "BV1uw4m1f7av",
-        "title": "【岁己SUI】Letting go   2.25直播歌切",
-        "duration": 260,
-        "date": "2024-02-25"
-      },
-      {
-        "bvid": "BV1Pu411g78B",
-        "title": "【岁己SUI】Letting Go   10.2直播歌切",
-        "duration": 260,
-        "date": "2023-10-02"
-      },
-      {
-        "bvid": "BV1ku411s7xC",
-        "title": "【岁己SUI】Letting Go   5.29直播歌切",
-        "duration": 257,
-        "date": "2023-05-29"
-      },
-      {
-        "bvid": "BV13N4y1K7dy",
-        "title": "Letting go (外部歌切)",
-        "duration": 0,
-        "date": ""
-      },
-      {
-        "bvid": "BV1Z14y1j7M6",
-        "title": "Letting go (外部歌切)",
-        "duration": 0,
-        "date": ""
-      }
-    ],
-    "Me Me She": [
-      {
-        "bvid": "BV1JkBxBPEjy",
-        "title": "【岁己SUI】me me she【20251221直播歌切】",
-        "duration": 282,
-        "date": "2025-12-23"
-      },
-      {
-        "bvid": "BV1ags5zuEko",
-        "title": "【岁己SUI】me me she【20251023直播歌切】",
-        "duration": 281,
-        "date": "2025-10-24"
-      },
-      {
-        "bvid": "BV1Zi9JYtEAM",
-        "title": "【岁己SUI】Me Me She   3.3直播歌切",
-        "duration": 283,
-        "date": "2025-03-04"
-      },
-      {
-        "bvid": "BV1BH4y1w7Yd",
-        "title": "【岁己SUI】Me Me She   7.11直播歌切",
-        "duration": 280,
-        "date": "2024-07-11"
-      },
-      {
-        "bvid": "BV1Me411Y7c1",
-        "title": "【岁己SUI】Me Me She   1.23直播歌切",
-        "duration": 281,
-        "date": "2024-01-24"
-      },
-      {
-        "bvid": "BV1Vu4y1j7bF",
-        "title": "【岁己SUI】Me Me She.  11.19直播歌切",
-        "duration": 282,
-        "date": "2023-11-20"
-      },
-      {
-        "bvid": "BV1eu411T7f1",
-        "title": "【岁己SUI】Me Me She   10.15直播歌切",
-        "duration": 280,
-        "date": "2023-10-15"
-      },
-      {
-        "bvid": "BV158411X7Mf",
-        "title": "【岁己SUI】me me she   8.23直播歌切",
-        "duration": 281,
-        "date": "2023-08-24"
-      },
-      {
-        "bvid": "BV1Th411A78t",
-        "title": "【岁己SUI】Me Me She   7.1直播歌切",
-        "duration": 283,
-        "date": "2023-07-01"
-      }
-    ],
     "Planetes": [
+      {
+        "bvid": "BV1ZjKN6tENy",
+        "title": "【岁己SUI】Planetes【20260718歌切】",
+        "duration": 355,
+        "date": "2026-07-18"
+      },
       {
         "bvid": "BV1ZzZwB2EUG",
         "title": "【岁己SUI】Planetes【20260214歌切】",
@@ -2326,12 +2226,6 @@
         "title": "【岁己SUI】Planetes   6.18直播歌切",
         "duration": 353,
         "date": "2023-06-19"
-      },
-      {
-        "bvid": "BV1ZjKN6tENy",
-        "title": "【岁己SUI】Planetes【20260718歌切】",
-        "duration": 355,
-        "date": "2026-07-18"
       }
     ],
     "Zzz": [
@@ -2406,6 +2300,12 @@
     ],
     "サリシノハラ": [
       {
+        "bvid": "BV142Ld6VEHj",
+        "title": "【岁己SUI】人头麦清唱~サリシノハラ【20260617歌切】",
+        "duration": 268,
+        "date": "2026-06-18"
+      },
+      {
         "bvid": "BV1VEwHzqEN4",
         "title": "【岁己SUI】サリシノハラ【20260313歌切】",
         "duration": 288,
@@ -2464,68 +2364,6 @@
         "title": "サリシノハラ (外部歌切)",
         "duration": 0,
         "date": ""
-      },
-      {
-        "bvid": "BV142Ld6VEHj",
-        "title": "【岁己SUI】人头麦清唱~サリシノハラ【20260617歌切】",
-        "duration": 0,
-        "date": "2026-06-18"
-      }
-    ],
-    "メルト（Melt）": [
-      {
-        "bvid": "BV1zY6pB8ED8",
-        "title": "【岁己SUI】メルト【20260131歌切】",
-        "duration": 258,
-        "date": "2026-02-01"
-      },
-      {
-        "bvid": "BV1qF1cB3ET9",
-        "title": "【岁己SUI】メルト【20251102直播歌切】",
-        "duration": 304,
-        "date": "2025-11-03"
-      },
-      {
-        "bvid": "BV1UzCsYvEGj",
-        "title": "【岁己SUI】メルト   12.26直播歌切",
-        "duration": 259,
-        "date": "2024-12-28"
-      },
-      {
-        "bvid": "BV1yT4y1n7V3",
-        "title": "【岁己SUI】メルト   1.12初次3D",
-        "duration": 304,
-        "date": "2024-01-12"
-      },
-      {
-        "bvid": "BV1hM411Z743",
-        "title": "【岁己SUI】メルト   11.15直播歌切",
-        "duration": 303,
-        "date": "2023-11-16"
-      },
-      {
-        "bvid": "BV1f14y1q7wx",
-        "title": "【岁己SUI】メルト   8.13直播歌切",
-        "duration": 257,
-        "date": "2023-08-13"
-      },
-      {
-        "bvid": "BV1BG41137nf",
-        "title": "メルト（Melt） (外部歌切)",
-        "duration": 0,
-        "date": ""
-      },
-      {
-        "bvid": "BV1hc411U7rz",
-        "title": "メルト（Melt） (外部歌切)",
-        "duration": 0,
-        "date": ""
-      },
-      {
-        "bvid": "BV1R8411J7tx",
-        "title": "メルト（Melt） (外部歌切)",
-        "duration": 0,
-        "date": ""
       }
     ],
     "万一对了呢": [
@@ -2579,6 +2417,12 @@
       }
     ],
     "半醒": [
+      {
+        "bvid": "BV1qCbN6JEgZ",
+        "title": "【岁己SUI】半醒【20260906歌切】",
+        "duration": 282,
+        "date": "2026-09-06"
+      },
       {
         "bvid": "BV1k7c2znEHd",
         "title": "【岁己SUI】半醒【20260312歌切】",
@@ -2762,6 +2606,12 @@
     ],
     "夜车": [
       {
+        "bvid": "BV1rnNU6DE7A",
+        "title": "【岁己SUI】夜车【20260711歌切】",
+        "duration": 191,
+        "date": "2026-07-11"
+      },
+      {
         "bvid": "BV1MzCsYiEoA",
         "title": "【岁己SUI】夜车   12.25直播歌切",
         "duration": 191,
@@ -2814,15 +2664,15 @@
         "title": "夜车 (外部歌切)",
         "duration": 0,
         "date": ""
-      },
-      {
-        "bvid": "BV1rnNU6DE7A",
-        "title": "【岁己SUI】夜车【20260711歌切】",
-        "duration": 191,
-        "date": "2026-07-11"
       }
     ],
     "失恋ソング沢山聴いて 泣いてばかりの私はもう。": [
+      {
+        "bvid": "BV1YHM46HEqK",
+        "title": "【岁己SUI】失恋ソング沢山聴いて 泣いてばかりの私はもう。【20260706歌切】",
+        "duration": 294,
+        "date": "2026-07-06"
+      },
       {
         "bvid": "BV1gU9jBAERL",
         "title": "【岁己SUI】失恋ソング沢山聴いて 泣いてばかりの私はもう。【20260401歌切】",
@@ -2852,12 +2702,6 @@
         "title": "【岁己SUI】失恋ソング沢山聴いて 泣いてばかりの私はもう。   11.21直播歌切",
         "duration": 297,
         "date": "2024-11-22"
-      },
-      {
-        "bvid": "BV1YHM46HEqK",
-        "title": "【岁己SUI】失恋ソング沢山聴いて 泣いてばかりの私はもう。【20260706歌切】",
-        "duration": 294,
-        "date": "2026-07-06"
       }
     ],
     "寄明月": [
@@ -3000,6 +2844,12 @@
     ],
     "热气球": [
       {
+        "bvid": "BV1kcKW6HEzM",
+        "title": "【岁己SUI】热气球【20260719歌切】",
+        "duration": 213,
+        "date": "2026-07-19"
+      },
+      {
         "bvid": "BV1zH5B6kELt",
         "title": "【岁己SUI】热气球【20260514歌切】",
         "duration": 214,
@@ -3046,12 +2896,6 @@
         "title": "热气球 (外部歌切)",
         "duration": 0,
         "date": ""
-      },
-      {
-        "bvid": "BV1kcKW6HEzM",
-        "title": "【岁己SUI】热气球【20260719歌切】",
-        "duration": 213,
-        "date": "2026-07-19"
       }
     ],
     "特别的人": [
@@ -3384,6 +3228,12 @@
     ],
     "黑色毛衣": [
       {
+        "bvid": "BV16nNU6DE9G",
+        "title": "【岁己SUI】黑色毛衣【20260712歌切】",
+        "duration": 252,
+        "date": "2026-07-12"
+      },
+      {
         "bvid": "BV1oXfPYFENS",
         "title": "【岁己SUI】黑色毛衣   4.1直播歌切",
         "duration": 252,
@@ -3430,15 +3280,15 @@
         "title": "【岁己SUI】黑色毛衣   4.29直播歌切",
         "duration": 251,
         "date": "2023-04-29"
-      },
-      {
-        "bvid": "BV16nNU6DE9G",
-        "title": "【岁己SUI】黑色毛衣【20260712歌切】",
-        "duration": 252,
-        "date": "2026-07-12"
       }
     ],
     "Alice": [
+      {
+        "bvid": "BV1YpM46DEJU",
+        "title": "【岁己SUI】Alice【20260705歌切】",
+        "duration": 242,
+        "date": "2026-07-05"
+      },
       {
         "bvid": "BV13TzbYuE6N",
         "title": "【岁己SUI】Alice（清唱+心音）   11.27直播歌切",
@@ -3448,12 +3298,6 @@
       {
         "bvid": "BV1Ce411k7Hy",
         "title": "Alice (外部歌切)",
-        "duration": 0,
-        "date": ""
-      },
-      {
-        "bvid": "BV1YpM46DEJU",
-        "title": "Alice 20260705",
         "duration": 0,
         "date": ""
       }
@@ -3490,68 +3334,18 @@
         "date": ""
       }
     ],
-    "first love": [
-      {
-        "bvid": "BV12Kw8zmEcz",
-        "title": "【岁己SUI】First Love【20260314歌切】",
-        "duration": 259,
-        "date": "2026-03-15"
-      },
-      {
-        "bvid": "BV1dw4m1r78o",
-        "title": "【岁己SUI】First Love   7.28直播歌切",
-        "duration": 239,
-        "date": "2024-07-29"
-      },
-      {
-        "bvid": "BV1ct421h7rS",
-        "title": "【岁己SUI】first love   2.17直播歌切",
-        "duration": 258,
-        "date": "2024-02-19"
-      },
-      {
-        "bvid": "BV1Dw4116731",
-        "title": "【岁己SUI】first love   10.21直播歌切",
-        "duration": 207,
-        "date": "2023-10-22"
-      },
-      {
-        "bvid": "BV1uM411A7ba",
-        "title": "【岁己SUI】First Love   2.14直播歌切",
-        "duration": 252,
-        "date": "2023-02-17"
-      },
-      {
-        "bvid": "BV1cA411Q7oT",
-        "title": "【岁己SUI】First Love   12.27直播歌切",
-        "duration": 259,
-        "date": "2022-12-28"
-      },
-      {
-        "bvid": "BV1nZ421m7K8",
-        "title": "first love (外部歌切)",
-        "duration": 0,
-        "date": ""
-      },
-      {
-        "bvid": "BV1ud4y1X7fs",
-        "title": "first love (外部歌切)",
-        "duration": 0,
-        "date": ""
-      },
-      {
-        "bvid": "BV1kY4y1M7Jf",
-        "title": "first love (外部歌切)",
-        "duration": 0,
-        "date": ""
-      }
-    ],
     "ひまわりの約束": [
       {
         "bvid": "BV1t2dmBQEPP",
         "title": "【岁己SUI】ひまわりの約束【20260420歌切】",
         "duration": 303,
         "date": "2026-04-21"
+      },
+      {
+        "bvid": "BV18oxuzxEjK",
+        "title": "【岁己SUI】ひまわりの约束【20251005直播歌切】",
+        "duration": 303,
+        "date": "2025-10-06"
       },
       {
         "bvid": "BV1yzLJzHE3q",
@@ -3588,12 +3382,6 @@
         "title": "ひまわりの約束 (外部歌切)",
         "duration": 0,
         "date": ""
-      },
-      {
-        "bvid": "BV18oxuzxEjK",
-        "title": "【岁己SUI】ひまわりの约束【20251005直播歌切】",
-        "duration": 303,
-        "date": "2025-10-06"
       }
     ],
     "アイネクライネ": [
@@ -3814,6 +3602,12 @@
     ],
     "人质": [
       {
+        "bvid": "BV1BsJN6FE2H",
+        "title": "【岁己SUI】人质【20260614歌切】",
+        "duration": 227,
+        "date": "2026-06-14"
+      },
+      {
         "bvid": "BV1h1RRBkEpF",
         "title": "【岁己SUI】人质【20260509歌切】",
         "duration": 227,
@@ -3848,12 +3642,6 @@
         "title": "【岁己SUI】人质   8.2直播歌切",
         "duration": 227,
         "date": "2023-08-02"
-      },
-      {
-        "bvid": "BV1BsJN6FE2H",
-        "title": "【岁己SUI】人质【20260614歌切】",
-        "duration": 0,
-        "date": "2026-06-14"
       }
     ],
     "你是我的风景": [
@@ -3882,6 +3670,12 @@
         "date": "2024-01-28"
       },
       {
+        "bvid": "BV1fz4y1K72Y",
+        "title": "【岁己SUI】你就是我的风景   9.4一周年直播歌切",
+        "duration": 250,
+        "date": "2023-09-04"
+      },
+      {
         "bvid": "BV1zj41197tT",
         "title": "【岁己SUI】你是我的风景   8.2直播歌切",
         "duration": 249,
@@ -3892,12 +3686,6 @@
         "title": "你是我的风景 (外部歌切)",
         "duration": 0,
         "date": ""
-      },
-      {
-        "bvid": "BV1fz4y1K72Y",
-        "title": "【岁己SUI】你就是我的风景   9.4一周年直播歌切",
-        "duration": 250,
-        "date": "2023-09-04"
       }
     ],
     "克卜勒": [
@@ -4098,6 +3886,18 @@
     ],
     "地球最後の告白を": [
       {
+        "bvid": "BV1wggn6WEow",
+        "title": "【岁己SUI】地球最後の告白を【20260809歌切】",
+        "duration": 262,
+        "date": "2026-08-09"
+      },
+      {
+        "bvid": "BV142Ld6VEJq",
+        "title": "【岁己SUI】人头麦清唱~地球最後の告白を【20260617歌切】",
+        "duration": 191,
+        "date": "2026-06-18"
+      },
+      {
         "bvid": "BV1MwQCBaE2B",
         "title": "【岁己SUI】地球最後の告白を【20260323歌切】",
         "duration": 267,
@@ -4126,15 +3926,15 @@
         "title": "【岁己SUI】地球最後の告白を   8.10直播歌切",
         "duration": 131,
         "date": "2024-08-11"
-      },
-      {
-        "bvid": "BV142Ld6VEJq",
-        "title": "【岁己SUI】人头麦清唱~地球最後の告白を【20260617歌切】",
-        "duration": 0,
-        "date": "2026-06-18"
       }
     ],
     "好久不见": [
+      {
+        "bvid": "BV17Zj56mEhU",
+        "title": "【岁己SUI】好久不见【20260616歌切】",
+        "duration": 250,
+        "date": "2026-06-17"
+      },
       {
         "bvid": "BV1qF1cB3EHx",
         "title": "【岁己SUI】好久不见【20251102直播歌切】",
@@ -4164,12 +3964,6 @@
         "title": "好久不见 (外部歌切)",
         "duration": 0,
         "date": ""
-      },
-      {
-        "bvid": "BV17Zj56mEhU",
-        "title": "【岁己SUI】好久不见【20260616歌切】",
-        "duration": 0,
-        "date": "2026-06-17"
       }
     ],
     "慢慢喜欢你": [
@@ -4504,6 +4298,12 @@
     ],
     "水星记": [
       {
+        "bvid": "BV13BLd6UEwK",
+        "title": "【岁己SUI】人头麦清唱~水星记【20260617歌切】",
+        "duration": 320,
+        "date": "2026-06-18"
+      },
+      {
         "bvid": "BV1MLUhBWE8p",
         "title": "【岁己SUI】水星记【20251125直播歌切】",
         "duration": 320,
@@ -4538,15 +4338,15 @@
         "title": "【岁己SUI】水星记   2.6直播歌切",
         "duration": 316,
         "date": "2023-02-07"
-      },
-      {
-        "bvid": "BV13BLd6UEwK",
-        "title": "【岁己SUI】人头麦清唱~水星记【20260617歌切】",
-        "duration": 0,
-        "date": "2026-06-18"
       }
     ],
     "滥俗的歌": [
+      {
+        "bvid": "BV1KmLd6kErr",
+        "title": "【岁己SUI】人头麦清唱~滥俗的歌【20260617歌切】",
+        "duration": 273,
+        "date": "2026-06-18"
+      },
       {
         "bvid": "BV1Pg7KzQE1o",
         "title": "【岁己SUI】滥俗的歌   5.28直播歌切",
@@ -4588,12 +4388,6 @@
         "title": "滥俗的歌 (外部歌切)",
         "duration": 0,
         "date": ""
-      },
-      {
-        "bvid": "BV1KmLd6kErr",
-        "title": "【岁己SUI】人头麦清唱~滥俗的歌【20260617歌切】",
-        "duration": 0,
-        "date": "2026-06-18"
       }
     ],
     "致姗姗来迟的你": [
@@ -4744,6 +4538,12 @@
     ],
     "Letting Go": [
       {
+        "bvid": "BV1Ud4161Ept",
+        "title": "【岁己SUI】Letting Go【20260828歌切】",
+        "duration": 258,
+        "date": "2026-08-28"
+      },
+      {
         "bvid": "BV1DjQMBNEGM",
         "title": "【岁己SUI】Letting Go【20260410歌切】",
         "duration": 274,
@@ -4796,6 +4596,18 @@
         "title": "【岁己SUI】Letting Go   5.29直播歌切",
         "duration": 257,
         "date": "2023-05-29"
+      },
+      {
+        "bvid": "BV13N4y1K7dy",
+        "title": "Letting go (外部歌切)",
+        "duration": 0,
+        "date": ""
+      },
+      {
+        "bvid": "BV1Z14y1j7M6",
+        "title": "Letting go (外部歌切)",
+        "duration": 0,
+        "date": ""
       }
     ],
     "Mela!": [
@@ -4831,6 +4643,12 @@
       }
     ],
     "Tell Your World": [
+      {
+        "bvid": "BV1wgtr6REF1",
+        "title": "【岁己SUI】Tell Your World【20260904·四周年3D舞台歌切】",
+        "duration": 255,
+        "date": "2026-09-04"
+      },
       {
         "bvid": "BV1R5yfYCEfq",
         "title": "【岁己SUI】Tell Your World   10.22直播歌切",
@@ -4896,6 +4714,12 @@
     ],
     "エイリアンズ": [
       {
+        "bvid": "BV1gbMB6jEqd",
+        "title": "【岁己SUI】エイリアンズ【20260804歌切】",
+        "duration": 359,
+        "date": "2026-08-04"
+      },
+      {
         "bvid": "BV11GXbBHEwg",
         "title": "【岁己SUI】エイリアンズ【20260326歌切】",
         "duration": 359,
@@ -4930,12 +4754,6 @@
         "title": "エイリアンズ (外部歌切)",
         "duration": 0,
         "date": ""
-      },
-      {
-        "bvid": "BV1gbMB6jEqd",
-        "title": "【岁己SUI】エイリアンズ【20260804歌切】",
-        "duration": 359,
-        "date": "2026-08-04"
       }
     ],
     "シリウスの心臓": [
@@ -5312,6 +5130,12 @@
     ],
     "如果有来生": [
       {
+        "bvid": "BV1LWgn6CEP1",
+        "title": "【岁己SUI】如果有来生【20260811歌切】",
+        "duration": 244,
+        "date": "2026-08-11"
+      },
+      {
         "bvid": "BV1fbX9B2EJc",
         "title": "【岁己SUI】如果有来生【20260329歌切】",
         "duration": 243,
@@ -5350,6 +5174,12 @@
     ],
     "小夜子": [
       {
+        "bvid": "BV1Xp7T6HE8D",
+        "title": "【岁己SUI】小夜子【20260622歌切】",
+        "duration": 231,
+        "date": "2026-06-22"
+      },
+      {
         "bvid": "BV1suQCBoEBA",
         "title": "【岁己SUI】小夜子【20260323歌切】",
         "duration": 235,
@@ -5384,15 +5214,15 @@
         "title": "小夜子 (外部歌切)",
         "duration": 0,
         "date": ""
-      },
-      {
-        "bvid": "BV1Xp7T6HE8D",
-        "title": "小夜子 20260622",
-        "duration": 0,
-        "date": ""
       }
     ],
     "少女レイ": [
+      {
+        "bvid": "BV1ZjKN6tEdV",
+        "title": "【岁己SUI】少女レイ【20260718歌切】",
+        "duration": 287,
+        "date": "2026-07-18"
+      },
       {
         "bvid": "BV1D9UhB4E5Y",
         "title": "【岁己SUI】少女レイ【20251124直播歌切】",
@@ -5422,12 +5252,6 @@
         "title": "【岁己SUI】少女レイ   2.7直播歌切",
         "duration": 276,
         "date": "2023-02-09"
-      },
-      {
-        "bvid": "BV1ZjKN6tEdV",
-        "title": "【岁己SUI】少女レイ【20260718歌切】",
-        "duration": 287,
-        "date": "2026-07-18"
       }
     ],
     "帰ろう": [
@@ -5645,7 +5469,9 @@
     "春擬き": [
       {
         "bvid": "BV1V9j66jEZ6",
-        "title": "【岁己SUI】春擬き【20260618歌切】"
+        "title": "【岁己SUI】春擬き【20260618歌切】",
+        "duration": 266,
+        "date": "2026-06-18"
       },
       {
         "bvid": "BV1ELyjBpEnU",
@@ -5759,6 +5585,12 @@
       }
     ],
     "歌に形はないけれど": [
+      {
+        "bvid": "BV1Rxgn6GEcZ",
+        "title": "【岁己SUI】歌に形はないけれど【20260810歌切】",
+        "duration": 328,
+        "date": "2026-08-10"
+      },
       {
         "bvid": "BV1ejSFBLEC4",
         "title": "【岁己SUI】歌に形はないけれど【20251129直播歌切】",
@@ -6102,6 +5934,12 @@
     ],
     "空想フォレスト": [
       {
+        "bvid": "BV1pcKW6HEs7",
+        "title": "【岁己SUI】空想フォレスト【20260719歌切】",
+        "duration": 292,
+        "date": "2026-07-19"
+      },
+      {
         "bvid": "BV1fvUhBzEnm",
         "title": "【岁己SUI】空想フォレスト【20251122直播歌切】",
         "duration": 254,
@@ -6112,12 +5950,6 @@
         "title": "【岁己SUI】空想フォレスト   7.17直播歌切",
         "duration": 109,
         "date": "2023-07-17"
-      },
-      {
-        "bvid": "BV1pcKW6HEs7",
-        "title": "【岁己SUI】空想フォレスト【20260719歌切】",
-        "duration": 292,
-        "date": "2026-07-19"
       }
     ],
     "糸": [
@@ -6185,6 +6017,12 @@
       }
     ],
     "芭蕉夜雨": [
+      {
+        "bvid": "BV1tseQ62E9M",
+        "title": "【岁己SUI】芭蕉夜雨【20260918歌切】",
+        "duration": 221,
+        "date": "2026-09-18"
+      },
       {
         "bvid": "BV1ZAzuBSEYq",
         "title": "【岁己SUI】芭蕉夜雨【20260122歌切】",
@@ -6326,6 +6164,12 @@
     ],
     "蜉蝣": [
       {
+        "bvid": "BV1dsjU6MEHC",
+        "title": "【岁己SUI】蜉蝣【20260623歌切】",
+        "duration": 249,
+        "date": "2026-06-23"
+      },
+      {
         "bvid": "BV1XhSbBtE1Y",
         "title": "【岁己SUI】蜉蝣【20251202直播歌切】",
         "duration": 250,
@@ -6366,15 +6210,15 @@
         "title": "【岁己SUI】蜉蝣   2.22直播歌切",
         "duration": 249,
         "date": "2024-02-22"
-      },
-      {
-        "bvid": "BV1dsjU6MEHC",
-        "title": "蜉蝣 20260623",
-        "duration": 0,
-        "date": ""
       }
     ],
     "词不达意": [
+      {
+        "bvid": "BV1gbMB6jEWy",
+        "title": "【岁己SUI】词不达意【20260804歌切】",
+        "duration": 261,
+        "date": "2026-08-04"
+      },
       {
         "bvid": "BV1dhQ3BHErn",
         "title": "【岁己SUI】词不达意【20260414歌切】",
@@ -6410,12 +6254,6 @@
         "title": "【岁己SUI】词不达意   11.1直播歌切",
         "duration": 261,
         "date": "2024-11-03"
-      },
-      {
-        "bvid": "BV1gbMB6jEWy",
-        "title": "【岁己SUI】词不达意【20260804歌切】",
-        "duration": 261,
-        "date": "2026-08-04"
       }
     ],
     "连名带姓": [
@@ -7026,6 +6864,18 @@
     ],
     "丑马": [
       {
+        "bvid": "BV1n43d6pEcU",
+        "title": "【岁己SUI】丑马【20260731歌切·VirtuaReal夏日接力歌回2026】",
+        "duration": 206,
+        "date": "2026-07-31"
+      },
+      {
+        "bvid": "BV13Djm6aEUD",
+        "title": "【岁己SUI】丑马【20260623歌切】",
+        "duration": 208,
+        "date": "2026-06-23"
+      },
+      {
         "bvid": "BV1wx63BiEmt",
         "title": "【岁己SUI】丑马【20260127歌切】",
         "duration": 208,
@@ -7054,18 +6904,6 @@
         "title": "【岁己SUI】丑马   2.2直播歌切",
         "duration": 207,
         "date": "2024-02-03"
-      },
-      {
-        "bvid": "BV13Djm6aEUD",
-        "title": "丑马 20260623",
-        "duration": 0,
-        "date": ""
-      },
-      {
-        "bvid": "BV1n43d6pEcU",
-        "title": "【岁己SUI】丑马【20260731歌切·VirtuaReal夏日接力歌回2026】",
-        "duration": 206,
-        "date": "2026-07-31"
       }
     ],
     "你听得到": [
@@ -7306,6 +7144,12 @@
     ],
     "如果的事": [
       {
+        "bvid": "BV1mETc6eEvR",
+        "title": "【岁己SUI】如果的事【20260629歌切】",
+        "duration": 227,
+        "date": "2026-06-29"
+      },
+      {
         "bvid": "BV1BzZwB2ERz",
         "title": "【岁己SUI】如果的事【20260214歌切】",
         "duration": 248,
@@ -7326,12 +7170,6 @@
       {
         "bvid": "BV1XN41177ny",
         "title": "如果的事 (外部歌切)",
-        "duration": 0,
-        "date": ""
-      },
-      {
-        "bvid": "BV1mETc6eEvR",
-        "title": "如果的事 20260629",
         "duration": 0,
         "date": ""
       }
@@ -7436,6 +7274,12 @@
     ],
     "想自由": [
       {
+        "bvid": "BV1rnNU6DE3q",
+        "title": "【岁己SUI】想自由【20260712歌切】",
+        "duration": 201,
+        "date": "2026-07-12"
+      },
+      {
         "bvid": "BV1qoTizvEYp",
         "title": "【岁己SUI】想自由   6.8直播歌切",
         "duration": 252,
@@ -7458,12 +7302,6 @@
         "title": "【岁己SUI】想自由   1.23直播歌切",
         "duration": 283,
         "date": "2024-01-24"
-      },
-      {
-        "bvid": "BV1rnNU6DE3q",
-        "title": "【岁己SUI】想自由【20260712歌切】",
-        "duration": 201,
-        "date": "2026-07-12"
       }
     ],
     "我愛你-上海蟹-": [
@@ -7876,6 +7714,12 @@
     ],
     "男孩们的旅行": [
       {
+        "bvid": "BV1bseQ62ExD",
+        "title": "【岁己SUI】男孩们的旅行【20260917歌切】",
+        "duration": 277,
+        "date": "2026-09-17"
+      },
+      {
         "bvid": "BV1dDBxBZEJL",
         "title": "【岁己SUI】男孩们的旅行【20251220直播歌切】",
         "duration": 278,
@@ -7960,6 +7804,12 @@
     ],
     "简单爱": [
       {
+        "bvid": "BV1rnNU6DExr",
+        "title": "【岁己SUI】简单爱【20260713歌切】",
+        "duration": 268,
+        "date": "2026-07-13"
+      },
+      {
         "bvid": "BV1U4421U7Ee",
         "title": "【岁己SUI】简单爱   7.23直播歌切",
         "duration": 270,
@@ -7982,15 +7832,15 @@
         "title": "【岁己SUI】简单爱   8.1直播歌切",
         "duration": 267,
         "date": "2023-08-01"
-      },
-      {
-        "bvid": "BV1rnNU6DExr",
-        "title": "【岁己SUI】简单爱【20260713歌切】",
-        "duration": 268,
-        "date": "2026-07-13"
       }
     ],
     "素颜": [
+      {
+        "bvid": "BV19xhN6UE37",
+        "title": "【岁己SUI】素颜【20260824歌切】",
+        "duration": 239,
+        "date": "2026-08-24"
+      },
       {
         "bvid": "BV13QUhBfEeg",
         "title": "【岁己SUI】素颜【20251123直播歌切】",
@@ -8044,6 +7894,12 @@
     ],
     "美人鱼": [
       {
+        "bvid": "BV17VMB64EpC",
+        "title": "【岁己SUI】美人鱼「20260803歌切」",
+        "duration": 249,
+        "date": "2026-08-03"
+      },
+      {
         "bvid": "BV1NafcB4EDe",
         "title": "【岁己SUI】美人鱼【20260221歌切】",
         "duration": 251,
@@ -8060,12 +7916,6 @@
         "title": "【岁己SUI】美人鱼   5.4直播歌切",
         "duration": 248,
         "date": "2023-05-04"
-      },
-      {
-        "bvid": "BV17VMB64EpC",
-        "title": "【岁己SUI】美人鱼「20260803歌切」",
-        "duration": 249,
-        "date": "2026-08-03"
       }
     ],
     "背景、夏に溺れる": [
@@ -8090,6 +7940,12 @@
     ],
     "航向你的海岛": [
       {
+        "bvid": "BV1BsJN6FEDL",
+        "title": "【岁己SUI】航向你的海岛【20260614歌切】",
+        "duration": 282,
+        "date": "2026-06-14"
+      },
+      {
         "bvid": "BV1EmknBFEW4",
         "title": "【岁己SUI】航向你的海岛【20260117歌切】",
         "duration": 282,
@@ -8112,12 +7968,6 @@
         "title": "【岁己SUI】航向你的海岛   2.25直播歌切",
         "duration": 282,
         "date": "2023-02-25"
-      },
-      {
-        "bvid": "BV1BsJN6FEDL",
-        "title": "【岁己SUI】航向你的海岛【20260614歌切】",
-        "duration": 0,
-        "date": "2026-06-14"
       }
     ],
     "花，太阳，彩虹，你": [
@@ -8154,6 +8004,12 @@
     ],
     "被驯服的象": [
       {
+        "bvid": "BV1vsjU6MEUd",
+        "title": "【岁己SUI】被驯服的象【20260623歌切】",
+        "duration": 207,
+        "date": "2026-06-23"
+      },
+      {
         "bvid": "BV1TRVbzjEwt",
         "title": "【岁己SUI】被驯服的象   5.6直播歌切",
         "duration": 204,
@@ -8186,12 +8042,6 @@
       {
         "bvid": "BV1LC411J7j8",
         "title": "被驯服的象 (外部歌切)",
-        "duration": 0,
-        "date": ""
-      },
-      {
-        "bvid": "BV1vsjU6MEUd",
-        "title": "被驯服的象 20260623",
         "duration": 0,
         "date": ""
       }
@@ -8340,6 +8190,12 @@
     ],
     "香格里拉": [
       {
+        "bvid": "BV1zbea6GEw1",
+        "title": "【岁己SUI】香格里拉【20260919歌切】",
+        "duration": 285,
+        "date": "2026-09-19"
+      },
+      {
         "bvid": "BV1yWHjz4EDB",
         "title": "【岁己SUI】香格里拉【20250927直播歌切】",
         "duration": 284,
@@ -8372,6 +8228,12 @@
     ],
     "鳥の詩": [
       {
+        "bvid": "BV1MD7K65Err",
+        "title": "【岁己SUI】鳥の詩【20260622歌切】",
+        "duration": 363,
+        "date": "2026-06-22"
+      },
+      {
         "bvid": "BV1z7pPe4Esn",
         "title": "【岁己SUI】鳥の詩（钢琴伴奏）   9.4二周年直播歌切",
         "duration": 203,
@@ -8386,12 +8248,6 @@
       {
         "bvid": "BV1os4y1W7Ms",
         "title": "鳥の詩 (外部歌切)",
-        "duration": 0,
-        "date": ""
-      },
-      {
-        "bvid": "BV1MD7K65Err",
-        "title": "鳥の詩 20260622",
         "duration": 0,
         "date": ""
       }
@@ -8494,6 +8350,12 @@
     ],
     "Henceforth": [
       {
+        "bvid": "BV1HcKW6HEUJ",
+        "title": "【岁己SUI】Henceforth【20260719歌切】",
+        "duration": 171,
+        "date": "2026-07-19"
+      },
+      {
         "bvid": "BV1ytJV6FEmz",
         "title": "【岁己SUI】Henceforth【20260612歌切】",
         "duration": 233,
@@ -8504,58 +8366,6 @@
         "title": "【岁己SUI】Henceforth 8.20直播歌切",
         "duration": 235,
         "date": "2023-08-20"
-      },
-      {
-        "bvid": "BV1HcKW6HEUJ",
-        "title": "【岁己SUI】Henceforth【20260719歌切】",
-        "duration": 171,
-        "date": "2026-07-19"
-      }
-    ],
-    "I Really Want to Stay At Your House": [
-      {
-        "bvid": "BV1sS421o79i",
-        "title": "【岁己SUI】I Really Want to Stay At Your House   6.15直播歌切",
-        "duration": 245,
-        "date": "2024-06-15"
-      },
-      {
-        "bvid": "BV16t4y1A7CD",
-        "title": "I Really Want to Stay At Your House (外部歌切)",
-        "duration": 0,
-        "date": ""
-      },
-      {
-        "bvid": "BV1KG411J74q",
-        "title": "I Really Want to Stay At Your House (外部歌切)",
-        "duration": 0,
-        "date": ""
-      }
-    ],
-    "I love you 3000": [
-      {
-        "bvid": "BV18iCsYqE15",
-        "title": "【岁己SUI】I love you 3000   12.19直播歌切",
-        "duration": 209,
-        "date": "2024-12-27"
-      },
-      {
-        "bvid": "BV1gg4y1k7bG",
-        "title": "【岁己SUI】I love you 3000   12.27直播歌切",
-        "duration": 209,
-        "date": "2023-12-27"
-      },
-      {
-        "bvid": "BV1To4y1G725",
-        "title": "【岁己SUI】I Love You 3000   5.20直播歌切",
-        "duration": 211,
-        "date": "2023-05-20"
-      },
-      {
-        "bvid": "BV1B24y1P7ey",
-        "title": "【岁己SUI】I love you 3000   5.19电台直播歌切",
-        "duration": 206,
-        "date": "2023-05-20"
       }
     ],
     "Lost Stars": [
@@ -8632,6 +8442,12 @@
     ],
     "Plastic Love": [
       {
+        "bvid": "BV1z43d6HEeE",
+        "title": "【岁己SUI】Plastic Love【20260730歌切】",
+        "duration": 293,
+        "date": "2026-07-30"
+      },
+      {
         "bvid": "BV18wB4BnEw9",
         "title": "【岁己SUI】Plastic Love【20251222直播歌切】",
         "duration": 292,
@@ -8672,12 +8488,6 @@
         "title": "Plastic Love (外部歌切)",
         "duration": 0,
         "date": ""
-      },
-      {
-        "bvid": "BV1z43d6HEeE",
-        "title": "【岁己SUI】Plastic Love【20260730歌切】",
-        "duration": 293,
-        "date": "2026-07-30"
       }
     ],
     "Snow halation": [
@@ -8754,6 +8564,12 @@
     ],
     "me me she": [
       {
+        "bvid": "BV1ZjKN6tE5D",
+        "title": "【岁己SUI】me me she【20260718歌切】",
+        "duration": 281,
+        "date": "2026-07-18"
+      },
+      {
         "bvid": "BV1JkBxBPEjy",
         "title": "【岁己SUI】me me she【20251221直播歌切】",
         "duration": 282,
@@ -8806,12 +8622,6 @@
         "title": "【岁己SUI】Me Me She   7.1直播歌切",
         "duration": 283,
         "date": "2023-07-01"
-      },
-      {
-        "bvid": "BV1ZjKN6tE5D",
-        "title": "【岁己SUI】me me she【20260718歌切】",
-        "duration": 281,
-        "date": "2026-07-18"
       }
     ],
     "いつも何度でも": [
@@ -8876,6 +8686,12 @@
     ],
     "シリョクケンサ": [
       {
+        "bvid": "BV16nNU6DE1U",
+        "title": "【岁己SUI】シリョクケンサ【20260711歌切】",
+        "duration": 265,
+        "date": "2026-07-11"
+      },
+      {
         "bvid": "BV1QsS3BzEPw",
         "title": "【岁己SUI】シリョクケンサ【20251127直播歌切】",
         "duration": 265,
@@ -8898,12 +8714,6 @@
         "title": "【岁己SUI】シリョクケンサ   2.2直播歌切",
         "duration": 309,
         "date": "2024-02-02"
-      },
-      {
-        "bvid": "BV16nNU6DE1U",
-        "title": "【岁己SUI】シリョクケンサ【20260711歌切】",
-        "duration": 265,
-        "date": "2026-07-11"
       }
     ],
     "スパークル": [
@@ -8980,6 +8790,12 @@
     ],
     "プラネタリウム": [
       {
+        "bvid": "BV12VTh6JEhz",
+        "title": "【岁己SUI】プラネタリウム【20260630歌切】",
+        "duration": 307,
+        "date": "2026-06-30"
+      },
+      {
         "bvid": "BV19Ms5z6E6Z",
         "title": "【岁己SUI】プラネタリウム【20251023直播歌切】",
         "duration": 305,
@@ -9000,12 +8816,6 @@
       {
         "bvid": "BV1wM4m1R7o7",
         "title": "プラネタリウム (外部歌切)",
-        "duration": 0,
-        "date": ""
-      },
-      {
-        "bvid": "BV12VTh6JEhz",
-        "title": "プラネタリウム 20260630",
         "duration": 0,
         "date": ""
       }
@@ -9165,6 +8975,12 @@
       }
     ],
     "別の人の彼女になったよ": [
+      {
+        "bvid": "BV161gt6rE9e",
+        "title": "【岁己】別の人の彼女になったよ【20260723歌切】",
+        "duration": 312,
+        "date": "2026-07-23"
+      },
       {
         "bvid": "BV1cm8YzsEJA",
         "title": "【岁己SUI】別の人の彼女になったよ   7.1直播歌切",
@@ -9483,7 +9299,9 @@
     "心墙": [
       {
         "bvid": "BV1V9j66jEQ1",
-        "title": "【岁己SUI】心墙【20260618歌切】"
+        "title": "【岁己SUI】心墙【20260618歌切】",
+        "duration": 226,
+        "date": "2026-06-18"
       }
     ],
     "恋爱告急": [
@@ -9730,6 +9548,12 @@
     ],
     "歩いても歩いても、夜空は僕を追いかけてくる": [
       {
+        "bvid": "BV1Hggn6WEoM",
+        "title": "【岁己SUI】歩いても歩いても、夜空は僕を追いかけてくる【20260809歌切】",
+        "duration": 319,
+        "date": "2026-08-09"
+      },
+      {
         "bvid": "BV1TysPzKELo",
         "title": "【岁己SUI】歩いても歩いても、夜空は僕を追いかけてくる【20251016直播歌切】",
         "duration": 303,
@@ -9776,6 +9600,12 @@
     ],
     "理想情人": [
       {
+        "bvid": "BV1mBT36hEnQ",
+        "title": "【岁己SUI】理想情人【20260628歌切】",
+        "duration": 260,
+        "date": "2026-06-28"
+      },
+      {
         "bvid": "BV1vmqKBNEws",
         "title": "【岁己SUI】理想情人【20260106直播歌切】",
         "duration": 264,
@@ -9796,12 +9626,6 @@
       {
         "bvid": "BV1jM411C7jr",
         "title": "理想情人 (外部歌切)",
-        "duration": 0,
-        "date": ""
-      },
-      {
-        "bvid": "BV1mBT36hEnQ",
-        "title": "理想情人 20260628",
         "duration": 0,
         "date": ""
       }
@@ -9904,26 +9728,6 @@
         "title": "【岁己SUI】社畜少女   1.26直播歌切",
         "duration": 230,
         "date": "2024-01-26"
-      }
-    ],
-    "神的随波逐流（中文）": [
-      {
-        "bvid": "BV1FEY5zVERz",
-        "title": "【岁己SUI】神的随波逐流   8.24直播歌切",
-        "duration": 253,
-        "date": "2025-09-07"
-      },
-      {
-        "bvid": "BV1kp4y1Z7dg",
-        "title": "神的随波逐流（中文） (外部歌切)",
-        "duration": 0,
-        "date": ""
-      },
-      {
-        "bvid": "BV1GA4m1A7bw",
-        "title": "神的随波逐流（中文） (外部歌切)",
-        "duration": 0,
-        "date": ""
       }
     ],
     "笑忘书": [
@@ -10065,6 +9869,12 @@
       }
     ],
     "迷宫": [
+      {
+        "bvid": "BV13d4m6sEtA",
+        "title": "【岁己SUI】迷宫【20260829歌切】",
+        "duration": 215,
+        "date": "2026-08-29"
+      },
       {
         "bvid": "BV1sQCAB4EVk",
         "title": "【岁己SUI】迷宫【20251113直播歌切】",
@@ -10217,6 +10027,12 @@
       }
     ],
     "Angel": [
+      {
+        "bvid": "BV1Qd4m6WEc4",
+        "title": "【岁己SUI】Angel【20260829歌切】",
+        "duration": 232,
+        "date": "2026-08-29"
+      },
       {
         "bvid": "BV1sMw8zjEDp",
         "title": "【岁己SUI】Angel【20260314歌切】",
@@ -10388,16 +10204,16 @@
     ],
     "MILABO": [
       {
+        "bvid": "BV1QsM46JEzZ",
+        "title": "【岁己SUI】MILABO【20260704歌切】",
+        "duration": 267,
+        "date": "2026-07-04"
+      },
+      {
         "bvid": "BV19hAVzJEeN",
         "title": "【岁己SUI】MILABO【20260319歌切】",
         "duration": 267,
         "date": "2026-03-20"
-      },
-      {
-        "bvid": "BV1QsM46JEzZ",
-        "title": "MILABO 20260704",
-        "duration": 0,
-        "date": ""
       }
     ],
     "Remember Me": [
@@ -10598,32 +10414,6 @@
         "date": ""
       }
     ],
-    "エウテルペ（Euterpe）": [
-      {
-        "bvid": "BV18iCsYqEMC",
-        "title": "【岁己SUI】Euterpe   12.19直播歌切",
-        "duration": 224,
-        "date": "2024-12-27"
-      },
-      {
-        "bvid": "BV1Pj411D7CL",
-        "title": "【岁己SUI】Euterpe   6.18直播歌切",
-        "duration": 224,
-        "date": "2023-06-19"
-      },
-      {
-        "bvid": "BV1iU4y1z7ag",
-        "title": "エウテルペ（Euterpe） (外部歌切)",
-        "duration": 0,
-        "date": ""
-      },
-      {
-        "bvid": "BV1t14y1e7U5",
-        "title": "エウテルペ（Euterpe） (外部歌切)",
-        "duration": 0,
-        "date": ""
-      }
-    ],
     "グリグリメガネと月光蟲": [
       {
         "bvid": "BV1cxX9BDEiF",
@@ -10650,40 +10440,6 @@
         "title": "【岁己SUI】サザンカ   1.17直播歌切",
         "duration": 262,
         "date": "2023-01-18"
-      }
-    ],
-    "シリョクケンサ（视力检查）": [
-      {
-        "bvid": "BV1QsS3BzEPw",
-        "title": "【岁己SUI】シリョクケンサ【20251127直播歌切】",
-        "duration": 265,
-        "date": "2025-11-28"
-      },
-      {
-        "bvid": "BV1kPYkzxEo3",
-        "title": "【岁己SUI】シリョクケンサ   8.15直播歌切",
-        "duration": 311,
-        "date": "2025-08-17"
-      },
-      {
-        "bvid": "BV1DYKHeHESu",
-        "title": "【岁己SUI】シリョクケンサ   2.11直播歌切",
-        "duration": 310,
-        "date": "2025-02-13"
-      },
-      {
-        "bvid": "BV1MH4y1Y72c",
-        "title": "【岁己SUI】シリョクケンサ   2.2直播歌切",
-        "duration": 309,
-        "date": "2024-02-02"
-      }
-    ],
-    "シンクロサイクロトロン・スピリチュアライザー。（Synchrocyclotron · Spiritualizer。）": [
-      {
-        "bvid": "BV18mgkz2Epm",
-        "title": "【岁己SUI】シンクロサイクロトロン・スピリチュアライザー。   6.21直播歌切",
-        "duration": 284,
-        "date": "2025-06-30"
       }
     ],
     "メルト": [
@@ -10722,6 +10478,24 @@
         "title": "【岁己SUI】メルト   8.13直播歌切",
         "duration": 257,
         "date": "2023-08-13"
+      },
+      {
+        "bvid": "BV1BG41137nf",
+        "title": "メルト（Melt） (外部歌切)",
+        "duration": 0,
+        "date": ""
+      },
+      {
+        "bvid": "BV1hc411U7rz",
+        "title": "メルト（Melt） (外部歌切)",
+        "duration": 0,
+        "date": ""
+      },
+      {
+        "bvid": "BV1R8411J7tx",
+        "title": "メルト（Melt） (外部歌切)",
+        "duration": 0,
+        "date": ""
       }
     ],
     "ワールド・ランプシェード": [
@@ -10840,6 +10614,12 @@
     ],
     "五块钱的伞": [
       {
+        "bvid": "BV1m3Th6DE6Y",
+        "title": "【岁己SUI】五块钱的伞【20260630歌切】",
+        "duration": 219,
+        "date": "2026-06-30"
+      },
+      {
         "bvid": "BV1uumpBaE1J",
         "title": "【岁己SUI】五块钱的伞【20251209直播歌切】",
         "duration": 220,
@@ -10856,12 +10636,6 @@
         "title": "【岁己SUI】五块钱的伞   1.2直播歌切",
         "duration": 220,
         "date": "2025-01-03"
-      },
-      {
-        "bvid": "BV1m3Th6DE6Y",
-        "title": "五块钱的伞 20260630",
-        "duration": 0,
-        "date": ""
       }
     ],
     "你啊你啊": [
@@ -10885,6 +10659,12 @@
       }
     ],
     "你要的爱": [
+      {
+        "bvid": "BV1mWgW6gEk5",
+        "title": "【岁己SUI】你要的爱【20260813歌切】",
+        "duration": 245,
+        "date": "2026-08-13"
+      },
       {
         "bvid": "BV1sd4y1X7Fx",
         "title": "你要的爱 (外部歌切)",
@@ -11030,6 +10810,12 @@
     ],
     "十万毫升泪水": [
       {
+        "bvid": "BV1kiM36dEWp",
+        "title": "【岁己SUI】十万毫升泪水【20260707歌切】",
+        "duration": 257,
+        "date": "2026-07-07"
+      },
+      {
         "bvid": "BV1BWRhYFEck",
         "title": "【岁己SUI】十万毫升泪水   3.9直播歌切",
         "duration": 264,
@@ -11046,12 +10832,6 @@
         "title": "十万毫升泪水 (外部歌切)",
         "duration": 0,
         "date": ""
-      },
-      {
-        "bvid": "BV1kiM36dEWp",
-        "title": "【岁己SUI】十万毫升泪水【20260707歌切】",
-        "duration": 257,
-        "date": "2026-07-07"
       }
     ],
     "半句再见": [
@@ -11104,6 +10884,12 @@
     ],
     "和你": [
       {
+        "bvid": "BV1zpJN6hEpD",
+        "title": "【岁己SUI】和你【20260614歌切】",
+        "duration": 199,
+        "date": "2026-06-14"
+      },
+      {
         "bvid": "BV1wx63BiEbS",
         "title": "【岁己SUI】和你【20260127歌切】",
         "duration": 199,
@@ -11120,12 +10906,6 @@
         "title": "【岁己SUI】和你   7.9直播歌切",
         "duration": 199,
         "date": "2024-07-10"
-      },
-      {
-        "bvid": "BV1zpJN6hEpD",
-        "title": "【岁己SUI】和你【20260614歌切】",
-        "duration": 0,
-        "date": "2026-06-14"
       }
     ],
     "喜欢": [
@@ -11188,6 +10968,18 @@
     ],
     "如果可以": [
       {
+        "bvid": "BV1ud4162Ew6",
+        "title": "【岁己SUI】如果可以【20260828歌切】",
+        "duration": 224,
+        "date": "2026-08-28"
+      },
+      {
+        "bvid": "BV177KN6ZEBy",
+        "title": "【岁己SUI】如果可以【20260717歌切】",
+        "duration": 226,
+        "date": "2026-07-17"
+      },
+      {
         "bvid": "BV1mpHgeWEdv",
         "title": "【岁己SUI】如果可以   8.29直播歌切",
         "duration": 222,
@@ -11204,12 +10996,6 @@
         "title": "【岁己SUI】如果可以   5.1直播歌切",
         "duration": 224,
         "date": "2024-05-01"
-      },
-      {
-        "bvid": "BV177KN6ZEBy",
-        "title": "【岁己SUI】如果可以【20260717歌切】",
-        "duration": 226,
-        "date": "2026-07-17"
       }
     ],
     "孤独患者": [
@@ -11268,6 +11054,12 @@
     ],
     "小镇姑娘": [
       {
+        "bvid": "BV1mBT36hEin",
+        "title": "【岁己SUI】小镇姑娘【20260628歌切】",
+        "duration": 269,
+        "date": "2026-06-28"
+      },
+      {
         "bvid": "BV1gw411q72y",
         "title": "【岁己SUI】小镇姑娘   10.27直播歌切",
         "duration": 258,
@@ -11290,12 +11082,6 @@
         "title": "【岁己SUI】小镇姑娘   7.30直播歌切",
         "duration": 258,
         "date": "2023-07-30"
-      },
-      {
-        "bvid": "BV1mBT36hEin",
-        "title": "小镇姑娘 20260628",
-        "duration": 0,
-        "date": ""
       }
     ],
     "左耳": [
@@ -11530,6 +11316,12 @@
     ],
     "星が瞬くこんな夜に": [
       {
+        "bvid": "BV1wggn6WEWx",
+        "title": "【岁己SUI】星が瞬くこんな夜に【20260809歌切】",
+        "duration": 228,
+        "date": "2026-08-09"
+      },
+      {
         "bvid": "BV18mYJeEEqE",
         "title": "【岁己SUI】星が瞬くこんな夜に  8.10直播歌切",
         "duration": 219,
@@ -11611,6 +11403,12 @@
       }
     ],
     "暗恋人类日记": [
+      {
+        "bvid": "BV1qCbN6JEWy",
+        "title": "【岁己SUI】暗恋人类日记【20260906歌切】",
+        "duration": 137,
+        "date": "2026-09-06"
+      },
       {
         "bvid": "BV11a4y1k7wM",
         "title": "【岁己SUI】暗恋人类日记   1.23直播歌切",
@@ -11772,6 +11570,12 @@
     ],
     "爱的飞行日记": [
       {
+        "bvid": "BV1Vxgn6GEQg",
+        "title": "【岁己SUI】爱的飞行日记【20260811歌切】",
+        "duration": 251,
+        "date": "2026-08-11"
+      },
+      {
         "bvid": "BV1AXxieeEYc",
         "title": "【岁己SUI】爱的飞行日记   9.28直播歌切",
         "duration": 253,
@@ -11852,6 +11656,12 @@
     ],
     "白鸟过河滩": [
       {
+        "bvid": "BV1FpNU6nE9i",
+        "title": "【岁己SUI】白鸟过河滩【20260713歌切】",
+        "duration": 212,
+        "date": "2026-07-13"
+      },
+      {
         "bvid": "BV1K2FreXEiw",
         "title": "【岁己SUI】白鸟过河滩   2.1直播歌切",
         "duration": 211,
@@ -11874,12 +11684,6 @@
         "title": "白鸟过河滩 (外部歌切)",
         "duration": 0,
         "date": ""
-      },
-      {
-        "bvid": "BV1FpNU6nE9i",
-        "title": "【岁己SUI】白鸟过河滩【20260713歌切】",
-        "duration": 212,
-        "date": "2026-07-13"
       }
     ],
     "百年孤寂": [
@@ -12136,6 +11940,12 @@
     ],
     "蝴蝶": [
       {
+        "bvid": "BV1zsJN6FEA5",
+        "title": "【岁己SUI】蝴蝶【20260614歌切】",
+        "duration": 280,
+        "date": "2026-06-14"
+      },
+      {
         "bvid": "BV1WTAez4EsN",
         "title": "【岁己SUI】蝴蝶【20260227歌切】",
         "duration": 288,
@@ -12152,15 +11962,15 @@
         "title": "【岁己SUI】蝴蝶【20250929直播歌切】",
         "duration": 280,
         "date": "2025-10-01"
-      },
-      {
-        "bvid": "BV1zsJN6FEA5",
-        "title": "【岁己SUI】蝴蝶【20260614歌切】",
-        "duration": 0,
-        "date": "2026-06-14"
       }
     ],
     "衡山路宛平路": [
+      {
+        "bvid": "BV1Rxgn6GEEC",
+        "title": "【岁己SUI】衡山路宛平路【20260811歌切】",
+        "duration": 234,
+        "date": "2026-08-11"
+      },
       {
         "bvid": "BV1EK6QBrEWw",
         "title": "【岁己SUI】衡山路宛平路【20260110直播歌切】",
@@ -12230,6 +12040,12 @@
     ],
     "说了再见": [
       {
+        "bvid": "BV16mNb6hEuh",
+        "title": "【岁己SUI】说了再见【20260714歌切】",
+        "duration": 280,
+        "date": "2026-07-14"
+      },
+      {
         "bvid": "BV1EbQxY6ET4",
         "title": "【岁己SUI】说了再见   3.15直播歌切",
         "duration": 281,
@@ -12246,12 +12062,6 @@
         "title": "【岁己SUI】说了再见   10.2直播歌切",
         "duration": 280,
         "date": "2023-10-02"
-      },
-      {
-        "bvid": "BV16mNb6hEuh",
-        "title": "【岁己SUI】说了再见【20260714歌切】",
-        "duration": 280,
-        "date": "2026-07-14"
       }
     ],
     "说好的幸福呢": [
@@ -12464,6 +12274,12 @@
     ],
     "雨水一盒": [
       {
+        "bvid": "BV1Cr876AEzn",
+        "title": "【岁己SUI】雨水一盒【20260818歌切】",
+        "duration": 289,
+        "date": "2026-08-18"
+      },
+      {
         "bvid": "BV16FXMY8EcZ",
         "title": "【岁己SUI】雨水一盒   3.16直播歌切",
         "duration": 293,
@@ -12558,29 +12374,19 @@
         "date": "2026-03-20"
       }
     ],
-    "City of Stars": [
+    "Don't Look Back In Anger": [
       {
-        "bvid": "BV1MSJ3z7E7T",
-        "title": "【岁己SU】City Of Stars   5.17直播歌切",
-        "duration": 151,
-        "date": "2025-05-18"
-      }
-    ],
-    "DAYBREAK FRONTLINE": [
-      {
-        "bvid": "BV1gsS3BzEjt",
-        "title": "【岁己SUI】DAYBREAK FRONTLINE【20251127直播歌切】",
-        "duration": 215,
-        "date": "2025-11-28"
+        "bvid": "BV1z43d6HEiu",
+        "title": "【岁己SUI】Don't Look Back In Anger【20260731歌切·VirtuaReal夏日接力歌回2026】",
+        "duration": 298,
+        "date": "2026-07-31"
       },
       {
-        "bvid": "BV1Sz4y1u78n",
-        "title": "【岁己SUI】DAYBREAK FRONTLINE   8.20直播歌切",
-        "duration": 214,
-        "date": "2023-08-20"
-      }
-    ],
-    "Don't Look Back In Anger": [
+        "bvid": "BV1MD7K65EHB",
+        "title": "【岁己SUI】Don't Look Back In Anger【20260622歌切】",
+        "duration": 295,
+        "date": "2026-06-22"
+      },
       {
         "bvid": "BV1jWLH6cEdw",
         "title": "【岁己SUI】Don't Look Back In Anger【20260517歌切】",
@@ -12592,18 +12398,6 @@
         "title": "【岁己SUI】Don't Look Back In Anger   8.12直播歌切",
         "duration": 293,
         "date": "2025-08-17"
-      },
-      {
-        "bvid": "BV1MD7K65EHB",
-        "title": "DLBIA 20260622",
-        "duration": 0,
-        "date": ""
-      },
-      {
-        "bvid": "BV1z43d6HEiu",
-        "title": "【岁己SUI】Don't Look Back In Anger【20260731歌切·VirtuaReal夏日接力歌回2026】",
-        "duration": 298,
-        "date": "2026-07-31"
       }
     ],
     "ENDLESS STORY": [
@@ -12656,6 +12450,12 @@
     ],
     "Forever Young": [
       {
+        "bvid": "BV1dwbq6qEQb",
+        "title": "【岁己SUI】Forever Young【20260816歌切】",
+        "duration": 321,
+        "date": "2026-08-16"
+      },
+      {
         "bvid": "BV16ixnzzEgL",
         "title": "【岁己SUI】Forever Young【20251003直播歌切】",
         "duration": 314,
@@ -12698,19 +12498,25 @@
     ],
     "Just Be Friends": [
       {
+        "bvid": "BV1tD7K65E14",
+        "title": "【岁己SUI】Just Be Friends【20260622歌切】",
+        "duration": 368,
+        "date": "2026-06-22"
+      },
+      {
         "bvid": "BV13sS3BzEKG",
         "title": "【岁己SUI】Just Be Friends【20251127直播歌切】",
         "duration": 367,
         "date": "2025-11-28"
-      },
-      {
-        "bvid": "BV1tD7K65E14",
-        "title": "JBF 20260622",
-        "duration": 0,
-        "date": ""
       }
     ],
     "Just The Two Of Us": [
+      {
+        "bvid": "BV1oTM361Ega",
+        "title": "【岁己SUI】Just The Two Of Us【20260707歌切】",
+        "duration": 237,
+        "date": "2026-07-07"
+      },
       {
         "bvid": "BV1ZxQ3BREjP",
         "title": "【岁己SUI】Just The Two Of Us【20260414歌切】",
@@ -12722,12 +12528,6 @@
         "title": "【岁己SUI】Just The Two Of Us【20260210歌切】",
         "duration": 239,
         "date": "2026-02-11"
-      },
-      {
-        "bvid": "BV1oTM361Ega",
-        "title": "【岁己SUI】Just The Two Of Us【20260707歌切】",
-        "duration": 237,
-        "date": "2026-07-07"
       }
     ],
     "Let It Be": [
@@ -12769,6 +12569,12 @@
       }
     ],
     "Love Story": [
+      {
+        "bvid": "BV1LB8869EvV",
+        "title": "【岁己SUI】Love Story【20260823歌切】",
+        "duration": 235,
+        "date": "2026-08-23"
+      },
       {
         "bvid": "BV1Ek2CBiECd",
         "title": "【岁己SUI】Love Story【20251208直播歌切】",
@@ -12902,26 +12708,6 @@
         "date": ""
       }
     ],
-    "Remember me": [
-      {
-        "bvid": "BV1N4qnYiEqR",
-        "title": "【岁己SUI】Remember Me   12.07直播歌切",
-        "duration": 136,
-        "date": "2024-12-08"
-      },
-      {
-        "bvid": "BV1msULYQE6u",
-        "title": "【岁己SUI】Remember Me（清唱）   11.13直播歌切",
-        "duration": 73,
-        "date": "2024-11-14"
-      },
-      {
-        "bvid": "BV18C4y1v7V9",
-        "title": "【岁己SUI】Remember Me   1.6直播歌切",
-        "duration": 70,
-        "date": "2024-01-07"
-      }
-    ],
     "Say So": [
       {
         "bvid": "BV1FiNteDEE7",
@@ -12944,6 +12730,12 @@
     ],
     "Syrup": [
       {
+        "bvid": "BV1HDj56pE4Z",
+        "title": "【岁己SUI】Syrup【20260616歌切】",
+        "duration": 245,
+        "date": "2026-06-17"
+      },
+      {
         "bvid": "BV17uYte7EwB",
         "title": "【岁己SUI】Syrup   8.8直播歌切",
         "duration": 244,
@@ -12954,12 +12746,6 @@
         "title": "【岁己SUI】Syrup   8.26直播歌切",
         "duration": 242,
         "date": "2023-08-27"
-      },
-      {
-        "bvid": "BV1HDj56pE4Z",
-        "title": "【岁己SUI】Syrup【20260616歌切】",
-        "duration": 0,
-        "date": "2026-06-17"
       }
     ],
     "WHITE ALBUM": [
@@ -13008,20 +12794,6 @@
       {
         "bvid": "BV1E14y1V7KP",
         "title": "Young And Beautiful (外部歌切)",
-        "duration": 0,
-        "date": ""
-      }
-    ],
-    "again": [
-      {
-        "bvid": "BV11uY5zEEnM",
-        "title": "【岁己SUI】again   9.4直播歌切",
-        "duration": 250,
-        "date": "2025-09-07"
-      },
-      {
-        "bvid": "BV1Ne4y187do",
-        "title": "again (外部歌切)",
         "duration": 0,
         "date": ""
       }
@@ -13114,6 +12886,12 @@
     ],
     "ひかりふる": [
       {
+        "bvid": "BV1cgtr6REas",
+        "title": "【岁己SUI】ひかりふる【20260904·四周年3D舞台歌切】",
+        "duration": 291,
+        "date": "2026-09-04"
+      },
+      {
         "bvid": "BV1YnqWB2E6z",
         "title": "【岁己SUI】ひかりふる【20251215直播歌切】",
         "duration": 288,
@@ -13178,6 +12956,12 @@
     ],
     "キミソラキセキ": [
       {
+        "bvid": "BV17gKW6LEpu",
+        "title": "【岁己SUI】キミソラキセキ【20260720歌切】",
+        "duration": 303,
+        "date": "2026-07-20"
+      },
+      {
         "bvid": "BV1A9sPzFEuB",
         "title": "【岁己SUI】キミソラキセキ【20251011直播歌切】",
         "duration": 302,
@@ -13188,12 +12972,6 @@
         "title": "【岁己SUI】キミソラキセキ   11.18直播歌切",
         "duration": 300,
         "date": "2024-11-19"
-      },
-      {
-        "bvid": "BV17gKW6LEpu",
-        "title": "【岁己SUI】キミソラキセキ【20260720歌切】",
-        "duration": 303,
-        "date": "2026-07-20"
       }
     ],
     "コネクト": [
@@ -13218,6 +12996,18 @@
         "title": "【岁己SUI】シュガーソングとビターステップ【20251125直播歌切】",
         "duration": 246,
         "date": "2025-11-26"
+      },
+      {
+        "bvid": "BV1BC4ueUEuq",
+        "title": "【岁己SUI】Sugar Song and Bitter Step    10.1直播歌切",
+        "duration": 252,
+        "date": "2024-10-02"
+      },
+      {
+        "bvid": "BV1WN4y197YG",
+        "title": "【岁己SUI】Sugar Song and Bitter Step   9.5直播歌切",
+        "duration": 252,
+        "date": "2023-09-05"
       }
     ],
     "ツギハギスタッカート": [
@@ -13348,6 +13138,12 @@
     ],
     "下等马": [
       {
+        "bvid": "BV1zpJN6hEyv",
+        "title": "【岁己SUI】下等马【20260614歌切】",
+        "duration": 186,
+        "date": "2026-06-15"
+      },
+      {
         "bvid": "BV1vmqKBNEU3",
         "title": "【岁己SUI】下等马【20260104直播歌切】",
         "duration": 186,
@@ -13358,12 +13154,6 @@
         "title": "【岁己SUI】下等马【20251124直播歌切】",
         "duration": 186,
         "date": "2025-11-26"
-      },
-      {
-        "bvid": "BV1zpJN6hEyv",
-        "title": "【岁己SUI】下等马【20260614歌切】",
-        "duration": 186,
-        "date": "2026-06-15"
       }
     ],
     "不亏不欠": [
@@ -13509,6 +13299,12 @@
       }
     ],
     "兔子先生": [
+      {
+        "bvid": "BV1MWgW63EhQ",
+        "title": "【岁己SUI】兔子先生【20260813歌切】",
+        "duration": 208,
+        "date": "2026-08-13"
+      },
       {
         "bvid": "BV1YG411U7Dd",
         "title": "【岁己SUI】兔子先生   11.19直播歌切",
@@ -13725,6 +13521,12 @@
       }
     ],
     "夕日坂": [
+      {
+        "bvid": "BV1dB886XEvP",
+        "title": "【岁己SUI】夕日坂【20260823歌切】",
+        "duration": 366,
+        "date": "2026-08-23"
+      },
       {
         "bvid": "BV1vjSFBLEAk",
         "title": "【岁己SUI】夕日坂【20251129直播歌切】",
@@ -14092,6 +13894,12 @@
     ],
     "我很快乐": [
       {
+        "bvid": "BV17Zbi63EmD",
+        "title": "【岁己SUI】我很快乐【20260816歌切】",
+        "duration": 202,
+        "date": "2026-08-16"
+      },
+      {
         "bvid": "BV1vgyeYgEK5",
         "title": "【岁己SUI】我很快乐   10.13直播歌切",
         "duration": 188,
@@ -14374,6 +14182,12 @@
     ],
     "淋雨一直走": [
       {
+        "bvid": "BV17PM36UEim",
+        "title": "【岁己SUI】淋雨一直走【20260707歌切】",
+        "duration": 203,
+        "date": "2026-07-07"
+      },
+      {
         "bvid": "BV1Vx4y1U7jV",
         "title": "【岁己SUI】淋雨一直走   3.19直播歌切",
         "duration": 201,
@@ -14384,12 +14198,6 @@
         "title": "【岁己SUI】淋雨一直走   3.24直播歌切",
         "duration": 203,
         "date": "2023-03-25"
-      },
-      {
-        "bvid": "BV17PM36UEim",
-        "title": "【岁己SUI】淋雨一直走【20260707歌切】",
-        "duration": 203,
-        "date": "2026-07-07"
       }
     ],
     "溯": [
@@ -14511,7 +14319,9 @@
     "秒針を噛む": [
       {
         "bvid": "BV1YujB6BE8T",
-        "title": "【岁己SUI】秒針を噛む【20260618歌切】"
+        "title": "【岁己SUI】秒針を噛む【20260618歌切】",
+        "duration": 259,
+        "date": "2026-06-18"
       }
     ],
     "童话镇": [
@@ -14609,6 +14419,12 @@
       }
     ],
     "花田错": [
+      {
+        "bvid": "BV1vWgn6CE68",
+        "title": "【岁己SUI】花田错【20260812歌切】",
+        "duration": 225,
+        "date": "2026-08-12"
+      },
       {
         "bvid": "BV12ULtz7ERr",
         "title": "【岁己SUI】花田错   4.20直播歌切",
@@ -14876,16 +14692,16 @@
     ],
     "霜雪千年": [
       {
+        "bvid": "BV1YpM46DEvn",
+        "title": "【岁己SUI】霜雪千年【20260705歌切】",
+        "duration": 240,
+        "date": "2026-07-05"
+      },
+      {
         "bvid": "BV1NUPMz4E5b",
         "title": "【岁己SUI】霜雪千年【20260301歌切】",
         "duration": 241,
         "date": "2026-03-02"
-      },
-      {
-        "bvid": "BV1YpM46DEvn",
-        "title": "霜雪千年 20260705",
-        "duration": 0,
-        "date": ""
       }
     ],
     "青花瓷": [
@@ -14903,6 +14719,12 @@
       }
     ],
     "風になる": [
+      {
+        "bvid": "BV1pMgn69Esj",
+        "title": "【岁己SUI】風になる【20260810歌切】",
+        "duration": 245,
+        "date": "2026-08-10"
+      },
       {
         "bvid": "BV1Fm8YzsEUJ",
         "title": "【岁己SUI】風になる   6.30直播歌切",
@@ -14970,19 +14792,25 @@
     ],
     "8.32": [
       {
+        "bvid": "BV1KmLd6kEpv",
+        "title": "【岁己SUI】人头麦清唱~8.32【20260617歌切】",
+        "duration": 273,
+        "date": "2026-06-18"
+      },
+      {
         "bvid": "BV1sTAez4EMg",
         "title": "【岁己SUI】8.32【20260228歌切】",
         "duration": 274,
         "date": "2026-03-01"
-      },
-      {
-        "bvid": "BV1KmLd6kEpv",
-        "title": "【岁己SUI】人头麦清唱~8.32【20260617歌切】",
-        "duration": 0,
-        "date": "2026-06-18"
       }
     ],
     "After 17": [
+      {
+        "bvid": "BV1o9bR6dETn",
+        "title": "【岁己SUI】After 17【20260815歌切】",
+        "duration": 164,
+        "date": "2026-08-15"
+      },
       {
         "bvid": "BV1fyEa6TEmj",
         "title": "【岁己SUI】After 17【20260607】",
@@ -15002,6 +14830,12 @@
         "title": "【岁己SUI】again   9.4直播歌切",
         "duration": 250,
         "date": "2025-09-07"
+      },
+      {
+        "bvid": "BV1Ne4y187do",
+        "title": "again (外部歌切)",
+        "duration": 0,
+        "date": ""
       }
     ],
     "Baby": [
@@ -15062,6 +14896,12 @@
     ],
     "First Love": [
       {
+        "bvid": "BV1zbea6GEPA",
+        "title": "【岁己SUI】First Love【20260919歌切】",
+        "duration": 259,
+        "date": "2026-09-19"
+      },
+      {
         "bvid": "BV12Kw8zmEcz",
         "title": "【岁己SUI】First Love【20260314歌切】",
         "duration": 259,
@@ -15096,34 +14936,24 @@
         "title": "【岁己SUI】First Love   12.27直播歌切",
         "duration": 259,
         "date": "2022-12-28"
-      }
-    ],
-    "Forever  Young": [
-      {
-        "bvid": "BV16ixnzzEgL",
-        "title": "【岁己SUI】Forever Young【20251003直播歌切】",
-        "duration": 314,
-        "date": "2025-10-04"
       },
       {
-        "bvid": "BV1BK421v7eN",
-        "title": "【岁己SUI】Forever Young   3.17直播歌切",
-        "duration": 320,
-        "date": "2024-03-17"
-      }
-    ],
-    "God knows": [
-      {
-        "bvid": "BV1ig4y1M7CZ",
-        "title": "【岁己SUI】God knows...   4.6直播歌切",
-        "duration": 278,
-        "date": "2023-04-06"
+        "bvid": "BV1nZ421m7K8",
+        "title": "first love (外部歌切)",
+        "duration": 0,
+        "date": ""
       },
       {
-        "bvid": "BV1bN411N73o",
-        "title": "【岁己SUI】God knows...    3.30直播歌切",
-        "duration": 279,
-        "date": "2023-03-31"
+        "bvid": "BV1ud4y1X7fs",
+        "title": "first love (外部歌切)",
+        "duration": 0,
+        "date": ""
+      },
+      {
+        "bvid": "BV1kY4y1M7Jf",
+        "title": "first love (外部歌切)",
+        "duration": 0,
+        "date": ""
       }
     ],
     "I Love You 3000": [
@@ -15154,14 +14984,26 @@
     ],
     "I Really Want to Stay at Your House": [
       {
+        "bvid": "BV1mETc6eEEc",
+        "title": "【岁己SUI】I Really Want to Stay At Your H【20260629歌切】",
+        "duration": 247,
+        "date": "2026-06-29"
+      },
+      {
         "bvid": "BV1sS421o79i",
         "title": "【岁己SUI】I Really Want to Stay At Your House   6.15直播歌切",
         "duration": 245,
         "date": "2024-06-15"
       },
       {
-        "bvid": "BV1mETc6eEEc",
-        "title": "IRWTSAYH 20260629",
+        "bvid": "BV16t4y1A7CD",
+        "title": "I Really Want to Stay At Your House (外部歌切)",
+        "duration": 0,
+        "date": ""
+      },
+      {
+        "bvid": "BV1KG411J74q",
+        "title": "I Really Want to Stay At Your House (外部歌切)",
         "duration": 0,
         "date": ""
       }
@@ -15198,18 +15040,16 @@
     ],
     "Letter Song": [
       {
+        "bvid": "BV1YDbN6yEvx",
+        "title": "【岁己SUI】Letter Song【20260906歌切】",
+        "duration": 336,
+        "date": "2026-09-06"
+      },
+      {
         "bvid": "BV14FFmzZEDd",
         "title": "【岁己SUI】Letter Song【20260209歌切】",
         "duration": 339,
         "date": "2026-02-10"
-      }
-    ],
-    "Love 2000": [
-      {
-        "bvid": "BV1D67KzcE71",
-        "title": "【岁己SUI】Love 2000   5.27直播歌切",
-        "duration": 182,
-        "date": "2025-05-31"
       }
     ],
     "Lydia": [
@@ -15340,40 +15180,12 @@
         "date": "2024-06-01"
       }
     ],
-    "Virtual To LIVE": [
-      {
-        "bvid": "BV1cs4y1N7Rb",
-        "title": "【岁己SUI】Virtual to Live   4.15直播歌切",
-        "duration": 267,
-        "date": "2023-04-15"
-      },
-      {
-        "bvid": "BV1Hs4y1s7fU",
-        "title": "【岁己SUI】Virtual to Live   1.29直播歌切",
-        "duration": 267,
-        "date": "2023-01-30"
-      }
-    ],
     "You(=I)": [
       {
         "bvid": "BV1Pc411V7GG",
         "title": "【岁己SUI】You(=I)   6.1直播歌切",
         "duration": 170,
         "date": "2023-06-01"
-      }
-    ],
-    "after 17": [
-      {
-        "bvid": "BV1fyEa6TEmj",
-        "title": "【岁己SUI】After 17【20260607】",
-        "duration": 170,
-        "date": "2026-06-08"
-      },
-      {
-        "bvid": "BV1Ag4y1e7QD",
-        "title": "【岁己SUI】after 17   1.26直播歌切",
-        "duration": 153,
-        "date": "2024-01-26"
       }
     ],
     "always online": [
@@ -15384,20 +15196,6 @@
         "date": ""
       }
     ],
-    "lemon": [
-      {
-        "bvid": "BV13eQ8BAEjf",
-        "title": "【岁己SUI】Lemon【20260413歌切】",
-        "duration": 249,
-        "date": "2026-04-14"
-      },
-      {
-        "bvid": "BV1wZFreLEEH",
-        "title": "【岁己SUI】Lemon   2.2直播歌切",
-        "duration": 248,
-        "date": "2025-02-02"
-      }
-    ],
     "oblivious": [
       {
         "bvid": "BV1h84y1f7Z7",
@@ -15406,28 +15204,12 @@
         "date": "2023-08-14"
       }
     ],
-    "someone you loved": [
-      {
-        "bvid": "BV1ntYJewE5p",
-        "title": "【岁己SUI】someone you loved   8.10直播歌切",
-        "duration": 55,
-        "date": "2024-08-11"
-      }
-    ],
     "summertime": [
       {
         "bvid": "BV16h4y1V7FS",
         "title": "【岁己SUI】Summertime   7.22夏日泳装发布回直播歌切",
         "duration": 245,
         "date": "2023-07-22"
-      }
-    ],
-    "upupu": [
-      {
-        "bvid": "BV1or421F7i4",
-        "title": "【岁己SUI】UPUPU   6.1直播歌切",
-        "duration": 259,
-        "date": "2024-06-01"
       }
     ],
     "あなたがいた森": [
@@ -15556,18 +15338,16 @@
     ],
     "サマータイムレコード": [
       {
+        "bvid": "BV1j9bR6dEqz",
+        "title": "【岁己SUI】サマータイムレコード【20260815歌切】",
+        "duration": 271,
+        "date": "2026-08-15"
+      },
+      {
         "bvid": "BV1gGyKByEBG",
         "title": "【岁己SUI】サマータイムレコード【20251120直播歌切】",
         "duration": 265,
         "date": "2025-11-21"
-      }
-    ],
-    "シンクロサイクロトロン・スピリチュアライザー": [
-      {
-        "bvid": "BV18mgkz2Epm",
-        "title": "【岁己SUI】シンクロサイクロトロン・スピリチュアライザー。   6.21直播歌切",
-        "duration": 284,
-        "date": "2025-06-30"
       }
     ],
     "センチメンタルな愛慕心": [
@@ -15642,24 +15422,16 @@
     ],
     "メリュー": [
       {
+        "bvid": "BV1asM46JEXb",
+        "title": "【岁己SUI】メリュー【20260704歌切】",
+        "duration": 212,
+        "date": "2026-07-04"
+      },
+      {
         "bvid": "BV1FwSnBjE5S",
         "title": "【岁己SUI】メリュー【20251128直播歌切】",
         "duration": 230,
         "date": "2025-11-29"
-      },
-      {
-        "bvid": "BV1asM46JEXb",
-        "title": "メリュー 20260704",
-        "duration": 0,
-        "date": ""
-      }
-    ],
-    "メリーメリー（Merry Merry）": [
-      {
-        "bvid": "BV1Ab2HY4ERm",
-        "title": "メリーメリー（Merry Merry） (外部歌切)",
-        "duration": 0,
-        "date": ""
       }
     ],
     "ユラレル": [
@@ -15807,6 +15579,12 @@
       }
     ],
     "亲爱的，那不是爱情": [
+      {
+        "bvid": "BV1zDgt6MEb5",
+        "title": "【岁己】亲爱的，那不是爱情【20260723歌切】",
+        "duration": 258,
+        "date": "2026-07-23"
+      },
       {
         "bvid": "BV1EBxnzMEWh",
         "title": "【岁己SUI】亲爱的，那不是爱情【20251003直播歌切】",
@@ -15982,16 +15760,16 @@
     ],
     "化身孤岛的鲸": [
       {
-        "bvid": "BV1kEm8BBEJo",
-        "title": "【岁己SUI】化身孤岛的鲸【20251210直播歌切】",
-        "duration": 268,
-        "date": "2025-12-11"
-      },
-      {
         "bvid": "BV16mNb6hEQL",
         "title": "【岁己SUI】化身孤岛的鲸【20260714歌切】",
         "duration": 278,
         "date": "2026-07-14"
+      },
+      {
+        "bvid": "BV1kEm8BBEJo",
+        "title": "【岁己SUI】化身孤岛的鲸【20251210直播歌切】",
+        "duration": 268,
+        "date": "2025-12-11"
       }
     ],
     "十年": [
@@ -16488,30 +16266,30 @@
     ],
     "心愿便利贴": [
       {
+        "bvid": "BV1K2Ld6VEUn",
+        "title": "【岁己SUI】人头麦清唱~心愿便利贴【20260617歌切】",
+        "duration": 109,
+        "date": "2026-06-18"
+      },
+      {
         "bvid": "BV1nv9RBxEdk",
         "title": "【岁己SUI】心愿便利贴【20260502歌切】",
         "duration": 253,
         "date": "2026-05-03"
-      },
-      {
-        "bvid": "BV1K2Ld6VEUn",
-        "title": "【岁己SUI】人头麦清唱~心愿便利贴【20260617歌切】",
-        "duration": 0,
-        "date": "2026-06-18"
       }
     ],
     "心拍数#0822": [
-      {
-        "bvid": "BV1h76BBdEYU",
-        "title": "【岁己SUI】心拍数#0822【20260130歌切】",
-        "duration": 296,
-        "date": "2026-01-31"
-      },
       {
         "bvid": "BV1E83d6nES6",
         "title": "【岁己SUI】心拍数#0822【20260801歌切】",
         "duration": 276,
         "date": "2026-08-01"
+      },
+      {
+        "bvid": "BV1h76BBdEYU",
+        "title": "【岁己SUI】心拍数#0822【20260130歌切】",
+        "duration": 296,
+        "date": "2026-01-31"
       }
     ],
     "心要野": [
@@ -16644,16 +16422,16 @@
     ],
     "才二十三": [
       {
-        "bvid": "BV1FXTizuEck",
-        "title": "【岁己SUI】才二十三   6.8直播歌切",
-        "duration": 221,
-        "date": "2025-06-09"
-      },
-      {
         "bvid": "BV1EjKN6bEnL",
         "title": "【岁己SUI】才二十三【20260717歌切】",
         "duration": 225,
         "date": "2026-07-17"
+      },
+      {
+        "bvid": "BV1FXTizuEck",
+        "title": "【岁己SUI】才二十三   6.8直播歌切",
+        "duration": 221,
+        "date": "2025-06-09"
       }
     ],
     "推开世界的门": [
@@ -16770,16 +16548,16 @@
     ],
     "横竖撇点折": [
       {
+        "bvid": "BV1apM46DE1U",
+        "title": "【岁己SUI】横竖撇点折【20260705歌切】",
+        "duration": 229,
+        "date": "2026-07-05"
+      },
+      {
         "bvid": "BV1iP41117oh",
         "title": "【岁己SUI】横竖撇点折   5.7直播歌切",
         "duration": 228,
         "date": "2023-05-08"
-      },
-      {
-        "bvid": "BV1apM46DE1U",
-        "title": "横竖撇点折 20260705",
-        "duration": 0,
-        "date": ""
       }
     ],
     "欧若拉": [
@@ -17002,6 +16780,18 @@
         "title": "【岁己SUI】神的随波逐流   8.24直播歌切",
         "duration": 253,
         "date": "2025-09-07"
+      },
+      {
+        "bvid": "BV1kp4y1Z7dg",
+        "title": "神的随波逐流（中文） (外部歌切)",
+        "duration": 0,
+        "date": ""
+      },
+      {
+        "bvid": "BV1GA4m1A7bw",
+        "title": "神的随波逐流（中文） (外部歌切)",
+        "duration": 0,
+        "date": ""
       }
     ],
     "稻香": [
@@ -17450,7 +17240,7 @@
       {
         "bvid": "BV1rJJN6YEPP",
         "title": "【岁己SUI】愛言葉IV【20260613歌切】",
-        "duration": 0,
+        "duration": 218,
         "date": "2026-06-13"
       }
     ],
@@ -17463,6 +17253,18 @@
       }
     ],
     "Departures 〜あなたにおくるアイの歌〜": [
+      {
+        "bvid": "BV1E5hj6dEXG",
+        "title": "【岁己SUI】Departures ~あなたにおくるアイの歌~【20260825歌切】",
+        "duration": 253,
+        "date": "2026-08-25"
+      },
+      {
+        "bvid": "BV1Xp7T6HEgK",
+        "title": "【岁己SUI】Departures ~あなたにおくるアイの歌~【20260622歌切】",
+        "duration": 254,
+        "date": "2026-06-22"
+      },
       {
         "bvid": "BV14v421C7va",
         "title": "【岁己SUI】Departures〜あなたにおくるアイの歌〜   2.19直播歌切",
@@ -17486,15 +17288,15 @@
         "title": "Departures ~あなたにおくるアイの歌~ (外部歌切)",
         "duration": 0,
         "date": ""
-      },
-      {
-        "bvid": "BV1Xp7T6HEgK",
-        "title": "Departures 20260622",
-        "duration": 0,
-        "date": ""
       }
     ],
     "あなたに出会わなければ〜夏雪冬花〜": [
+      {
+        "bvid": "BV1wMY76qEBX",
+        "title": "【岁己SUI】あなたに出会わなければ~夏雪冬花~【20260908歌切】",
+        "duration": 359,
+        "date": "2026-09-08"
+      },
       {
         "bvid": "BV1zmknBFEyV",
         "title": "【岁己SUI】あなたに出会わなければ~夏雪冬花~【20260118歌切】",
@@ -17516,6 +17318,24 @@
     ],
     "rain stops, good-bye": [
       {
+        "bvid": "BV1MD7K65E6c",
+        "title": "【岁己SUI】rain stops, good-bye【20260622歌切】",
+        "duration": 395,
+        "date": "2026-06-22"
+      },
+      {
+        "bvid": "BV1dgy9BnEVV",
+        "title": "【岁己SUI】rain stops, good‑bye【20251101直播歌切】",
+        "duration": 395,
+        "date": "2025-11-02"
+      },
+      {
+        "bvid": "BV1xmWRzGE9J",
+        "title": "【岁己SUI】rain stops, good‑bye【20251020直播歌切】",
+        "duration": 394,
+        "date": "2025-10-22"
+      },
+      {
         "bvid": "BV1T4waeYEug",
         "title": "【岁己SUI】Rain Stops,Goodbye   1.21直播歌切",
         "duration": 394,
@@ -17532,24 +17352,6 @@
         "title": "【岁己SUI】Rain Stops,Goodbye   10.20直播歌切",
         "duration": 392,
         "date": "2023-10-21"
-      },
-      {
-        "bvid": "BV1dgy9BnEVV",
-        "title": "【岁己SUI】rain stops, good‑bye【20251101直播歌切】",
-        "duration": 395,
-        "date": "2025-11-02"
-      },
-      {
-        "bvid": "BV1xmWRzGE9J",
-        "title": "【岁己SUI】rain stops, good‑bye【20251020直播歌切】",
-        "duration": 394,
-        "date": "2025-10-22"
-      },
-      {
-        "bvid": "BV1MD7K65E6c",
-        "title": "rain stops 20260622",
-        "duration": 0,
-        "date": ""
       }
     ],
     "Catch You Catch Me": [
@@ -17558,26 +17360,6 @@
         "title": "【岁己SUI】Catch You Catch Me   4.26直播歌切",
         "duration": 224,
         "date": "2023-04-26"
-      }
-    ],
-    "シュガーソングとビターステップ (Sugar Song and Bitter Step)": [
-      {
-        "bvid": "BV1MLUhBWEQY",
-        "title": "【岁己SUI】シュガーソングとビターステップ【20251125直播歌切】",
-        "duration": 246,
-        "date": "2025-11-26"
-      },
-      {
-        "bvid": "BV1BC4ueUEuq",
-        "title": "【岁己SUI】Sugar Song and Bitter Step    10.1直播歌切",
-        "duration": 252,
-        "date": "2024-10-02"
-      },
-      {
-        "bvid": "BV1WN4y197YG",
-        "title": "【岁己SUI】Sugar Song and Bitter Step   9.5直播歌切",
-        "duration": 252,
-        "date": "2023-09-05"
       }
     ],
     "God knows...": [
@@ -17690,20 +17472,6 @@
         "date": ""
       }
     ],
-    "secret base ~君がくれたもの~": [
-      {
-        "bvid": "BV1cM4y1x75S",
-        "title": "【岁己SUI】secret base ~君がくれたもの~（part）   7.22夏日泳装发布回直播歌切",
-        "duration": 138,
-        "date": "2023-07-22"
-      },
-      {
-        "bvid": "BV1ft3d6DEnM",
-        "title": "【岁己SUI】secret base ~君がくれたもの~【20260801歌切】",
-        "duration": 347,
-        "date": "2026-08-01"
-      }
-    ],
     "Bang Bang": [
       {
         "bvid": "BV18d4y137Ad",
@@ -17728,32 +17496,6 @@
         "date": "2023-05-06"
       }
     ],
-    "真夜中のドア~Stay With Me": [
-      {
-        "bvid": "BV1qSbwzZEK6",
-        "title": "【岁己SUI】真夜中のドア~Stay With Me~ 8.2直播歌切",
-        "duration": 276,
-        "date": "2025-08-10"
-      },
-      {
-        "bvid": "BV1X14y1k7Xr",
-        "title": "【岁己SUI】真夜中のドアStay With Me   9.5直播歌切",
-        "duration": 275,
-        "date": "2023-09-05"
-      },
-      {
-        "bvid": "BV1ih411M7Wn",
-        "title": "【岁己SUI】Stay With Me   4.10直播歌切",
-        "duration": 274,
-        "date": "2023-04-10"
-      },
-      {
-        "bvid": "BV1kK411C7sp",
-        "title": "【岁己SUI】Stay With Me   1.14直播歌切",
-        "duration": 267,
-        "date": "2023-01-15"
-      }
-    ],
     "雛鳥": [
       {
         "bvid": "BV1Uqa4z9EM8",
@@ -17765,24 +17507,24 @@
     "私じゃなかったんだね。": [
       {
         "bvid": "BV1Xp7T6HEbS",
-        "title": "私じゃなかったんだね。 20260622",
-        "duration": 0,
-        "date": ""
+        "title": "【岁己SUI】私じゃなかったんだね。【20260622歌切】",
+        "duration": 243,
+        "date": "2026-06-22"
       }
     ],
     "Dear Mr 「F」": [
       {
         "bvid": "BV1mETc6eEqq",
-        "title": "Dear Mr F 20260629",
-        "duration": 0,
-        "date": ""
+        "title": "【岁己SUI】Dear Mr 「F」【20260629歌切】",
+        "duration": 324,
+        "date": "2026-06-29"
       }
     ],
     "小丑的品格": [
       {
         "bvid": "BV1FmNb6aEZw",
         "title": "【岁己SUI】小丑的品格【20260714歌切】",
-        "duration": 0,
+        "duration": 271,
         "date": "2026-07-14"
       }
     ],
@@ -17790,7 +17532,7 @@
       {
         "bvid": "BV1kCNb6PE1b",
         "title": "【岁己SUI】采茶纪【20260714歌切】",
-        "duration": 0,
+        "duration": 208,
         "date": "2026-07-14"
       }
     ],
@@ -17798,7 +17540,7 @@
       {
         "bvid": "BV1nnNU6QEfV",
         "title": "【岁己SUI】落泪【20260711歌切】",
-        "duration": 0,
+        "duration": 105,
         "date": "2026-07-11"
       }
     ],
@@ -17858,28 +17600,18 @@
         "date": "2026-07-19"
       }
     ],
-    "Departures ~あなたにおくるアイの歌~": [
-      {
-        "bvid": "BV1Xp7T6HEgK",
-        "title": "【岁己SUI】Departures ~あなたにおくるアイの歌~【20260622歌切】",
-        "duration": 254,
-        "date": "2026-06-22"
-      }
-    ],
-    "あなたに出会わなければ~夏雪冬花~": [
-      {
-        "bvid": "BV1zmknBFEyV",
-        "title": "【岁己SUI】あなたに出会わなければ~夏雪冬花~【20260118歌切】",
-        "duration": 359,
-        "date": "2026-01-18"
-      }
-    ],
     "secret base 〜君がくれたもの〜": [
       {
         "bvid": "BV1ft3d6DEnM",
         "title": "【岁己SUI】secret base ~君がくれたもの~【20260801歌切】",
         "duration": 347,
         "date": "2026-08-01"
+      },
+      {
+        "bvid": "BV1cM4y1x75S",
+        "title": "【岁己SUI】secret base ~君がくれたもの~（part）   7.22夏日泳装发布回直播歌切",
+        "duration": 138,
+        "date": "2023-07-22"
       }
     ],
     "tune the rainbow": [
@@ -17889,15 +17621,142 @@
         "duration": 330,
         "date": "2026-07-30"
       }
+    ],
+    "独自美丽": [
+      {
+        "bvid": "BV1Ukej67EkZ",
+        "title": "【岁己SUI】独自美丽【20260914歌切】",
+        "duration": 246,
+        "date": "2026-09-14"
+      }
+    ],
+    "泪海": [
+      {
+        "bvid": "BV12rY66GEJ6",
+        "title": "【岁己SUI】泪海【20260913歌切】",
+        "duration": 295,
+        "date": "2026-09-13"
+      }
+    ],
+    "真夜中のドア〜Stay With Me": [
+      {
+        "bvid": "BV11kY66rEWa",
+        "title": "【岁己SUI】真夜中のドア〜Stay With Me【20260912歌切】",
+        "duration": 274,
+        "date": "2026-09-12"
+      },
+      {
+        "bvid": "BV1qSbwzZEK6",
+        "title": "【岁己SUI】真夜中のドア~Stay With Me~ 8.2直播歌切",
+        "duration": 276,
+        "date": "2025-08-10"
+      },
+      {
+        "bvid": "BV1X14y1k7Xr",
+        "title": "【岁己SUI】真夜中のドアStay With Me   9.5直播歌切",
+        "duration": 275,
+        "date": "2023-09-05"
+      },
+      {
+        "bvid": "BV1ih411M7Wn",
+        "title": "【岁己SUI】Stay With Me   4.10直播歌切",
+        "duration": 274,
+        "date": "2023-04-10"
+      },
+      {
+        "bvid": "BV1kK411C7sp",
+        "title": "【岁己SUI】Stay With Me   1.14直播歌切",
+        "duration": 267,
+        "date": "2023-01-15"
+      }
+    ],
+    "我的秘密": [
+      {
+        "bvid": "BV1cMY76qEUD",
+        "title": "【岁己SUI】我的秘密【20260908歌切】",
+        "duration": 247,
+        "date": "2026-09-08"
+      }
+    ],
+    "星降る海": [
+      {
+        "bvid": "BV1cgtr6REeL",
+        "title": "【岁己SUI】星降る海【20260904·四周年3D舞台歌切】",
+        "duration": 254,
+        "date": "2026-09-04"
+      }
+    ],
+    "希望有羽毛和翅膀": [
+      {
+        "bvid": "BV16Vhj64ETK",
+        "title": "【岁己SUI】希望有羽毛和翅膀【20260825歌切】",
+        "duration": 230,
+        "date": "2026-08-25"
+      }
+    ],
+    "思念是一种病": [
+      {
+        "bvid": "BV1Cr876AEL7",
+        "title": "【岁己SUI】思念是一种病【20260818歌切】",
+        "duration": 128,
+        "date": "2026-08-18"
+      }
+    ],
+    "最佳损友": [
+      {
+        "bvid": "BV1an336mEs8",
+        "title": "四川虚拟主播唱《最佳损友》 一开口大家都笑了",
+        "duration": 234,
+        "date": null
+      }
+    ],
+    "エウテルペ": [
+      {
+        "bvid": "BV18iCsYqEMC",
+        "title": "【岁己SUI】Euterpe   12.19直播歌切",
+        "duration": 224,
+        "date": "2024-12-27"
+      },
+      {
+        "bvid": "BV1Pj411D7CL",
+        "title": "【岁己SUI】Euterpe   6.18直播歌切",
+        "duration": 224,
+        "date": "2023-06-19"
+      },
+      {
+        "bvid": "BV1iU4y1z7ag",
+        "title": "エウテルペ（Euterpe） (外部歌切)",
+        "duration": 0,
+        "date": ""
+      },
+      {
+        "bvid": "BV1t14y1e7U5",
+        "title": "エウテルペ（Euterpe） (外部歌切)",
+        "duration": 0,
+        "date": ""
+      }
+    ],
+    "シンクロサイクロトロン・スピリチュアライザー。": [
+      {
+        "bvid": "BV18mgkz2Epm",
+        "title": "【岁己SUI】シンクロサイクロトロン・スピリチュアライザー。   6.21直播歌切",
+        "duration": 284,
+        "date": "2025-06-30"
+      }
+    ],
+    "メリーメリー": [
+      {
+        "bvid": "BV1Ab2HY4ERm",
+        "title": "メリーメリー（Merry Merry） (外部歌切)",
+        "duration": 0,
+        "date": ""
+      }
     ]
   },
   "unmatched": [
     "(歌曲名缺失-源数据问题)",
-    "真夜中のドア〜Stay With Me",
     "CHO-DARI-",
     "drop pop candy",
-    "エウテルペ",
-    "シンクロサイクロトロン・スピリチュアライザー。",
     "园游会",
     "牡丹江",
     "白日",
@@ -18009,7 +17868,6 @@
     "ファンサ",
     "フォニイ",
     "メリーメリ",
-    "メリーメリー",
     "ラブレター",
     "ラプンツェル",
     "ロミオとシンデレラ",
@@ -18150,7 +18008,6 @@
     "风吹麦浪",
     "香水",
     "鲜花",
-    "黑色柳丁",
-    "最佳损友"
+    "黑色柳丁"
   ]
 }
