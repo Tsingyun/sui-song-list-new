@@ -339,3 +339,17 @@ build_site.py ──► sitegen.builder.build()
     readonly 会让移动端键盘与光标行为变得不可预期。真实效果由浏览器本地历史决定，
     Playwright 只能验证「属性到位 + 输入功能无回归」。
     回归：`.zcode/workspace/default/_verify_v3713.py`（22 项）。
+
+22. **歌切数据（`data/song_bilibili_map.json`）的三条硬约束（2026-09-20 立）**：
+    ① **键必须与 `song_data.json` 的 `name` 完全一致**。站点在
+    `sitegen/datalayer.py` 里按 `norm_tilde(k)` 建 `bili_map` 再 `bili_map.get(norm_tilde(name))`
+    查找 —— 只归一化波浪号，**不管大小写、标点、空白**。所以「Letting go」vs「Letting Go」
+    这类键在页面上会完全取不到 clip（历史上累积了 29 个这样的陈旧键、涉 83 条 clip）。
+    `match_clips.py` 已内置「键归位」环节自动改写规范名并合并重复，**不要绕过脚本手改键名**。
+    ② **每首歌的 clip 列表按日期降序**，无日期的「外部歌切」排最后。站点「▶ 播放最新录播」
+    取列表第 0 条，乱序会让它播到旧录播（脚本已内置统一排序）。
+    ③ **`date` 允许为 `None`**（无日期歌切，如第三方搬运）；`datalayer.norm_date` 已加空值保护，
+    新增消费 `date` 的代码必须同样防空，否则构建会抛 `AttributeError`。
+    另外：`match_clips.py` 的所有环节幂等（新增 / 补全 / 归位 / 排序），重复运行输出恒为
+    `added 0 … enriched 0 … remapped 0`；`BASE` 跟随脚本位置，**不要写死本机绝对路径**。
+    回归：`.zcode/workspace/default/_verify_clips.py`（10 项）。
