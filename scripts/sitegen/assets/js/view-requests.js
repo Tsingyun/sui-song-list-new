@@ -693,6 +693,7 @@
     var bodyHtml = '<div>' +
       '<p class="req-detail-count">共点歌 <b class="mono">' + count + '</b> 次 · Lv.' + level + '</p>' +
       lastHtml +
+      audTrendHtml(records) +
       (periodSongs.length ? '<h4 class="req-detail-h4">' + esc(periodLabel) + ' 点过的歌</h4>' +
         periodSongs.map(function (s) { return songRowHtml(s, false); }).join('') +
         (otherSongs.length ? '<h4 class="req-detail-h4">过往歌曲</h4>' +
@@ -725,6 +726,110 @@
         openAudience(a.dataset.aud, ctx);
       });
     });
+  }
+
+  /* ───────────── 观众点歌趋势（详情弹层内） ─────────────
+     把该观众的点歌记录聚合到一条连续时间轴上画柱状图。粒度自适应：跨度 ≤14 个月
+     按「月」，更长按「季」——28 个月的月度柱在 320px 宽的弹层里每根不足 10px，
+     标签必然重叠；按季最多 12 根，柱宽与标签都还站得住。
+     零值时段补齐成空柱：补出来的是「这条时间轴上的沉寂」，不是「无数据」，
+     两者在图上必须能分辨（空柱留 2px 浅色痕，横轴保持连续）。 */
+  var TREND_MONTH_MAX = 14;
+
+  function pad2(n) { return n < 10 ? '0' + n : '' + n; }
+
+  /* 首月 → 末月的完整月份序列（含两端），保证时间轴无断点 */
+  function monthSeq(first, last) {
+    var y = +first.slice(0, 4), m = +first.slice(5, 7);
+    var ey = +last.slice(0, 4), em = +last.slice(5, 7);
+    var out = [];
+    while ((y < ey || (y === ey && m <= em)) && out.length < 600) {
+      out.push(y + '-' + pad2(m));
+      m++;
+      if (m > 12) { m = 1; y++; }
+    }
+    return out;
+  }
+
+  function audTrendHtml(records) {
+    var byMonth = {};
+    records.forEach(function (r) { byMonth[r.d.slice(0, 7)] = (byMonth[r.d.slice(0, 7)] || 0) + 1; });
+    var activeMonths = Object.keys(byMonth).sort();
+    var span = monthSeq(activeMonths[0], activeMonths[activeMonths.length - 1]);
+    if (!span.length) span = activeMonths.slice();
+    var byQuarter = span.length > TREND_MONTH_MAX;
+
+    var buckets = [];
+    if (byQuarter) {
+      var qmap = {};
+      span.forEach(function (mk) {
+        var y = mk.slice(0, 4);
+        var q = Math.floor((+mk.slice(5, 7) - 1) / 3) + 1;
+        var qk = y + '-Q' + q;
+        if (!qmap[qk]) qmap[qk] = { label: y.slice(2) + 'Q' + q, full: y + ' 年第 ' + q + ' 季度', v: 0 };
+        qmap[qk].v += byMonth[mk] || 0;
+      });
+      Object.keys(qmap).sort().forEach(function (k) { buckets.push(qmap[k]); });
+    } else {
+      span.forEach(function (mk) { buckets.push({ label: mk.slice(2), full: mk, v: byMonth[mk] || 0 }); });
+    }
+
+    var n = buckets.length, max = 0, peak = 0;
+    buckets.forEach(function (b, i) {
+      if (b.v > max) max = b.v;
+      if (b.v > buckets[peak].v) peak = i;
+    });
+
+    /* 轴标签抽稀：首、末、峰值是读数依据，先占位；再按最小索引间距补均匀参照点。
+       间距不足时挤掉参照点而不是让两个标签叠在一起（390px 弹层里 14 根柱实测过
+       旧的「均匀 + 强制补峰值」会把峰值标签贴到邻居身上）。 */
+    var minGap = Math.max(1, Math.ceil(n / 5));
+    var chosen = [];
+    var addPoint = function (i, force) {
+      if (i < 0 || i >= n) return;
+      for (var k = 0; k < chosen.length; k++) {
+        if (Math.abs(chosen[k] - i) < minGap) {
+          if (force) chosen[k] = i;
+          return;
+        }
+      }
+      chosen.push(i);
+    };
+    if (max > 0) addPoint(peak, true);
+    addPoint(0, true);
+    addPoint(n - 1, true);
+    var want = Math.min(5, n);
+    for (var q2 = 0; q2 < want; q2++) {
+      addPoint(want === 1 ? 0 : Math.round(q2 * (n - 1) / (want - 1)), false);
+    }
+    chosen.sort(function (x, y) { return x - y; });
+
+    var cols = buckets.map(function (b, i) {
+      var h = max ? (b.v / max * 100) : 0;
+      var isPeak = i === peak && max > 0;
+      var cls = 'at-col' + (b.v ? '' : ' is-zero') + (isPeak ? ' is-peak' : '');
+      var val = (isPeak || (b.v && n <= 10))
+        ? '<b class="at-val" style="bottom:calc(' + h.toFixed(2) + '% + 3px)">' + b.v + '</b>' : '';
+      return '<div class="' + cls + '" style="--i:' + i + '" title="' + esc(b.full) + ' · ' + b.v + ' 次">' +
+        '<i class="at-bar" style="height:' + h.toFixed(2) + '%"></i>' + val + '</div>';
+    }).join('');
+
+    var ticks = chosen.map(function (i) {
+      var edge = i === 0 ? ' at-first' : (i === n - 1 ? ' at-last' : '');
+      return '<span class="at-tick' + edge + '" style="left:' + ((i + 0.5) * 100 / n).toFixed(2) + '%">' +
+        esc(buckets[i].label) + '</span>';
+    }).join('');
+
+    var unitLabel = byQuarter ? (n + ' 个季度 / ' + span.length + ' 个月') : (n + ' 个月');
+    var note = '活跃 ' + activeMonths.length + ' 个月 · 跨度 ' + unitLabel +
+      ' · 累计 ' + records.length + ' 次 · 峰值 ' +
+      (max ? buckets[peak].full + '（' + max + ' 次）' : '—');
+
+    return '<h4 class="req-detail-h4">点歌趋势</h4><div class="aud-trend">' +
+      '<div class="at-plot" role="img" aria-label="点歌趋势：' + esc(note) + '">' +
+      '<div class="at-cols">' + cols + '</div>' +
+      '<div class="at-axis">' + ticks + '</div></div>' +
+      '<p class="aud-trend-note">' + esc(note) + '</p></div>';
   }
 
   /* 观众详情里的「本月连续点歌」可展开链 */

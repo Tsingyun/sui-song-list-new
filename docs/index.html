@@ -2198,6 +2198,80 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
 .req-streak-detail { margin-top: .4rem; padding-left: .8rem; line-height: 1.8; border-left: 1px solid var(--line); }
 .req-streak-line { font-size: var(--fs-sm); }
 
+/* ─── 观众详情：点歌趋势柱状图（v3.7.14）───
+   粒度自适应（≤14 个月按月，更长按季），颜色全部走语义通道，深色主题自动跟随；
+   柱高生长动画在 prefers-reduced-motion 下关闭。零值时段画成 2px 浅色痕，
+   与「没有这段时间」区分开。 */
+.aud-trend { margin-top: .1rem; }
+.at-cols {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 96px;
+  margin-top: 1.2rem;
+  border-bottom: 1px solid var(--line-strong);
+}
+.at-cols::before {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; top: 50%;
+  border-top: 1px dashed rgba(var(--ink-rgb), .13);
+}
+.at-col {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 0;
+  max-width: 64px;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+}
+.at-bar {
+  display: block;
+  width: 100%;
+  height: 0;
+  background: rgba(var(--accent-rgb), .45);
+  border-radius: 3px 3px 0 0;
+  transform-origin: bottom;
+  animation: atGrow .42s cubic-bezier(.2, .7, .3, 1) backwards;
+  animation-delay: calc(var(--i, 0) * 22ms);
+  transition: background .18s;
+}
+.at-col.is-peak .at-bar, .at-col:hover .at-bar { background: var(--accent); }
+.at-col.is-zero .at-bar { min-height: 2px; background: rgba(var(--ink-rgb), .13); }
+.at-val {
+  position: absolute;
+  left: 0; right: 0;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: var(--fs-xs);
+  line-height: 1;
+  color: var(--ink-2);
+  pointer-events: none;
+  animation: atFade .35s ease backwards;
+  animation-delay: calc(var(--i, 0) * 22ms + 140ms);
+}
+.at-col.is-peak .at-val { color: var(--accent); }
+.at-axis { position: relative; height: 1.1rem; margin-top: .3rem; }
+.at-tick {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  font-family: var(--mono);
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+.at-tick.at-first { transform: none; }
+.at-tick.at-last { transform: translateX(-100%); }
+.aud-trend-note { margin-top: .45rem; font-size: var(--fs-sm); color: var(--ink-3); line-height: 1.6; }
+@keyframes atGrow { from { transform: scaleY(0); } }
+@keyframes atFade { from { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .at-bar, .at-val { animation: none !important; }
+}
+
 .req-range-row { display: flex; flex-wrap: wrap; gap: .6rem; align-items: end; }
 .req-range-row label { display: flex; flex-direction: column; gap: .25rem; font-size: var(--fs-sm); color: var(--ink-3); }
 .req-range-result { margin-top: 1rem; max-height: 22rem; overflow: auto; }
@@ -3601,7 +3675,7 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
       '<div class="foot-col"><h4>SUI SONG ARCHIVE</h4>' +
       '<p class="foot-span">' + esc(S.first.slice(0, 7).replace('-', '.')) + ' — ' + esc(S.last.slice(0, 7).replace('-', '.')) + '</p>' +
       '<p>收录歌曲 ' + D.fmtInt(S.total) + ' 首 · 演唱 ' + D.fmtInt(S.performances) + ' 次 · 点歌 ' + D.fmtInt(R.total) + ' 次</p>' +
-      '<span class="foot-ver">界面版本 v3.7.13</span></div>' +
+      '<span class="foot-ver">界面版本 v3.7.14</span></div>' +
       '<div class="foot-col"><h4>数据来源</h4><ul>' +
       '<li><a href="https://www.suijisui.space" target="_blank" rel="noopener">suijisui.space</a>（PQL87/sui-song-list）</li>' +
       '<li><a href="#/requests">点歌统计（已并入本站）</a> · 源自直播间点歌记录</li>' +
@@ -5488,6 +5562,7 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
     var bodyHtml = '<div>' +
       '<p class="req-detail-count">共点歌 <b class="mono">' + count + '</b> 次 · Lv.' + level + '</p>' +
       lastHtml +
+      audTrendHtml(records) +
       (periodSongs.length ? '<h4 class="req-detail-h4">' + esc(periodLabel) + ' 点过的歌</h4>' +
         periodSongs.map(function (s) { return songRowHtml(s, false); }).join('') +
         (otherSongs.length ? '<h4 class="req-detail-h4">过往歌曲</h4>' +
@@ -5520,6 +5595,110 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
         openAudience(a.dataset.aud, ctx);
       });
     });
+  }
+
+  /* ───────────── 观众点歌趋势（详情弹层内） ─────────────
+     把该观众的点歌记录聚合到一条连续时间轴上画柱状图。粒度自适应：跨度 ≤14 个月
+     按「月」，更长按「季」——28 个月的月度柱在 320px 宽的弹层里每根不足 10px，
+     标签必然重叠；按季最多 12 根，柱宽与标签都还站得住。
+     零值时段补齐成空柱：补出来的是「这条时间轴上的沉寂」，不是「无数据」，
+     两者在图上必须能分辨（空柱留 2px 浅色痕，横轴保持连续）。 */
+  var TREND_MONTH_MAX = 14;
+
+  function pad2(n) { return n < 10 ? '0' + n : '' + n; }
+
+  /* 首月 → 末月的完整月份序列（含两端），保证时间轴无断点 */
+  function monthSeq(first, last) {
+    var y = +first.slice(0, 4), m = +first.slice(5, 7);
+    var ey = +last.slice(0, 4), em = +last.slice(5, 7);
+    var out = [];
+    while ((y < ey || (y === ey && m <= em)) && out.length < 600) {
+      out.push(y + '-' + pad2(m));
+      m++;
+      if (m > 12) { m = 1; y++; }
+    }
+    return out;
+  }
+
+  function audTrendHtml(records) {
+    var byMonth = {};
+    records.forEach(function (r) { byMonth[r.d.slice(0, 7)] = (byMonth[r.d.slice(0, 7)] || 0) + 1; });
+    var activeMonths = Object.keys(byMonth).sort();
+    var span = monthSeq(activeMonths[0], activeMonths[activeMonths.length - 1]);
+    if (!span.length) span = activeMonths.slice();
+    var byQuarter = span.length > TREND_MONTH_MAX;
+
+    var buckets = [];
+    if (byQuarter) {
+      var qmap = {};
+      span.forEach(function (mk) {
+        var y = mk.slice(0, 4);
+        var q = Math.floor((+mk.slice(5, 7) - 1) / 3) + 1;
+        var qk = y + '-Q' + q;
+        if (!qmap[qk]) qmap[qk] = { label: y.slice(2) + 'Q' + q, full: y + ' 年第 ' + q + ' 季度', v: 0 };
+        qmap[qk].v += byMonth[mk] || 0;
+      });
+      Object.keys(qmap).sort().forEach(function (k) { buckets.push(qmap[k]); });
+    } else {
+      span.forEach(function (mk) { buckets.push({ label: mk.slice(2), full: mk, v: byMonth[mk] || 0 }); });
+    }
+
+    var n = buckets.length, max = 0, peak = 0;
+    buckets.forEach(function (b, i) {
+      if (b.v > max) max = b.v;
+      if (b.v > buckets[peak].v) peak = i;
+    });
+
+    /* 轴标签抽稀：首、末、峰值是读数依据，先占位；再按最小索引间距补均匀参照点。
+       间距不足时挤掉参照点而不是让两个标签叠在一起（390px 弹层里 14 根柱实测过
+       旧的「均匀 + 强制补峰值」会把峰值标签贴到邻居身上）。 */
+    var minGap = Math.max(1, Math.ceil(n / 5));
+    var chosen = [];
+    var addPoint = function (i, force) {
+      if (i < 0 || i >= n) return;
+      for (var k = 0; k < chosen.length; k++) {
+        if (Math.abs(chosen[k] - i) < minGap) {
+          if (force) chosen[k] = i;
+          return;
+        }
+      }
+      chosen.push(i);
+    };
+    if (max > 0) addPoint(peak, true);
+    addPoint(0, true);
+    addPoint(n - 1, true);
+    var want = Math.min(5, n);
+    for (var q2 = 0; q2 < want; q2++) {
+      addPoint(want === 1 ? 0 : Math.round(q2 * (n - 1) / (want - 1)), false);
+    }
+    chosen.sort(function (x, y) { return x - y; });
+
+    var cols = buckets.map(function (b, i) {
+      var h = max ? (b.v / max * 100) : 0;
+      var isPeak = i === peak && max > 0;
+      var cls = 'at-col' + (b.v ? '' : ' is-zero') + (isPeak ? ' is-peak' : '');
+      var val = (isPeak || (b.v && n <= 10))
+        ? '<b class="at-val" style="bottom:calc(' + h.toFixed(2) + '% + 3px)">' + b.v + '</b>' : '';
+      return '<div class="' + cls + '" style="--i:' + i + '" title="' + esc(b.full) + ' · ' + b.v + ' 次">' +
+        '<i class="at-bar" style="height:' + h.toFixed(2) + '%"></i>' + val + '</div>';
+    }).join('');
+
+    var ticks = chosen.map(function (i) {
+      var edge = i === 0 ? ' at-first' : (i === n - 1 ? ' at-last' : '');
+      return '<span class="at-tick' + edge + '" style="left:' + ((i + 0.5) * 100 / n).toFixed(2) + '%">' +
+        esc(buckets[i].label) + '</span>';
+    }).join('');
+
+    var unitLabel = byQuarter ? (n + ' 个季度 / ' + span.length + ' 个月') : (n + ' 个月');
+    var note = '活跃 ' + activeMonths.length + ' 个月 · 跨度 ' + unitLabel +
+      ' · 累计 ' + records.length + ' 次 · 峰值 ' +
+      (max ? buckets[peak].full + '（' + max + ' 次）' : '—');
+
+    return '<h4 class="req-detail-h4">点歌趋势</h4><div class="aud-trend">' +
+      '<div class="at-plot" role="img" aria-label="点歌趋势：' + esc(note) + '">' +
+      '<div class="at-cols">' + cols + '</div>' +
+      '<div class="at-axis">' + ticks + '</div></div>' +
+      '<p class="aud-trend-note">' + esc(note) + '</p></div>';
   }
 
   /* 观众详情里的「本月连续点歌」可展开链 */
@@ -5877,6 +6056,7 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
   var esc = C.esc;
 
   var CHANGELOG = [
+    ['v3.7.14', '点歌页新增观众点歌趋势图：展开任意观众（详情弹层）即可看到其点歌量随时间变化的柱状图——粒度自适应（跨度 ≤14 个月按月、更长按季），零值时段保留 2px 浅色痕以区分「沉寂期」与「无数据」，峰值柱常显数值、其余悬停显示，柱高生长动画在 reduced-motion 下自动关闭；随图给出活跃月数 / 跨度 / 累计次数 / 峰值时段一行摘要'],
     ['v3.7.13', '搜索与表单输入框不再被浏览器自动填充打扰：全站搜索框（歌曲 / 点歌 / 常唱 / 原唱）与「我要补充」表单统一关闭浏览器输入历史与自动填充（autocomplete=off + 打散字段名 + 关闭拼写纠正），密码管理器（LastPass / 1Password / Bitwarden / Dashlane）也不再往这些框里塞东西；输入、中文输入法、聚焦与重渲行为一切照旧'],
     ['v3.7.12', '顶栏小鸟 LOGO 垂直回正：原图上方自带约 30px 透明留白，居中后图标视觉偏下，现按实测值上移 5px 补偿，与品牌文字真正对齐（只做视觉位移，不影响顶栏布局）'],
     ['v3.7.11', '三项交互升级：歌曲详情页新增「← 返回」按钮，优先回到进入详情前的浏览页、直链打开时回歌曲列表；全站页面切换与弹层增加淡入过渡（reduced-motion 自动关闭）；原唱分类点击改为弹出详情卡片——渐变饰带、三项统计、代表曲 Top8 与「查看全部」，点歌名直达详情、ESC / 遮罩 / 关闭键均可关闭'],
@@ -5918,7 +6098,7 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
   function render(params, container) {
     container.innerHTML =
       '<div class="sec-head"><div class="sec-kicker">ABOUT</div>' +
-      '<h2 class="sec-title">关于本站 <span class="sec-sub">SUI SONG ARCHIVE v3.7.13</span></h2></div>' +
+      '<h2 class="sec-title">关于本站 <span class="sec-sub">SUI SONG ARCHIVE v3.7.14</span></h2></div>' +
 
       /* ── 角色档案：本站唯一的「岁己本人出场」板块，设定均取自官方资料 ── */
       '<section class="sui-profile">' +

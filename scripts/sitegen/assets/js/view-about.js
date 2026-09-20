@@ -5,6 +5,7 @@
   var esc = C.esc;
 
   var CHANGELOG = [
+    ['v3.7.14', '点歌页新增观众点歌趋势图：展开任意观众（详情弹层）即可看到其点歌量随时间变化的柱状图——粒度自适应（跨度 ≤14 个月按月、更长按季），零值时段保留 2px 浅色痕以区分「沉寂期」与「无数据」，峰值柱常显数值、其余悬停显示，柱高生长动画在 reduced-motion 下自动关闭；随图给出活跃月数 / 跨度 / 累计次数 / 峰值时段一行摘要'],
     ['v3.7.13', '搜索与表单输入框不再被浏览器自动填充打扰：全站搜索框（歌曲 / 点歌 / 常唱 / 原唱）与「我要补充」表单统一关闭浏览器输入历史与自动填充（autocomplete=off + 打散字段名 + 关闭拼写纠正），密码管理器（LastPass / 1Password / Bitwarden / Dashlane）也不再往这些框里塞东西；输入、中文输入法、聚焦与重渲行为一切照旧'],
     ['v3.7.12', '顶栏小鸟 LOGO 垂直回正：原图上方自带约 30px 透明留白，居中后图标视觉偏下，现按实测值上移 5px 补偿，与品牌文字真正对齐（只做视觉位移，不影响顶栏布局）'],
     ['v3.7.11', '三项交互升级：歌曲详情页新增「← 返回」按钮，优先回到进入详情前的浏览页、直链打开时回歌曲列表；全站页面切换与弹层增加淡入过渡（reduced-motion 自动关闭）；原唱分类点击改为弹出详情卡片——渐变饰带、三项统计、代表曲 Top8 与「查看全部」，点歌名直达详情、ESC / 遮罩 / 关闭键均可关闭'],
@@ -46,7 +47,7 @@
   function render(params, container) {
     container.innerHTML =
       '<div class="sec-head"><div class="sec-kicker">ABOUT</div>' +
-      '<h2 class="sec-title">关于本站 <span class="sec-sub">SUI SONG ARCHIVE v3.7.13</span></h2></div>' +
+      '<h2 class="sec-title">关于本站 <span class="sec-sub">SUI SONG ARCHIVE v3.7.14</span></h2></div>' +
 
       /* ── 角色档案：本站唯一的「岁己本人出场」板块，设定均取自官方资料 ── */
       '<section class="sui-profile">' +

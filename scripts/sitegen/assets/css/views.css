@@ -804,6 +804,80 @@
 .req-streak-detail { margin-top: .4rem; padding-left: .8rem; line-height: 1.8; border-left: 1px solid var(--line); }
 .req-streak-line { font-size: var(--fs-sm); }
 
+/* ─── 观众详情：点歌趋势柱状图（v3.7.14）───
+   粒度自适应（≤14 个月按月，更长按季），颜色全部走语义通道，深色主题自动跟随；
+   柱高生长动画在 prefers-reduced-motion 下关闭。零值时段画成 2px 浅色痕，
+   与「没有这段时间」区分开。 */
+.aud-trend { margin-top: .1rem; }
+.at-cols {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 96px;
+  margin-top: 1.2rem;
+  border-bottom: 1px solid var(--line-strong);
+}
+.at-cols::before {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; top: 50%;
+  border-top: 1px dashed rgba(var(--ink-rgb), .13);
+}
+.at-col {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 0;
+  max-width: 64px;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+}
+.at-bar {
+  display: block;
+  width: 100%;
+  height: 0;
+  background: rgba(var(--accent-rgb), .45);
+  border-radius: 3px 3px 0 0;
+  transform-origin: bottom;
+  animation: atGrow .42s cubic-bezier(.2, .7, .3, 1) backwards;
+  animation-delay: calc(var(--i, 0) * 22ms);
+  transition: background .18s;
+}
+.at-col.is-peak .at-bar, .at-col:hover .at-bar { background: var(--accent); }
+.at-col.is-zero .at-bar { min-height: 2px; background: rgba(var(--ink-rgb), .13); }
+.at-val {
+  position: absolute;
+  left: 0; right: 0;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: var(--fs-xs);
+  line-height: 1;
+  color: var(--ink-2);
+  pointer-events: none;
+  animation: atFade .35s ease backwards;
+  animation-delay: calc(var(--i, 0) * 22ms + 140ms);
+}
+.at-col.is-peak .at-val { color: var(--accent); }
+.at-axis { position: relative; height: 1.1rem; margin-top: .3rem; }
+.at-tick {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  font-family: var(--mono);
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+.at-tick.at-first { transform: none; }
+.at-tick.at-last { transform: translateX(-100%); }
+.aud-trend-note { margin-top: .45rem; font-size: var(--fs-sm); color: var(--ink-3); line-height: 1.6; }
+@keyframes atGrow { from { transform: scaleY(0); } }
+@keyframes atFade { from { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .at-bar, .at-val { animation: none !important; }
+}
+
 .req-range-row { display: flex; flex-wrap: wrap; gap: .6rem; align-items: end; }
 .req-range-row label { display: flex; flex-direction: column; gap: .25rem; font-size: var(--fs-sm); color: var(--ink-3); }
 .req-range-result { margin-top: 1rem; max-height: 22rem; overflow: auto; }
