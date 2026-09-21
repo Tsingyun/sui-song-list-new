@@ -39,12 +39,20 @@ added these derived boards, all computed from raw_data with the same rules the
 stats repo used — never hand-patched:
 
 跨月冠军 championStreaks
-    Champion of month M = month_champions(), i.e. the SAME significant-lead rule
-    the monthly board uses (a month with no significant leader contributes no
-    crown, which naturally breaks a streak).
-    A streak = a run of CALENDAR-CONTIGUOUS months (2024-12 -> 2025-01 counts)
-    where the same audience kept the crown; only runs >= 2 are reported, and each
-    audience keeps its single LONGEST run.
+    Exactly three rules, nothing else:
+      1. qualify = being the UNIQUE #1 of two consecutive natural months.
+         Consecutive months merge into one run (2025-01..03 is one row).
+      2. only months that have fully ENDED take part — the current, unfinished
+         month is dropped (and so is anything later).
+      3. a month with no unique #1 (a tie, or everybody equal) is VOID: it has
+         no leader at all, it breaks the chain (a run can never span across
+         it), and pairing restarts at the next valid month.
+    A run is CALENDAR-CONTIGUOUS (2024-12 -> 2025-01 counts); only runs >= 2 are
+    reported. Months are read from the data — never hardcoded.
+    NOTE: this is deliberately NOT the 👑 rule. 👑 (month_champions) is a
+    HIGHLIGHT badge on the monthly board that additionally demands a significant
+    lead; 榜首 here is the plain fact "who was on top", plus the one requirement
+    that the top spot be UNIQUE.
 
 成就殿堂 achievements
     点歌之王 (top of the total board) / 百首俱乐部 (everyone >= 100 requests) /
@@ -103,8 +111,9 @@ def month_champions(counter):
     (tied), everyone on 1. Being the only name on an otherwise empty board still
     requires >= 2 requests.
 
-    This single definition is shared by the monthly board (payload['champs']) and
-    by compute_champion_streaks(), so the two can never drift apart.
+    Used by the monthly board (payload['champs']) only — 跨月冠军
+    (compute_champion_streaks) asks a narrower question (unique #1) and is
+    defined separately on purpose.
     """
     if not counter:
         return []
@@ -123,29 +132,62 @@ def month_champions(counter):
     return []
 
 
-def compute_champion_streaks(monthly_counter):
-    """Runs of calendar-contiguous months where the same audience topped the month."""
-    month_champs = defaultdict(set)
-    for month, counter in monthly_counter.items():
-        for aud in month_champions(counter):
-            month_champs[aud].add(month)
+def month_leader(counter):
+    """The month's UNIQUE #1, or None.
+
+    The only question asked is "is there exactly one name on top". There is no
+    minimum count and no required lead — those are the 👑 rule's business
+    (month_champions), not this board's.
+
+    A tie returns None: such a month is VOID, it has no leader, and it breaks
+    the cross-month chain (see compute_champion_streaks).
+    """
+    if not counter:
+        return None
+    top = max(counter.values())
+    leaders = [a for a, c in counter.items() if c == top]
+    return leaders[0] if len(leaders) == 1 else None
+
+
+def compute_champion_streaks(monthly_counter, current_ym=None):
+    """Runs of >= 2 calendar-contiguous months where the same audience was the
+    month's UNIQUE #1.
+
+    Rules (all of them — see the module docstring):
+      1. qualify = unique #1 in two consecutive natural months; consecutive
+         months merge into a single run (2025-01..03 is one row, not two).
+      2. only months that have fully ENDED take part. The current, unfinished
+         month is dropped (and anything later with it).
+      3. a month without a unique #1 is VOID — no leader, and it breaks the
+         chain, so a run can never span across it; pairing restarts at the
+         next valid month.
+
+    `current_ym` defaults to the month the build runs in; pass it explicitly to
+    make a test independent of the calendar.
+    """
+    if current_ym is None:
+        now = _datetime.now()
+        current_ym = '%04d-%02d' % (now.year, now.month)
+
+    # rule 2 — drop the unfinished month (and any later one)
+    leader = {m: month_leader(c) for m, c in monthly_counter.items()
+              if month_index(m) < month_index(current_ym)}
+    # rule 3 — void months carry no leader, so they are simply absent here;
+    # the +1 check below then keeps a run from spanning across one.
+    months = sorted((m for m, who in leader.items() if who), key=month_index)
 
     out = []
-    for aud, months in month_champs.items():
-        ms = sorted(months, key=month_index)
-        best = None
-        run = [ms[0]]
-        for prev, cur in zip(ms, ms[1:]):
-            if month_index(cur) == month_index(prev) + 1:
-                run.append(cur)
-            else:
-                if best is None or len(run) > len(best):
-                    best = run
-                run = [cur]
-        if best is None or len(run) > len(best):
-            best = run
-        if len(best) >= 2:
-            out.append({'n': aud, 'months': best, 'len': len(best)})
+    run = []
+    for m in months:
+        if (run and month_index(m) == month_index(run[-1]) + 1
+                and leader[m] == leader[run[-1]]):
+            run.append(m)
+        else:
+            if len(run) >= 2:
+                out.append({'n': leader[run[0]], 'months': run, 'len': len(run)})
+            run = [m]
+    if len(run) >= 2:
+        out.append({'n': leader[run[0]], 'months': run, 'len': len(run)})
     out.sort(key=lambda x: (-x['len'], month_index(x['months'][0])))
     return out
 

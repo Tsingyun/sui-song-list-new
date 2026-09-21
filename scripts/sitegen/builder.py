@@ -25,6 +25,12 @@ BILI_SPACE_URL = 'https://space.bilibili.com/1954091502'
 # 第一项同时作为加载失败时的兜底图，建议保持为 1080×2338 的全身立绘。
 HERO_ART = ['sui-fullbody.webp', 'sui-short.webp', 'sui-chibi.webp']
 
+# 桌宠（可选功能，默认不加载）：整目录发布到 docs/assets/pet/。
+# 资源由 scripts/build_pet_assets.py 整理生成（贴图 PNG→WebP、vendor three.js、PMX 模型），
+# 前端只在用户点顶栏开关时才 import —— 首屏零成本。
+# 若要下线这个功能：删除 scripts/sitegen/assets/pet/ 即可，构建与其余功能不受影响。
+PET_ASSETS = 'pet'
+
 
 def read_asset(*parts):
     with open(os.path.join(ASSETS_DIR, *parts), encoding='utf-8') as f:
@@ -67,6 +73,18 @@ def copy_static_assets():
             shutil.copy(src, os.path.join(out_dir, fn))
 
 
+def copy_pet_assets():
+    """桌宠资源整目录拷贝。
+
+    刻意用 dirs_exist_ok 而不是先 rmtree：构建脚本跑在 GitHub Actions 里，
+    对 docs/ 下的目录只增不删更安全（残留的旧贴图只是多占几 KB，不会让站点出错）。
+    """
+    src = os.path.join(ASSETS_DIR, PET_ASSETS)
+    if not os.path.isdir(src):
+        return
+    shutil.copytree(src, os.path.join(DOCS_DIR, 'assets', PET_ASSETS), dirs_exist_ok=True)
+
+
 def build():
     payload = {'songs': datalayer.build_song_payload(),
                'requests': reqstats.build_request_payload(),
@@ -87,5 +105,6 @@ def build():
     with open(out, 'w', encoding='utf-8') as f:
         f.write(html)
     copy_static_assets()
+    copy_pet_assets()
     print('Written: %s (%.1f KB)' % (out, os.path.getsize(out) / 1024))
     return out

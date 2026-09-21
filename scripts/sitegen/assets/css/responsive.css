@@ -161,8 +161,15 @@
 }
 
 /* 打印：无论当前主题，打印一律回到浅色纸面（否则深色下会打出白底浅字） */
+/* 桌宠：窄屏不提供入口 —— 220px 宽的小人在手机屏上只会挡内容。
+   与 JS 里的 narrow() 判定阈值保持一致（都是 720px）。 */
+@media (max-width: 720px) {
+  .pet-toggle { display: none; }
+  .sui-pet { display: none !important; }
+}
+
 @media print {
-  .site-head, .site-foot, .back-top, .player, .toolbar { display: none !important; }
+  .site-head, .site-foot, .back-top, .player, .toolbar, .sui-pet { display: none !important; }
   body { background: #fff; }
   html[data-theme="dark"] {
     color-scheme: light;
@@ -179,3 +186,4 @@
     --green: #33604e;
   }
 }
+

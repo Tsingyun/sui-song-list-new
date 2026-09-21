@@ -394,7 +394,7 @@
       return '<div class="req-champ-row" data-aud="' + esc(s.n) + '">' +
         '<span class="req-champ-idx mono">' + String(i + 1).padStart(2, '0') + '</span>' +
         '<span class="req-champ-name">' + esc(s.n) + '</span>' +
-        '<span class="req-champ-meta mono">连续 <b>' + s.len + '</b> 个月夺冠 · ' +
+        '<span class="req-champ-meta mono">连续 <b>' + s.len + '</b> 个月登顶 · ' +
         esc(s.months[0]) + ' — ' + esc(s.months[s.months.length - 1]) + '</span></div>';
     }).join('') + '</div>';
   }

@@ -46,6 +46,14 @@
       <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.4 14.2A8.4 8.4 0 0 1 9.8 3.6a8.4 8.4 0 1 0 10.6 10.6z"/></svg>
       <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M4.9 4.9l1.6 1.6M17.5 17.5l1.6 1.6M19.1 4.9l-1.6 1.6M6.5 17.5l-1.6 1.6"/></svg>
     </button>
+    <button type="button" class="pet-toggle" id="petToggle" aria-pressed="false"
+            aria-label="召唤桌宠" title="召唤桌宠（会在右下角出现一个可拖动的 3D 小人）">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="8.2" r="4.2"/>
+        <path d="M4.6 20.4c0-3.4 3.3-5.6 7.4-5.6s7.4 2.2 7.4 5.6"/>
+        <circle cx="6.1" cy="4.4" r="1.9"/><circle cx="17.9" cy="4.4" r="1.9"/>
+      </svg>
+    </button>
     <div class="head-actions">
       <button type="button" class="btn btn-ghost btn-sm" id="globalRandom">盲盒抽歌</button>
       <button type="button" class="btn btn-primary btn-sm" id="globalContribute">我要补充</button>
@@ -84,6 +92,90 @@
 
 <button type="button" class="back-top" id="backTop" aria-label="返回顶部" title="返回顶部">↑<img
   class="back-top-perch" src="assets/sui-bird.png" alt="" aria-hidden="true"></button>
+
+<!-- 桌宠容器：默认 hidden、零成本；点了顶栏的开关才按需 import 资源 -->
+<div class="sui-pet" id="suiPet" hidden></div>
+
+<!-- three.js 的 importmap —— 未唤起桌宠时完全是惰性的（没人 import 就不解析） -->
+<script type="importmap">
+{ "imports": {
+  "three": "./assets/pet/three.module.js",
+  "three/addons/": "./assets/pet/jsm/"
+}}
+</script>
+
+<script>
+/* 桌宠引导（内联，只有几行）
+   资源（three.js + PMX 模型 + 贴图，约 8MB）**只在开启时才 import**，首屏完全不受影响。
+   开启状态记在 localStorage['sui-pet']；桌宠在页面上的位置由 pet-core.js 自己记在
+   localStorage['suipet:pos']。窄屏（<720px）不提供入口，阈值与 responsive.css 一致。 */
+(function () {
+  var KEY = 'sui-pet';
+  var root = document.getElementById('suiPet');
+  var btn = document.getElementById('petToggle');
+  if (!root || !btn) return;
+  var pet = null, loading = false;
+
+  function narrow() { return window.innerWidth < 720; }
+  function paint(on) {
+    btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    var label = on ? '收起桌宠' : '召唤桌宠（会在右下角出现一个可拖动的 3D 小人）';
+    btn.title = label;
+    btn.setAttribute('aria-label', on ? '收起桌宠' : '召唤桌宠');
+  }
+  function enable() {
+    if (loading || pet) return;
+    loading = true;
+    root.hidden = false;
+    import('./assets/pet/pet-core.js').then(function (m) {
+      loading = false;
+      pet = m.mountPet({
+        root: root,
+        model: 'assets/pet/model/Suifel.pmx',
+        textureExt: '.webp',
+        petBottom: 0           /* v3：脚踩在窗口底边那条「地面」上（原先垫 72px 是悬空的） */
+      });
+      paint(true);
+      try { localStorage.setItem(KEY, '1'); } catch (e) {}
+    }).catch(function (e) {
+      loading = false;
+      root.hidden = true;
+      root.innerHTML = '';
+      paint(false);
+      try { localStorage.removeItem(KEY); } catch (e2) {}
+      btn.title = '桌宠加载失败（可能没联网或资源缺失）';
+      if (window.console) console.warn('[sui-pet] load failed:', e);
+    });
+  }
+  function disable() {
+    if (pet && pet.destroy) pet.destroy();
+    pet = null;
+    root.hidden = true;
+    root.innerHTML = '';
+    paint(false);
+    try { localStorage.setItem(KEY, '0'); } catch (e) {}
+  }
+  btn.addEventListener('click', function () { if (pet) disable(); else enable(); });
+  var saved = null;
+  try { saved = localStorage.getItem(KEY); } catch (e) {}
+  /* v3：默认自动启动 —— 只有用户明确收起过（存 '0'）才不开。
+     但**必须等首屏跑完再启动**：桌宠资源约 8MB，若一打开页面就抢带宽，
+     首屏文本/字体会被拖慢。用 requestIdleCallback 在浏览器空闲时才 import
+     （不支持的环境退回 900ms 的 setTimeout，并给 2.5s 的兜底超时）。 */
+  if (saved !== '0' && !narrow()) {
+    var kick = window.requestIdleCallback
+      || function (fn) { return setTimeout(fn, 900); };
+    var boot = function () { kick(function () { if (!narrow()) enable(); }, { timeout: 2500 }); };
+    /* 必须等 window 的 load 事件之后再 import：若在 load 前 import，
+       桌宠的 8MB 资源会被计进首屏 load 事件（loadEventEnd 被拖慢 ~2s），
+       「首屏零负担」就名存实亡了。load 完成后再挑浏览器空闲的时机启动。 */
+    if (document.readyState === 'complete') boot();
+    else window.addEventListener('load', boot);
+  }
+  /* 视口缩到窄屏时收起来，避免手机横竖屏切换后残留 */
+  window.addEventListener('resize', function () { if (narrow() && pet) disable(); });
+})();
+</script>
 
 <!--INLINE_DATA-->
 <!--INLINE_JS-->

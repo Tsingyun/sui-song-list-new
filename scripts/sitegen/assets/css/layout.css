@@ -5,7 +5,7 @@
    遮罩铺满全屏（含顶栏区域）时，点在导航上的鼠标事件被遮罩接走 ——
    弹层只是被关掉、页面并不会跳转，用户看到的就是「点了没反应」。
    现行层级梯子（改动任一条都要回来对一遍）：
-     内容 0/60/300 · 返回顶部 400 · 播放器 800 ·
+     内容 0/60/300 · >>> 桌宠 350 <<< · 返回顶部 400 · 播放器 800 ·
     侧栏遮罩 870 · 侧栏 880 · 弹层遮罩 900 · 彩蛋 905 ·
      >>> 顶栏 910 <<< · 悬浮提示 950 · toast 1000 · 彩纸 1001
    即：凡是「页面级」浮层都排在顶栏之下，顶栏永远可点是这套层级的第一原则。 */
@@ -116,6 +116,54 @@
 .theme-toggle .icon-sun { display: none; }
 html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
 html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+
+/* 桌宠开关 —— 与 .theme-toggle 同构的圆形图标钮，放在它旁边。
+   与主题钮的区别：窄屏要隐藏，所以别跟 .head-actions 共用显隐规则。 */
+.pet-toggle {
+  width: 34px; height: 34px;
+  flex-shrink: 0;
+  display: grid; place-items: center;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  color: var(--ink-2);
+  background: var(--surface);
+  transition: color var(--dur), border-color var(--dur), background var(--dur), transform var(--dur);
+}
+.pet-toggle:hover { color: var(--ink); border-color: var(--ink); transform: translateY(-1px); }
+.pet-toggle:active { transform: none; }
+.pet-toggle svg { width: 16px; height: 16px; display: block; }
+/* 已开启：强调色描边，一眼看出状态 */
+.pet-toggle[aria-pressed="true"] { color: var(--accent-deep); border-color: var(--accent-deep); }
+.pet-toggle[aria-pressed="true"]:hover { background: rgba(var(--ink-rgb), .05); }
+
+/* 桌宠容器
+   由 assets/pet/pet-core.js 接管：写入 --px/--py 定位，逐帧做模型命中测试，
+   只有指针真的落在模型轮廓上时才给 canvas 打开 pointer-events（其余时刻整层穿透）。
+   z-index 350 = 内容之上、返回顶部(400)之下 —— 右下角的「返回顶部」永远压得住它、点得到。
+   尺寸用 clamp：与 .back-top 一样是「页面级浮层」，但更靠前一层。 */
+.sui-pet {
+  position: fixed; left: 0; top: 0;
+  /* v4.1：整体等比缩小 50%（原 220/26vw/380 在页面上太大）。
+     模型是按容器填充取景的，容器减半即模型减半，定位与命中测试逻辑不受影响。 */
+  width: clamp(110px, 13vw, 190px);
+  aspect-ratio: 3 / 4;
+  z-index: 350;
+  /* v4：rotate = 落体翻滚，scale = 落地挤压（变量由 pet-core.js 逐帧写入） */
+  transform: translate3d(var(--px, 0px), var(--py, 0px), 0)
+             rotate(var(--rot, 0rad)) scale(var(--sx, 1), var(--sy, 1));
+  will-change: transform;
+  pointer-events: none;
+  touch-action: none;
+}
+.sui-pet[hidden] { display: none; }
+.sui-pet canvas { display: block; width: 100%; height: 100%; background: transparent;
+  pointer-events: none; cursor: grab; }
+.sui-pet.live canvas { pointer-events: auto; }
+.sui-pet.dragging canvas { cursor: grabbing; }
+@media (prefers-reduced-motion: reduce) {
+  /* 桌宠在减弱动效下不再自发播放动作（pet-core.js 内部也同步关掉），这里只管过渡 */
+  .pet-toggle { transition: none; }
+}
 
 /* 主内容
    z-index:0 让它自成层叠上下文：路由注入的 .sui-watermark 用 z-index:-1
