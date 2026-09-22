@@ -77,6 +77,41 @@ python -X utf8 scripts/import_request_stats.py <sui-song-stats仓库>/song_data_
 python -X utf8 scripts/build_site.py
 ```
 
+### 3.5 点歌提交即触歌切匹配（process_submission.py）
+
+每次"接收到歌曲名"（点歌提交）走统一编排 `scripts/process_submission.py`，把加歌、点歌数据、
+**歌切匹配**、重建串成一步，agent 直接调它即可（不要再手动分步拼 add_songs + 内联改 request_stats）。
+
+```bash
+# TSV（首行列日期，后续行复用；第三列=点歌人，缺省=岁己自决演唱）
+python -X utf8 scripts/process_submission.py --tsv-text "2026年9月20日	太陽と向日葵	Vaserkia
+听见下雨的声音	人活着是为了02
+君が生まれた日"
+# 或显式传参：audiences 与 songs 对齐，空串=自决演唱
+python -X utf8 scripts/process_submission.py --date 2026-09-20 --songs "歌A,歌B" --audiences "观众1,,"
+```
+
+流水线四步（脚本内已固化，勿拆回手改）：
+1. `add_songs --no-rebuild` 更新 `song_data`（count+1/last）+ `sui_song_list_complete`（热力图逐日记录）
+2. `request_stats`：有点歌人 → `raw_data` 追加 `{date,song,audience}`（幂等）；**自决演唱（无点歌人）不入 raw_data**，
+   但演出日仍进 `live_dates`
+3. **歌切匹配——只使用 `data/clips/clips_<早于提交日>.json` 缓存，离线跑 `match_clips.py`**：
+   - 选日期**严格早于**提交日的最新一份缓存（ISO 字符串比较 `<`），**绝不抓取当日歌切**
+   - 当日 clip 大概率尚未生成/上传，抓取会得到残缺或错误结果；当日那条交给每日抓取步骤补
+   - 无早于提交日的缓存时**跳过并提示**，不降级为实时抓取
+4. `build_site.py` 重建 → 首页「最近演唱」由 `complete` 在构建期派生（`datalayer.build_song_payload`
+   的 `recent`），随 complete 更新自动同步，无需单独处理
+
+**每日歌切抓取（直播归档后在本地跑，生成缓存并同步匹配）**：
+
+```bash
+python -X utf8 scripts/match_clips.py --save-clips data/clips/clips_$(date +%F).json
+```
+
+此命令既把当日 raw clips 存进 `data/clips/clips_YYYY-MM-DD.json`（供后续提交离线比对），
+也顺手把当日 clip 匹配进 `song_bilibili_map.json`。`data/clips/` 已被 .gitignore 忽略（缓存为中间产物，
+只提交匹配结果 `song_bilibili_map.json`）。
+
 ---
 
 ## 4. 构建器（scripts/sitegen/）

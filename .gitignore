@@ -7,6 +7,9 @@ __pycache__/
 fetch_progress.json
 bilibili_videos.json
 
+# 每日歌切抓取缓存（中间产物，仅提交匹配结果 song_bilibili_map.json）
+data/clips/
+
 # OS files
 .DS_Store
 Thumbs.db
