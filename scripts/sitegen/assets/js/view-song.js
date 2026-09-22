@@ -83,7 +83,6 @@
 
     container.innerHTML =
       '<div class="song-hero">' +
-      '<img class="song-sui" src="assets/sui-short.webp" alt="" aria-hidden="true" loading="lazy">' +
       '<div class="crumbs"><button type="button" class="back-btn" id="songBack" aria-label="返回上一页">← 返回</button>' +
       '<a href="' + C.buildHash('songs') + '">SONGS</a> / #' + (rank || '—') + '</div>' +
       '<h1>' + esc(song.name) + '</h1>' +

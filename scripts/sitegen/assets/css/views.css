@@ -406,18 +406,6 @@
 .song-hero .meta-line .artist { font-weight: 600; color: var(--ink); }
 .song-hero .actions { display: flex; gap: .5rem; margin-top: 1.1rem; flex-wrap: wrap; }
 /* 印鉴：红贝雷头像圆贴 + 光环金环 */
-/* 岁己短发立绘从右上探出：头部裁切 + 底缘渐隐融入纸面 */
-.song-hero .song-sui {
-  position: absolute;
-  top: -1.3rem; right: 0;
-  width: 122px; height: 162px;
-  object-fit: cover;
-  object-position: 50% 4%;
-  pointer-events: none;
-  -webkit-mask-image: linear-gradient(180deg, #000 70%, transparent 100%);
-  mask-image: linear-gradient(180deg, #000 70%, transparent 100%);
-  z-index: 0;
-}
 /* 印鉴（v3.7.9）：不再是右上角浮动章（旧位置与装饰立绘重叠、语义不明），
    改为信息行里的「演唱者署名徽标」—— 立绘负责氛围，印鉴负责身份 */
 .sui-seal {

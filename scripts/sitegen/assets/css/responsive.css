@@ -40,7 +40,6 @@
   .hero-watermark { width: 320px; height: 150px; top: -34px; right: -30px; opacity: .1; }
   .hero-halo { width: 64px; height: 30px; top: -24px; }
   .hero-figure figcaption { display: none; }
-  .song-hero .song-sui { display: none; }
   .meta-line .who-sing { border-right: 0; padding-right: 0; }
   /* 盲盒池：窄屏只露两行（行高保持不变 —— 行高一变，位移 -50% 就对不齐了） */
   .blindbox-pool { --mq-h: 5rem; }
