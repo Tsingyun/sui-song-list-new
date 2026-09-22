@@ -733,10 +733,10 @@
       "translated": "你诞生的那一天",
       "artist": "DATEKEN/初音ミク",
       "lang": "日语",
-      "count": 8,
-      "tier": "常唱",
+      "count": 9,
+      "tier": "frequent",
       "first": "2023-07-25",
-      "last": "2026-05-14",
+      "last": "2026-09-20",
       "tags": [
         "流行"
       ]
@@ -1639,10 +1639,10 @@
       "translated": "",
       "artist": "周杰伦",
       "lang": "中文",
-      "count": 6,
-      "tier": "常唱",
+      "count": 7,
+      "tier": "frequent",
       "first": "2023-01-19",
-      "last": "2026-03-31",
+      "last": "2026-09-20",
       "tags": [
         "流行",
         "R&B"
@@ -7496,10 +7496,10 @@
       "translated": "太阳与向日葵",
       "artist": "Flower",
       "lang": "日语",
-      "count": 2,
-      "tier": "偶尔",
+      "count": 3,
+      "tier": "occasional",
       "first": "2022-12-10",
-      "last": "2023-01-07",
+      "last": "2026-09-20",
       "tags": [
         "流行"
       ]
