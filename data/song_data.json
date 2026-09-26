@@ -809,10 +809,10 @@
       "translated": "",
       "artist": "S.I.N.G",
       "lang": "中文",
-      "count": 8,
-      "tier": "常唱",
+      "count": 9,
+      "tier": "frequent",
       "first": "2022-09-09",
-      "last": "2026-02-18",
+      "last": "2026-09-25",
       "tags": [
         "流行"
       ]
@@ -8047,10 +8047,10 @@
       "translated": "",
       "artist": "SolPie/初音ミク",
       "lang": "中文",
-      "count": 2,
-      "tier": "偶尔",
+      "count": 3,
+      "tier": "occasional",
       "first": "2023-05-07",
-      "last": "2023-09-29",
+      "last": "2026-09-25",
       "tags": [
         "Vocaloid"
       ]
