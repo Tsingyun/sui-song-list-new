@@ -4,7 +4,7 @@
 > **v3.0 全新重制**：数据与功能继承历代版本，页面结构、视觉系统、组件架构与交互完全从零重建。
 > 当前界面版本 **v3.7.18**（历次迭代见站内「关于」页更新日志）。
 
-收录 **1,170** 首歌曲、**3,406** 次演唱记录、**871** 条点歌互动，支持在线播放 B站录播片段。
+收录 **1,170** 首歌曲、**3,407** 次演唱记录、**871** 条点歌互动，支持在线播放 B站录播片段。
 
 **[>>> suijisui.uk <<<](https://suijisui.uk)** · [GitHub Pages 镜像](https://tsingyun.github.io/sui-song-list-new/) · [点歌统计](#点歌统计)
 
@@ -128,7 +128,7 @@ v3.0 采用「演出场刊 / 唱片目录」式的编辑排版系统，与旧版
 | 指标 | 数量 |
 |------|------|
 | 歌曲总数 | 1,170 |
-| 演唱总次数 | 3,406 |
+| 演唱总次数 | 3,407 |
 | 常唱 (5+次) | 241 首 |
 | 偶尔 (2–4次) | 434 首 |
 | 仅唱一次 | 495 首 |
@@ -247,6 +247,10 @@ python -X utf8 scripts/import_request_stats.py <song_data_processed.json 路径>
 - B站录播：岁己SUI 的投稿合集（标题归一化多策略匹配）
 - 点歌数据：[Tsingyun/sui-song-stats](https://github.com/Tsingyun/sui-song-stats)
 - [岁己SUI](https://space.bilibili.com/1954091502) — 小岁小岁我们喜欢你
+
+## 友情站点
+
+- [button.suiji.site](https://button.suiji.site/)
 
 ## License
 
