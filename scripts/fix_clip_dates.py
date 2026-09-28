@@ -17,10 +17,12 @@ Usage:
   python fix_clip_dates.py --song 歌名            # 指定单首
 """
 import argparse
+import hashlib
 import json
 import os
 import re
 import time
+import urllib.parse
 import urllib.request
 from datetime import datetime, timedelta, timezone
 
@@ -30,6 +32,15 @@ COMPLETE_PATH = os.path.join(BASE, 'data', 'sui_song_list_complete.json')
 
 TARGET_SONG = 'ひまわりの約束'
 UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Safari/537.36'
+
+# B站 WBI 签名所需（破解风控 -412/-400/62002）
+MIXIN_KEY_ENC_TAB = [
+    46, 47, 18, 2, 53, 8, 23, 32, 15, 50, 10, 31, 58, 3, 45, 35, 27, 43, 5,
+    49, 33, 9, 42, 19, 29, 28, 14, 39, 12, 38, 41, 13, 37, 48, 7, 16, 24, 55,
+    40, 61, 26, 17, 0, 1, 60, 51, 30, 4, 22, 25, 54, 21, 56, 59, 6, 63, 57, 62,
+    11, 36, 20, 34, 44, 52,
+]
+_NAV_CACHE = {}
 
 
 def parse_date_list(raw):
@@ -45,12 +56,40 @@ def parse_date_list(raw):
     return out
 
 
-def fetch_bvid(bvid, tries=3):
-    """返回 (pubdate_ts, duration, title)；失败抛异常。带简单退避重试吸收限流。"""
-    url = 'https://api.bilibili.com/x/web-interface/view?bvid=' + bvid
+def get_mixin_key():
+    """取 B站 WBI 混合密钥（带缓存）。"""
+    if 'mixin' in _NAV_CACHE:
+        return _NAV_CACHE['mixin']
+    url = 'https://api.bilibili.com/x/web-interface/nav'
+    req = urllib.request.Request(url, headers={'User-Agent': UA, 'Referer': 'https://www.bilibili.com'})
+    with urllib.request.urlopen(req, timeout=20) as r:
+        d = json.load(r)
+    # 注意：未登录时 nav 返回 code=-101，但 data.wbi_img 仍带上密钥，可直接用
+    wbi = d['data']['wbi_img']
+    img = re.search(r'/([^/]+)\.png', wbi['img_url']).group(1)
+    sub = re.search(r'/([^/]+)\.png', wbi['sub_url']).group(1)
+    orig = img + sub  # 64 字符
+    mixin = ''.join(orig[i] for i in MIXIN_KEY_ENC_TAB)[:32]
+    _NAV_CACHE['mixin'] = mixin
+    return mixin
+
+
+def signed_params(bvid):
+    mixin = get_mixin_key()
+    params = {'bvid': bvid, 'wts': int(time.time())}
+    q = urllib.parse.urlencode(sorted(params.items()))
+    params['w_rid'] = hashlib.md5((q + mixin).encode()).hexdigest()
+    return params
+
+
+def fetch_bvid(bvid, tries=4):
+    """返回 (pubdate_ts, duration, title)；失败抛异常。带 WBI 签名 + 退避重试吸收限流/风控。"""
+    base = 'https://api.bilibili.com/x/web-interface/view'
     last = None
     for i in range(tries):
         try:
+            p = signed_params(bvid)
+            url = base + '?' + urllib.parse.urlencode(p)
             req = urllib.request.Request(url, headers={'User-Agent': UA, 'Referer': 'https://www.bilibili.com'})
             with urllib.request.urlopen(req, timeout=20) as r:
                 data = json.load(r)
@@ -61,7 +100,7 @@ def fetch_bvid(bvid, tries=3):
         except Exception as e:
             last = e
             if i < tries - 1:
-                time.sleep(1.5)
+                time.sleep(3.0)
     raise last
 
 
@@ -70,6 +109,7 @@ def main():
     ap.add_argument('--dry', action='store_true', help='只打印决策，不写盘')
     ap.add_argument('--all', action='store_true', help='处理全部歌曲（而非默认单首）')
     ap.add_argument('--song', default=None, help='指定单首歌名（覆盖默认）')
+    ap.add_argument('--window', type=int, default=2, help='匹配窗口：上传日 ∈ [演唱日, 演唱日+WINDOW天]（默认 2）')
     a = ap.parse_args()
 
     m = json.load(open(MAP_PATH, encoding='utf-8'))
@@ -106,17 +146,17 @@ def main():
             except Exception as e:
                 print('  ! [%s] %s 获取失败: %s' % (song, bvid, e))
                 stats['err'] += 1
-                time.sleep(0.2)
+                time.sleep(1.0)
                 continue
             upload = (datetime.fromtimestamp(pubdate, tz=timezone.utc) + timedelta(hours=8)).date()
-            hits = [p for p in perfs if p <= upload <= p + timedelta(days=2)]
+            hits = [p for p in perfs if p <= upload <= p + timedelta(days=a.window)]
             if len(hits) == 1:
                 d = hits[0]
                 print('  ✓ [%s] %s 上传=%s 命中=%s %ss' % (song, bvid, upload.isoformat(), d.isoformat(), dur))
                 changed_global.append((song, c, d.isoformat(), dur))
                 stats['filled'] += 1
             elif len(hits) == 0:
-                print('  ! [%s] %s 上传=%s 未命中(±2天) — 跳过' % (song, bvid, upload.isoformat()))
+                print('  ! [%s] %s 上传=%s 未命中(±%d天) — 跳过' % (song, bvid, upload.isoformat(), a.window))
                 stats['nomatch'] += 1
             else:
                 best = min(hits, key=lambda p: abs((upload - p).days))
@@ -124,7 +164,7 @@ def main():
                       (song, bvid, upload.isoformat(), ','.join(h.isoformat() for h in hits), best.isoformat()))
                 changed_global.append((song, c, best.isoformat(), dur))
                 stats['ambiguous_filled'] += 1
-            time.sleep(0.2)
+            time.sleep(1.0)
 
     print('\n=== 汇总 ===', json.dumps(stats, ensure_ascii=False))
 
