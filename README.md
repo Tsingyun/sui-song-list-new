@@ -250,7 +250,7 @@ python -X utf8 scripts/import_request_stats.py <song_data_processed.json 路径>
 
 ## 友情站点
 
-- [button.suiji.site](https://button.suiji.site/)
+- [岁己按钮](https://button.suiji.site/) — button.suiji.site
 
 ## License
 

@@ -504,6 +504,7 @@
       '<li>岁己SUI 的 B站 投稿合集</li></ul></div>' +
       '<div class="foot-col"><h4>友情链接</h4><ul>' +
       '<li><a href="https://www.suiji.site" target="_blank" rel="noopener">岁己SUI应援站</a><span class="foot-note">suiji.site</span></li>' +
+      '<li><a href="https://button.suiji.site/" target="_blank" rel="noopener">岁己按钮</a><span class="foot-note">button.suiji.site</span></li>' +
       '</ul></div>' +
       '<div class="foot-col"><h4>参与</h4><ul>' +
       '<li><a href="#/about">更新日志与说明</a></li>' +
