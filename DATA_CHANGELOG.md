@@ -263,3 +263,10 @@ BV 挂在两个键下的冗余记录。
 - 处置：10 条暂留空（等 IP 解封后单独补，或换出口重跑 `_retry_throttle.py`）。全库已填 332 条不变；死链 8 条永久不可恢复。
 - 当前未填空日期歌切：42 条（24 超±30天/孤儿 + 8 死链 + 10 限流）。
 
+## 2026-09-29（深夜+）带登录 cookie 重试仍失败
+- 用户提供 B站登录 cookie（SESSDATA/bili_ticket 等），仅经环境变量/临时文件传入，未写盘未打印未提交。
+- `fix_clip_dates.fetch_bvid` 加 `cookie` 参数（带 Cookie 头重试那 10 条 62012）——仍全 62012。
+- 另探 `www.bilibili.com/video/BVxxx` 服务端直出 HTML 备用接口：页面内嵌 `__INITIAL_STATE__.error.trueCode=62012`，视频数据同走被限后端。
+- 结论：**本机出口 IP 被 B站对视频数据接口硬限流（62012），与是否登录/WBI 签名/接口路径无关**，只能等 IP 解封或换出口 IP 后单独跑 `_retry_throttle.py`（已支持 --cookie 经环境变量）补这 10 条。
+- `fix_clip_dates.py` 增强：fetch_bvid 支持 cookie 参数（无 cookie 时行为不变）。
+

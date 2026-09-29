@@ -82,15 +82,18 @@ def signed_params(bvid):
     return params
 
 
-def fetch_bvid(bvid, tries=4):
+def fetch_bvid(bvid, tries=4, cookie=None):
     """返回 (pubdate_ts, duration, title)；失败抛异常。带 WBI 签名 + 退避重试吸收限流/风控。"""
     base = 'https://api.bilibili.com/x/web-interface/view'
     last = None
+    headers = {'User-Agent': UA, 'Referer': 'https://www.bilibili.com'}
+    if cookie:
+        headers['Cookie'] = cookie
     for i in range(tries):
         try:
             p = signed_params(bvid)
             url = base + '?' + urllib.parse.urlencode(p)
-            req = urllib.request.Request(url, headers={'User-Agent': UA, 'Referer': 'https://www.bilibili.com'})
+            req = urllib.request.Request(url, headers=headers)
             with urllib.request.urlopen(req, timeout=20) as r:
                 data = json.load(r)
             if data.get('code') != 0:
