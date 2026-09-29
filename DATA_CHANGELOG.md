@@ -242,5 +242,18 @@ BV 挂在两个键下的冗余记录。
   - **8 条死链/坏数据（永久无法恢复）**：2 条 -400 坏 bvid（`BV1SKP4etEx5BV1rnZJYVE2T` 字段被两条 BV 拼接损坏、`BV1FN4y1a7`）；6 条 62002「稿件不可见」（已删/私密/区域限制）：`BV1tt421t7Fx` `BV1E14y1871H` `BV1bt4y1R76g` `BV1E14y1V7KP` `BV1hG411J7Cz` `BV1bt4y1R76g`→`BV16N4y127kt`。
   - **10 条疑似 IP 限流（62012）**：`BV1Vd4y137gh` `BV1Uu4y1H7FP` `BV1th4y1z7gu` `BV16y421h7Yg` `BV1cK411h7YA` `BV1kj411Q7Sg` `BV1xc411y7xP` `BV1dc411b7Fn` `BV14Y4y1K7Jk` `BV1Ac41117wP`——本会话已发 ~1100+ 次请求触发 IP 限流，冷却后重试可解，暂不动以免延长限流。
 - 当前剩余空日期歌切：**42 条** = 24 条上传日晚于演出 >30 天/真孤儿（±30 仍无命中）+ 18 条报错（8 死链 + 10 限流）。
-- 涉及提交：本次（data + docs 重建 + 脚本增强 + 本日志），未推送。
+  - 涉及提交：本次（data + docs 重建 + 脚本增强 + 本日志），未推送。
+
+## 2026-09-29（点歌数据）：Lover Girl
+
+| 歌名 | 原唱 | 语言 | 点歌人 | 变更 |
+|------|------|------|--------|------|
+| Lover Girl | Laufey | 英文 | L1f3n0w0v3R710w_ | 累计次数 1 → 2，最近演唱更新为 2026-09-29，tier rare → occasional |
+
+- `song_data.json`：Lover Girl count 1→2、last 2026-07-18→2026-09-29、tier rare→occasional
+- `request_stats.json`：raw_data 追加 1 条（871 → 872，audience=L1f3n0w0v3R710w_）；live_dates 补 2026-09-29
+- `sui_song_list_complete.json`：Lover Girl 热力图逐日记录追加 2026/9/29
+- `docs/index.html`：重建（最近演唱随 complete 同步）
+- README 统计实算刷新：演唱总次数 3,407→3,408、点歌 871→872 条/514 首、偶尔 434→435、仅一次 495→494、有逐日记录 1,157→1,160
+- 涉及提交：本次（data + docs 重建 + README + 本日志），未推送
 
