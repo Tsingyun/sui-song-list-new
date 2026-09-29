@@ -67,7 +67,8 @@ def copy_static_assets():
     for fn in ['logo.png', 'sui-avatar.webp', 'sui-chibi.webp', 'sui-portrait.webp',
                'sui-fullbody.webp', 'sui-short.webp', 'sui-bird.png', 'sui-cursor.png',
                'sui-gallery-ribbon.webp', 'sui-gallery-smile.webp',
-               'sui-gallery-summer.webp', 'sui-gallery-heart.webp'] + HERO_ART:
+               'sui-gallery-summer.webp', 'sui-gallery-heart.webp',
+               'sui-gallery-star.webp'] + HERO_ART:
         src = os.path.join(ASSETS_DIR, fn)
         if os.path.exists(src):
             shutil.copy(src, os.path.join(out_dir, fn))
