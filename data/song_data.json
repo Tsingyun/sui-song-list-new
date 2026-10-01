@@ -1654,7 +1654,7 @@
       "artist": "Orangestar/初音ミク",
       "lang": "日语",
       "count": 7,
-      "tier": "常唱",
+      "tier": "frequent",
       "first": "2022-09-10",
       "last": "2025-10-06",
       "tags": [
@@ -1816,9 +1816,9 @@
       "artist": "中島愛",
       "lang": "日语",
       "count": 6,
-      "tier": "常唱",
+      "tier": "frequent",
       "first": "2022-10-04",
-      "last": "2024-09-30",
+      "last": "2024-10-31",
       "tags": [
         "抒情",
         "流行"
@@ -4427,7 +4427,7 @@
       ]
     },
     {
-      "name": "あの夏が飽和する",
+      "name": "あの夏が飽和する。",
       "translated": "那个夏日已然饱和",
       "artist": "カンザキイオリ/鏡音レン/鏡音リン",
       "lang": "日语",
@@ -7303,7 +7303,7 @@
       ]
     },
     {
-      "name": "命に嫌われている",
+      "name": "命に嫌われている。",
       "translated": "被生命所厌恶",
       "artist": "カンザキイオリ/初音ミク",
       "lang": "日语",
@@ -10949,27 +10949,12 @@
       ]
     },
     {
-      "name": "メリーメリ",
-      "translated": "",
-      "artist": "一億円P/初音ミク",
-      "lang": "日语",
-      "count": 1,
-      "tier": "稀有",
-      "first": "2024-10-07",
-      "last": "2024-10-07",
-      "tags": [
-        "Vocaloid",
-        "摇滚",
-        "流行"
-      ]
-    },
-    {
       "name": "メリーメリー",
       "translated": "",
       "artist": "一億円P/初音ミク",
       "lang": "日语",
-      "count": 1,
-      "tier": "稀有",
+      "count": 2,
+      "tier": "occasional",
       "first": "2024-10-07",
       "last": "2024-10-07",
       "tags": [
@@ -13527,20 +13512,6 @@
       ]
     },
     {
-      "name": "星间飞行",
-      "translated": "",
-      "artist": "中島愛",
-      "lang": "中文",
-      "count": 1,
-      "tier": "稀有",
-      "first": "2024-10-31",
-      "last": "2024-10-31",
-      "tags": [
-        "抒情",
-        "流行"
-      ]
-    },
-    {
       "name": "曇天",
       "translated": "阴天",
       "artist": "DOES",
@@ -13960,10 +13931,10 @@
       "translated": "",
       "artist": "牛佳钰",
       "lang": "中文",
-      "count": 1,
-      "tier": "稀有",
+      "count": 2,
+      "tier": "occasional",
       "first": "2022-09-24",
-      "last": "2022-09-24",
+      "last": "2026-10-01",
       "tags": [
         "流行"
       ]
@@ -14985,20 +14956,6 @@
       ]
     },
     {
-      "name": "莉回る空うさぎ",
-      "translated": "",
-      "artist": "ハチ（米津玄師）/初音ミク",
-      "lang": "日语",
-      "count": 1,
-      "tier": "稀有",
-      "first": "2025-01-19",
-      "last": "2025-01-19",
-      "tags": [
-        "Vocaloid",
-        "摇滚"
-      ]
-    },
-    {
       "name": "莹梦",
       "translated": "",
       "artist": "双笙",
@@ -15162,7 +15119,7 @@
       ]
     },
     {
-      "name": "请你杀死我的浪漫",
+      "name": "请杀死我的浪漫",
       "translated": "",
       "artist": "李润祺",
       "lang": "中文",
