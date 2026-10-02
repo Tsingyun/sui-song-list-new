@@ -3271,7 +3271,7 @@
         "song_name": "可愛くてごめん",
         "song_translated_name": "这么可爱真是抱歉",
         "artist": "早見沙織",
-        "date_list": "2023/1/15",
+        "date_list": "2023/1/15，2025/3/30",
         "remarks": null,
         "language": "日语",
         "song_count": 2,
@@ -3626,17 +3626,6 @@
         "date_list": "2023/1/29",
         "remarks": null,
         "language": "英语",
-        "song_count": 1,
-        "BVID": null
-    },
-    {
-        "index": 331,
-        "song_name": "Yellow",
-        "song_translated_name": null,
-        "artist": "神山羊",
-        "date_list": "2023/1/29",
-        "remarks": null,
-        "language": "日语",
         "song_count": 1,
         "BVID": null
     },
@@ -4514,7 +4503,7 @@
         "song_name": "喜欢你",
         "song_translated_name": null,
         "artist": "陈洁仪",
-        "date_list": "2023/4/3，2023/4/17，2023/12/25，2024/1/6",
+        "date_list": "2023/4/3，2023/4/17，2023/5/15，2023/12/25，2024/1/6",
         "remarks": null,
         "language": "华语",
         "song_count": 1,
@@ -5225,17 +5214,6 @@
         "BVID": null
     },
     {
-        "index": 476,
-        "song_name": "Melody",
-        "song_translated_name": null,
-        "artist": "ZIV/KIPES",
-        "date_list": "2023/5/4，2025/10/26",
-        "remarks": null,
-        "language": "华语",
-        "song_count": 2,
-        "BVID": null
-    },
-    {
         "index": 477,
         "song_name": "青春舞曲",
         "song_translated_name": null,
@@ -5372,7 +5350,7 @@
         "song_name": "好き！雪！本気マジック",
         "song_translated_name": null,
         "artist": "Mitchie M初音ミク",
-        "date_list": "2023/5/6",
+        "date_list": "2023/5/6，2023/8/19，2025/12/24",
         "remarks": null,
         "language": "日语",
         "song_count": 1,
@@ -5467,17 +5445,6 @@
         "BVID": null
     },
     {
-        "index": 498,
-        "song_name": "Baby",
-        "song_translated_name": null,
-        "artist": "Justin Bieber",
-        "date_list": "2023/5/6",
-        "remarks": null,
-        "language": "英语",
-        "song_count": 1,
-        "BVID": "BV1oh4y1q7bz"
-    },
-    {
         "index": 499,
         "song_name": "横竖撇点折",
         "song_translated_name": null,
@@ -5520,17 +5487,6 @@
         "language": "华语",
         "song_count": 1,
         "BVID": "BV1Uo4y137e8"
-    },
-    {
-        "index": 503,
-        "song_name": "喜欢你",
-        "song_translated_name": null,
-        "artist": "邓紫棋",
-        "date_list": "2023/5/15",
-        "remarks": null,
-        "language": "华语",
-        "song_count": 1,
-        "BVID": null
     },
     {
         "index": 504,
@@ -6010,7 +5966,7 @@
         "song_name": "同一首歌",
         "song_translated_name": null,
         "artist": "毛阿敏",
-        "date_list": "2023/6/1",
+        "date_list": "2023/6/1，2024/6/1",
         "remarks": null,
         "language": "华语",
         "song_count": 1,
@@ -6076,7 +6032,7 @@
         "song_name": "失恋无罪",
         "song_translated_name": null,
         "artist": "黄丽玲",
-        "date_list": "2023/6/6",
+        "date_list": "2023/6/6，2024/5/28",
         "remarks": null,
         "language": "华语",
         "song_count": 1,
@@ -9240,17 +9196,6 @@
         "BVID": null
     },
     {
-        "index": 841,
-        "song_name": "告白",
-        "song_translated_name": null,
-        "artist": "王欣宇",
-        "date_list": "2024/2/14，2026/5/6",
-        "remarks": null,
-        "language": "华语",
-        "song_count": 2,
-        "BVID": "BV1hF4m177cf"
-    },
-    {
         "index": 842,
         "song_name": "小情歌",
         "song_translated_name": null,
@@ -9713,17 +9658,6 @@
         "BVID": "BV1Vr421L7YJ"
     },
     {
-        "index": 884,
-        "song_name": "失恋无罪",
-        "song_translated_name": null,
-        "artist": "黄丽玲",
-        "date_list": "2024/5/28",
-        "remarks": null,
-        "language": "华语",
-        "song_count": 1,
-        "BVID": null
-    },
-    {
         "index": 885,
         "song_name": "年轮",
         "song_translated_name": null,
@@ -9777,17 +9711,6 @@
         "language": "华语",
         "song_count": 1,
         "BVID": "BV1En4y1d7WG"
-    },
-    {
-        "index": 890,
-        "song_name": "同一首歌",
-        "song_translated_name": null,
-        "artist": "北京市少年宫合唱团",
-        "date_list": "2024/6/1",
-        "remarks": null,
-        "language": "华语",
-        "song_count": 1,
-        "BVID": "BV1cJ4m1g7Dd"
     },
     {
         "index": 891,
@@ -10201,7 +10124,7 @@
         "song_name": "Don't Look Back In Anger",
         "song_translated_name": null,
         "artist": "Oasis",
-        "date_list": "2024/8/10，2025/8/12，2026/5/17，2026/6/22，2026/7/31",
+        "date_list": "2024/8/10，2025/8/12，2026/5/17，2026/6/22，2026/7/31，2026/10/2",
         "remarks": null,
         "language": "英语",
         "song_count": 3,
@@ -10824,17 +10747,6 @@
         "BVID": "BV1oDDrY2EFV"
     },
     {
-        "index": 985,
-        "song_name": "爱你",
-        "song_translated_name": null,
-        "artist": "By2",
-        "date_list": "2024/11/8，2025/8/31",
-        "remarks": null,
-        "language": "华语",
-        "song_count": 2,
-        "BVID": "BV1crDrY9EjT"
-    },
-    {
         "index": 986,
         "song_name": "衡山路宛平路",
         "song_translated_name": null,
@@ -11273,17 +11185,6 @@
         "language": "华语",
         "song_count": 2,
         "BVID": "BV1XWZ3YuE8K"
-    },
-    {
-        "index": 1026,
-        "song_name": "可愛くてごめん",
-        "song_translated_name": null,
-        "artist": "HoneyWorks/早見沙織",
-        "date_list": "2025/3/30",
-        "remarks": null,
-        "language": "日语",
-        "song_count": 1,
-        "BVID": null
     },
     {
         "index": 1027,
@@ -11946,17 +11847,6 @@
         "BVID": ""
     },
     {
-        "index": 1087,
-        "song_name": "Don't Look Back In Anger",
-        "song_translated_name": null,
-        "artist": "Oasis",
-        "date_list": "2024/8/10，2025/8/12",
-        "remarks": null,
-        "language": "英文",
-        "song_count": 4,
-        "BVID": ""
-    },
-    {
         "index": 1088,
         "song_name": "For フルーツバスケット",
         "song_translated_name": "For 水果篮子",
@@ -12254,17 +12144,6 @@
         "BVID": ""
     },
     {
-        "index": 1116,
-        "song_name": "鳥の詩",
-        "song_translated_name": null,
-        "artist": "Lia（《AIR》OP)",
-        "date_list": "2024/12/25，2024/6/1",
-        "remarks": null,
-        "language": "中文",
-        "song_count": 2,
-        "BVID": ""
-    },
-    {
         "index": 1117,
         "song_name": "7 rings",
         "song_translated_name": null,
@@ -12500,7 +12379,7 @@
         "song_name": "Moon River",
         "song_translated_name": "月亮河",
         "artist": "Audrey Hepburn",
-        "date_list": "2023/7/25",
+        "date_list": "2023/7/25，2026/10/2",
         "remarks": null,
         "language": "英文",
         "song_count": 1,
@@ -13076,17 +12955,6 @@
         "remarks": null,
         "language": "中文",
         "song_count": 1,
-        "BVID": ""
-    },
-    {
-        "index": 1193,
-        "song_name": "好き！雪！本気マジック",
-        "song_translated_name": null,
-        "artist": "Mitchie M（初音ミク）",
-        "date_list": "2023/8/19，2025/12/24",
-        "remarks": null,
-        "language": "日语",
-        "song_count": 2,
         "BVID": ""
     },
     {
