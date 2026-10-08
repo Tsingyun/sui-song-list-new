@@ -252,10 +252,10 @@
       "translated": "",
       "artist": "周杰伦",
       "lang": "中文",
-      "count": 11,
-      "tier": "常唱",
+      "count": 12,
+      "tier": "frequent",
       "first": "2022-09-09",
-      "last": "2024-12-17",
+      "last": "2026-10-07",
       "tags": [
         "流行",
         "R&B"
@@ -1706,10 +1706,10 @@
       "translated": "",
       "artist": "みきとP/初音ミク",
       "lang": "日语",
-      "count": 7,
+      "count": 8,
       "tier": "frequent",
       "first": "2022-09-17",
-      "last": "2026-06-22",
+      "last": "2026-10-06",
       "tags": [
         "流行"
       ]
@@ -2153,10 +2153,10 @@
       "translated": "",
       "artist": "张惠妹",
       "lang": "中文",
-      "count": 6,
-      "tier": "常唱",
+      "count": 7,
+      "tier": "frequent",
       "first": "2024-01-06",
-      "last": "2026-03-31",
+      "last": "2026-10-06",
       "tags": [
         "流行",
         "摇滚"
@@ -5394,10 +5394,10 @@
       "translated": "",
       "artist": "郭静",
       "lang": "中文",
-      "count": 3,
-      "tier": "偶尔",
+      "count": 4,
+      "tier": "occasional",
       "first": "2026-01-09",
-      "last": "2026-05-03",
+      "last": "2026-10-07",
       "tags": [
         "抒情",
         "流行"
