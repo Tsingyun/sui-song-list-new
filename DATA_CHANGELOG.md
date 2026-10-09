@@ -354,3 +354,17 @@ BV 挂在两个键下的冗余记录。
 - 歌切匹配：提交日（10-06/10-07）clip 尚未生成，按规则只取「严格早于提交日」的缓存，本次无更早缓存 → 跳过；直播归档后补匹配请在本地运行 `scripts/match_clips.py --save-clips data/clips/clips_$(date +%F).json`
 - README 统计实算刷新：演唱 3,410→3,414、点歌 875→878 条（常唱 242 / 偶尔 437 / 仅唱一次 488、B站匹配 914/2,653、有逐日记录 1,155、点歌观众 88、被点歌曲 513 不变）
 - `docs/index.html`：重建（歌名 / 计数 / 热力图随数据同步）
+
+## 2026-10-08
+
+**点歌录入（2 首，含点歌人）**
+
+| 歌曲 | 点歌人 | song_data 变更 | request_stats | complete 热力图 |
+|------|------|------|------|------|
+| 晚婚 | L1f3n0w0v3R710w_ | count 8→9、last→2026-10-08、tier 常唱（不变） | raw_data +1（date=2026-10-08, audience=L1f3n0w0v3R710w_） | 追加 2026/10/8 |
+| 昨日青空 | 岁己家出卖世界蛇 | count 7→8、last→2026-10-08、tier 常唱（不变） | raw_data +1（date=2026-10-08, audience=岁己家出卖世界蛇） | 追加 2026/10/8 |
+
+- 流水线：`process_submission.py` 编排（add_songs + update_request_stats 幂等 + ensure_complete + 离线歌切匹配 + 重建）
+- 歌切匹配：提交日（10-08）clip 尚未生成，按规则只取「严格早于提交日」的缓存，本次无更早缓存 → 跳过；直播归档后补匹配请在本地运行 `scripts/match_clips.py --save-clips data/clips/clips_$(date +%F).json`
+- README 统计实算刷新：演唱 3,414→3,416、点歌 878→880 条（常唱 242 / 偶尔 437 / 仅唱一次 488、B站匹配 914/2,653、有逐日记录 1,155→1,157、点歌观众 88、被点歌曲 513 不变）
+- `docs/index.html`：重建（歌名 / 计数 / 热力图随数据同步）
