@@ -1297,7 +1297,7 @@
     {
       "name": "昨日青空",
       "translated": "",
-      "artist": "赵英博/任敏/章若楠/辛云来/朱丹妮",
+      "artist": "尤长靖",
       "lang": "中文",
       "count": 8,
       "tier": "frequent",
@@ -1441,20 +1441,6 @@
       "tags": [
         "独立",
         "流行"
-      ]
-    },
-    {
-      "name": "(歌曲名缺失-源数据问题)",
-      "translated": "",
-      "artist": "周杰伦",
-      "lang": "中文",
-      "count": 6,
-      "tier": "常唱",
-      "first": "2022-09-14",
-      "last": "2024-06-08",
-      "tags": [
-        "流行",
-        "R&B"
       ]
     },
     {
@@ -4565,7 +4551,7 @@
     {
       "name": "ダイヤモンド クレバス",
       "translated": "钻石裂痕",
-      "artist": "雪露·诺姆（May'n）",
+      "artist": "May'n",
       "lang": "日语",
       "count": 3,
       "tier": "偶尔",
@@ -8893,20 +8879,6 @@
       ]
     },
     {
-      "name": "鳥の詩",
-      "translated": "",
-      "artist": "Lia（《AIR》OP)",
-      "lang": "中文",
-      "count": 2,
-      "tier": "偶尔",
-      "first": "2024-06-01",
-      "last": "2024-12-25",
-      "tags": [
-        "动画",
-        "抒情"
-      ]
-    },
-    {
       "name": "麦恩莉",
       "translated": "",
       "artist": "方大同",
@@ -11913,19 +11885,6 @@
       ]
     },
     {
-      "name": "友谊天长地久",
-      "translated": "",
-      "artist": "传统苏格兰民歌",
-      "lang": "中文",
-      "count": 1,
-      "tier": "稀有",
-      "first": "2024-06-01",
-      "last": "2024-06-01",
-      "tags": [
-        "流行"
-      ]
-    },
-    {
       "name": "变了",
       "translated": "",
       "artist": "梁博",
@@ -14561,7 +14520,7 @@
     {
       "name": "第三人称",
       "translated": "",
-      "artist": "戚薇",
+      "artist": "hush！",
       "lang": "中文",
       "count": 1,
       "tier": "稀有",
@@ -14629,7 +14588,7 @@
     {
       "name": "紅蓮の弓矢",
       "translated": "红莲的弓矢",
-      "artist": "WishmasterLuya",
+      "artist": "Linked Horizon",
       "lang": "日语",
       "count": 1,
       "tier": "稀有",
