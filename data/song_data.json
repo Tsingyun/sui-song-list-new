@@ -2249,10 +2249,10 @@
       "translated": "",
       "artist": "山崎まさよし",
       "lang": "日语",
-      "count": 5,
-      "tier": "常唱",
+      "count": 6,
+      "tier": "frequent",
       "first": "2023-12-16",
-      "last": "2025-02-05",
+      "last": "2026-10-13",
       "tags": [
         "抒情",
         "流行"
@@ -4769,10 +4769,10 @@
       "translated": "",
       "artist": "卢广仲",
       "lang": "中文",
-      "count": 3,
-      "tier": "偶尔",
+      "count": 4,
+      "tier": "occasional",
       "first": "2024-07-01",
-      "last": "2026-02-24",
+      "last": "2026-10-13",
       "tags": [
         "流行"
       ]
