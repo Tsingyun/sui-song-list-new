@@ -4,7 +4,7 @@
 > **v3.0 全新重制**：数据与功能继承历代版本，页面结构、视觉系统、组件架构与交互完全从零重建。
 > 当前界面版本 **v3.7.19**（历次迭代见站内「关于」页更新日志）。
 
-收录 **1,164** 首歌曲、**3,409** 次演唱记录、**880** 条点歌互动，支持在线播放 B站录播片段。
+收录 **1,165** 首歌曲、**3,412** 次演唱记录、**883** 条点歌互动，支持在线播放 B站录播片段。
 
 **[>>> suijisui.uk <<<](https://suijisui.uk)** · [GitHub Pages 镜像](https://tsingyun.github.io/sui-song-list-new/) · [点歌统计](#点歌统计)
 
@@ -132,7 +132,7 @@ v3.0 采用「演出场刊 / 唱片目录」式的编辑排版系统，与旧版
 | 常唱 (5+次) | 241 首 |
 | 偶尔 (2–4次) | 437 首 |
 | 仅唱一次 | 487 首 |
-| B站录播匹配 | 914 首 |
+| B站录播匹配 | 916 首 |
 | B站歌切片段 | 2,653 条 |
 | 有逐日记录的歌曲 | 1156 首 |
 | 点歌记录（2024-06 起） | 883 条 / 88 位观众 / 515 首 |
@@ -149,7 +149,7 @@ sui-song-list-new/
 ├── .github/workflows/rebuild.yml             ← push data/ 或 scripts/ 自动重建
 ├── data/
 │   ├── song_data.json                        ← 核心歌曲库（1170 首）
-│   ├── song_bilibili_map.json                ← 歌曲-录播匹配（914 首）
+│   ├── song_bilibili_map.json                ← 歌曲-录播匹配（916 首）
 │   ├── sui_song_list_complete.json           ← 源站原始数据（含逐日日期表）
 │   └── request_stats.json                    ← 点歌数据主源（raw_data/live_dates/uids）
 ├── scripts/
