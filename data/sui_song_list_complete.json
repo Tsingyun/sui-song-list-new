@@ -13490,10 +13490,10 @@
     "song_name": "風を食む",
     "song_translated_name": null,
     "artist": "ヨルシカ",
-    "date_list": "2026/2/26",
+    "date_list": "2026/2/26，2026/10/23",
     "remarks": null,
     "language": "日语",
-    "song_count": 1,
+    "song_count": 2,
     "BVID": ""
   },
   {
@@ -13593,6 +13593,17 @@
     "remarks": null,
     "language": "日语",
     "song_count": 1,
+    "BVID": ""
+  },
+  {
+    "index": 1237,
+    "song_name": "我不难过",
+    "song_translated_name": null,
+    "artist": "孙燕姿",
+    "date_list": "2026/7/30，2026/10/20",
+    "remarks": null,
+    "language": "中文",
+    "song_count": 2,
     "BVID": ""
   }
 ]
