@@ -13605,5 +13605,38 @@
     "language": "中文",
     "song_count": 2,
     "BVID": ""
+  },
+  {
+    "index": 1238,
+    "song_name": "我爱你",
+    "song_translated_name": null,
+    "artist": "卢广仲",
+    "date_list": "2026/10/25",
+    "remarks": null,
+    "language": "华语",
+    "song_count": 1,
+    "BVID": ""
+  },
+  {
+    "index": 1239,
+    "song_name": "绝对占有，相对自由",
+    "song_translated_name": null,
+    "artist": "陈粒",
+    "date_list": "2026/10/25",
+    "remarks": null,
+    "language": "华语",
+    "song_count": 1,
+    "BVID": ""
+  },
+  {
+    "index": 1240,
+    "song_name": "那个女孩",
+    "song_translated_name": null,
+    "artist": "张泽熙",
+    "date_list": "2026/10/25",
+    "remarks": null,
+    "language": "华语",
+    "song_count": 1,
+    "BVID": ""
   }
 ]

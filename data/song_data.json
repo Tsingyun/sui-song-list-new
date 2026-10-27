@@ -15844,6 +15844,36 @@
       "tier": "rare",
       "first": "2026-10-19",
       "last": "2026-10-19"
+    },
+    {
+      "name": "我爱你",
+      "translated": "",
+      "artist": "卢广仲",
+      "lang": "中文",
+      "count": 1,
+      "tier": "rare",
+      "first": "2026-10-25",
+      "last": "2026-10-25"
+    },
+    {
+      "name": "绝对占有，相对自由",
+      "translated": "",
+      "artist": "陈粒",
+      "lang": "中文",
+      "count": 1,
+      "tier": "rare",
+      "first": "2026-10-25",
+      "last": "2026-10-25"
+    },
+    {
+      "name": "那个女孩",
+      "translated": "",
+      "artist": "张泽熙",
+      "lang": "中文",
+      "count": 1,
+      "tier": "rare",
+      "first": "2026-10-25",
+      "last": "2026-10-25"
     }
   ]
 }
