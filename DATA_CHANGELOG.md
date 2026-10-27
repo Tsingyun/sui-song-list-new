@@ -517,3 +517,22 @@ BV 挂在两个键下的冗余记录。
 - `docs/index.html`：重建
 
 涉及提交：0181e5d（数据+重建）、本提交（README+本日志）
+
+## 2026-10-27（点歌录入）
+
+**提交行含第三列点歌人 → 点歌（非自决），同时进 song_data + request_stats.raw_data + complete + live_dates**
+
+| 歌曲 | 原唱 | 语言 | 场次日期 | 点歌人 | song_data 变更 | complete 变更 | raw_data | live_dates |
+|------|------|------|------|------|------|------|------|------|
+| Innocence | Avril Lavigne（艾薇儿·拉维尼） | 英文（song_data）/ 英语（complete） | 2026-10-27 | 无响应失败小熊 | 新增条目（count=1、first/last=2026-10-27、tier=rare） | 新增 index=1241（date_list=2026/10/27，language=英语，song_count=1） | 追加 {2026-10-27, 无响应失败小熊, Innocence}（幂等） | 补 2026-10-27 并排序 |
+
+- 模糊匹配：曲库无《Innocence》相近候选 → 确认为新歌
+- 原唱/语言联网核实（1 次搜索）：同名歌曲有 Avril Lavigne(2007) / Björk(2007) / Kirsty MacColl(1989) 等多首；歌单场景下最常见为 **Avril Lavigne** 版本（百度百科确认：歌曲原唱 艾薇儿·拉维尼，语言 英语，专辑《The Best Damn Thing》）。已按此录入；若实际为 Björk 或其他版本，请告知修正 artist
+- 语言字段约定：song_data.lang 用「英文」（该文件主流 70 条），complete.language 用「英语」（该文件主流写法），各自对齐库内主口径
+- 点歌判定：提交行含第三列点歌人 ID → 进 `request_stats.raw_data`（与无第三列的自决演唱区分）
+- 观众数不变（89 位）：点歌人「无响应失败小熊」此前已在 audience 列表中
+- README 统计实算刷新：歌曲 1,169→1,170、演唱 3,419→3,420、仅唱一次 489→490、有逐日记录 1,161→1,162、点歌 885→886 条 / 89 位 / 516→517 首（常唱 242、偶尔 438、B站匹配 916、歌切 2,676 不变）
+- `docs/index.html`：重建
+- 注：`request_stats` 主源为 sister 仓库 sui-song-stats（import_request_stats.py 整体覆盖），本地追加记录若该仓库未同步录入，重导入时可能被冲掉
+
+涉及提交：ba93396（数据+重建）、本提交（README+本日志）
