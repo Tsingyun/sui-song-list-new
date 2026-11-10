@@ -1543,10 +1543,10 @@
       "translated": "",
       "artist": "徐佳莹",
       "lang": "中文",
-      "count": 6,
-      "tier": "常唱",
+      "count": 7,
+      "tier": "frequent",
       "first": "2023-09-29",
-      "last": "2025-06-09",
+      "last": "2026-11-10",
       "tags": [
         "抒情",
         "流行"
@@ -6930,10 +6930,10 @@
       "translated": "",
       "artist": "李宇春",
       "lang": "中文",
-      "count": 2,
-      "tier": "偶尔",
+      "count": 3,
+      "tier": "occasional",
       "first": "2025-04-27",
-      "last": "2026-01-23",
+      "last": "2026-11-10",
       "tags": [
         "流行"
       ]
@@ -15884,6 +15884,17 @@
       "tier": "rare",
       "first": "2026-10-27",
       "last": "2026-10-27"
+    },
+    {
+      "name": "那天下雨了",
+      "translated": "",
+      "artist": "周杰伦",
+      "lang": "中文",
+      "count": 1,
+      "tier": "rare",
+      "first": "2026-11-10",
+      "last": "2026-11-10",
+      "tags": []
     }
   ]
 }

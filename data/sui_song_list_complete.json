@@ -8485,7 +8485,7 @@
     "song_name": "一样的月光",
     "song_translated_name": null,
     "artist": "徐佳莹",
-    "date_list": "2023/9/29，2023/10/22，2023/12/5，2024/1/23，2024/12/6，2025/6/9",
+    "date_list": "2023/9/29，2023/10/22，2023/12/5，2024/1/23，2024/12/6，2025/6/9，2026/11/10",
     "remarks": null,
     "language": "华语",
     "song_count": 6,
@@ -11279,7 +11279,7 @@
     "song_name": "下个，路口，见",
     "song_translated_name": null,
     "artist": "李宇春",
-    "date_list": "2025/4/27，2026/1/23",
+    "date_list": "2025/4/27，2026/1/23，2026/11/10",
     "remarks": null,
     "language": "华语",
     "song_count": 2,
@@ -13647,6 +13647,17 @@
     "date_list": "2026/10/27",
     "remarks": null,
     "language": "英语",
+    "song_count": 1,
+    "BVID": ""
+  },
+  {
+    "song_name": "那天下雨了",
+    "date_list": "2026/11/10",
+    "index": 1242,
+    "song_translated_name": null,
+    "artist": "周杰伦",
+    "remarks": null,
+    "language": "华语",
     "song_count": 1,
     "BVID": ""
   }
