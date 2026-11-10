@@ -123,6 +123,9 @@ def build_song_payload():
             'first': s.get('first', '') or '',
             'last': s.get('last', '') or '',
         }
+        alt = (s.get('alt_artists') or '').strip()
+        if alt:
+            song['alt'] = alt  # 关联歌手（可搜索，不改变 artist 显示）
         tags = s.get('tags') or []
         if tags:
             song['tags'] = tags

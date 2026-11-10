@@ -68,7 +68,8 @@
       list = list.filter(function (s) {
         return s.name.toLowerCase().indexOf(q) !== -1 ||
           (s.artist || '').toLowerCase().indexOf(q) !== -1 ||
-          (s.t || '').toLowerCase().indexOf(q) !== -1;
+          (s.t || '').toLowerCase().indexOf(q) !== -1 ||
+          (s.alt || '').toLowerCase().indexOf(q) !== -1;
       });
     }
     if (state.quick !== 'dormant') {

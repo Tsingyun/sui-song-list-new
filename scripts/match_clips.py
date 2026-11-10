@@ -36,6 +36,12 @@ PLAYLIST = "https://space.bilibili.com/9669499/lists/6453496?type=season"
 TITLE_OVERRIDES = {
     # 标题「四川虚拟主播唱《最佳损友》 一开口大家都笑了」，无日期；最佳损友此前无任何歌切
     'BV1an336mEs8': ('最佳损友', None),
+    # 简繁差异：标题「雪の辙」→曲库规范「雪の轍」
+    'BV1KZnB66EQu': ('雪の轍', '20261019'),
+    # 空格差异：标题「Departures〜…」（无空格）→曲库「Departures 〜…」（有空格）
+    'BV1APCJBeEbe': ('Departures 〜あなたにおくるアイの歌〜', '20251107'),
+    # 无日期：标题「我们都是骗子是「无赖」」→《无赖》（外部歌切，date=None）
+    'BV1naztBkE7V': ('无赖', None),
 }
 
 
@@ -49,12 +55,18 @@ def name_from_title(title, bvid=None):
       - 【岁己】歌名【20260830歌切】            （前缀省略 SUI 的变体）
     非标准标题见 TITLE_OVERRIDES。
     """
+    # 显式人工覆盖优先（含简繁/空格差异、无日期等边界标题）
+    if bvid and bvid in TITLE_OVERRIDES:
+        return TITLE_OVERRIDES[bvid]
     m = re.match(r'【岁己(?:SUI)?】\s*(.*)', title)
     if not m:
-        if bvid and bvid in TITLE_OVERRIDES:
-            return TITLE_OVERRIDES[bvid]
         return None, None
     body = m.group(1).strip()
+    # 新版标题：「"歌词引子"｜《歌名》 翻唱【日期歌切】」——优先取《》内的歌名
+    bm = re.search(r'《([^》]+)》', body)
+    if bm:
+        dm = re.search(r'[【「](\d{8})', body)
+        return (bm.group(1).strip() or None), (dm.group(1) if dm else None)
     # 提取 8 位日期（可能在 【】 或 「」 中）
     dm = re.search(r'[【「](\d{8})', body)
     date = dm.group(1) if dm else None

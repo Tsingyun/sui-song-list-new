@@ -264,7 +264,7 @@
     {
       "name": "恶作剧",
       "translated": "",
-      "artist": "林依晨",
+      "artist": "王蓝茵",
       "lang": "中文",
       "count": 12,
       "tier": "常唱",
@@ -291,7 +291,7 @@
     {
       "name": "366日",
       "translated": "",
-      "artist": "清水翔太",
+      "artist": "HY（仲宗根泉）",
       "lang": "日语",
       "count": 10,
       "tier": "常唱",
@@ -757,7 +757,7 @@
     {
       "name": "夕立のりぼん",
       "translated": "雨落如带",
-      "artist": "mayuみきとP",
+      "artist": "みきとP feat. MAYU",
       "lang": "日语",
       "count": 8,
       "tier": "常唱",
@@ -928,7 +928,7 @@
     {
       "name": "莉莉安",
       "translated": "",
-      "artist": "宋东野",
+      "artist": "宋冬野",
       "lang": "中文",
       "count": 8,
       "tier": "常唱",
@@ -995,7 +995,7 @@
     {
       "name": "The Loneliest Girl",
       "translated": "",
-      "artist": "Nai Br.XX",
+      "artist": "Nai Br.XX & Celeina Ann",
       "lang": "英文",
       "count": 7,
       "tier": "常唱",
@@ -1092,7 +1092,7 @@
     {
       "name": "世界は恋に落ちている",
       "translated": "我的世界已坠入爱河",
-      "artist": "CHiCO",
+      "artist": "CHiCO with HoneyWorks",
       "lang": "日语",
       "count": 7,
       "tier": "常唱",
@@ -1105,7 +1105,7 @@
     {
       "name": "二時間だけのバカンス",
       "translated": "只有两小时的假期",
-      "artist": "宇多田ヒカル",
+      "artist": "宇多田ヒカル feat. 椎名林檎",
       "lang": "日语",
       "count": 7,
       "tier": "常唱",
@@ -1473,7 +1473,7 @@
     {
       "name": "いのちの名前",
       "translated": "生命之名",
-      "artist": "広橋真紀子",
+      "artist": "木村弓",
       "lang": "日语",
       "count": 5,
       "tier": "常唱",
@@ -1569,7 +1569,7 @@
     {
       "name": "不该",
       "translated": "",
-      "artist": "周杰伦",
+      "artist": "周杰伦 & 张惠妹",
       "lang": "中文",
       "count": 6,
       "tier": "常唱",
@@ -1623,7 +1623,7 @@
     {
       "name": "听见下雨的声音",
       "translated": "",
-      "artist": "周杰伦",
+      "artist": "魏如昀",
       "lang": "中文",
       "count": 7,
       "tier": "frequent",
@@ -1632,7 +1632,8 @@
       "tags": [
         "流行",
         "R&B"
-      ]
+      ],
+      "alt_artists": "周杰伦"
     },
     {
       "name": "回る空うさぎ",
@@ -1729,7 +1730,7 @@
     {
       "name": "当你",
       "translated": "",
-      "artist": "林俊杰",
+      "artist": "王心凌",
       "lang": "中文",
       "count": 6,
       "tier": "常唱",
@@ -2422,7 +2423,7 @@
     {
       "name": "丑马",
       "translated": "",
-      "artist": "ChiliChill",
+      "artist": "ChiliChill演唱",
       "lang": "中文",
       "count": 7,
       "tier": "frequent",
@@ -3213,7 +3214,7 @@
     {
       "name": "Pink Flavor",
       "translated": "",
-      "artist": "ChiliChill",
+      "artist": "ChiliChill演唱",
       "lang": "中文",
       "count": 4,
       "tier": "偶尔",
@@ -3538,7 +3539,7 @@
     {
       "name": "可愛くなりたい",
       "translated": "想变可爱",
-      "artist": "雨宮天",
+      "artist": "鎖那（sana）",
       "lang": "日语",
       "count": 4,
       "tier": "偶尔",
@@ -3698,7 +3699,7 @@
     {
       "name": "心墙",
       "translated": "",
-      "artist": "林俊杰",
+      "artist": "郭静",
       "lang": "中文",
       "count": 5,
       "tier": "frequent",
@@ -3792,7 +3793,7 @@
     {
       "name": "暗涌",
       "translated": "",
-      "artist": "杨丞琳",
+      "artist": "王菲",
       "lang": "中文",
       "count": 4,
       "tier": "偶尔",
@@ -4124,7 +4125,7 @@
     {
       "name": "龙卷风",
       "translated": "",
-      "artist": "邓紫棋",
+      "artist": "周杰伦",
       "lang": "中文",
       "count": 4,
       "tier": "偶尔",
@@ -4250,7 +4251,7 @@
       "name": "Ghost of a smile",
       "translated": "",
       "artist": "EGOIST",
-      "lang": "英文",
+      "lang": "日语",
       "count": 9,
       "tier": "偶尔",
       "first": "2022-09-17",
@@ -4658,7 +4659,7 @@
     {
       "name": "你啊你啊",
       "translated": "",
-      "artist": "魏若萱",
+      "artist": "魏如萱",
       "lang": "中文",
       "count": 3,
       "tier": "偶尔",
@@ -5552,7 +5553,7 @@
     {
       "name": "离人",
       "translated": "",
-      "artist": "林志炫",
+      "artist": "张学友",
       "lang": "中文",
       "count": 3,
       "tier": "偶尔",
@@ -6384,7 +6385,7 @@
       "name": "Rainbow Girl",
       "translated": "",
       "artist": "40mP/初音ミク",
-      "lang": "英文",
+      "lang": "日语",
       "count": 5,
       "tier": "偶尔",
       "first": "2022-10-19",
@@ -6534,8 +6535,8 @@
     {
       "name": "from Y to Y",
       "translated": "",
-      "artist": "Jimmy Eat World",
-      "lang": "英文",
+      "artist": "初音ミク/JimmyThumb-P",
+      "lang": "日语",
       "count": 5,
       "tier": "偶尔",
       "first": "2022-11-26",
@@ -6859,7 +6860,7 @@
     {
       "name": "一番の宝物",
       "translated": "最珍贵的宝物",
-      "artist": "YUI",
+      "artist": "LiSA",
       "lang": "日语",
       "count": 2,
       "tier": "偶尔",
@@ -6909,20 +6910,6 @@
       "tags": [
         "流行",
         "抒情"
-      ]
-    },
-    {
-      "name": "上海1943",
-      "translated": "",
-      "artist": "周杰伦",
-      "lang": "中文",
-      "count": 2,
-      "tier": "偶尔",
-      "first": "2022-09-14",
-      "last": "2024-06-03",
-      "tags": [
-        "流行",
-        "R&B"
       ]
     },
     {
@@ -7184,7 +7171,7 @@
     {
       "name": "南屏晚钟",
       "translated": "",
-      "artist": "徐小凤",
+      "artist": "崔萍",
       "lang": "中文",
       "count": 2,
       "tier": "偶尔",
@@ -7211,7 +7198,7 @@
       "name": "又三郎",
       "translated": "",
       "artist": "ヨルシカ",
-      "lang": "中文",
+      "lang": "日语",
       "count": 2,
       "tier": "偶尔",
       "first": "2025-10-09",
@@ -7358,8 +7345,8 @@
     {
       "name": "夏霞",
       "translated": "",
-      "artist": "aiko",
-      "lang": "中文",
+      "artist": "Atarayo（あたらよ）",
+      "lang": "日语",
       "count": 2,
       "tier": "偶尔",
       "first": "2026-02-06",
@@ -7602,7 +7589,7 @@
     {
       "name": "小手拉大手",
       "translated": "",
-      "artist": "梁静茹",
+      "artist": "辻亚弥乃",
       "lang": "中文",
       "count": 2,
       "tier": "偶尔",
@@ -8140,7 +8127,7 @@
       "name": "樱花草",
       "translated": "",
       "artist": "Sweety",
-      "lang": "日语",
+      "lang": "中文",
       "count": 2,
       "tier": "偶尔",
       "first": "2023-05-26",
@@ -9305,7 +9292,7 @@
       "name": "ECHO",
       "translated": "",
       "artist": "Crusher-P/GUMI",
-      "lang": "日语",
+      "lang": "英文",
       "count": 1,
       "tier": "稀有",
       "first": "2022-10-16",
@@ -9676,7 +9663,7 @@
       "name": "No title",
       "translated": "",
       "artist": "Reol",
-      "lang": "英文",
+      "lang": "日语",
       "count": 2,
       "tier": "稀有",
       "first": "2022-09-25",
@@ -9745,7 +9732,7 @@
       "name": "Psycho",
       "translated": "",
       "artist": "Red Velvet",
-      "lang": "中文",
+      "lang": "韩语",
       "count": 1,
       "tier": "稀有",
       "first": "2022-10-31",
@@ -10040,7 +10027,7 @@
     {
       "name": "We Don't Talk Anymore",
       "translated": "",
-      "artist": "harlie Puth/Selena Gomez",
+      "artist": "Charlie Puth/Selena Gomez",
       "lang": "英文",
       "count": 1,
       "tier": "稀有",
@@ -10218,7 +10205,7 @@
     {
       "name": "rain stops, good-bye",
       "translated": "",
-      "artist": "The Script",
+      "artist": "におP（nio-P）/初音ミク",
       "lang": "英文",
       "count": 4,
       "tier": "稀有",
@@ -10462,7 +10449,7 @@
     {
       "name": "アイディスマイル",
       "translated": "",
-      "artist": "tuki.",
+      "artist": "25時、ナイトコードで。（初音ミク）",
       "lang": "日语",
       "count": 1,
       "tier": "稀有",
@@ -10543,7 +10530,7 @@
     {
       "name": "キセキ～未来へ～",
       "translated": "",
-      "artist": "HoneyWorks",
+      "artist": "whiteeeen",
       "lang": "日语",
       "count": 3,
       "tier": "稀有",
@@ -10695,7 +10682,7 @@
     {
       "name": "センチメンタルな愛慕心",
       "translated": "多情善感的爱慕心",
-      "artist": "ハチ（米津玄師）/初音ミク",
+      "artist": "GUMI",
       "lang": "日语",
       "count": 1,
       "tier": "稀有",
@@ -11136,13 +11123,14 @@
       "translated": "",
       "artist": "周杰伦",
       "lang": "中文",
-      "count": 1,
-      "tier": "稀有",
-      "first": "2024-06-03",
+      "count": 2,
+      "tier": "occasional",
+      "first": "2022-09-14",
       "last": "2024-06-03",
       "tags": [
         "流行",
-        "抒情"
+        "抒情",
+        "R&B"
       ]
     },
     {
@@ -11479,7 +11467,7 @@
     {
       "name": "你比从前快乐",
       "translated": "",
-      "artist": "周杰伦",
+      "artist": "吴宗宪",
       "lang": "中文",
       "count": 1,
       "tier": "稀有",
@@ -11708,7 +11696,7 @@
     {
       "name": "前前前世（Slow ver.）",
       "translated": "",
-      "artist": "泠鸢yousa",
+      "artist": "RADWIMPS",
       "lang": "日语",
       "count": 1,
       "tier": "稀有",
@@ -11940,7 +11928,7 @@
     {
       "name": "同一首歌",
       "translated": "",
-      "artist": "北京市少年宫合唱团",
+      "artist": "刘畅",
       "lang": "中文",
       "count": 1,
       "tier": "稀有",
@@ -11953,7 +11941,7 @@
     {
       "name": "同桌的你",
       "translated": "",
-      "artist": "胡夏",
+      "artist": "老狼",
       "lang": "中文",
       "count": 1,
       "tier": "稀有",
@@ -12063,7 +12051,7 @@
     {
       "name": "喜欢你",
       "translated": "",
-      "artist": "邓紫棋",
+      "artist": "Beyond（黄家驹）",
       "lang": "中文",
       "count": 1,
       "tier": "稀有",
@@ -12158,8 +12146,8 @@
     {
       "name": "地狱先生",
       "translated": "",
-      "artist": "小缘",
-      "lang": "中文",
+      "artist": "相対性理論",
+      "lang": "日语",
       "count": 1,
       "tier": "稀有",
       "first": "2026-03-16",
@@ -12252,7 +12240,7 @@
     {
       "name": "大东北我的家乡",
       "translated": "",
-      "artist": "二手玫瑰",
+      "artist": "何玉",
       "lang": "中文",
       "count": 1,
       "tier": "稀有",
@@ -12398,7 +12386,7 @@
     {
       "name": "女儿情",
       "translated": "",
-      "artist": "李玲玉",
+      "artist": "吴静",
       "lang": "中文",
       "count": 1,
       "tier": "稀有",
@@ -12466,7 +12454,7 @@
       "name": "妄想感傷代償連盟",
       "translated": "",
       "artist": "DECO*27/初音ミク",
-      "lang": "中文",
+      "lang": "日语",
       "count": 1,
       "tier": "稀有",
       "first": "2025-11-28",
@@ -12545,7 +12533,7 @@
     {
       "name": "宝贝宝贝",
       "translated": "",
-      "artist": "宋梓欣",
+      "artist": "李昕融",
       "lang": "中文",
       "count": 1,
       "tier": "稀有",
@@ -12734,7 +12722,7 @@
     {
       "name": "屋顶",
       "translated": "",
-      "artist": "周杰伦",
+      "artist": "吴宗宪、温岚",
       "lang": "中文",
       "count": 1,
       "tier": "稀有",
@@ -12827,7 +12815,7 @@
     {
       "name": "干物女",
       "translated": "",
-      "artist": "封茗囧菌",
+      "artist": "洛天依、乐正绫",
       "lang": "中文",
       "count": 2,
       "tier": "偶尔",
@@ -12962,7 +12950,7 @@
       "name": "心拍数#0822",
       "translated": "",
       "artist": "蝶々P/初音ミク",
-      "lang": "中文",
+      "lang": "日语",
       "count": 3,
       "tier": "occasional",
       "first": "2022-12-17",
@@ -13218,7 +13206,7 @@
       "name": "懐中道标",
       "translated": "",
       "artist": "やなぎなぎ",
-      "lang": "中文",
+      "lang": "日语",
       "count": 1,
       "tier": "稀有",
       "first": "2025-11-15",
@@ -13968,7 +13956,7 @@
       "name": "深海少女",
       "translated": "",
       "artist": "ゆうゆ/初音ミク",
-      "lang": "中文",
+      "lang": "日语",
       "count": 1,
       "tier": "稀有",
       "first": "2025-07-17",
@@ -14398,7 +14386,7 @@
     {
       "name": "眼镜的葬礼",
       "translated": "",
-      "artist": "小旭音乐",
+      "artist": "ChiliChill演唱",
       "lang": "中文",
       "count": 1,
       "tier": "稀有",
@@ -14654,7 +14642,7 @@
       ]
     },
     {
-      "name": "给她一电炮",
+      "name": "给他一电炮",
       "translated": "",
       "artist": "王莎莎",
       "lang": "中文",
@@ -14697,7 +14685,7 @@
     {
       "name": "给远在天边的你",
       "translated": "",
-      "artist": "中島愛",
+      "artist": "Belle（中村佳穂）",
       "lang": "日语",
       "count": 1,
       "tier": "稀有",
@@ -14724,7 +14712,7 @@
     {
       "name": "绮凝盏",
       "translated": "",
-      "artist": "双笙",
+      "artist": "海伊",
       "lang": "中文",
       "count": 1,
       "tier": "稀有",
@@ -14794,8 +14782,8 @@
     {
       "name": "群青日和",
       "translated": "",
-      "artist": "椎名林檎",
-      "lang": "中文",
+      "artist": "东京事变",
+      "lang": "日语",
       "count": 1,
       "tier": "稀有",
       "first": "2025-10-20",
@@ -14822,7 +14810,7 @@
     {
       "name": "老娘驾到",
       "translated": "",
-      "artist": "阿肆",
+      "artist": "小黄飞",
       "lang": "中文",
       "count": 1,
       "tier": "稀有",
@@ -14945,7 +14933,7 @@
     {
       "name": "蒼い鳥",
       "translated": "青鸟",
-      "artist": "金井麻美",
+      "artist": "今井麻美",
       "lang": "日语",
       "count": 1,
       "tier": "稀有",
@@ -14958,7 +14946,7 @@
     {
       "name": "蓝精灵",
       "translated": "",
-      "artist": "宝宝巴士",
+      "artist": "朱明瑛",
       "lang": "中文",
       "count": 1,
       "tier": "稀有",
@@ -14984,8 +14972,8 @@
     {
       "name": "藍二乗",
       "translated": "",
-      "artist": "aiko",
-      "lang": "中文",
+      "artist": "ヨルシカ（n-buna）",
+      "lang": "日语",
       "count": 1,
       "tier": "稀有",
       "first": "2026-03-31",
@@ -14998,7 +14986,7 @@
     {
       "name": "行かないで",
       "translated": "不要走",
-      "artist": "中森明菜",
+      "artist": "玉置浩二",
       "lang": "日语",
       "count": 1,
       "tier": "稀有",
@@ -15389,7 +15377,7 @@
     {
       "name": "问（DJ版）",
       "translated": "",
-      "artist": "李宗盛",
+      "artist": "于春洋、DJ阿布",
       "lang": "中文",
       "count": 1,
       "tier": "稀有",
@@ -15551,31 +15539,18 @@
       ]
     },
     {
-      "name": "页脚情书",
+      "name": "页角情书",
       "translated": "",
       "artist": "泠鸢yousa",
       "lang": "中文",
       "count": 2,
-      "tier": "稀有",
-      "first": "2026-03-17",
+      "tier": "occasional",
+      "first": "2025-03-26",
       "last": "2026-03-17",
       "tags": [
-        "独立",
-        "古风"
-      ]
-    },
-    {
-      "name": "页角情书",
-      "translated": "",
-      "artist": "双笙",
-      "lang": "中文",
-      "count": 1,
-      "tier": "稀有",
-      "first": "2025-03-26",
-      "last": "2025-03-26",
-      "tags": [
         "古风",
-        "抒情"
+        "抒情",
+        "独立"
       ]
     },
     {
@@ -15788,7 +15763,7 @@
     {
       "name": "星降る海",
       "translated": "",
-      "artist": "Aqu3ra",
+      "artist": "月見ヤチヨ（CV.早見沙織）",
       "lang": "日语",
       "count": 1,
       "tier": "rare",
@@ -15838,7 +15813,7 @@
     {
       "name": "雪の轍",
       "translated": "",
-      "artist": "駿太",
+      "artist": "茶太",
       "lang": "日语",
       "count": 1,
       "tier": "rare",
