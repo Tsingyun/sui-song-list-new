@@ -62,23 +62,35 @@
       return D.querySongs(state);
     });
 
-    var list = D.querySongs(state);
-    var totalPages = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
-    if (state.page > totalPages) state.page = totalPages;
-    var pageSongs = list.slice((state.page - 1) * PAGE_SIZE, state.page * PAGE_SIZE);
+    /* 结果区绘制（v3.7.20）：抽成函数，搜索时只重画这三块，
+       输入框节点保持不动 —— 光标/选区不会因重渲被弹到末尾。 */
+    function drawList() {
+      var list = D.querySongs(state);
+      var totalPages = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
+      if (state.page > totalPages) state.page = totalPages;
+      var pageSongs = list.slice((state.page - 1) * PAGE_SIZE, state.page * PAGE_SIZE);
+      renderRows(container.querySelector('#songRows'), pageSongs, state.q);
+      renderPager(container.querySelector('#songPager'), list.length, totalPages, state);
+      container.querySelector('#songMeta').textContent =
+        '共 ' + list.length + ' 首 · 第 ' + state.page + ' / ' + totalPages + ' 页';
+    }
 
-    renderRows(container.querySelector('#songRows'), pageSongs, state.q);
-    renderPager(container.querySelector('#songPager'), list.length, totalPages, state);
-    container.querySelector('#songMeta').textContent =
-      '共 ' + list.length + ' 首 · 第 ' + state.page + ' / ' + totalPages + ' 页';
+    drawList();
 
     /* 控件事件 */
     var searchInput = container.querySelector('#songSearch');
     var commitSearch = C.debounce(function () {
-      state.q = searchInput.value.trim();
+      var v = searchInput.value.trim();
+      /* 无实义变化（例如只多了首尾空格）：不重绘、不动光标，避免白闪 */
+      if (v === state.q) return;
+      state.q = v;
       state.page = 1;
-      _refocus = true;
-      syncState(state, container);
+      drawList();                    /* 只刷新列表/分页/统计 */
+      C.replaceQuiet('songs', {      /* URL 同步但不触发整页重渲 */
+        q: state.q, lang: state.lang, tag: state.tag,
+        quick: state.quick, sort: state.sort === 'count-desc' ? '' : state.sort,
+        page: state.page
+      });
     }, 220);
     /* IME 安全（v3.7.9）：组合输入（拼音候选）期间整页重渲会销毁输入框、掐断输入法组合
        —— 表现为「打两个字就被清空/截断」。组合期间跳过，选字上屏后再提交 */
@@ -101,15 +113,15 @@
       });
     });
 
-    if (params.focus === '1' || _refocus) {
-      _refocus = false;
+    /* v3.7.20：搜索不再整页重渲，输入框节点常驻 —— 无需「重渲后补焦点并把光标放末尾」，
+       那段补丁正是「中间退格被弹到末尾」的直接原因，已移除。
+       仅保留外部带 ?focus=1 进入本页时的一次自动聚焦。 */
+    if (params.focus === '1') {
       searchInput.focus();
-      var v = searchInput.value;
-      searchInput.setSelectionRange(v.length, v.length);
+      var cur = searchInput.value;
+      searchInput.setSelectionRange(cur.length, cur.length);
     }
   }
-
-  var _refocus = false;
 
   function syncState(state, container) {
     C.replace('songs', {
@@ -185,24 +197,31 @@
         '</div>';
     }).join('');
 
-    box.addEventListener('click', function (e) {
-      var play = e.target.closest('[data-play]');
-      if (play) {
-        e.preventDefault();
-        e.stopPropagation();
-        var song = D.findSong(play.dataset.play);
-        if (!song) return;
-        if (song.bili && song.bili.length) C.openPlayer(song, 0);
-        else C.openExternal('https://search.bilibili.com/all?keyword=' +
-          encodeURIComponent('岁己SUI ' + song.name + ' 歌切'));
-        return;
-      }
-    });
+    /* 事件只绑一次（v3.7.20）：搜索改为就地重画，同一节点会被反复复用，
+       不设防会不断叠加监听器（点一次播两次、越用越慢）。 */
+    if (!box.__suiRowsBound) {
+      box.__suiRowsBound = true;
+      box.addEventListener('click', function (e) {
+        var play = e.target.closest('[data-play]');
+        if (play) {
+          e.preventDefault();
+          e.stopPropagation();
+          var song = D.findSong(play.dataset.play);
+          if (!song) return;
+          if (song.bili && song.bili.length) C.openPlayer(song, 0);
+          else C.openExternal('https://search.bilibili.com/all?keyword=' +
+            encodeURIComponent('岁己SUI ' + song.name + ' 歌切'));
+          return;
+        }
+      });
+    }
     bindDateTips(box);
   }
 
   /* 最近日期悬停 -> 完整演唱日期 tooltip */
   function bindDateTips(box) {
+    if (box.__suiTipsBound) return;
+    box.__suiTipsBound = true;
     box.addEventListener('mouseover', function (e) {
       var el = e.target.closest('[data-song-dates]');
       if (!el) return;

@@ -92,6 +92,59 @@
     renderCurrent();
   };
 
+  /* 导航：静默 replace —— 只改地址栏与路由状态，不触发重渲（v3.7.20）
+     搜索输入一旦走 renderCurrent 就会整页重建：输入框节点被销毁，
+     光标/选区随之丢失（中间退格会被弹到末尾），IME 组合也会被打断。
+     输入类交互只需刷新结果区，用这个保持 URL 可分享/可刷新即可。 */
+  C.replaceQuiet = function (name, params, sub) {
+    history.replaceState(null, '', C.buildHash(name, params, sub));
+    if (currentRoute && currentRoute.name === name) currentRoute.params = params || {};
+  };
+
+  /* ─────────── 光标 / 选区保全（v3.7.20） ───────────
+     有些视图刷新结果只能整块重渲（例如原唱分类、点歌榜），输入框会随之重建；
+     新节点默认把光标放到末尾 —— 用户在中间按退格，删一个字就被弹到字符串末尾，
+     后续删除变成从尾部向前删；选中一段再删同理，选区直接消失。
+     这类就地重渲用 C.withFocusPreserved(fn) 包一层：
+     重渲前记住聚焦输入框的 id / 选区方向 / 横向滚动，重渲后原位还原。 */
+  function captureCaret() {
+    var el = document.activeElement;
+    if (!el || !el.id) return null;
+    if (el.tagName !== 'INPUT' && el.tagName !== 'TEXTAREA') return null;
+    var snap = { id: el.id, len: (el.value || '').length, start: null, end: null, dir: null, scrollLeft: 0 };
+    try {
+      snap.start = el.selectionStart;
+      snap.end = el.selectionEnd;
+      snap.dir = el.selectionDirection || 'none';
+      snap.scrollLeft = el.scrollLeft;
+    } catch (e) { /* number / date 等类型不支持选区 */ }
+    return snap;
+  }
+
+  function restoreCaret(snap) {
+    if (!snap || !snap.id) return;
+    var el = document.getElementById(snap.id);
+    if (!el) return;
+    if (document.activeElement !== el) {
+      try { el.focus({ preventScroll: true }); } catch (e) { el.focus(); }
+    }
+    var len = (el.value || '').length;
+    if (snap.start === null || typeof el.setSelectionRange !== 'function') return;
+    var s = snap.start, e = snap.end === null ? snap.start : snap.end;
+    /* 提交时会 trim 首尾空白，重渲后值可能变短：原来贴着末尾的光标跟到新末尾 */
+    if (s === snap.len) s = len;
+    if (e === snap.len) e = len;
+    s = Math.max(0, Math.min(s, len));
+    e = Math.max(0, Math.min(e, len));
+    try { el.setSelectionRange(s, e, snap.dir || 'none'); } catch (err) { /* 忽略 */ }
+    el.scrollLeft = snap.scrollLeft || 0;
+  }
+
+  C.withFocusPreserved = function (fn) {
+    var snap = captureCaret();
+    try { fn(); } finally { restoreCaret(snap); }
+  };
+
   /* ─────────── 页面级岁己装饰 ───────────
      统一在路由层挂载，视图自己不用管：只要注册了视图，就自动获得
      标题区那枚大光环水印（data-page 决定每页的位置/朝向变体）。

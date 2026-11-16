@@ -3226,6 +3226,59 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
     renderCurrent();
   };
 
+  /* 导航：静默 replace —— 只改地址栏与路由状态，不触发重渲（v3.7.20）
+     搜索输入一旦走 renderCurrent 就会整页重建：输入框节点被销毁，
+     光标/选区随之丢失（中间退格会被弹到末尾），IME 组合也会被打断。
+     输入类交互只需刷新结果区，用这个保持 URL 可分享/可刷新即可。 */
+  C.replaceQuiet = function (name, params, sub) {
+    history.replaceState(null, '', C.buildHash(name, params, sub));
+    if (currentRoute && currentRoute.name === name) currentRoute.params = params || {};
+  };
+
+  /* ─────────── 光标 / 选区保全（v3.7.20） ───────────
+     有些视图刷新结果只能整块重渲（例如原唱分类、点歌榜），输入框会随之重建；
+     新节点默认把光标放到末尾 —— 用户在中间按退格，删一个字就被弹到字符串末尾，
+     后续删除变成从尾部向前删；选中一段再删同理，选区直接消失。
+     这类就地重渲用 C.withFocusPreserved(fn) 包一层：
+     重渲前记住聚焦输入框的 id / 选区方向 / 横向滚动，重渲后原位还原。 */
+  function captureCaret() {
+    var el = document.activeElement;
+    if (!el || !el.id) return null;
+    if (el.tagName !== 'INPUT' && el.tagName !== 'TEXTAREA') return null;
+    var snap = { id: el.id, len: (el.value || '').length, start: null, end: null, dir: null, scrollLeft: 0 };
+    try {
+      snap.start = el.selectionStart;
+      snap.end = el.selectionEnd;
+      snap.dir = el.selectionDirection || 'none';
+      snap.scrollLeft = el.scrollLeft;
+    } catch (e) { /* number / date 等类型不支持选区 */ }
+    return snap;
+  }
+
+  function restoreCaret(snap) {
+    if (!snap || !snap.id) return;
+    var el = document.getElementById(snap.id);
+    if (!el) return;
+    if (document.activeElement !== el) {
+      try { el.focus({ preventScroll: true }); } catch (e) { el.focus(); }
+    }
+    var len = (el.value || '').length;
+    if (snap.start === null || typeof el.setSelectionRange !== 'function') return;
+    var s = snap.start, e = snap.end === null ? snap.start : snap.end;
+    /* 提交时会 trim 首尾空白，重渲后值可能变短：原来贴着末尾的光标跟到新末尾 */
+    if (s === snap.len) s = len;
+    if (e === snap.len) e = len;
+    s = Math.max(0, Math.min(s, len));
+    e = Math.max(0, Math.min(e, len));
+    try { el.setSelectionRange(s, e, snap.dir || 'none'); } catch (err) { /* 忽略 */ }
+    el.scrollLeft = snap.scrollLeft || 0;
+  }
+
+  C.withFocusPreserved = function (fn) {
+    var snap = captureCaret();
+    try { fn(); } finally { restoreCaret(snap); }
+  };
+
   /* ─────────── 页面级岁己装饰 ───────────
      统一在路由层挂载，视图自己不用管：只要注册了视图，就自动获得
      标题区那枚大光环水印（data-page 决定每页的位置/朝向变体）。
@@ -4312,23 +4365,35 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
       return D.querySongs(state);
     });
 
-    var list = D.querySongs(state);
-    var totalPages = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
-    if (state.page > totalPages) state.page = totalPages;
-    var pageSongs = list.slice((state.page - 1) * PAGE_SIZE, state.page * PAGE_SIZE);
+    /* 结果区绘制（v3.7.20）：抽成函数，搜索时只重画这三块，
+       输入框节点保持不动 —— 光标/选区不会因重渲被弹到末尾。 */
+    function drawList() {
+      var list = D.querySongs(state);
+      var totalPages = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
+      if (state.page > totalPages) state.page = totalPages;
+      var pageSongs = list.slice((state.page - 1) * PAGE_SIZE, state.page * PAGE_SIZE);
+      renderRows(container.querySelector('#songRows'), pageSongs, state.q);
+      renderPager(container.querySelector('#songPager'), list.length, totalPages, state);
+      container.querySelector('#songMeta').textContent =
+        '共 ' + list.length + ' 首 · 第 ' + state.page + ' / ' + totalPages + ' 页';
+    }
 
-    renderRows(container.querySelector('#songRows'), pageSongs, state.q);
-    renderPager(container.querySelector('#songPager'), list.length, totalPages, state);
-    container.querySelector('#songMeta').textContent =
-      '共 ' + list.length + ' 首 · 第 ' + state.page + ' / ' + totalPages + ' 页';
+    drawList();
 
     /* 控件事件 */
     var searchInput = container.querySelector('#songSearch');
     var commitSearch = C.debounce(function () {
-      state.q = searchInput.value.trim();
+      var v = searchInput.value.trim();
+      /* 无实义变化（例如只多了首尾空格）：不重绘、不动光标，避免白闪 */
+      if (v === state.q) return;
+      state.q = v;
       state.page = 1;
-      _refocus = true;
-      syncState(state, container);
+      drawList();                    /* 只刷新列表/分页/统计 */
+      C.replaceQuiet('songs', {      /* URL 同步但不触发整页重渲 */
+        q: state.q, lang: state.lang, tag: state.tag,
+        quick: state.quick, sort: state.sort === 'count-desc' ? '' : state.sort,
+        page: state.page
+      });
     }, 220);
     /* IME 安全（v3.7.9）：组合输入（拼音候选）期间整页重渲会销毁输入框、掐断输入法组合
        —— 表现为「打两个字就被清空/截断」。组合期间跳过，选字上屏后再提交 */
@@ -4351,15 +4416,15 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
       });
     });
 
-    if (params.focus === '1' || _refocus) {
-      _refocus = false;
+    /* v3.7.20：搜索不再整页重渲，输入框节点常驻 —— 无需「重渲后补焦点并把光标放末尾」，
+       那段补丁正是「中间退格被弹到末尾」的直接原因，已移除。
+       仅保留外部带 ?focus=1 进入本页时的一次自动聚焦。 */
+    if (params.focus === '1') {
       searchInput.focus();
-      var v = searchInput.value;
-      searchInput.setSelectionRange(v.length, v.length);
+      var cur = searchInput.value;
+      searchInput.setSelectionRange(cur.length, cur.length);
     }
   }
-
-  var _refocus = false;
 
   function syncState(state, container) {
     C.replace('songs', {
@@ -4435,24 +4500,31 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
         '</div>';
     }).join('');
 
-    box.addEventListener('click', function (e) {
-      var play = e.target.closest('[data-play]');
-      if (play) {
-        e.preventDefault();
-        e.stopPropagation();
-        var song = D.findSong(play.dataset.play);
-        if (!song) return;
-        if (song.bili && song.bili.length) C.openPlayer(song, 0);
-        else C.openExternal('https://search.bilibili.com/all?keyword=' +
-          encodeURIComponent('岁己SUI ' + song.name + ' 歌切'));
-        return;
-      }
-    });
+    /* 事件只绑一次（v3.7.20）：搜索改为就地重画，同一节点会被反复复用，
+       不设防会不断叠加监听器（点一次播两次、越用越慢）。 */
+    if (!box.__suiRowsBound) {
+      box.__suiRowsBound = true;
+      box.addEventListener('click', function (e) {
+        var play = e.target.closest('[data-play]');
+        if (play) {
+          e.preventDefault();
+          e.stopPropagation();
+          var song = D.findSong(play.dataset.play);
+          if (!song) return;
+          if (song.bili && song.bili.length) C.openPlayer(song, 0);
+          else C.openExternal('https://search.bilibili.com/all?keyword=' +
+            encodeURIComponent('岁己SUI ' + song.name + ' 歌切'));
+          return;
+        }
+      });
+    }
     bindDateTips(box);
   }
 
   /* 最近日期悬停 -> 完整演唱日期 tooltip */
   function bindDateTips(box) {
+    if (box.__suiTipsBound) return;
+    box.__suiTipsBound = true;
     box.addEventListener('mouseover', function (e) {
       var el = e.target.closest('[data-song-dates]');
       if (!el) return;
@@ -4746,7 +4818,8 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
     input.addEventListener('input', C.debounce(function () {
       draw();
       history.replaceState(null, '', input.value ? C.buildHash('frequent', { q: input.value }) : C.buildHash('frequent'));
-      input.focus();
+      /* 这里只重画结果区、输入框节点没动，焦点与光标本来就在原位；
+         不再回补 focus()，否则用户已经点去别处时会被抢回焦点 */
     }, 250));
   }
 
@@ -4821,11 +4894,16 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
 
     var input = container.querySelector('#artistSearch');
     input.addEventListener('input', C.debounce(function () {
-      history.replaceState(null, '', C.buildHash('artists', { q: input.value }));
+      var v = input.value;
+      var kw = v.trim();
+      history.replaceState(null, '', C.buildHash('artists', { q: kw }));
       var scroll = window.scrollY;
-      renderArtists({ q: input.value }, container);
-      window.scrollTo(0, scroll);
-      container.querySelector('#artistSearch').focus();
+      /* 本页刷新结果只能整块重渲（输入框随之重建）——包一层光标/选区保全，
+         否则中间退格会被弹到末尾、选中段删除的选区也会丢 */
+      C.withFocusPreserved(function () {
+        renderArtists({ q: kw }, container);
+        window.scrollTo(0, scroll);
+      });
     }, 300));
 
     container.querySelectorAll('.artist-cell').forEach(function (cell) {
@@ -5228,7 +5306,7 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
       kind === 'quarter' ? '季度点歌榜 · ' + period :
       kind === 'year' ? '年度点歌榜 · ' + period : '';
 
-    var ctx = { kind: kind, period: period, title: periodTitle, board: boardAll, song: songAll };
+    var ctx = { kind: kind, period: period, title: periodTitle, board: boardAll, song: songAll, q: q };
 
     container.innerHTML =
       '<div class="sec-head"><div class="sec-kicker">REQUESTS</div>' +
@@ -5631,15 +5709,19 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
     var commitSearch = C.debounce(function () {
       var live = container.querySelector('#reqSearch') || input;
       var v = live.value.trim();
+      /* 无实义变化（例如只多了首尾空格）：不重渲，光标原地不动 */
+      if (v === (ctx.q || '')) return;
       history.replaceState(null, '', C.buildHash('requests', { kind: ctx.kind, m: ctx.period, q: v }));
       var scroll = window.scrollY;
-      render({ kind: ctx.kind, m: ctx.period, q: v }, container);   // 渲染会重绑本输入框
-      window.scrollTo(0, scroll);
+      /* 本页结果区与输入框同属一个容器，刷新只能整块重渲 —— 重渲会重建输入框，
+         新节点默认把光标放到末尾（中间退格会被弹到末尾）。用光标保全包一层，
+         重渲后按原位还原选区，随后再跑一次搜索下拉。 */
+      C.withFocusPreserved(function () {
+        render({ kind: ctx.kind, m: ctx.period, q: v }, container);   // 渲染会重绑本输入框
+        window.scrollTo(0, scroll);
+      });
       var again = container.querySelector('#reqSearch');
       if (again) {
-        again.focus({ preventScroll: true });
-        var vl = again.value;
-        again.setSelectionRange(vl.length, vl.length);   // 光标回到末尾，避免从行首继续输入吃字
         /* 只在这里跑一次搜索下拉：渲染后的 pop 是新节点，
            且不再回派 input 事件，避免「渲染 → 触发 → 再渲染」的循环。 */
         runSearch(R, v, container.querySelector('#reqSearchPop'), again);
@@ -6349,6 +6431,7 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
   var esc = C.esc;
 
   var CHANGELOG = [
+    ['v3.7.20', '修复搜索框中途删除被「弹到末尾」的问题：以前每次输入都会把整页重渲一次，输入框节点被销毁重建，光标与选区随之丢失——在长文本中间退格删一个字，光标就被甩到字符串末尾，后续删除变成从尾部往前删，选中一段再删也会跳位。现在「全部歌曲」页搜索改为只重画结果列表 / 分页 / 统计，输入框节点常驻，URL 仍同步但不再触发重渲；「原唱分类」「点歌统计」这类必须整块重渲的页面则改为重渲前记住光标与选区、重渲后原位还原。输入法组合、搜索结果实时刷新、联想下拉与翻页筛选组合行为均不变'],
     ['v3.7.19', '「关于」页画廊补齐第 4 张插画「星夜盛装」：白金军装礼服 + 金枝光环的星空场景画，自带深色底色故不参与白底原画的 multiply 印刷，走金线细框装帧直陈；画廊网格由此排满 4 列整行'],
     ['v3.7.18', '简化「跨月冠军」的判定，只保留三条规则：① 连续两个自然月中点歌次数均为**唯一第一名**；② 只有已完全结束的自然月参与统计，当前未结束的月份不计；③ 某月没有唯一第一名（并列 / 全员持平）则该月作废，并断开它与相邻月份的跨月配对，从下一个有效月份重新开始。原先叠在上面的「并列亦计」「榜首须 ≥ 2 次」等额外门槛全部移除，月度榜的 👑（显著领先才戴冠）不受影响。名单相应调整为 2 位：Vaserkia 连 3 个月（2025-01—03）、无响应失败小熊 连 2 个月（2024-10—11）'],
     ['v3.7.17', '修复点歌页「跨月冠军」只剩 2 位的问题：v3.7.4 把本板块与月度榜的 👑 判定合并成了同一个「显著领先才戴冠」规则，而本板块的语义是「连续数月蝉联月度**榜首**」——两者不是一回事。2025-03 月度榜里 Vaserkia 以 7 次排第 1 却因只领先 1 次没有皇冠，跨月冠军就不认这一个月，连冠被硬生生截断。现两套判定解耦：👑 仍是「显著领先」的高亮（月度榜去噪，2026-09 全员各 1 次时不会满屏皇冠）；跨月冠军改回「月度榜首事实」，并列第一同样算登顶，唯一门槛是该月榜首至少 2 次（挡掉「全员各 1 次」凑出的伪连冠）。名单恢复为 4 位：Vaserkia 连 3 个月（2025-01—03）、无响应失败小熊 / 仙布着急唱灭歌 / L1f3n0w0v3R710w_ 各连 2 个月；靠并列月达成的会在行尾标注「与 N 人共享其中 N 个月的榜首」，与月度榜「该月无皇冠」不再矛盾'],

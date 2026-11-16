@@ -76,7 +76,7 @@
       kind === 'quarter' ? '季度点歌榜 · ' + period :
       kind === 'year' ? '年度点歌榜 · ' + period : '';
 
-    var ctx = { kind: kind, period: period, title: periodTitle, board: boardAll, song: songAll };
+    var ctx = { kind: kind, period: period, title: periodTitle, board: boardAll, song: songAll, q: q };
 
     container.innerHTML =
       '<div class="sec-head"><div class="sec-kicker">REQUESTS</div>' +
@@ -479,15 +479,19 @@
     var commitSearch = C.debounce(function () {
       var live = container.querySelector('#reqSearch') || input;
       var v = live.value.trim();
+      /* 无实义变化（例如只多了首尾空格）：不重渲，光标原地不动 */
+      if (v === (ctx.q || '')) return;
       history.replaceState(null, '', C.buildHash('requests', { kind: ctx.kind, m: ctx.period, q: v }));
       var scroll = window.scrollY;
-      render({ kind: ctx.kind, m: ctx.period, q: v }, container);   // 渲染会重绑本输入框
-      window.scrollTo(0, scroll);
+      /* 本页结果区与输入框同属一个容器，刷新只能整块重渲 —— 重渲会重建输入框，
+         新节点默认把光标放到末尾（中间退格会被弹到末尾）。用光标保全包一层，
+         重渲后按原位还原选区，随后再跑一次搜索下拉。 */
+      C.withFocusPreserved(function () {
+        render({ kind: ctx.kind, m: ctx.period, q: v }, container);   // 渲染会重绑本输入框
+        window.scrollTo(0, scroll);
+      });
       var again = container.querySelector('#reqSearch');
       if (again) {
-        again.focus({ preventScroll: true });
-        var vl = again.value;
-        again.setSelectionRange(vl.length, vl.length);   // 光标回到末尾，避免从行首继续输入吃字
         /* 只在这里跑一次搜索下拉：渲染后的 pop 是新节点，
            且不再回派 input 事件，避免「渲染 → 触发 → 再渲染」的循环。 */
         runSearch(R, v, container.querySelector('#reqSearchPop'), again);

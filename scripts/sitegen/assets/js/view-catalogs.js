@@ -33,7 +33,8 @@
     input.addEventListener('input', C.debounce(function () {
       draw();
       history.replaceState(null, '', input.value ? C.buildHash('frequent', { q: input.value }) : C.buildHash('frequent'));
-      input.focus();
+      /* 这里只重画结果区、输入框节点没动，焦点与光标本来就在原位；
+         不再回补 focus()，否则用户已经点去别处时会被抢回焦点 */
     }, 250));
   }
 
@@ -108,11 +109,16 @@
 
     var input = container.querySelector('#artistSearch');
     input.addEventListener('input', C.debounce(function () {
-      history.replaceState(null, '', C.buildHash('artists', { q: input.value }));
+      var v = input.value;
+      var kw = v.trim();
+      history.replaceState(null, '', C.buildHash('artists', { q: kw }));
       var scroll = window.scrollY;
-      renderArtists({ q: input.value }, container);
-      window.scrollTo(0, scroll);
-      container.querySelector('#artistSearch').focus();
+      /* 本页刷新结果只能整块重渲（输入框随之重建）——包一层光标/选区保全，
+         否则中间退格会被弹到末尾、选中段删除的选区也会丢 */
+      C.withFocusPreserved(function () {
+        renderArtists({ q: kw }, container);
+        window.scrollTo(0, scroll);
+      });
     }, 300));
 
     container.querySelectorAll('.artist-cell').forEach(function (cell) {
