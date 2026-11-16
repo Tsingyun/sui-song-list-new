@@ -3301,10 +3301,10 @@
       "translated": "永远同在",
       "artist": "木村弓",
       "lang": "日语",
-      "count": 5,
-      "tier": "偶尔",
+      "count": 6,
+      "tier": "frequent",
       "first": "2022-10-23",
-      "last": "2026-03-14",
+      "last": "2026-11-16",
       "tags": [
         "流行"
       ]
@@ -15795,10 +15795,10 @@
       "translated": "",
       "artist": "祁紫檀",
       "lang": "中文",
-      "count": 1,
-      "tier": "rare",
+      "count": 2,
+      "tier": "occasional",
       "first": "2026-09-14",
-      "last": "2026-09-14"
+      "last": "2026-11-16"
     },
     {
       "name": "我",
