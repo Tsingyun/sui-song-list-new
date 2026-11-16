@@ -4,51 +4,185 @@
   var C = window.SUICore, D = window.SUIDomain;
   var esc = C.esc;
 
-  /* ── 首屏立绘随机轮换 ──────────────────────────────────────────────
+  /* ── 首屏立绘轮换（v3.7.21：随机起始 → 顺序轮换 + 手动切换）──────────
      候选清单由构建器注入（window.SUI.heroArt，见 scripts/sitegen/builder.py 的
-     HERO_ART），增删立绘只改那一份清单即可。纯前端随机，静态托管可用。
-     用 sessionStorage 记住上一张，尽量不与上一张重复。 */
+     HERO_ART），**清单顺序即切换顺序**。
+       · 打开页面从「上次看过的那张的下一张」开始（首次访问随机），
+         之后按 5.6s 自动往后切一张，一轮走完自动回环；
+       · 悬停 / 聚焦控件时暂停，手动「上一张 / 下一张」后重新计时；
+       · 尊重 prefers-reduced-motion：不自动轮换（手动仍可用）；
+       · 坏图跳过并记入 broken，全部失败时显示占位图（光环与铭文保留）。 */
   var HERO_ART_FALLBACK = 'assets/sui-fullbody.webp'; // 清单缺失时（如旧产物）的最后兜底
   var HERO_ART_KEY = 'suiHeroArtIdx';
+  var HERO_INTERVAL = 5600;
+
+  var heroTimer = null;
+  var heroIO = null;
+  function stopHeroTimer() {
+    if (heroTimer) { clearInterval(heroTimer); heroTimer = null; }
+  }
+  /* 换页即停表并解绑观察器：视图重渲后由新的一次 render 重新起表，
+     避免在别的页面空转、也不让旧节点上的 observer 攒着不放 */
+  function teardownHero() {
+    stopHeroTimer();
+    if (heroIO) { heroIO.disconnect(); heroIO = null; }
+  }
+  C.onRoute(teardownHero);
 
   function heroArtList() {
     var list = (window.SUI && window.SUI.heroArt) || [];
     return list.length ? list : [HERO_ART_FALLBACK];
   }
 
-  function pickHeroArt() {
-    var list = heroArtList();
-    if (list.length === 1) return { src: list[0], idx: 0 };
-    var last = -1;
-    try { last = parseInt(sessionStorage.getItem(HERO_ART_KEY), 10); } catch (e) { last = -1; }
-    if (isNaN(last)) last = -1;
-    // 从「除上一张以外」的候选里随机抽，候选只有 1 个时才会重复
-    var pool = [];
-    for (var i = 0; i < list.length; i++) { if (i !== last) pool.push(i); }
-    var idx = pool[Math.floor(Math.random() * pool.length)];
-    try { sessionStorage.setItem(HERO_ART_KEY, String(idx)); } catch (e) { /* 隐私模式忽略 */ }
-    return { src: list[idx], idx: idx };
+  function rememberHeroIndex(i) {
+    try { sessionStorage.setItem(HERO_ART_KEY, String(i)); } catch (e) { /* 隐私模式忽略 */ }
   }
 
-  /* 加载失败兜底：先退回清单第一张，再失败则隐藏图片（保留光环与铭文） */
-  function bindHeroArt(img) {
-    if (!img) return;
+  /* 起始张：接着上一次的下一张，首次访问随机 —— 兼顾「每次打开都不同」与顺序感 */
+  function pickHeroArt() {
+    var list = heroArtList();
+    var last = -1;
+    try { last = parseInt(sessionStorage.getItem(HERO_ART_KEY), 10); } catch (e) { last = -1; }
+    if (isNaN(last) || last < 0 || last >= list.length) {
+      last = Math.floor(Math.random() * list.length);
+    }
+    var idx = list.length === 1 ? 0 : (last + 1) % list.length;
+    return { list: list, idx: idx, src: list[idx] };
+  }
+
+  function bindHeroCarousel(container, art) {
+    var fig = container.querySelector('.hero-figure');
+    if (!fig) return;
+    /* 控件挂在 figure 外面（.hero-stack 里）—— 舞台线与落影要贴着人物脚下，
+       控件不能挤进 figure 内部；查询/悬停都以外层容器为准 */
+    var host = fig.closest('.hero-stack') || fig;
+    var img = fig.querySelector('img');
+    var ph = fig.querySelector('.hero-art-ph');
+    var prevBtn = host.querySelector('[data-hero-prev]');
+    var nextBtn = host.querySelector('[data-hero-next]');
+    var idxEl = host.querySelector('.hero-ctl-idx');
+    var list = art.list;
+    var i = art.idx;
+    var broken = {};
+    var reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+    /* 由 JS 接管淡入：先透明，加载完成再显示（脚本不执行时 img 保持默认可见） */
     img.classList.add('hero-art');
-    var fallback = heroArtList()[0];
-    var tried = false;
-    var show = function () { img.classList.add('is-ready'); };
-    img.addEventListener('load', show);
+
+    function showPlaceholder(on) {
+      if (ph) ph.hidden = !on;
+      img.style.visibility = on ? 'hidden' : '';
+    }
+    function label() {
+      if (idxEl) idxEl.textContent = (i + 1) + ' / ' + list.length;
+    }
+    function markReady() { img.classList.add('is-ready'); }
+
+    /* 换一张：先淡出（CSS .38s），预加载成功再换上并淡入；
+       坏图记入 broken 跳过，连兜底也挂掉时亮占位图。
+       游标 i「受理即更新」+ gen 代次守卫：连点不会因为上一张还在加载
+       而重复切到同一张，也不会让迟到的旧回调覆盖新图。 */
+    var gen = 0;
+    function goTo(target, animate) {
+      var my = ++gen;
+      var tries = 0;
+      var total = list.length;
+
+      function attempt() {
+        if (tries > total) { showPlaceholder(true); return; }
+        target = ((target % total) + total) % total;
+        if (broken[target]) { target += 1; tries += 1; return attempt(); }
+
+        i = target;                  // 受理即更新：后续点击从这里继续数
+        label();
+        rememberHeroIndex(i);
+
+        var src = list[target];
+        var pre = new Image();
+        pre.onload = function () {
+          if (my !== gen) return;    // 已经切到更新的目标，丢弃这次回调
+          var apply = function () {
+            if (my !== gen) return;
+            img.src = src;
+            showPlaceholder(false);
+            markReady();
+            /* 顺手预取下一张：轮换到它时不会出现等网络的空白 */
+            try { new Image().src = list[(target + 1) % total]; } catch (e) { /* 忽略 */ }
+          };
+          if (animate) setTimeout(apply, 180); else apply();
+        };
+        pre.onerror = function () {
+          broken[target] = true;
+          target += 1;
+          tries += 1;
+          attempt();
+        };
+        if (animate) img.classList.remove('is-ready');
+        pre.src = src;
+      }
+      attempt();
+    }
+
+    function startTimer() {
+      stopHeroTimer();
+      if (reduce || list.length < 2) return;
+      /* 鼠标还停在立绘/控件上时先不重启：等 mouseleave 再起表，
+         否则手动点完「下一张」立刻又被自动抽走 */
+      if (host.matches && host.matches(':hover')) return;
+      heroTimer = setInterval(function () {
+        if (document.hidden) return;   // 后台标签页不推进，回来自动续上
+        goTo(i + 1, true);
+      }, HERO_INTERVAL);
+    }
+
+    function manual(delta) {
+      goTo(i + delta, true);
+      startTimer();                    // 手动操作后重新计时，避免刚点完就被自动切走
+    }
+
+    if (prevBtn) prevBtn.addEventListener('click', function () { manual(-1); });
+    if (nextBtn) nextBtn.addEventListener('click', function () { manual(1); });
+    if (list.length < 2) {
+      if (prevBtn) prevBtn.hidden = true;
+      if (nextBtn) nextBtn.hidden = true;
+      if (idxEl) idxEl.hidden = true;
+    }
+
+    /* 悬停 / 键盘聚焦时暂停自动轮换（正在看的那张不该被抽走） */
+    host.addEventListener('mouseenter', stopHeroTimer);
+    host.addEventListener('mouseleave', startTimer);
+    host.addEventListener('focusin', stopHeroTimer);
+    host.addEventListener('focusout', function (e) {
+      if (!host.contains(e.relatedTarget)) startTimer();
+    });
+
+    /* 首次加载：失败先退回兜底图，再失败则占位 */
+    var fallback = list[0] || HERO_ART_FALLBACK;
+    var fellBack = false;
+    img.addEventListener('load', markReady);
     img.addEventListener('error', function () {
-      if (!tried && img.getAttribute('src') !== fallback) {
-        tried = true;
+      if (!fellBack && img.getAttribute('src') !== fallback) {
+        fellBack = true;
         img.setAttribute('src', fallback);
         return;
       }
-      img.style.display = 'none';
-      img.classList.add('is-ready');
+      showPlaceholder(true);
     });
-    // 命中缓存时 load 可能早于绑定，直接补一次
-    if (img.complete && img.naturalWidth) show();
+    if (img.complete && img.naturalWidth) markReady();
+
+    label();
+    rememberHeroIndex(i);
+    startTimer();
+
+    /* 滚出视口就停表（省流量/省电），回到视口再续上 */
+    if (window.IntersectionObserver) {
+      if (heroIO) heroIO.disconnect();
+      heroIO = new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting) startTimer();
+        else stopHeroTimer();
+      }, { threshold: 0 });
+      heroIO.observe(host);
+    }
   }
 
   /* ── 盲盒歌曲池 ──────────────────────────────────────────────────
@@ -165,11 +299,22 @@
       '<a class="masthead-facts-link" href="' + C.buildHash('about') + '">角色档案 →</a>' +
       '</div>' +
       '</div>' +
+      '<div class="hero-stack">' +
       '<figure class="hero-figure">' +
       '<span class="hero-halo" aria-hidden="true"></span>' +
       '<img src="' + esc(heroArt.src) + '" alt="岁己SUI" loading="eager" decoding="async">' +
+      /* 加载失败占位：全部候选都挂掉时压在图片位（尺寸/比例与原图一致，不跳版） */
+      '<div class="hero-art-ph" hidden><i class="sui-bird" aria-hidden="true"></i>' +
+      '<span>立绘加载失败</span></div>' +
       '<figcaption><b>SUI</b><span>SINCE 2022.09</span></figcaption>' +
       '</figure>' +
+      /* 手动切换：上一张 / 序号 / 下一张（与自动轮换同一份清单、同一个游标） */
+      '<div class="hero-ctl">' +
+      '<button type="button" class="hero-ctl-btn" data-hero-prev aria-label="上一张立绘">‹</button>' +
+      '<span class="hero-ctl-idx mono" aria-live="polite">' + (heroArt.idx + 1) + ' / ' + heroArt.list.length + '</span>' +
+      '<button type="button" class="hero-ctl-btn" data-hero-next aria-label="下一张立绘">›</button>' +
+      '</div>' +
+      '</div>' +
       '</div></section>' +
 
       '<div class="figures">' + figures.map(function (f) {
@@ -221,7 +366,7 @@
         C.go('songs', { quick: el.dataset.go });
       });
     });
-    bindHeroArt(container.querySelector('.hero-figure img'));
+    bindHeroCarousel(container, heroArt);
 
     /* 抽歌：复用顶栏那个盲盒（同一套滚轮动画与结果面板），
        首页只提供入口，不重复实现一份抽奖逻辑 */

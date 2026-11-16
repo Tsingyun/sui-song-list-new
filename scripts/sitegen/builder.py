@@ -20,10 +20,21 @@ DOCS_DIR = os.path.join(PROJECT_ROOT, 'docs')
 BILI_SPACE_URL = 'https://space.bilibili.com/1954091502'
 
 # 首页立绘候选清单（唯一的维护点）：
-# 把新立绘放进 scripts/sitegen/assets/ 后，在此加一行文件名即可参与随机轮换，
-# builder 会一并拷贝进 docs/assets/ 并注入前端 window.SUI.heroArt。
+# 把新立绘放进 scripts/sitegen/assets/（可放子目录）后，在此加一行相对路径即可参与轮换，
+# builder 会按原目录结构拷贝进 docs/assets/ 并注入前端 window.SUI.heroArt。
+# 顺序 = 页面上的切换顺序（自动轮换与「上一张 / 下一张」同源）。
 # 第一项同时作为加载失败时的兜底图，建议保持为 1080×2338 的全身立绘。
-HERO_ART = ['sui-fullbody.webp', 'sui-short.webp', 'sui-chibi.webp']
+# hero/ 下 19 张由 scripts/build_hero_assets.py 从源图统一生成（只取透明底 PNG，
+# 白底 JPG 不抠图直接跳过；裁到人物包围盒、限高 1600、WebP q82）。
+# 要换图：改脚本里的源清单后重跑即可，勿手改产物。
+HERO_ART = [
+    'sui-fullbody.webp', 'sui-short.webp', 'sui-chibi.webp',   # 早期三张（首项兼作加载失败兜底）
+    'hero/hero-01.webp', 'hero/hero-02.webp', 'hero/hero-03.webp', 'hero/hero-04.webp',
+    'hero/hero-05.webp', 'hero/hero-06.webp', 'hero/hero-07.webp', 'hero/hero-08.webp',
+    'hero/hero-09.webp', 'hero/hero-10.webp', 'hero/hero-11.webp', 'hero/hero-12.webp',
+    'hero/hero-13.webp', 'hero/hero-14.webp', 'hero/hero-15.webp', 'hero/hero-16.webp',
+    'hero/hero-17.webp', 'hero/hero-18.webp', 'hero/hero-19.webp',
+]
 
 # 桌宠（可选功能，默认不加载）：整目录发布到 docs/assets/pet/。
 # 资源由 scripts/build_pet_assets.py 整理生成（贴图 PNG→WebP、vendor three.js、PMX 模型），
@@ -71,7 +82,10 @@ def copy_static_assets():
                'sui-gallery-star.webp'] + HERO_ART:
         src = os.path.join(ASSETS_DIR, fn)
         if os.path.exists(src):
-            shutil.copy(src, os.path.join(out_dir, fn))
+            dst = os.path.join(out_dir, fn)
+            # HERO_ART 允许放子目录（hero/…），按原结构落盘，前端相对路径才成立
+            os.makedirs(os.path.dirname(dst), exist_ok=True)
+            shutil.copy(src, dst)
 
 
 def copy_pet_assets():

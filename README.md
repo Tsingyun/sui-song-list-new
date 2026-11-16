@@ -224,9 +224,13 @@ python -X utf8 scripts/import_request_stats.py <song_data_processed.json 路径>
 | 常量 | 作用 | 改法 |
 |------|------|------|
 | `BILI_SPACE_URL` | 左上角品牌位跳转的 B站空间地址 | 直接改字符串（`__BILI_SPACE_URL__` 占位在构建时替换） |
-| `HERO_ART` | 首页主视觉立绘轮换候选 | 图片放进 `scripts/sitegen/assets/`，清单里加文件名；第一项为加载失败兜底图 |
+| `HERO_ART` | 首页主视觉立绘轮换候选（顺序即自动/手动切换顺序） | 图片放进 `scripts/sitegen/assets/`（可放子目录），清单里加相对路径；第一项为加载失败兜底图 |
 
 > 新增立绘无需改 CSS：占位盒固定 `aspect-ratio`，不同比例的图自动等比适应、底部对齐。
+>
+> `hero/` 下的 19 张由 `scripts/build_hero_assets.py` 统一生成：**只取透明底 PNG**
+>（白底 JPG 不抠图、直接跳过），裁到人物包围盒、限高 1600、压成 WebP q82；
+> 要换图改脚本里的 `SOURCES` 清单后 `py -3.10 scripts/build_hero_assets.py` 重跑，勿手改产物。
 
 ---
 

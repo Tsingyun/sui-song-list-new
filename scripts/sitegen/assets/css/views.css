@@ -101,6 +101,44 @@
 .hero-figure img.hero-art { opacity: 0; transition: opacity .38s var(--ease); }
 .hero-figure img.hero-art.is-ready { opacity: 1; }
 @media (prefers-reduced-motion: reduce) { .hero-figure img.hero-art { transition: none; } }
+
+/* ── 立绘轮换控件（v3.7.21）───────────────────────────────────────────
+   图 + 控件竖向堆叠：控件在舞台线下方，不占用立绘本体，
+   所以人物脚下的落影/舞台细线位置与旧版完全一致。
+   30→32px 的圆钮保证触屏指尖可点；配色沿用墨色与光环金。 */
+.hero-stack {
+  display: flex; flex-direction: column; align-items: center;
+  align-self: end; min-width: 0;
+}
+.hero-ctl { display: flex; align-items: center; gap: .3rem; margin-top: .15rem;
+  /* 窄桌面（≈1024）时右下角桌宠会压到控件上：桌宠是 z-index 350 的固定浮层，
+     控件抬到它上面，保证任何时候都点得到 */
+  position: relative; z-index: 360; }
+.hero-ctl-btn {
+  width: 32px; height: 32px; padding: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 1rem; line-height: 1; color: var(--ink-3);
+  background: transparent; border: 1px solid var(--line); border-radius: 50%;
+  cursor: pointer;
+  transition: color .2s var(--ease), border-color .2s var(--ease);
+}
+.hero-ctl-btn:hover { color: var(--gold); border-color: var(--gold-soft); }
+.hero-ctl-btn:focus-visible { outline: 2px solid var(--gold-soft); outline-offset: 2px; }
+.hero-ctl-idx {
+  font-size: var(--fs-xs); color: var(--ink-3); letter-spacing: .06em;
+  min-width: 3.4em; text-align: center; font-variant-numeric: tabular-nums;
+}
+/* 加载失败占位：绝对定位压在图片位（不改变占位盒高度，切换不跳版），
+   虚线框 + 小鸟，光环与竖排铭文照旧 —— 页面不会出现空洞 */
+.hero-art-ph {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .45rem;
+  border: 1px dashed var(--line-strong); border-radius: 8px;
+  color: var(--ink-3); font-size: var(--fs-xs); letter-spacing: .12em;
+  pointer-events: none;
+}
+.hero-art-ph[hidden] { display: none; }
+.hero-art-ph .sui-bird { font-size: 1.6rem; opacity: .7; }
 .hero-halo {
   position: absolute;
   top: -34px; left: 55%;
