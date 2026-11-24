@@ -229,9 +229,30 @@
     var list = R.list || [];
     if (!list.length) return '';   // 数据里没有「复唱」就不留空板块
 
+    /* 「之最」：断档最久又被重新登台的一首。构建期从完整候选里算好注入
+       （见 datalayer.py 的 returns.best），前端只渲染、不重算口径。 */
+    var best = R.best;
+    var bestHtml = '';
+    if (best) {
+      bestHtml = '<div class="ret-best">' +
+        '<div class="ret-best-kicker">断档之最 <span>THE LONGEST RETURN</span></div>' +
+        '<a class="ret-best-name" href="' + songHref({ name: best.name }) + '">' +
+        esc(best.name) + '</a>' +
+        (best.artist ? '<span class="ret-best-artist">' + esc(best.artist) + '</span>' : '') +
+        /* 右上角用精确天数（之最的量化），时间轴上保留「X 年 Y 个月」口语标注，两者不重复 */
+        '<span class="ret-best-gap">' + (best.gapDays ? best.gapDays + ' 天' : esc(gapText(best))) + '</span>' +
+        '<div class="ret-best-track">' +
+        '<span class="ret-date">' + retDate(best.prev) + '</span>' +
+        '<span class="ret-bar"><i class="ret-gap">' + esc(gapText(best)) + '</i></span>' +
+        '<span class="ret-arrow" aria-hidden="true">▸</span>' +
+        '<span class="ret-date ret-back">' + retDate(best.back) + '</span>' +
+        '</div></div>';
+    }
+
     return '<section class="sec-returns">' +
       '<div class="sec-head"><div class="sec-kicker">REUNION</div>' +
       '<h2 class="sec-title">久别重逢 <span class="sec-sub">LONG-LOST RETURNS</span></h2></div>' +
+      bestHtml +
       '<div class="ret-list">' + list.map(function (r, i) {
         return '<article class="ret-row">' +
           '<span class="ret-idx">' + (i + 1 < 10 ? '0' : '') + (i + 1) + '</span>' +

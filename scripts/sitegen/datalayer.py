@@ -212,6 +212,17 @@ def build_song_payload():
         return_list.sort(key=lambda r: (r['back'], r['years'] * 12 + r['months']),
                          reverse=True)
 
+    # 「久别重逢之最」：所有符合口径的候选里，断档最久又被重新登台的那首。
+    # 必须从**完整** return_list 里挑 —— 首页 list 被 RETURN_LIMIT 截断，
+    # 最久的那首复唱日可能较早而被截掉（如《泡泡》2026-10 复唱、断档 4 年）。
+    # 按实际天数比长短（比「整月数」精确）；并列时按歌名保证构建确定性。
+    best = None
+    if return_list:
+        def _gap_days(r):
+            return (date.fromisoformat(r['back']) - date.fromisoformat(r['prev'])).days
+        best = dict(sorted(return_list, key=lambda r: (-_gap_days(r), r['name']))[0])
+        best['gapDays'] = _gap_days(best)
+
     return {
         'stats': stats,
         'langs': [{'lang': k, 'count': v}
@@ -226,5 +237,6 @@ def build_song_payload():
         'recent': recent,
         'returns': {'gapYears': RETURN_GAP_YEARS,
                     'windowDays': RETURN_WINDOW_DAYS,
+                    'best': best,
                     'list': return_list[:RETURN_LIMIT]},
     }

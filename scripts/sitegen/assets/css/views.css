@@ -301,6 +301,67 @@
 /* 注脚：一行口径说明（同为「档案簿」的脚注语言，与 .sui-note 同类但更轻） */
 .ret-note { margin-top: .5rem; font-size: var(--fs-xs); color: var(--ink-3); line-height: 1.5; }
 
+/* ── 久别重逢「之最」卡 ──
+   断档最久又被重新登台的一首：金色左勾线沿用「点歌之王卡」的徽记语言，
+   置顶在 5 首最近复唱之上。时间轴复用 .ret-date/.ret-bar/.ret-gap，
+   断档时长用金色数字压在细线上；整卡背景跟随 --surface，深浅主题通用。 */
+.ret-best {
+  position: relative;
+  margin-bottom: .85rem;
+  padding: .65rem .85rem .75rem;
+  border: 1px solid var(--gold-soft);
+  border-left: 3px solid var(--gold);
+  border-radius: 6px;
+  background: var(--surface);
+}
+.ret-best-kicker {
+  display: flex;
+  align-items: baseline;
+  gap: .5rem;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: .08em;
+  color: var(--gold);
+  margin-bottom: .35rem;
+}
+.ret-best-kicker span {
+  font-family: var(--mono);
+  font-size: .62rem;
+  font-weight: 400;
+  letter-spacing: .14em;
+  opacity: .8;
+}
+.ret-best-name {
+  font-family: var(--serif);
+  font-size: var(--fs-lg);
+  font-weight: 600;
+  color: var(--ink);
+  border-bottom: 1px solid transparent;
+  margin-right: .5rem;
+}
+.ret-best-name:hover { color: var(--accent-deep); border-bottom-color: var(--accent); }
+.ret-best-artist { font-size: var(--fs-xs); color: var(--ink-3); }
+.ret-best-gap {
+  float: right;
+  font-family: var(--mono);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--accent);
+  white-space: nowrap;
+}
+.ret-best-track {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  margin-top: .55rem;
+  min-width: 0;
+}
+.ret-best-track .ret-gap { color: var(--gold); font-weight: 600; }
+@media (max-width: 640px) {
+  .ret-best { padding: .6rem .7rem .7rem; }
+  .ret-best-gap { float: none; display: block; margin-top: .2rem; }
+}
+
 /* 点歌速览 */
 /* 点歌之王卡 —— 金色徽记位 + Q版岁己探出 */
 .king-card {
