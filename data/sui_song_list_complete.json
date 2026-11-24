@@ -37,10 +37,10 @@
     "song_name": "绝世舞姬",
     "song_translated_name": null,
     "artist": "张晓涵/戚琦",
-    "date_list": "2022/9/5，2022/11/22，2023/2/8",
+    "date_list": "2022/9/5，2022/11/22，2023/2/8，2026/11/24",
     "remarks": null,
     "language": "华语",
-    "song_count": 3,
+    "song_count": 4,
     "BVID": "BV1w84y1V7Qq，BV1JY4y1M7k9，BV13d4y1X7Wf，BV1814y1e7fa，BV1GG4y1r7Bg"
   },
   {
@@ -4602,10 +4602,10 @@
     "song_name": "当你",
     "song_translated_name": null,
     "artist": "王心凌",
-    "date_list": "2023/11/3，2023/4/9，2024/3/27，2024/9/30，2025/10/23，2025/2/5",
+    "date_list": "2023/11/3，2023/4/9，2024/3/27，2024/9/30，2025/10/23，2025/2/5，2026/11/21",
     "remarks": null,
     "language": "华语",
-    "song_count": 6,
+    "song_count": 7,
     "BVID": "BV1u94y1V7k2，BV1Bx421Q7xr，BV149xbeSEHA，BV1QkPmeWEHw"
   },
   {
@@ -5790,10 +5790,10 @@
     "song_name": "如果有来生",
     "song_translated_name": null,
     "artist": "谭维维",
-    "date_list": "2023/5/30，2023/8/28，2023/9/26，2024/1/25，2024/8/2，2026/3/29，2026/8/11",
+    "date_list": "2023/5/30，2023/8/28，2023/9/26，2024/1/25，2024/8/2，2026/3/29，2026/8/11，2026/11/21",
     "remarks": null,
     "language": "华语",
-    "song_count": 6,
+    "song_count": 8,
     "BVID": "BV1Si4y1H7pc，BV1i94y1a7GV，BV1LM4y1e7zR，BV1cK411h7YA，BV1ziige1Ei1"
   },
   {
@@ -5867,10 +5867,10 @@
     "song_name": "小跳蛙",
     "song_translated_name": null,
     "artist": "青蛙乐队",
-    "date_list": "2023/6/1，2024/8/6",
+    "date_list": "2023/6/1，2024/8/6，2026/11/22",
     "remarks": null,
     "language": "华语",
-    "song_count": 2,
+    "song_count": 3,
     "BVID": "BV1m1areKEcw"
   },
   {
@@ -7814,10 +7814,10 @@
     "song_name": "东风破",
     "song_translated_name": null,
     "artist": "周杰伦",
-    "date_list": "2023/8/3，2023/10/27，2024/3/31，2024/4/25",
+    "date_list": "2023/8/3，2023/10/27，2024/3/31，2024/4/25，2026/11/24",
     "remarks": null,
     "language": "华语",
-    "song_count": 4,
+    "song_count": 5,
     "BVID": "BV1w94y157sY，BV1em421n71t，BV19SnMevETB"
   },
   {
@@ -9673,10 +9673,10 @@
     "song_name": "不怕",
     "song_translated_name": null,
     "artist": "赵蓓/赵蕾",
-    "date_list": "2024/6/1",
+    "date_list": "2024/6/1，2026/11/22",
     "remarks": null,
     "language": "华语",
-    "song_count": 1,
+    "song_count": 2,
     "BVID": "BV1dT421e74D"
   },
   {
@@ -9684,10 +9684,10 @@
     "song_name": "快乐的扑满",
     "song_translated_name": null,
     "artist": "邵丽棠",
-    "date_list": "2024/6/1",
+    "date_list": "2024/6/1，2026/11/22",
     "remarks": null,
     "language": "华语",
-    "song_count": 1,
+    "song_count": 2,
     "BVID": "BV1Jy411b7Eu"
   },
   {
@@ -13637,6 +13637,17 @@
     "remarks": null,
     "language": "华语",
     "song_count": 1,
+    "BVID": ""
+  },
+  {
+    "song_name": "You'll see",
+    "date_list": "2026/11/24",
+    "song_count": 1,
+    "index": 1243,
+    "song_translated_name": null,
+    "artist": "Tizzy Bac",
+    "remarks": null,
+    "language": "华语",
     "BVID": ""
   }
 ]
