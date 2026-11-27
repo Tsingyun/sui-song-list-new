@@ -132,8 +132,8 @@ v3.0 采用「演出场刊 / 唱片目录」式的编辑排版系统，与旧版
 | 常唱 (5+次) | 247 首 |
 | 偶尔 (2–4次) | 441 首 |
 | 仅唱一次 | 482 首 |
-| B站录播匹配 | 920 首 |
-| B站歌切片段 | 2,696 条 |
+| B站录播匹配 | 922 首 |
+| B站歌切片段 | 2,719 条 |
 | 有逐日记录的歌曲 | 1162 首 |
 | 点歌记录（2024-06 起） | 910 条 / 92 位观众 / 528 首 |
 | 收录时间跨度 | 2022.09 — 2026.11 |
@@ -149,7 +149,7 @@ sui-song-list-new/
 ├── .github/workflows/rebuild.yml             ← push data/ 或 scripts/ 自动重建
 ├── data/
 │   ├── song_data.json                        ← 核心歌曲库（1170 首）
-│   ├── song_bilibili_map.json                ← 歌曲-录播匹配（920 首）
+│   ├── song_bilibili_map.json                ← 歌曲-录播匹配（922 首）
 │   ├── sui_song_list_complete.json           ← 源站原始数据（含逐日日期表）
 │   └── request_stats.json                    ← 点歌数据主源（raw_data/live_dates/uids）
 ├── scripts/
